@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import AppStateManager from "../bs/helpers/AppStateManager";
 
 // import DashboardLayout from "../layouts/Dashboard";
 
@@ -14,6 +15,7 @@ const Signin = React.lazy(() => import('../containers/auth/Signin'));
 
 const MBMDFERoutes = () => (
     <Router>
+        <AppStateManager />
         <ScrollToTop>
             <MBMDFELayoutA>
                 <Switch>
