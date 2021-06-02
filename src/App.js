@@ -3,11 +3,12 @@ import { Provider } from "react-redux";
 import ReduxToastr from "react-redux-toastr";
 
 import store from "./redux/store/index";
-import Routes from "./routes/Routes";
+import MBMDFERoutes from './routes/MBMDFERoutes';
 
 const App = () => (
   <Provider store={store}>
-    <Routes />
+    
+    <MBMDFERoutes />
     <ReduxToastr
       timeOut={5000}
       newestOnTop={true}
