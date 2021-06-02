@@ -1,4 +1,6 @@
 import React from 'react';
+import { withRouter } from 'react-router';
+import BmdAuth from '../../bs/core/BmdAuth';
 
 
 
@@ -16,7 +18,9 @@ class DailySummary extends React.Component {
 
     /** MAIN FUNCS */
     componentDidMount() {
-        
+        if (!BmdAuth.isLoggedIn()) {
+            this.props.history.replace('/signin');
+        }
     }
 
 
@@ -38,4 +42,4 @@ class DailySummary extends React.Component {
 
 
 
-export default DailySummary;
+export default withRouter(DailySummary);
