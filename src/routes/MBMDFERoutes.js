@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // import DashboardLayout from "../layouts/Dashboard";
@@ -8,13 +8,20 @@ import TestContainerA from "../containers/my-test/TestContainerA";
 import MBMDFELayoutA from "../layouts/MBMDFELayoutA";
 
 
+const DailySummary = React.lazy(() => import('../containers/daily-summary/DailySummary'));
+const Signin = React.lazy(() => import('../containers/auth/Signin'));
+
 
 const MBMDFERoutes = () => (
     <Router>
         <ScrollToTop>
             <MBMDFELayoutA>
                 <Switch>
-                    <Route path="/" exact render={() => (<h2>Default</h2>)} />
+                    <Route path="/" exact render={() => <Suspense fallback={<div>loading...</div>}><DailySummary /></Suspense>} />
+                    <Route path="/daily-summary" exact render={() => <Suspense fallback={<div>loading...</div>}><DailySummary /></Suspense>} />
+
+                    <Route path="/signin" exact render={() => <Suspense fallback={<div>loading...</div>}><Signin /></Suspense>} />
+
                     <Route path="/testcontainer-a" component={TestContainerA} />
                 </Switch>
             </MBMDFELayoutA>
