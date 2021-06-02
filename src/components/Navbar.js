@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { toggleSidebar } from "../redux/actions/sidebarActions";
 
 import {
   Row,
@@ -30,29 +29,10 @@ import {
   UserPlus
 } from "react-feather";
 
-import usFlag from "../assets/img/flags/us.png";
-import esFlag from "../assets/img/flags/es.png";
-import deFlag from "../assets/img/flags/de.png";
-import nlFlag from "../assets/img/flags/nl.png";
-
 import avatar1 from "../assets/img/avatars/avatar.jpg";
 import avatar3 from "../assets/img/avatars/avatar-3.jpg";
-import avatar4 from "../assets/img/avatars/avatar-4.jpg";
-import avatar5 from "../assets/img/avatars/avatar-5.jpg";
 
 const notifications = [
-  {
-    type: "important",
-    title: "Update completed",
-    description: "Restart server 12 to complete the update.",
-    time: "2h ago"
-  },
-  {
-    type: "default",
-    title: "Lorem ipsum",
-    description: "Aliquam ex eros, imperdiet vulputate hendrerit et.",
-    time: "6h ago"
-  },
   {
     type: "login",
     title: "Login from 192.186.1.1",
@@ -67,32 +47,6 @@ const notifications = [
   }
 ];
 
-const messages = [
-  {
-    name: "Ashley Briggs",
-    avatar: avatar5,
-    description: "Nam pretium turpis et arcu. Duis arcu tortor.",
-    time: "15m ago"
-  },
-  {
-    name: "Chris Wood",
-    avatar: avatar1,
-    description: "Curabitur ligula sapien euismod vitae.",
-    time: "2h ago"
-  },
-  {
-    name: "Stacie Hall",
-    avatar: avatar4,
-    description: "Pellentesque auctor neque nec urna.",
-    time: "4h ago"
-  },
-  {
-    name: "Bertha Martin",
-    avatar: avatar3,
-    description: "Aenean tellus metus, bibendum sed, posuere ac, mattis non.",
-    time: "5h ago"
-  }
-];
 
 const NavbarDropdown = ({
   children,
@@ -137,57 +91,14 @@ const NavbarDropdownItem = ({ icon, title, description, time, spacing }) => (
 const NavbarComponent = ({ dispatch }) => {
   return (
     <Navbar color="white" light expand>
-      <span
-        className="sidebar-toggle d-flex mr-2"
-        onClick={() => {
-          dispatch(toggleSidebar());
-        }}
-      >
-        <i className="hamburger align-self-center" />
-      </span>
-
-      <Form inline>
-        <Input
-          type="text"
-          placeholder="Search projects..."
-          aria-label="Search"
-          className="form-control-no-border mr-sm-2"
-        />
-      </Form>
 
       <Collapse navbar>
         <Nav className="ml-auto" navbar>
-          <NavbarDropdown
-            header="New Messages"
-            footer="Show all messages"
-            icon={MessageCircle}
-            count={messages.length}
-            showBadge
-          >
-            {messages.map((item, key) => {
-              return (
-                <NavbarDropdownItem
-                  key={key}
-                  icon={
-                    <img
-                      className="avatar img-fluid rounded-circle"
-                      src={item.avatar}
-                      alt={item.name}
-                    />
-                  }
-                  title={item.name}
-                  description={item.description}
-                  time={item.time}
-                  spacing
-                />
-              );
-            })}
-          </NavbarDropdown>
 
           <NavbarDropdown
             header="New Notifications"
             footer="Show all notifications"
-            icon={BellOff}
+            icon={Bell}
             count={notifications.length}
           >
             {notifications.map((item, key) => {
@@ -217,81 +128,50 @@ const NavbarComponent = ({ dispatch }) => {
             })}
           </NavbarDropdown>
 
-          <UncontrolledDropdown nav inNavbar className="mr-2">
-            <DropdownToggle nav caret className="nav-flag">
-              <img src={usFlag} alt="English" />
-            </DropdownToggle>
-            <DropdownMenu right>
-              <DropdownItem>
-                <img
-                  src={usFlag}
-                  alt="English"
-                  width="20"
-                  className="align-middle mr-1"
-                />
-                <span className="align-middle">English</span>
-              </DropdownItem>
-              <DropdownItem>
-                <img
-                  src={esFlag}
-                  alt="Spanish"
-                  width="20"
-                  className="align-middle mr-1"
-                />
-                <span className="align-middle">Spanish</span>
-              </DropdownItem>
-              <DropdownItem>
-                <img
-                  src={deFlag}
-                  alt="German"
-                  width="20"
-                  className="align-middle mr-1"
-                />
-                <span className="align-middle">German</span>
-              </DropdownItem>
-              <DropdownItem>
-                <img
-                  src={nlFlag}
-                  alt="Dutch"
-                  width="20"
-                  className="align-middle mr-1"
-                />
-                <span className="align-middle">Dutch</span>
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
+
 
           <UncontrolledDropdown nav inNavbar>
+
             <span className="d-inline-block d-sm-none">
               <DropdownToggle nav caret>
                 <Settings size={18} className="align-middle" />
               </DropdownToggle>
             </span>
+
+
             <span className="d-none d-sm-inline-block">
               <DropdownToggle nav caret>
                 <img
-                  src={avatar1}
+                  src={avatar3}
                   className="avatar img-fluid rounded-circle mr-1"
-                  alt="Chris Wood"
+                  alt="username"
                 />
-                <span className="text-dark">Chris Wood</span>
+                <span className="text-dark">TODO: username</span>
               </DropdownToggle>
             </span>
+
+
             <DropdownMenu right>
+
+              <DropdownItem>
+                <PieChart size={18} className="align-middle mr-2" />
+                Daily Summary
+              </DropdownItem>
+
               <DropdownItem>
                 <User size={18} className="align-middle mr-2" />
                 Profile
               </DropdownItem>
-              <DropdownItem>
-                <PieChart size={18} className="align-middle mr-2" />
-                Analytics
-              </DropdownItem>
+
               <DropdownItem divider />
-              <DropdownItem>Settings & Privacy</DropdownItem>
-              <DropdownItem>Help</DropdownItem>
+
+
               <DropdownItem>Sign out</DropdownItem>
             </DropdownMenu>
+
+
           </UncontrolledDropdown>
+
         </Nav>
       </Collapse>
     </Navbar>
