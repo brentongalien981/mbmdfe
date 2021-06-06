@@ -20,8 +20,13 @@ class CreateUser extends React.Component {
     render() {
         return (
             <div>
+                {/* BMD-DELETE */}
                 <h1>Create User</h1>
                 <h6>theShit: {this.props.theShit}</h6>
+                <h5>testCount: {this.props.testCount}</h5>
+                <button onClick={this.props.testIncrement}>increment</button><br />
+                <h5>testDispatch value: {this.props.testDispatchVal}</h5>
+                <button onClick={this.props.testDispatch}>testDispatch</button>
             </div>
         );
     }
@@ -35,7 +40,10 @@ class CreateUser extends React.Component {
 /* REACT-FUNCS */
 const mapStateToProps = (state) => {
     return {
+        // BMD-DELETE
         theShit: state.user.theShit,
+        testCount: state.user.testCount,
+        testDispatchVal: state.user.testDispatchVal,
     };
 };
 
@@ -43,6 +51,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        // BMD-DELETE
+        testDispatch: () => dispatch(actions.testDispatch()),
+        testIncrement: () => dispatch(actions.testIncrement()),
         doShit: () => dispatch(actions.doShit())
     };
 };
