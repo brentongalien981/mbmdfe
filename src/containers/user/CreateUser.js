@@ -17,6 +17,12 @@ class CreateUser extends React.Component {
 
 
     /** MAIN FUNCS */
+    componentDidMount() {
+        this.props.getUserRoles();
+    }
+
+
+
     render() {
         return (
             <div>
@@ -51,6 +57,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        getUserRoles: () => dispatch(actions.getUserRoles()),
+
         // BMD-DELETE
         testDispatch: () => dispatch(actions.testDispatch()),
         testIncrement: () => dispatch(actions.testIncrement()),

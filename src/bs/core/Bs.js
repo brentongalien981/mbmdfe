@@ -7,8 +7,8 @@ class Bs {
 
     // FOR MAC
     static appBackendUrl = "http://mbmdbe.test:8000";
-    // static appApiUrl = "http://mbmdbe.test:8000/api";
-    static appApiUrl = "http://biyoristoreexperiment.test:8000/api"; // BMD-DELETE
+    static appApiUrl = "http://mbmdbe.test:8000/api";
+    // static appApiUrl = "http://biyoristoreexperiment.test:8000/api"; // BMD-DELETE
 
     // FOR WINDOWS
     // static appBackendUrl = "http://mbmdbe.test";

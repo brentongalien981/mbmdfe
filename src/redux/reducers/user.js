@@ -21,6 +21,8 @@ const initialState = {
 /** REDUCER */
 const user = (state = initialState, action) => {
     switch (action.type) {
+        case actions.ON_GET_USER_ROLES_RETURN: return onGetUserRolesReturn(state, action);
+
         // BMD-DELETE
         case actions.ON_TEST_DISPATCH_RETURN: return onTestDispatchReturn(state, action);
         case actions.TEST_INCREMENT: return testIncrement(state, action);
@@ -33,6 +35,13 @@ const user = (state = initialState, action) => {
 
 
 /** NORMAL FUNCS */
+// BMD-ISH
+const onGetUserRolesReturn = (state, action) => {
+    return {
+        ...state
+    };
+};
+
 // BMD-DELETE
 const onTestDispatchReturn = (state, action) => {
     return {
