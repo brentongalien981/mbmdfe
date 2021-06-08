@@ -11,6 +11,16 @@ class CreateUser extends React.Component {
     /** CONSTS */
 
     /** PROPERTIES */
+    state = {
+        email: '',
+        password: '',
+        roles: {
+            UserManager: false,
+            OrderManager: false,
+            PurchaseManager: false,
+            InventoryManager: false
+        }
+    };
 
 
 
@@ -30,7 +40,13 @@ class CreateUser extends React.Component {
             <Container className="d-flex flex-column">
                 <Row className="h-100">
                     <Col sm="10" md="8" lg="6" className="mx-auto d-table h-100">
-                        <div className="d-table-cell align-middle"><SignUp userRoles={this.props.userRoles} /></div>
+                        <div className="d-table-cell align-middle">
+                            <SignUp
+                                userRoles={this.props.userRoles}
+                                email={this.state.email}
+                                password={this.state.password}
+                                onCredentialChanged={this.onCredentialChanged} />
+                        </div>
                     </Col>
                 </Row>
             </Container>
@@ -41,6 +57,28 @@ class CreateUser extends React.Component {
 
 
     /** EVENT FUNCS */
+    onCredentialChanged = (e) => {
+        const target = e.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+
+        if (target.type === 'checkbox') {
+
+            let updatedRoles = this.state.roles;
+            updatedRoles[name] = value;
+
+            this.setState({
+                roles: updatedRoles
+            });
+        } else {
+
+            this.setState({
+                [name]: value
+            });
+        }
+
+    };
 }
 
 

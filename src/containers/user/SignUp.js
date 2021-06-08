@@ -30,6 +30,8 @@ const SignUp = (props) => (
                 type="email"
                 name="email"
                 placeholder="Enter your email"
+                value={props.email}
+                onChange={(e) => props.onCredentialChanged(e)}
               />
             </FormGroup>
 
@@ -40,6 +42,8 @@ const SignUp = (props) => (
                 type="password"
                 name="password"
                 placeholder="Enter password"
+                value={props.password}
+                onChange={(e) => props.onCredentialChanged(e)}
               />
             </FormGroup>
 
@@ -47,7 +51,7 @@ const SignUp = (props) => (
             <Label>Roles</Label>
 
             <FormGroup check className="mb-2">
-              {getUserRolesComponent(props.userRoles)}
+              {getUserRolesComponent(props)}
             </FormGroup>
 
             <div className="text-center mt-3">
@@ -67,11 +71,13 @@ const SignUp = (props) => (
 
 
 
-const getUserRolesComponent = (roles) => {
-  return roles.map((r, i) => {
+const getUserRolesComponent = (props) => {
+  return props.userRoles.map((r, i) => {
     return (
       <div key={i}>
-        <Label check><Input type="checkbox" value={r.id} /> {r.name}</Label>
+        <Label check>
+          <Input type="checkbox" value={r.id} name={r.name} onChange={(e) => props.onCredentialChanged(e)} /> {r.name}
+        </Label>
         <br />
       </div>
     );
