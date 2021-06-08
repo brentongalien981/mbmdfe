@@ -10,6 +10,9 @@ import * as actions from '../actions/user';
 
 /** INITIAL STATE */
 const initialState = {
+
+    userRoles: [],
+
     // BMD-DELETE
     theShit: 'Value of theShit',
     testCount: 0,
@@ -38,7 +41,8 @@ const user = (state = initialState, action) => {
 // BMD-ISH
 const onGetUserRolesReturn = (state, action) => {
     return {
-        ...state
+        ...state,
+        userRoles: action.callBackData.objs?.roles ?? []
     };
 };
 

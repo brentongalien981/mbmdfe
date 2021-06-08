@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Col, Container, Row } from 'reactstrap';
 import * as actions from '../../redux/actions/user';
+import SignUp from './SignUp';
 
 
 
@@ -25,15 +27,15 @@ class CreateUser extends React.Component {
 
     render() {
         return (
-            <div>
-                {/* BMD-DELETE */}
-                <h1>Create User</h1>
-                <h6>theShit: {this.props.theShit}</h6>
-                <h5>testCount: {this.props.testCount}</h5>
-                <button onClick={this.props.testIncrement}>increment</button><br />
-                <h5>testDispatch value: {this.props.testDispatchVal}</h5>
-                <button onClick={this.props.testDispatch}>testDispatch</button>
-            </div>
+            <Container className="d-flex flex-column">
+                <Row className="h-100">
+                    <Col sm="10" md="8" lg="6" className="mx-auto d-table h-100">
+                        <div className="d-table-cell align-middle"><SignUp userRoles={this.props.userRoles} /></div>
+                    </Col>
+                </Row>
+            </Container>
+
+
         );
     }
 
@@ -46,6 +48,9 @@ class CreateUser extends React.Component {
 /* REACT-FUNCS */
 const mapStateToProps = (state) => {
     return {
+
+        userRoles: state.user.userRoles,
+
         // BMD-DELETE
         theShit: state.user.theShit,
         testCount: state.user.testCount,
