@@ -8,7 +8,8 @@ import {
   Form,
   FormGroup,
   Label,
-  Input
+  Input,
+  Spinner
 } from "reactstrap";
 
 const SignUp = (props) => (
@@ -54,13 +55,7 @@ const SignUp = (props) => (
               {getUserRolesComponent(props)}
             </FormGroup>
 
-            <div className="text-center mt-3">
-              <Link to="/dashboard/default">
-                <Button color="primary" size="lg">
-                  Create User
-                </Button>
-              </Link>
-            </div>
+            {getButtonSectionComponent(props)}
 
           </Form>
         </div>
@@ -68,6 +63,19 @@ const SignUp = (props) => (
     </Card>
   </React.Fragment>
 );
+
+
+
+const getButtonSectionComponent = (props) => {
+  const mainComponent = props.isCreatingUser ? (<Spinner color="dark" size="sm" className="mr-2" />) : (<Button color="primary" size="lg" onClick={props.onCreateUser}>Create User</Button>);
+
+  return (
+    <div className="text-center mt-3">
+      {mainComponent}
+    </div>
+  );
+  
+};
 
 
 

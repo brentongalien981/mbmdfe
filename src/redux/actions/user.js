@@ -1,6 +1,7 @@
 import BsCore2 from "../../bs/core/BsCore2";
 
 /** NAMES */
+export const ON_CREATE_USER_RETURN = "ON_CREATE_USER_RETURN";
 export const ON_GET_USER_ROLES_RETURN = "ON_GET_USER_ROLES_RETURN";
 
 // BMD-DELETE
@@ -11,6 +12,7 @@ export const DO_SHIT = "DO_SHIT";
 
 
 /** FUNCS */
+export const onCreateUserReturn = (callBackData) => ({ type: ON_CREATE_USER_RETURN, callBackData: callBackData });
 export const onGetUserRolesReturn = (callBackData) => ({ type: ON_GET_USER_ROLES_RETURN, callBackData: callBackData });
 
 // BMD-DELETE
@@ -21,14 +23,37 @@ export const doShit = (callBackData) => ({ type: DO_SHIT, callBackData: callBack
 
 
 /** AJAX FUNCS */
-export const getUserRoles = () => {
+export const createUser = (data) => {
+
+    return (dispatch) => {
+
+        BsCore2.ajaxCrud({
+            url: '/users/create',
+            method: 'post',
+            params: { ...data.params },
+            callBackFunc: (requestData, json) => {
+                const callBackData = { ...data, ...json };
+                dispatch(onCreateUserReturn(callBackData));
+            },
+            errorCallBackFunc: (errors, errorStatusCode) => {
+                const callBackData = { errors: errors, errorStatusCode: errorStatusCode };
+                dispatch(onCreateUserReturn(callBackData));
+            }
+        });
+    };
+
+};
+
+
+
+export const getUserRoles = (data) => {
 
     return (dispatch) => {
 
         BsCore2.ajaxCrud({
             url: '/roles/getRoles',
             callBackFunc: (requestData, json) => {
-                const callBackData = { ...json };
+                const callBackData = { ...data, ...json };
                 dispatch(onGetUserRolesReturn(callBackData));
             },
             errorCallBackFunc: (errors, errorStatusCode) => {

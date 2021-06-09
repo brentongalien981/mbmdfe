@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Col, Container, Row } from 'reactstrap';
+import Bs from '../../bs/core/Bs';
 import * as actions from '../../redux/actions/user';
 import SignUp from './SignUp';
 
@@ -14,23 +15,36 @@ class CreateUser extends React.Component {
     state = {
         email: '',
         password: '',
-        roles: {
-            UserManager: false,
-            OrderManager: false,
-            PurchaseManager: false,
-            InventoryManager: false
-        }
+        roles: [],
+
+        isCreatingUser: false
     };
 
 
 
     /** HELPER FUNCS */
+    initRoles = (roles) => {
+        let stateRoles = [];
+
+        for (const r of roles) {
+            stateRoles.push({
+                id: r.id,
+                name: r.name,
+                isSelected: false
+            });
+        }
+
+        this.setState({ roles: stateRoles });
+    };
 
 
 
     /** MAIN FUNCS */
     componentDidMount() {
-        this.props.getUserRoles();
+        const data = {
+            doCallBackFunc: this.initRoles
+        };
+        this.props.getUserRoles(data);
     }
 
 
@@ -45,7 +59,9 @@ class CreateUser extends React.Component {
                                 userRoles={this.props.userRoles}
                                 email={this.state.email}
                                 password={this.state.password}
-                                onCredentialChanged={this.onCredentialChanged} />
+                                isCreatingUser={this.state.isCreatingUser}
+                                onCredentialChanged={this.onCredentialChanged}
+                                onCreateUser={this.onCreateUser} />
                         </div>
                     </Col>
                 </Row>
@@ -57,6 +73,38 @@ class CreateUser extends React.Component {
 
 
     /** EVENT FUNCS */
+    onCreateUser = (e) => {
+        e.preventDefault();
+
+        if (this.state.isCreatingUser) { return; }
+        this.setState({ isCreatingUser: true });
+
+
+        let selectedRoleIds = [];
+
+        for (const r of this.state.roles) {
+            if (r.isSelected) {
+                selectedRoleIds.push(r.id);
+            }
+        }
+
+
+        const data = {
+            params: {
+                email: this.state.email,
+                password: this.state.password,
+                selectedRoleIds: selectedRoleIds
+            },
+            doCallBackFunc: () => {
+                this.setState({ isCreatingUser: false });
+            }
+        };
+
+        this.props.createUser(data);
+    };
+
+
+
     onCredentialChanged = (e) => {
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -65,12 +113,25 @@ class CreateUser extends React.Component {
 
         if (target.type === 'checkbox') {
 
-            let updatedRoles = this.state.roles;
-            updatedRoles[name] = value;
+            const trigerredRoleId = target.value;
+            let updatedRoles = [];
+
+            for (const role of this.state.roles) {
+
+                let updatedRole = { ...role };
+
+                if (parseInt(updatedRole.id) === parseInt(trigerredRoleId)) {
+                    updatedRole.isSelected = value;
+                }
+
+                updatedRoles.push(updatedRole);
+            }
+
 
             this.setState({
                 roles: updatedRoles
             });
+
         } else {
 
             this.setState({
@@ -100,7 +161,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getUserRoles: () => dispatch(actions.getUserRoles()),
+        getUserRoles: (data) => dispatch(actions.getUserRoles(data)),
+        createUser: (data) => dispatch(actions.createUser(data)),
 
         // BMD-DELETE
         testDispatch: () => dispatch(actions.testDispatch()),
