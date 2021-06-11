@@ -36,7 +36,7 @@ export const createUser = (data) => {
                 dispatch(onCreateUserReturn(callBackData));
             },
             errorCallBackFunc: (errors, errorStatusCode) => {
-                const callBackData = { errors: errors, errorStatusCode: errorStatusCode };
+                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onCreateUserReturn(callBackData));
             }
         });

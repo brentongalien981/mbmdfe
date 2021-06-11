@@ -1,3 +1,4 @@
+import BsCore2 from '../../bs/core/BsCore2';
 import * as actions from '../actions/user';
 
 /** DEFAULTS */
@@ -44,6 +45,8 @@ const onCreateUserReturn = (state, action) => {
 
     if (action.callBackData.isResultOk) {
         
+    } else {
+        BsCore2.alertForCallBackDataErrors(action.callBackData)
     }
 
     action.callBackData.doCallBackFunc();
