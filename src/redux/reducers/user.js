@@ -44,7 +44,7 @@ const user = (state = initialState, action) => {
 const onCreateUserReturn = (state, action) => {
 
     if (action.callBackData.isResultOk) {
-        
+        //
     } else {
         BsCore2.alertForCallBackDataErrors(action.callBackData)
     }
