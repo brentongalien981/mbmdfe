@@ -43,10 +43,8 @@ const user = (state = initialState, action) => {
 // BMD-ISH
 const onCreateUserReturn = (state, action) => {
 
-    if (action.callBackData.isResultOk) {
-        //
-    } else {
-        BsCore2.alertForCallBackDataErrors(action.callBackData)
+    if (!action.callBackData.isResultOk) {
+        BsCore2.alertForCallBackDataErrors(action.callBackData);
     }
 
     action.callBackData.doCallBackFunc();

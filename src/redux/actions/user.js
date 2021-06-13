@@ -1,4 +1,5 @@
 import BsCore2 from "../../bs/core/BsCore2";
+import { showToastr } from "../../helpers/notifications/NotificationsHelper";
 
 /** NAMES */
 export const ON_CREATE_USER_RETURN = "ON_CREATE_USER_RETURN";
@@ -34,6 +35,12 @@ export const createUser = (data) => {
             callBackFunc: (requestData, json) => {
                 const callBackData = { ...data, ...json };
                 dispatch(onCreateUserReturn(callBackData));
+
+                if (callBackData.isResultOk) {
+                    const notificationData = { message: 'User created' };
+                    showToastr(notificationData);
+                }
+                
             },
             errorCallBackFunc: (errors, errorStatusCode) => {
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
