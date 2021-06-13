@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Col, Container, Row } from 'reactstrap';
+import BmdAuth from '../../bs/core/BmdAuth';
 import Bs from '../../bs/core/Bs';
 import * as actions from '../../redux/actions/user';
 import SignUp from './SignUp';
@@ -41,6 +43,9 @@ class CreateUser extends React.Component {
 
     /** MAIN FUNCS */
     componentDidMount() {
+
+        if (!BmdAuth.isLoggedIn()) { this.props.history.replace('/signin'); }
+
         const data = {
             doCallBackFunc: this.initRoles
         };
@@ -173,4 +178,4 @@ const mapDispatchToProps = (dispatch) => {
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateUser);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CreateUser));
