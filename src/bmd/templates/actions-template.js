@@ -20,10 +20,11 @@
 //             method: 'post',
 //             params: { bmdToken: bmdAuth?.bmdToken, authProviderId: bmdAuth?.authProviderId },
 //             callBackFunc: (requestData, json) => {
-//                 dispatch(onReadCheckoutRequiredDataSuccess(json.objs));
+//                  const callBackData = { ...data, ...json };
+//                 dispatch(onReadCheckoutRequiredDataSuccess(callBackData));
 //             },
 //             errorCallBackFunc: (errors, errorStatusCode) => {
-//                 const callBackData = { errors: errors, errorStatusCode: errorStatusCode };
+//                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
 //                 dispatch(onReadCheckoutRequiredDataFail(callBackData));
 //             }
 //         });
