@@ -152,13 +152,7 @@ class CreateUser extends React.Component {
 /* REACT-FUNCS */
 const mapStateToProps = (state) => {
     return {
-
-        userRoles: state.user.userRoles,
-
-        // BMD-DELETE
-        theShit: state.user.theShit,
-        testCount: state.user.testCount,
-        testDispatchVal: state.user.testDispatchVal,
+        userRoles: state.user.userRoles
     };
 };
 
@@ -167,12 +161,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getUserRoles: (data) => dispatch(actions.getUserRoles(data)),
-        createUser: (data) => dispatch(actions.createUser(data)),
-
-        // BMD-DELETE
-        testDispatch: () => dispatch(actions.testDispatch()),
-        testIncrement: () => dispatch(actions.testIncrement()),
-        doShit: () => dispatch(actions.doShit())
+        createUser: (data) => dispatch(actions.createUser(data))
     };
 };
 
