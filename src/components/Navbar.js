@@ -31,6 +31,7 @@ import {
 
 import avatar1 from "../assets/img/avatars/avatar.jpg";
 import avatar3 from "../assets/img/avatars/avatar-3.jpg";
+import BmdAuth from "../bs/core/BmdAuth";
 
 const notifications = [
   {
@@ -88,7 +89,8 @@ const NavbarDropdownItem = ({ icon, title, description, time, spacing }) => (
   </ListGroupItem>
 );
 
-const NavbarComponent = ({ dispatch }) => {
+const NavbarComponent = (props) => {
+
   return (
     <Navbar color="white" light expand>
 
@@ -146,7 +148,7 @@ const NavbarComponent = ({ dispatch }) => {
                   className="avatar img-fluid rounded-circle mr-1"
                   alt="username"
                 />
-                <span className="text-dark">TODO: username</span>
+                <span className="text-dark">{props.userEmail}</span>
               </DropdownToggle>
             </span>
 
@@ -166,7 +168,7 @@ const NavbarComponent = ({ dispatch }) => {
               <DropdownItem divider />
 
 
-              <DropdownItem>Sign out</DropdownItem>
+              <DropdownItem onClick={props.onSignOut}>Sign out</DropdownItem>
             </DropdownMenu>
 
 
