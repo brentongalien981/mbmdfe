@@ -9,7 +9,8 @@ import {
     FormGroup,
     Label,
     Input,
-    CustomInput
+    CustomInput,
+    Spinner
 } from "reactstrap";
 import BmdAuth from '../../bs/core/BmdAuth';
 import * as actions from '../../redux/actions/auth';
@@ -53,6 +54,22 @@ class Signin extends React.Component {
 
 
     render() {
+
+        let signInBtnSection = (
+            <div className="text-center mt-3">
+                <Button color="primary" size="lg" onClick={this.onSignin}>Sign in</Button>
+            </div>
+        );
+
+        if (this.state.isSigningIn) {
+            signInBtnSection = (
+                <div className="text-center mt-3">
+                    <Spinner color="dark" size="sm" className="mr-2" />
+                </div>
+
+            );
+        }
+
         return (
             <React.Fragment>
                 <div className="text-center mt-4">
@@ -88,9 +105,7 @@ class Signin extends React.Component {
                                     />
                                 </FormGroup>
 
-                                <div className="text-center mt-3">
-                                    <Button color="primary" size="lg" onClick={this.onSignin}>Sign in</Button>
-                                </div>
+                                {signInBtnSection}
 
                             </Form>
 
