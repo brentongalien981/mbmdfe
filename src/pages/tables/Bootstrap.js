@@ -25,6 +25,7 @@ const BasicTable = () => (
         in Bootstrap.
       </h6>
     </CardHeader>
+    
     <Table>
       <thead>
         <tr>

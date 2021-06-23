@@ -26,12 +26,14 @@ import {
   PieChart,
   Settings,
   User,
-  UserPlus
+  UserPlus,
+  Monitor
 } from "react-feather";
 
 import avatar1 from "../assets/img/avatars/avatar.jpg";
 import avatar3 from "../assets/img/avatars/avatar-3.jpg";
 import BmdAuth from "../bs/core/BmdAuth";
+import { Link } from "react-router-dom";
 
 const notifications = [
   {
@@ -163,6 +165,13 @@ const NavbarComponent = (props) => {
               <DropdownItem>
                 <User size={18} className="align-middle mr-2" />
                 Profile
+              </DropdownItem>
+
+
+              <DropdownItem>
+                <Link to='/automated-jobs'>
+                  <Monitor size={18} className="align-middle mr-2" />Automated Jobs
+                </Link>
               </DropdownItem>
 
               <DropdownItem divider />

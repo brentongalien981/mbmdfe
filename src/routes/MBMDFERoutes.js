@@ -13,6 +13,7 @@ import MBMDFELayoutA from "../layouts/MBMDFELayoutA";
 const DailySummary = React.lazy(() => import('../containers/daily-summary/DailySummary'));
 const Signin = React.lazy(() => import('../containers/auth/Signin'));
 const CreateUser = React.lazy(() => import('../containers/user/CreateUser'));
+const AutomatedJobs = React.lazy(() => import('../containers/automated-jobs/AutomatedJobs'));
 
 
 
@@ -28,6 +29,8 @@ const MBMDFERoutes = () => (
                 <Route path="/daily-summary" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><DailySummary /></Suspense></MBMDFELayoutA>} />
                 <Route path="/testcontainer-a" render={() => <MBMDFELayoutA><TestContainerA /></MBMDFELayoutA>} />
                 <Route path="/users/create" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><CreateUser /></Suspense></MBMDFELayoutA>} />
+
+                <Route path="/automated-jobs" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><AutomatedJobs /></Suspense></MBMDFELayoutA>} />
                 {/* <Route path="/xxx" component={TestContainerA} /> */}
 
 

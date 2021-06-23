@@ -5,6 +5,7 @@ import layout from "./layoutReducer";
 import theme from "./themeReducer";
 import user from "./user";
 import auth from "./auth";
+import automatedJobs from "./automatedJobs";
 
 import { reducer as toastr } from "react-redux-toastr";
 
@@ -15,5 +16,6 @@ export default combineReducers({
   toastr,
 
   user,
-  auth
+  auth,
+  automatedJobs
 });
