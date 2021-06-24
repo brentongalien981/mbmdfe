@@ -1,5 +1,8 @@
 // import * as actions from '../actions/xxxactions';
 
+import * as actions from "../actions/automatedJobs";
+
+
 /** DEFAULTS */
 
 
@@ -10,7 +13,7 @@
 
 /** INITIAL STATE */
 const initialState = {
-    msg: ''
+    automatedJobs: []
 };
 
 
@@ -18,7 +21,7 @@ const initialState = {
 /** REDUCER */
 const automatedJobs = (state = initialState, action) => {
     switch (action.type) {
-        // case actions.TRY_RESET_SYSTEM: return tryResetSystem(state, action);
+        case actions.ON_READ_AUTOMATED_JOBS_RETURN: return onReadAutomatedJobsReturn(state, action);
         default: return state;
     }
 }
@@ -30,9 +33,10 @@ const automatedJobs = (state = initialState, action) => {
 
 
 /** NORMAL FUNCS */
-const zzz = (state, action) => {
+const onReadAutomatedJobsReturn = (state, action) => {
     return {
-        ...state
+        ...state,
+        automatedJobs: action.callBackData.isResultOk ? action.callBackData.objs.automatedJobs : []
     };
 };
 
