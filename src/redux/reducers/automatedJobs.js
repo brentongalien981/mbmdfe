@@ -21,6 +21,7 @@ const initialState = {
 /** REDUCER */
 const automatedJobs = (state = initialState, action) => {
     switch (action.type) {
+        case actions.ON_EXECUTE_JOB_RETURN: return onExecuteJobReturn(state, action);
         case actions.ON_READ_AUTOMATED_JOBS_RETURN: return onReadAutomatedJobsReturn(state, action);
         default: return state;
     }
@@ -33,6 +34,15 @@ const automatedJobs = (state = initialState, action) => {
 
 
 /** NORMAL FUNCS */
+const onExecuteJobReturn = (state, action) => {
+    return {
+        ...state
+    };
+};
+
+
+
+
 const onReadAutomatedJobsReturn = (state, action) => {
     return {
         ...state,

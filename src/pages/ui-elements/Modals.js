@@ -50,6 +50,7 @@ const sizes = [
 ];
 
 const DefaultModal = () => {
+
   const initOpenModals = () => {
     let modals = {};
 
@@ -59,6 +60,7 @@ const DefaultModal = () => {
 
     return modals;
   };
+
 
   const [openModals, setOpenModals] = useState(() => initOpenModals());
 
@@ -73,6 +75,9 @@ const DefaultModal = () => {
         <CardTitle tag="h5">Default modal</CardTitle>
         <h6 className="card-subtitle text-muted">Default Bootstrap modal.</h6>
       </CardHeader>
+
+
+
       <CardBody className="text-center">
         <p>
           Use Bootstrap’s JavaScript modal plugin to add dialogs to your site
@@ -88,6 +93,8 @@ const DefaultModal = () => {
             >
               {color.name}
             </Button>
+
+
             <Modal
               isOpen={openModals[index]}
               toggle={() => toggle(index)}
@@ -95,6 +102,7 @@ const DefaultModal = () => {
               <ModalHeader toggle={() => toggle(index)}>
                 Default modal
               </ModalHeader>
+
               <ModalBody className="text-center m-3">
                 <p className="mb-0">
                   Use Bootstrap’s JavaScript modal plugin to add dialogs to
@@ -102,6 +110,7 @@ const DefaultModal = () => {
                   custom content.
                 </p>
               </ModalBody>
+
               <ModalFooter>
                 <Button color="secondary" onClick={() => toggle(index)}>
                   Close
@@ -113,7 +122,10 @@ const DefaultModal = () => {
                   Save changes
                 </Button>
               </ModalFooter>
+              
             </Modal>
+
+
           </React.Fragment>
         ))}
       </CardBody>
