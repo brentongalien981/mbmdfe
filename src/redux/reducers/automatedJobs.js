@@ -1,5 +1,5 @@
-// import * as actions from '../actions/xxxactions';
-
+import BsCore2 from "../../bs/core/BsCore2";
+import { RESULT_CODE_COMMAND_DOES_NOT_EXIST, RESULT_CODE_COMMAND_UNAVAILABLE } from "../../containers/automated-jobs/constants/consts";
 import * as actions from "../actions/automatedJobs";
 
 
@@ -35,6 +35,21 @@ const automatedJobs = (state = initialState, action) => {
 
 /** NORMAL FUNCS */
 const onExecuteJobReturn = (state, action) => {
+
+    if (!action.callBackData.isResultOk) {
+        switch (action.callBackData.resultCode) {
+            case RESULT_CODE_COMMAND_DOES_NOT_EXIST:
+                alert('Command does not exist.')
+                break;
+            case RESULT_CODE_COMMAND_UNAVAILABLE:
+                alert('Command is not available.')
+                break;
+            default:
+                BsCore2.alertForCallBackDataErrors(action.callBackData);
+                break;
+        }
+    }
+
     return {
         ...state
     };

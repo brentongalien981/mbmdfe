@@ -1,5 +1,6 @@
 import BmdAuth from "../../bs/core/BmdAuth";
 import BsCore2 from "../../bs/core/BsCore2";
+import { showToastr } from "../../helpers/notifications/NotificationsHelper";
 
 
 
@@ -26,16 +27,19 @@ export const executeJob = (data) => {
         BsCore2.ajaxCrud({
             url: '/automated-jobs/execute',
             method: 'post',
-            params: { 
+            params: {
                 bmdToken: bmdAuth?.bmdToken, authProviderId: bmdAuth?.authProviderId,
                 ...data.params
             },
             callBackFunc: (requestData, json) => {
-                 const callBackData = { ...json };
+                const callBackData = { ...data, ...json };
+                if (callBackData.isResultOk) {
+                    showToastr({ message: 'Automated Job has been executed in the background.' });
+                }
                 dispatch(onExecuteJobReturn(callBackData));
             },
             errorCallBackFunc: (errors, errorStatusCode) => {
-                const callBackData = { errors: errors, errorStatusCode: errorStatusCode };
+                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onExecuteJobReturn(callBackData));
             }
         });
@@ -56,7 +60,7 @@ export const readAutomatedJobs = () => {
             url: '/automated-jobs',
             params: { bmdToken: bmdAuth?.bmdToken, authProviderId: bmdAuth?.authProviderId },
             callBackFunc: (requestData, json) => {
-                 const callBackData = { ...json };
+                const callBackData = { ...json };
                 dispatch(onReadAutomatedJobsReturn(callBackData));
             },
             errorCallBackFunc: (errors, errorStatusCode) => {
