@@ -1,6 +1,7 @@
 import React from 'react';
-import { Edit, Edit2, Monitor, Repeat, Trash } from 'react-feather';
+import { BookOpen, Edit, Edit2, Monitor, Repeat, Trash } from 'react-feather';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Button, Container, Modal, ModalBody, ModalFooter, ModalHeader, Table, UncontrolledTooltip } from 'reactstrap';
 import Bs from '../../bs/core/Bs';
 import { showToastr } from '../../helpers/notifications/NotificationsHelper';
@@ -67,6 +68,8 @@ class AutomatedJobs extends React.Component {
 
             const prepareDispatchBtnId = 'prepareDispatchBtn' + i;
             const resetJobStatusBtnId = 'resetJobStatusBtn' + i;
+            const viewJobLogsBtnId = 'viewJobLogsBtn' + i;
+            const jobLogsLink = '/automated-job-logs?jobId=' + aj.id;
 
 
             return (
@@ -79,7 +82,12 @@ class AutomatedJobs extends React.Component {
                         <Monitor id={prepareDispatchBtnId} className="align-middle mr-1 bmd-hoverd-icons" size={18} onClick={() => this.onPrepareDispatch(aj.id)} />
                         <UncontrolledTooltip placement='top' target={prepareDispatchBtnId}>Prepare Dispatch</UncontrolledTooltip>
 
-                        <Repeat id={resetJobStatusBtnId} className="align-middle bmd-hoverd-icons" size={18} onClick={() => this.onResetJobStatus(aj.id)} />
+                        <Link to={jobLogsLink} target='blank'>
+                            <BookOpen id={viewJobLogsBtnId} className="align-middle mr-1 bmd-hoverd-icons" size={18} />
+                            <UncontrolledTooltip placement='top' target={viewJobLogsBtnId}>View Logs</UncontrolledTooltip>
+                        </Link>
+
+                        <Repeat id={resetJobStatusBtnId} className="align-middle mr-1 bmd-hoverd-icons" size={18} onClick={() => this.onResetJobStatus(aj.id)} />
                         <UncontrolledTooltip placement='top' target={resetJobStatusBtnId}>Reset Job Status</UncontrolledTooltip>
                     </td>
                 </tr>
