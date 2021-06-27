@@ -114,11 +114,10 @@ class AutomatedJobs extends React.Component {
 
     /** EVENT FUNCS */
     onDispatch = () => {
-        Bs.log('no shit');
-
+        
         this.setState({ isDispatchDateModalOpen: false });
 
-        // BMD-TODO
+        
         const data = {
             params: {
                 jobId: this.state.selectedJobId,
