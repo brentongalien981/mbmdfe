@@ -1,8 +1,9 @@
 import React from 'react';
-import { Edit, Edit2, Monitor, Trash } from 'react-feather';
+import { Edit, Edit2, Monitor, Repeat, Trash } from 'react-feather';
 import { connect } from 'react-redux';
-import { Button, Container, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap';
+import { Button, Container, Modal, ModalBody, ModalFooter, ModalHeader, Table, UncontrolledTooltip } from 'reactstrap';
 import Bs from '../../bs/core/Bs';
+import { showToastr } from '../../helpers/notifications/NotificationsHelper';
 import * as actions from '../../redux/actions/automatedJobs';
 import './AutomatedJobs.css';
 import DispatchDateModal from './DispatchDateModal';
@@ -17,6 +18,7 @@ class AutomatedJobs extends React.Component {
     state = {
         selectedJobId: 0,
         isDispatchDateModalOpen: false,
+        isResettingJobStatus: false,
         dispatchDateFrom: '',
         dispatchDateTo: ''
     };
@@ -63,6 +65,10 @@ class AutomatedJobs extends React.Component {
             }
 
 
+            const prepareDispatchBtnId = 'prepareDispatchBtn' + i;
+            const resetJobStatusBtnId = 'resetJobStatusBtn' + i;
+
+
             return (
                 <tr key={i}>
                     <td>{aj.command_signature}</td>
@@ -70,8 +76,11 @@ class AutomatedJobs extends React.Component {
                     <td>{ajLastLogStatus}</td>
                     <td className="d-none d-md-table-cell">{ajLastLogDate}</td>
                     <td className="table-action">
-                        <Monitor className="align-middle mr-1 bmd-hoverd-icons" size={18} onClick={() => this.onPrepareDispatch(aj.id)} />
-                        {/* <Trash className="align-middle bmd-hoverd-icons" size={18} /> */}
+                        <Monitor id={prepareDispatchBtnId} className="align-middle mr-1 bmd-hoverd-icons" size={18} onClick={() => this.onPrepareDispatch(aj.id)} />
+                        <UncontrolledTooltip placement='top' target={prepareDispatchBtnId}>Prepare Dispatch</UncontrolledTooltip>
+
+                        <Repeat id={resetJobStatusBtnId} className="align-middle bmd-hoverd-icons" size={18} onClick={() => this.onResetJobStatus(aj.id)} />
+                        <UncontrolledTooltip placement='top' target={resetJobStatusBtnId}>Reset Job Status</UncontrolledTooltip>
                     </td>
                 </tr>
             );
@@ -114,10 +123,10 @@ class AutomatedJobs extends React.Component {
 
     /** EVENT FUNCS */
     onDispatch = () => {
-        
+
         this.setState({ isDispatchDateModalOpen: false });
 
-        
+
         const data = {
             params: {
                 jobId: this.state.selectedJobId,
@@ -138,6 +147,22 @@ class AutomatedJobs extends React.Component {
 
         this.setState({ [name]: value });
 
+    };
+
+
+
+    onResetJobStatus = (jobId) => {
+
+        if (this.state.isResettingJobStatus) { showToastr({ message: 'Please wait.' }); return; }
+
+        this.setState({ isResettingJobStatus: true });
+
+        const data = {
+            params: { jobId: jobId },
+            doCallBackFunc: () => { this.setState({ isResettingJobStatus: false }); }
+        };
+
+        this.props.resetJobStatus(data);
     };
 
 
@@ -169,6 +194,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        resetJobStatus: (data) => dispatch(actions.resetJobStatus(data)),
         executeJob: (data) => dispatch(actions.executeJob(data)),
         readAutomatedJobs: () => dispatch(actions.readAutomatedJobs())
     };

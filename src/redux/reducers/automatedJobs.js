@@ -23,6 +23,7 @@ const automatedJobs = (state = initialState, action) => {
     switch (action.type) {
         case actions.ON_EXECUTE_JOB_RETURN: return onExecuteJobReturn(state, action);
         case actions.ON_READ_AUTOMATED_JOBS_RETURN: return onReadAutomatedJobsReturn(state, action);
+        case actions.ON_RESET_JOB_STATUS_RETURN: return onResetJobStatusReturn(state, action);
         default: return state;
     }
 }
@@ -34,6 +35,21 @@ const automatedJobs = (state = initialState, action) => {
 
 
 /** NORMAL FUNCS */
+const onResetJobStatusReturn = (state, action) => {
+
+    if (!action.callBackData.isResultOk) {
+        BsCore2.alertForCallBackDataErrors(action.callBackData);
+    }
+
+    action.callBackData.doCallBackFunc();
+
+    return {
+        ...state
+    };
+};
+
+
+
 const onExecuteJobReturn = (state, action) => {
 
     if (!action.callBackData.isResultOk) {
