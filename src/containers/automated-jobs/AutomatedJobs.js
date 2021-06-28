@@ -8,6 +8,7 @@ import { showToastr } from '../../helpers/notifications/NotificationsHelper';
 import * as actions from '../../redux/actions/automatedJobs';
 import './AutomatedJobs.css';
 import DispatchDateModal from './DispatchDateModal';
+import { doesJobNeedDatePeriodInputs } from './helpers/HelperFuncsA';
 
 
 
@@ -72,6 +73,12 @@ class AutomatedJobs extends React.Component {
             const jobLogsLink = '/automated-job-logs?jobId=' + aj.id;
 
 
+            let onDispatchIconClick = () => this.onJobDirectDispatch(aj.id);
+            if (doesJobNeedDatePeriodInputs(aj)) {
+                onDispatchIconClick = () => this.onPrepareDispatch(aj.id);
+            }
+
+
             return (
                 <tr key={i}>
                     <td>{aj.command_signature}</td>
@@ -79,7 +86,7 @@ class AutomatedJobs extends React.Component {
                     <td>{ajLastLogStatus}</td>
                     <td className="d-none d-md-table-cell">{ajLastLogDate}</td>
                     <td className="table-action">
-                        <Monitor id={prepareDispatchBtnId} className="align-middle mr-1 bmd-hoverd-icons" size={18} onClick={() => this.onPrepareDispatch(aj.id)} />
+                        <Monitor id={prepareDispatchBtnId} className="align-middle mr-1 bmd-hoverd-icons" size={18} onClick={onDispatchIconClick} />
                         <UncontrolledTooltip placement='top' target={prepareDispatchBtnId}>Prepare Dispatch</UncontrolledTooltip>
 
                         <Link to={jobLogsLink} target='blank'>
@@ -130,6 +137,19 @@ class AutomatedJobs extends React.Component {
 
 
     /** EVENT FUNCS */
+    onJobDirectDispatch = (jobId) => {
+
+        const data = {
+            params: {
+                jobId: jobId
+            }
+        };
+
+        this.props.executeJob(data);
+    };
+
+
+
     onDispatch = () => {
 
         this.setState({ isDispatchDateModalOpen: false });
