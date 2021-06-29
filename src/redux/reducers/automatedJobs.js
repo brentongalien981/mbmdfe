@@ -75,9 +75,14 @@ const onExecuteJobReturn = (state, action) => {
 
 
 const onReadAutomatedJobsReturn = (state, action) => {
+
+    if (!action.callBackData.isResultOk) {
+        BsCore2.alertForCallBackDataErrors(action.callBackData);
+    }
+
     return {
         ...state,
-        automatedJobs: action.callBackData.isResultOk ? action.callBackData.objs.automatedJobs : []
+        automatedJobs: action.callBackData?.isResultOk ? action.callBackData.objs.automatedJobs : []
     };
 };
 

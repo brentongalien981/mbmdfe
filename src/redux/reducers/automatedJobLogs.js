@@ -1,3 +1,4 @@
+import BsCore2 from "../../bs/core/BsCore2";
 import * as actions from "../actions/automatedJobLogs";
 
 /** DEFAULTS */
@@ -32,11 +33,15 @@ const automatedJobLogs = (state = initialState, action) => {
 /** NORMAL FUNCS */
 const onReadLogsReturn = (state, action) => {
 
+    if (!action.callBackData.isResultOk) {
+        BsCore2.alertForCallBackDataErrors(action.callBackData);
+    }
+
     action.callBackData.doCallBackFunc();
 
     return {
         ...state,
-        logs: action.callBackData.objs.logs ?? []
+        logs: action.callBackData?.objs?.logs ?? []
     };
 };
 
