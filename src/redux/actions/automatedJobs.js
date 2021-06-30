@@ -83,7 +83,7 @@ export const executeJob = (data) => {
 
 
 
-export const readAutomatedJobs = () => {
+export const readAutomatedJobs = (data) => {
 
     const bmdAuth = BmdAuth.getInstance();
 
@@ -93,11 +93,11 @@ export const readAutomatedJobs = () => {
             url: '/automated-jobs',
             params: { bmdToken: bmdAuth?.bmdToken, authProviderId: bmdAuth?.authProviderId },
             callBackFunc: (requestData, json) => {
-                const callBackData = { ...json };
+                const callBackData = { ...data, ...json };
                 dispatch(onReadAutomatedJobsReturn(callBackData));
             },
             errorCallBackFunc: (errors, errorStatusCode) => {
-                const callBackData = { errors: errors, errorStatusCode: errorStatusCode };
+                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onReadAutomatedJobsReturn(callBackData));
             }
         });

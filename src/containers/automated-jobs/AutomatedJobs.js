@@ -3,6 +3,7 @@ import { BookOpen, Edit, Edit2, Monitor, Repeat, Trash } from 'react-feather';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button, Container, Modal, ModalBody, ModalFooter, ModalHeader, Table, UncontrolledTooltip } from 'reactstrap';
+import Spinner from 'reactstrap/lib/Spinner';
 import Bs from '../../bs/core/Bs';
 import { showToastr } from '../../helpers/notifications/NotificationsHelper';
 import * as actions from '../../redux/actions/automatedJobs';
@@ -18,9 +19,10 @@ class AutomatedJobs extends React.Component {
 
     /** PROPERTIES */
     state = {
-        selectedJobId: 0,
+        isReadingAutomatedJobs: false,
         isDispatchDateModalOpen: false,
         isResettingJobStatus: false,
+        selectedJobId: 0,
         dispatchDateFrom: '',
         dispatchDateTo: ''
     };
@@ -28,6 +30,18 @@ class AutomatedJobs extends React.Component {
 
 
     /** HELPER FUNCS */
+    readAutomatedJobs = () => {
+        this.setState({ isReadingAutomatedJobs: true });
+
+        const data = {
+            doCallBackFunc: () => { this.setState({ isReadingAutomatedJobs: false }); }
+        };
+        this.props.readAutomatedJobs(data);
+    };
+
+
+
+    /** Init the dates of the DispatchDateModel. */
     initDates() {
         const d = new Date();
 
@@ -48,7 +62,7 @@ class AutomatedJobs extends React.Component {
 
     /** MAIN FUNCS */
     componentDidMount() {
-        this.props.readAutomatedJobs();
+        this.readAutomatedJobs();
         this.initDates();
     }
 
@@ -102,25 +116,34 @@ class AutomatedJobs extends React.Component {
         });
 
 
+        let automatedJobsTable = (
+            <Table>
+                <thead>
+                    <tr>
+                        <th style={{ width: "30%" }}>Job Name</th>
+                        <th style={{}}>Current Status</th>
+                        <th style={{}}>Last Status</th>
+                        <th className="d-none d-md-table-cell" style={{ width: "20%" }}>Last Dispatch</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {automatedJobsComponent}
+                </tbody>
+            </Table>
+        );
+
+        if (this.state.isReadingAutomatedJobs) {
+            automatedJobsTable = (<Spinner />);
+        }
+
+
         return (
             <Container fluid className="p-0">
                 <h1 className="h3 mb-3">AutomatedJobs</h1>
 
-                <Table>
-                    <thead>
-                        <tr>
-                            <th style={{ width: "20%" }}>Job Name</th>
-                            <th style={{}}>Current Status</th>
-                            <th style={{}}>Last Status</th>
-                            <th className="d-none d-md-table-cell" style={{ width: "25%" }}>Last Dispatch</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {automatedJobsComponent}
-                    </tbody>
-                </Table>
+                {automatedJobsTable}
 
                 <DispatchDateModal
                     isOpen={this.state.isDispatchDateModalOpen}
@@ -224,7 +247,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         resetJobStatus: (data) => dispatch(actions.resetJobStatus(data)),
         executeJob: (data) => dispatch(actions.executeJob(data)),
-        readAutomatedJobs: () => dispatch(actions.readAutomatedJobs())
+        readAutomatedJobs: (data) => dispatch(actions.readAutomatedJobs(data))
     };
 };
 

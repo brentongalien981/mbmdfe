@@ -80,6 +80,8 @@ const onReadAutomatedJobsReturn = (state, action) => {
         BsCore2.alertForCallBackDataErrors(action.callBackData);
     }
 
+    action.callBackData.doCallBackFunc();
+
     return {
         ...state,
         automatedJobs: action.callBackData?.isResultOk ? action.callBackData.objs.automatedJobs : []
