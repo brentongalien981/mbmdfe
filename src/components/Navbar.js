@@ -158,8 +158,11 @@ const NavbarComponent = (props) => {
             <DropdownMenu right>
 
               <DropdownItem>
-                <PieChart size={18} className="align-middle mr-2" />
-                Daily Summary
+                <Link to='/daily-summary'>
+                  <PieChart size={18} className="align-middle mr-2" />
+                  Daily Summary
+                </Link>
+
               </DropdownItem>
 
               <DropdownItem>

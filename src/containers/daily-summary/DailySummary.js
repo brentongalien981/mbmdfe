@@ -1,6 +1,11 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+import { Container, Row, Col } from 'reactstrap';
 import BmdAuth from '../../bs/core/BmdAuth';
+import FinanceGraph from './FinanceGraph';
+import FinanceGraphSectionHeader from './FinanceGraphSectionHeader';
+import OrderStats from './OrderStats';
+import SectionHeader from './SectionHeader';
 
 
 
@@ -27,7 +32,20 @@ class DailySummary extends React.Component {
 
     render() {
         return (
-            <h2>Here's MBMD's Daily Summary</h2>
+            <Container fluid className="p-0">
+                <SectionHeader />
+                <OrderStats />
+
+                <br /><br /><br />
+
+                <FinanceGraphSectionHeader />
+                <Row>
+                    <Col /*lg="8"*/ className="d-flex">
+                        <FinanceGraph />
+                    </Col>
+                </Row>
+
+            </Container>
         );
     }
 
