@@ -6,6 +6,7 @@ import BmdAuth from '../../bs/core/BmdAuth';
 import * as actions from '../../redux/actions/dailySummary';
 import FinanceGraph from './FinanceGraph';
 import FinanceGraphSectionHeader from './FinanceGraphSectionHeader';
+import FinanceStats from './FinanceStats';
 import * as eventFuncs from './helpers/EventFuncsA';
 import * as helperFuncs from './helpers/HelperFuncsA';
 import OrderStats from './OrderStats';
@@ -64,11 +65,18 @@ class DailySummary extends React.Component {
     render() {
 
         const orderStats = (
-            <OrderStats
-                numOfOrders={this.props.numOfOrders}
-                numOfOrderItems={this.props.numOfOrderItems}
-                numOfIncompleteOrders={this.props.numOfIncompleteOrders}
-            />
+            <>
+                <OrderStats
+                    numOfOrders={this.props.numOfOrders}
+                    numOfOrderItems={this.props.numOfOrderItems}
+                    numOfIncompleteOrders={this.props.numOfIncompleteOrders}
+                />
+
+                <FinanceStats 
+                    revenue={this.props.revenue}
+                    expenses={this.props.expenses}
+                />
+            </>
         );
 
         const orderStatsSection = this.state.isReadingDailySummaryData ? <Spinner /> : orderStats;
@@ -117,7 +125,10 @@ const mapStateToProps = (state) => {
     return {
         numOfOrders: state.dailySummary.numOfOrders,
         numOfOrderItems: state.dailySummary.numOfOrderItems,
-        numOfIncompleteOrders: state.dailySummary.numOfIncompleteOrders
+        numOfIncompleteOrders: state.dailySummary.numOfIncompleteOrders,
+        revenue: state.dailySummary.revenue,
+        expenses: state.dailySummary.expenses,
+        
     };
 };
 

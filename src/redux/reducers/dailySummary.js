@@ -12,7 +12,9 @@ import * as actions from "../actions/dailySummary";
 const initialState = {
     numOfOrders: 0,
     numOfOrderItems: 0,
-    numOfIncompleteOrders: 0
+    numOfIncompleteOrders: 0,
+    revenue: 0.0,
+    expenses: 0.0
 };
 
 
@@ -42,7 +44,9 @@ const onReadDailySummaryDataReturn = (state, action) => {
         ...state,
         numOfOrders: isResultOk ? action.callBackData.objs.numOfOrders : 0,
         numOfOrderItems: isResultOk ? action.callBackData.objs.numOfOrderItems : 0,
-        numOfIncompleteOrders: isResultOk ? action.callBackData.objs.numOfIncompleteOrders : 0
+        numOfIncompleteOrders: isResultOk ? action.callBackData.objs.numOfIncompleteOrders : 0,
+        revenue: isResultOk ? action.callBackData.objs.revenue : 0.0,
+        expenses: isResultOk ? action.callBackData.objs.expenses : 0.0
     };
 };
 
