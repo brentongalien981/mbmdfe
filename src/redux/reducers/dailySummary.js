@@ -1,3 +1,4 @@
+import BsCore2 from "../../bs/core/BsCore2";
 import * as actions from "../actions/dailySummary";
 
 /** DEFAULTS */
@@ -37,6 +38,10 @@ const dailySummary = (state = initialState, action) => {
 const onReadDailySummaryDataReturn = (state, action) => {
 
     const isResultOk = action.callBackData.isResultOk;
+
+    if (!isResultOk) {
+        BsCore2.alertForCallBackDataErrors(action.callBackData);
+    }
 
     action.callBackData.doCallBackFunc();
 

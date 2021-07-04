@@ -6,6 +6,11 @@ import { DollarSign, TrendingUp, TrendingDown } from "react-feather";
 const FinanceStats = (props) => {
 
     const profit = props.revenue - props.expenses;
+    let profitLabel = '$' + profit.toFixed(2);
+
+    if (profit < 0) {
+        profitLabel = '-$' + (profit * -1).toFixed(2);
+    }
 
     return (
         <Row>
@@ -52,7 +57,7 @@ const FinanceStats = (props) => {
                                 <DollarSign className="feather-lg text-success" />
                             </div>
                             <Media body>
-                                <h3 className="mb-2">${profit.toFixed(2)}</h3>
+                                <h3 className="mb-2">{profitLabel}</h3>
                                 <div className="mb-0">Profit</div>
                             </Media>
                         </Media>
