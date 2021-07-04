@@ -7,11 +7,15 @@ import {
 } from "reactstrap";
 
 import { Calendar, RefreshCw } from "react-feather";
+import { getMonthNameByIndex } from "./helpers/HelperFuncsA";
 
 const SectionHeader = (props) => {
 
-    const fromDateLabel = 'Date from ' + '02-16-2021';
-    const toDateLabel = 'Date to ' + '07-03-2021';
+    const startDateInStr = getMonthNameByIndex(props.startDate.getMonth()) + ' ' + props.startDate.getDate() + ', ' + props.startDate.getFullYear();
+    const endDateInStr = getMonthNameByIndex(props.endDate.getMonth()) + ' ' + props.endDate.getDate() + ', ' + props.endDate.getFullYear();
+
+    const startDateLabel = 'Start date ' + startDateInStr;
+    const endDateLabel = 'End date ' + endDateInStr;
 
     return (
         <Row className="mb-2 mb-xl-4">
@@ -22,11 +26,11 @@ const SectionHeader = (props) => {
             <Col xs="auto" className="ml-auto text-right mt-n1">
 
                 <Button color="primary" className="shadow-sm mr-1" onClick={props.onStatsDatePickerShow}>
-                    <Calendar className="feather align-middle mt-n1" /> {fromDateLabel}
+                    <Calendar className="feather align-middle mt-n1" /> {startDateLabel}
                 </Button>
 
-                <Button color="primary" className="shadow-sm mr-1">
-                    <Calendar className="feather align-middle mt-n1" /> {toDateLabel}
+                <Button color="primary" className="shadow-sm mr-1" onClick={props.onStatsDatePickerShow}>
+                    <Calendar className="feather align-middle mt-n1" /> {endDateLabel}
                 </Button>
 
                 <Button color="primary" className="shadow-sm">

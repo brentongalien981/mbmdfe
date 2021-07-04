@@ -22,7 +22,10 @@ export const readDailySummaryData = (data) => {
 
         BsCore2.ajaxCrud({
             url: '/daily-summary/readDailySummaryData',
-            params: { bmdToken: bmdAuth?.bmdToken, authProviderId: bmdAuth?.authProviderId },
+            params: { 
+                bmdToken: bmdAuth?.bmdToken, authProviderId: bmdAuth?.authProviderId,
+                ...data.params
+            },
             callBackFunc: (requestData, json) => {
                  const callBackData = { ...data, ...json };
                 dispatch(onReadDailySummaryDataReturn(callBackData));

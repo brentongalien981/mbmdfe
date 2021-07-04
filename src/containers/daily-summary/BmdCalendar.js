@@ -20,7 +20,8 @@ const BmdCalendar = (props) => (
             <div className="align-self-center w-100">
                 <DateTime
                     input={false}
-                    defaultValue={DateTime.moment()}
+                    // defaultValue={DateTime.moment()}
+                    value={props.date}
                     dateFormat="L"
                     timeFormat={false}
                 />

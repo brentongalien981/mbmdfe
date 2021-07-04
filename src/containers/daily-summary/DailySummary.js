@@ -7,6 +7,7 @@ import * as actions from '../../redux/actions/dailySummary';
 import FinanceGraph from './FinanceGraph';
 import FinanceGraphSectionHeader from './FinanceGraphSectionHeader';
 import * as eventFuncs from './helpers/EventFuncsA';
+import * as helperFuncs from './helpers/HelperFuncsA';
 import OrderStats from './OrderStats';
 import SectionHeader from './SectionHeader';
 import StatsDatePickerModal from './StatsDatePickerModal';
@@ -20,7 +21,11 @@ class DailySummary extends React.Component {
     /** PROPERTIES */
     state = {
         isReadingDailySummaryData: false,
-        isStatsDatePickerOpen: false
+        isStatsDatePickerOpen: false,
+        statsDatePickerStartDate: helperFuncs.getInitialDate(),
+        statsDatePickerEndDate: helperFuncs.getInitialDate(),
+        statsHeaderBtnStartDate: helperFuncs.getInitialDate(),
+        statsHeaderBtnEndDate: helperFuncs.getInitialDate(),
     };
 
 
@@ -32,6 +37,10 @@ class DailySummary extends React.Component {
         this.setState({ isReadingDailySummaryData: true });
 
         const data = {
+            params: {
+                statsStartDate: helperFuncs.convertDateToStr(this.state.statsDatePickerStartDate),
+                statsEndDate: helperFuncs.convertDateToStr(this.state.statsDatePickerEndDate)
+            },
             doCallBackFunc: () => { this.setState({ isReadingDailySummaryData: false }); }
         };
 
@@ -54,14 +63,29 @@ class DailySummary extends React.Component {
 
     render() {
 
-        const orderStatsSection = this.state.isReadingDailySummaryData ? <Spinner /> : <OrderStats />;
+        const orderStats = (
+            <OrderStats
+                numOfOrders={this.props.numOfOrders}
+                numOfOrderItems={this.props.numOfOrderItems}
+                numOfIncompleteOrders={this.props.numOfIncompleteOrders}
+            />
+        );
+
+        const orderStatsSection = this.state.isReadingDailySummaryData ? <Spinner /> : orderStats;
 
         return (
             <Container fluid className="p-0">
-                <SectionHeader onStatsDatePickerShow={() => { eventFuncs.onStatsDatePickerShow(this) }} />
+                <SectionHeader
+                    startDate={this.state.statsHeaderBtnStartDate}
+                    endDate={this.state.statsHeaderBtnEndDate}
+                    onStatsDatePickerShow={() => { eventFuncs.onStatsDatePickerShow(this) }}
+                />
 
                 {orderStatsSection}
+
                 <StatsDatePickerModal
+                    startDate={this.state.statsDatePickerStartDate}
+                    endDate={this.state.statsDatePickerEndDate}
                     isStatsDatePickerOpen={this.state.isStatsDatePickerOpen}
                     onStatsDatePickerToggle={() => { eventFuncs.onStatsDatePickerToggle(this) }}
                     onStatsDatePickerClose={() => { eventFuncs.onStatsDatePickerClose(this) }}
@@ -91,7 +115,9 @@ class DailySummary extends React.Component {
 /** REACT-FUNCS */
 const mapStateToProps = (state) => {
     return {
-        // automatedJobs: state.automatedJobs.automatedJobs
+        numOfOrders: state.dailySummary.numOfOrders,
+        numOfOrderItems: state.dailySummary.numOfOrderItems,
+        numOfIncompleteOrders: state.dailySummary.numOfIncompleteOrders
     };
 };
 

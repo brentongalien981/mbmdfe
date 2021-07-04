@@ -10,7 +10,9 @@ import * as actions from "../actions/dailySummary";
 
 /** INITIAL STATE */
 const initialState = {
-    msg: ''
+    numOfOrders: 0,
+    numOfOrderItems: 0,
+    numOfIncompleteOrders: 0
 };
 
 
@@ -32,10 +34,15 @@ const dailySummary = (state = initialState, action) => {
 /** NORMAL FUNCS */
 const onReadDailySummaryDataReturn = (state, action) => {
 
+    const isResultOk = action.callBackData.isResultOk;
+
     action.callBackData.doCallBackFunc();
 
     return {
-        ...state
+        ...state,
+        numOfOrders: isResultOk ? action.callBackData.objs.numOfOrders : 0,
+        numOfOrderItems: isResultOk ? action.callBackData.objs.numOfOrderItems : 0,
+        numOfIncompleteOrders: isResultOk ? action.callBackData.objs.numOfIncompleteOrders : 0
     };
 };
 

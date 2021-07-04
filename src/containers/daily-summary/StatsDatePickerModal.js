@@ -12,8 +12,8 @@ const StatsDatePickerModal = (props) => {
             </ModalHeader>
 
             <ModalBody className='d-flex justify-content-around'>
-                <BmdCalendar title='Start Date' />
-                <BmdCalendar title='End Date' />
+                <BmdCalendar title='Start Date' date={props.startDate} />
+                <BmdCalendar title='End Date' date={props.endDate} />
             </ModalBody>
 
             <ModalFooter>
