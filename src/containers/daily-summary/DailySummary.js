@@ -74,6 +74,7 @@ class DailySummary extends React.Component {
                     startDate={this.state.statsHeaderBtnStartDate}
                     endDate={this.state.statsHeaderBtnEndDate}
                     onStatsDatePickerShow={() => { eventFuncs.onStatsDatePickerShow(this) }}
+                    onStatsReset={() => { eventFuncs.onStatsReset(this) }}
                 />
 
                 {orderStatsSection}

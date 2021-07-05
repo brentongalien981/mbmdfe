@@ -33,7 +33,7 @@ const SectionHeader = (props) => {
                     <Calendar className="feather align-middle mt-n1" /> {endDateLabel}
                 </Button>
 
-                <Button color="primary" className="shadow-sm">
+                <Button color="primary" className="shadow-sm" onClick={props.onStatsReset}>
                     <RefreshCw className="feather" />
                 </Button>
             </Col>

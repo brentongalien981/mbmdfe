@@ -1,6 +1,6 @@
 import Bs from "../../../bs/core/Bs";
 import { showToastr } from "../../../helpers/notifications/NotificationsHelper";
-import { convertDateToStr, readDailySummaryData } from "./HelperFuncsA";
+import { convertDateToStr, getInitialDate, readDailySummaryData } from "./HelperFuncsA";
 
 export const onStatsDatePickerClose = (container) => {
     container.setState({ isStatsDatePickerOpen: false });
@@ -30,7 +30,7 @@ export const onStatsDatePickerApply = (container) => {
     }
 
     container.setState({
-        isReadingDailySummaryData: true,
+        // isReadingDailySummaryData: true,
         isStatsDatePickerOpen: false,
         statsHeaderBtnStartDate: container.state.statsDatePickerStartDate,
         statsHeaderBtnEndDate: container.state.statsDatePickerEndDate
@@ -66,4 +66,36 @@ export const onStatsDateChange = (container, dateType, moment) => {
 
     }
 
+};
+
+
+
+export const onStatsReset = (container) => {
+
+    if (container.state.isReadingDailySummaryData) {
+        showToastr({ notificationType: 'info', message: 'Please wait. Previous read is still going.' });
+        return;
+    }
+
+    
+    const initialDate = getInitialDate();
+
+    container.setState({
+        isReadingDailySummaryData: true,
+        statsDatePickerStartDate: initialDate,
+        statsDatePickerEndDate: initialDate,
+        statsHeaderBtnStartDate: initialDate,
+        statsHeaderBtnEndDate: initialDate
+    });
+
+
+    const data = {
+        params: {
+            statsStartDate: convertDateToStr(initialDate),
+            statsEndDate: convertDateToStr(initialDate)
+        },
+        doCallBackFunc: () => { container.setState({ isReadingDailySummaryData: false }); }
+    };
+
+    container.props.readDailySummaryData(data);
 };
