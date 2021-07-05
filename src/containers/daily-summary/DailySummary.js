@@ -32,21 +32,6 @@ class DailySummary extends React.Component {
 
 
     /** HELPER FUNCS */
-    readDailySummaryData = () => {
-        if (this.state.isReadingDailySummaryData) { return; }
-
-        this.setState({ isReadingDailySummaryData: true });
-
-        const data = {
-            params: {
-                statsStartDate: helperFuncs.convertDateToStr(this.state.statsDatePickerStartDate),
-                statsEndDate: helperFuncs.convertDateToStr(this.state.statsDatePickerEndDate)
-            },
-            doCallBackFunc: () => { this.setState({ isReadingDailySummaryData: false }); }
-        };
-
-        this.props.readDailySummaryData(data);
-    };
 
 
 
@@ -57,7 +42,7 @@ class DailySummary extends React.Component {
             return;
         }
 
-        this.readDailySummaryData();
+        helperFuncs.readDailySummaryData(this);
     }
 
 
@@ -79,7 +64,9 @@ class DailySummary extends React.Component {
             </>
         );
 
+
         const orderStatsSection = this.state.isReadingDailySummaryData ? <Spinner /> : orderStats;
+
 
         return (
             <Container fluid className="p-0">
@@ -96,6 +83,7 @@ class DailySummary extends React.Component {
                     endDate={this.state.statsDatePickerEndDate}
                     isStatsDatePickerOpen={this.state.isStatsDatePickerOpen}
                     onStatsDatePickerToggle={() => { eventFuncs.onStatsDatePickerToggle(this) }}
+                    onStatsDateChange={(dateType, moment) => { eventFuncs.onStatsDateChange(this, dateType, moment) }}
                     onStatsDatePickerClose={() => { eventFuncs.onStatsDatePickerClose(this) }}
                     onStatsDatePickerApply={() => { eventFuncs.onStatsDatePickerApply(this) }}
                 />

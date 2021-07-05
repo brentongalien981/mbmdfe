@@ -24,6 +24,7 @@ const BmdCalendar = (props) => (
                     value={props.date}
                     dateFormat="L"
                     timeFormat={false}
+                    onChange={(moment) => props.onStatsDateChange(props.dateType, moment)}
                 />
             </div>
         </CardBody>

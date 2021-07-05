@@ -52,3 +52,22 @@ const tryGetDateWithPaddedZero = (dateNum) => {
 export const convertDateToStr = (dateObj) => {
     return dateObj.getFullYear() + '-' + tryGetMonthNumWithPaddedZero(parseInt(dateObj.getMonth())+1) + '-' + tryGetDateWithPaddedZero(dateObj.getDate());
 };
+
+
+
+
+export const readDailySummaryData = (container) => {
+    if (container.state.isReadingDailySummaryData) { return; }
+
+    container.setState({ isReadingDailySummaryData: true });
+
+    const data = {
+        params: {
+            statsStartDate: convertDateToStr(container.state.statsDatePickerStartDate),
+            statsEndDate: convertDateToStr(container.state.statsDatePickerEndDate)
+        },
+        doCallBackFunc: () => { container.setState({ isReadingDailySummaryData: false }); }
+    };
+
+    container.props.readDailySummaryData(data);
+};
