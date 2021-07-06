@@ -5,7 +5,7 @@ import { Button, Label, Modal, ModalBody, ModalFooter, ModalHeader, Input, Form,
 
 const DispatchDateModal = (props) => {
     return (
-        <Modal isOpen={props.isOpen}>
+        <Modal isOpen={props.isOpen} toggle={props.onToggle}>
             <ModalHeader>
                 Select orders date-period
             </ModalHeader>

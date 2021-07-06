@@ -4,11 +4,14 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button, Container, Modal, ModalBody, ModalFooter, ModalHeader, Table, UncontrolledTooltip } from 'reactstrap';
 import Spinner from 'reactstrap/lib/Spinner';
+import { getInitialDate } from '../../bmd/helpers/HelperFuncsA';
 import Bs from '../../bs/core/Bs';
 import { showToastr } from '../../helpers/notifications/NotificationsHelper';
 import * as actions from '../../redux/actions/automatedJobs';
 import './AutomatedJobs.css';
 import DispatchDateModal from './DispatchDateModal';
+import GenerateOPIsJobParamsModal from './GenerateOPIsJobParamsModal';
+import * as eventFuncs from './helpers/EventFuncsA';
 import { doesJobNeedDatePeriodInputs } from './helpers/HelperFuncsA';
 
 
@@ -21,10 +24,14 @@ class AutomatedJobs extends React.Component {
     state = {
         isReadingAutomatedJobs: false,
         isDispatchDateModalOpen: false,
+        isGenerateOPIsJobParamsModalOpen: false,
         isResettingJobStatus: false,
         selectedJobId: 0,
         dispatchDateFrom: '',
-        dispatchDateTo: ''
+        dispatchDateTo: '',
+
+        generateOPIsJobParamsModalStartDate: getInitialDate(),
+        generateOPIsJobParamsModalEndDate: getInitialDate()
     };
 
 
@@ -89,7 +96,7 @@ class AutomatedJobs extends React.Component {
 
             let onDispatchIconClick = () => this.onJobDirectDispatch(aj.id);
             if (doesJobNeedDatePeriodInputs(aj)) {
-                onDispatchIconClick = () => this.onPrepareDispatch(aj.id);
+                onDispatchIconClick = () => this.onPrepareDispatch(aj);
             }
 
 
@@ -147,11 +154,24 @@ class AutomatedJobs extends React.Component {
 
                 <DispatchDateModal
                     isOpen={this.state.isDispatchDateModalOpen}
+                    onToggle={(modalName) => eventFuncs.onModalToggle(this, modalName)}
                     onClose={this.onDispatchDateModalClose}
                     dispatchDateFrom={this.state.dispatchDateFrom}
                     dispatchDateTo={this.state.dispatchDateTo}
                     onDateChange={this.onDateChange}
                     onDispatch={this.onDispatch}
+                />
+
+
+                {/* BMD-ISH */}
+                <GenerateOPIsJobParamsModal
+                    isOpen={this.state.isGenerateOPIsJobParamsModalOpen}
+                    startDate={this.state.generateOPIsJobParamsModalStartDate}
+                    endDate={this.state.generateOPIsJobParamsModalEndDate}
+                    onToggle={(modalName) => eventFuncs.onModalToggle(this, modalName)}
+                    onClose={this.onDispatchDateModalClose}
+                    onDateChange={(calendarName, moment) => { eventFuncs.onBmdCalendarDateChange(this, calendarName, moment) }}
+                    onDispatch={() => eventFuncs.onGenerateOPIsDispatch(this)}
                 />
 
             </Container>
@@ -218,17 +238,31 @@ class AutomatedJobs extends React.Component {
 
 
 
-    onPrepareDispatch = (jobId) => {
+    onPrepareDispatch = (job) => {
+
+        let otherStateVals = { isDispatchDateModalOpen: true };
+
+        if (job.command_signature == 'GenerateOPIs:Execute') {
+            otherStateVals = { isGenerateOPIsJobParamsModalOpen: true };
+        }
+
+
         this.setState({
-            selectedJobId: jobId,
-            isDispatchDateModalOpen: true
+            selectedJobId: job.id,
+            ...otherStateVals
         });
     };
 
 
 
-    onDispatchDateModalClose = () => {
-        this.setState({ isDispatchDateModalOpen: false });
+    onDispatchDateModalClose = (modalName) => {
+
+        if (modalName == 'GenerateOPIsJobParamsModal') {
+            this.setState({ isGenerateOPIsJobParamsModalOpen: false });
+        } else {
+            this.setState({ isDispatchDateModalOpen: false });
+        }
+
     };
 }
 
