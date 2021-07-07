@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Label, Modal, ModalBody, ModalFooter, ModalHeader, Col, Input, Form, FormGroup, Row } from 'reactstrap';
 import BmdCalendar from '../../bmd/components/BmdCalendar';
+import { TREND_CHANGE_OPTIONS } from './constants/consts';
 
 
 
@@ -11,9 +12,7 @@ const GenerateOPIsJobParamsModal = (props) => {
 
     return (
         <Modal isOpen={props.isOpen} toggle={() => props.onToggle(modalName)} size='lg'>
-            <ModalHeader>
-                GenerateOPIs Job Parameters
-            </ModalHeader>
+            <ModalHeader>GenerateOPIs Job Parameters</ModalHeader>
 
             <ModalBody>
 
@@ -28,22 +27,17 @@ const GenerateOPIsJobParamsModal = (props) => {
 
 
                 <Row>
-                    <Form className="m-3">
+                    <Form className="m-3 w-100">
                         <FormGroup row>
                             <Label sm={4} className="text-sm-right">Max-Base-Num of Daily Orders</Label>
-                            <Col sm={8}>
+                            <Col sm={4}>
                                 <Input type="text" name="maxBaseNumOfDailyOrders" placeholder="20" />
                             </Col>
                         </FormGroup>
 
-                        <FormGroup check inline>
-                            <Label check className="mr-4">
-                                <Input type="radio" name="radio2" checked onChange={() => true} /> 1
-                            </Label>
-                            <Label check className="mr-4">
-                                <Input type="radio" name="radio2" /> 2
-                            </Label>
-                        </FormGroup>
+                        {trendPeriodFormGroup(props)}
+                        {trendChangeFormGroup(props)}
+                        {trendChangePercentageFormGroup}
 
                     </Form>
                 </Row>
@@ -58,6 +52,69 @@ const GenerateOPIsJobParamsModal = (props) => {
         </Modal>
     );
 };
+
+
+
+
+const trendPeriodFormGroup = (props) => {
+
+    const trendPeriodOptionsComponent = props.trendInputValues.trendPeriodGroup.map((o, i) => {
+
+        return (
+            <FormGroup check inline key={i}>
+                <Label check className="mr-3">
+                    <Input type="radio" name="trendPeriodRadioBtns" checked={o.checked} value={o.value} onChange={props.onTrendInputChange} />{o.name}
+                </Label>
+            </FormGroup>
+        );
+    });
+
+
+    return (
+        <FormGroup row>
+            <Label sm={4} className="text-sm-right">Trend Period</Label>
+            <Col sm={8}>{trendPeriodOptionsComponent}</Col>
+        </FormGroup>
+    );
+};
+
+
+
+
+const trendChangeFormGroup = (props) => {
+
+    const trendChangeOptionsComponent = props.trendInputValues.trendChangeGroup.map((trendChangeOption, i) => {
+
+        const o = trendChangeOption;
+
+        return (
+            <FormGroup check inline key={i}>
+                <Label check className="mr-3">
+                    <Input type="radio" name="trendChangeRadioBtns" checked={o.checked} value={o.value} onChange={props.onTrendInputChange} />{o.name}
+                </Label>
+            </FormGroup>
+        );
+    });
+
+
+    return (
+        <FormGroup row>
+            <Label sm={4} className="text-sm-right">Trend Change</Label>
+            <Col sm={8}>{trendChangeOptionsComponent}</Col>
+        </FormGroup>
+    );
+};
+
+
+
+const trendChangePercentageFormGroup = (
+    <FormGroup row>
+        <Label sm={4} className="text-sm-right">Trend Change Percentage</Label>
+        <Col sm={4}>
+            <Input type="number" name="trendChangePercentage" placeholder="10.5" />
+        </Col>
+    </FormGroup>
+);
 
 
 

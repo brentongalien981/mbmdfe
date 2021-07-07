@@ -9,6 +9,7 @@ import Bs from '../../bs/core/Bs';
 import { showToastr } from '../../helpers/notifications/NotificationsHelper';
 import * as actions from '../../redux/actions/automatedJobs';
 import './AutomatedJobs.css';
+import * as consts from './constants/consts';
 import DispatchDateModal from './DispatchDateModal';
 import GenerateOPIsJobParamsModal from './GenerateOPIsJobParamsModal';
 import * as eventFuncs from './helpers/EventFuncsA';
@@ -31,7 +32,25 @@ class AutomatedJobs extends React.Component {
         dispatchDateTo: '',
 
         generateOPIsJobParamsModalStartDate: getInitialDate(),
-        generateOPIsJobParamsModalEndDate: getInitialDate()
+        generateOPIsJobParamsModalEndDate: getInitialDate(),
+        // BMD-TODO: Move this to eventFuncs FILE.
+        generateOPIsJobModalTrendInputValues: {
+            trendPeriodGroup: [
+                {...consts.TREND_PERIOD_OPTION_DAILY, checked: true},
+                {...consts.TREND_PERIOD_OPTION_WEEKLY, checked: false},
+                {...consts.TREND_PERIOD_OPTION_MONTHLY, checked: false},
+                {...consts.TREND_PERIOD_OPTION_YEARLY, checked: false},
+            ],
+            trendChangeGroup: [
+                {...consts.TREND_CHANGE_OPTION_INCREASING, checked: true},
+                {...consts.TREND_CHANGE_OPTION_DECREASING, checked: false},
+                {...consts.TREND_CHANGE_OPTION_AVERAGE, checked: false},
+                {...consts.TREND_CHANGE_OPTION_INCREAS_AND_DECREASE, checked: false},
+            ],
+            selectedTrendChangeOptionValue: consts.TREND_CHANGE_OPTION_INCREASING.value,
+            selectedTrendPeriodOptionValue: consts.TREND_PERIOD_OPTION_DAILY.value
+        }
+        
     };
 
 
@@ -171,6 +190,8 @@ class AutomatedJobs extends React.Component {
                     onToggle={(modalName) => eventFuncs.onModalToggle(this, modalName)}
                     onClose={this.onDispatchDateModalClose}
                     onDateChange={(calendarName, moment) => { eventFuncs.onBmdCalendarDateChange(this, calendarName, moment) }}
+                    trendInputValues={this.state.generateOPIsJobModalTrendInputValues}
+                    onTrendInputChange={(e) => eventFuncs.onTrendInputChange(this, e)}
                     onDispatch={() => eventFuncs.onGenerateOPIsDispatch(this)}
                 />
 
