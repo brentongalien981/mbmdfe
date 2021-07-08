@@ -31,13 +31,13 @@ const GenerateOPIsJobParamsModal = (props) => {
                         <FormGroup row>
                             <Label sm={4} className="text-sm-right">Max-Base-Num of Daily Orders</Label>
                             <Col sm={4}>
-                                <Input type="text" name="maxBaseNumOfDailyOrders" placeholder="20" />
+                                <Input type="number" min="1" step="1" name="maxBaseNumOfDailyOrders" value={props.trendInputValues.maxBaseNumOfDailyOrders} onChange={props.onTrendInputChange} />
                             </Col>
                         </FormGroup>
 
                         {trendPeriodFormGroup(props)}
                         {trendChangeFormGroup(props)}
-                        {trendChangePercentageFormGroup}
+                        {trendChangePercentageFormGroup(props)}
 
                     </Form>
                 </Row>
@@ -107,14 +107,16 @@ const trendChangeFormGroup = (props) => {
 
 
 
-const trendChangePercentageFormGroup = (
-    <FormGroup row>
-        <Label sm={4} className="text-sm-right">Trend Change Percentage</Label>
-        <Col sm={4}>
-            <Input type="number" name="trendChangePercentage" placeholder="10.5" />
-        </Col>
-    </FormGroup>
-);
+const trendChangePercentageFormGroup = (props) => {
+    return (
+        <FormGroup row>
+            <Label sm={4} className="text-sm-right">Trend Change Percentage</Label>
+            <Col sm={4}>
+                <Input type="number" step="0.01" min="0" name="trendChangePercentage" value={props.trendInputValues.trendChangePercentage} onChange={props.onTrendInputChange} />
+            </Col>
+        </FormGroup>
+    );
+};
 
 
 

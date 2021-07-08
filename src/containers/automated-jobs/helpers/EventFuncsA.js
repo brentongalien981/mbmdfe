@@ -1,3 +1,4 @@
+import { convertDateToStr } from "../../../bmd/helpers/HelperFuncsA";
 import Bs from "../../../bs/core/Bs";
 
 
@@ -33,7 +34,39 @@ export const onBmdCalendarDateChange = (container, calendarName, moment) => {
 
 
 export const onGenerateOPIsDispatch = (container) => {
-    Bs.log('yea');
+
+    if (container.state.isGeneratingOPIs) { return; }
+
+    container.setState({ isGeneratingOPIs: true });
+
+    const data = {
+        params: {
+            jobId: container.state.selectedJobId,
+            dateFrom: convertDateToStr(container.state.generateOPIsJobParamsModalStartDate),
+            dateTo: convertDateToStr(container.state.generateOPIsJobParamsModalEndDate),
+            maxBaseNumOfDailyOrders: container.state.generateOPIsJobModalTrendInputValues.maxBaseNumOfDailyOrders,
+            trendChangePercentage: container.state.generateOPIsJobModalTrendInputValues.trendChangePercentage,
+            trendChange: container.state.generateOPIsJobModalTrendInputValues.selectedTrendChangeOptionValue,
+            trendPeriod: container.state.generateOPIsJobModalTrendInputValues.selectedTrendPeriodOptionValue
+        },
+
+        doCallBackFunc: (isResultOk) => {
+
+            let extraStateObjEntry = {};
+            if (isResultOk) {
+                extraStateObjEntry = { isGenerateOPIsJobParamsModalOpen: false };
+            }
+
+            container.setState({
+                isGeneratingOPIs: false,
+                ...extraStateObjEntry
+            });
+        }
+    };
+
+    
+    container.props.executeJob(data);
+
 };
 
 
@@ -49,6 +82,15 @@ export const onTrendInputChange = (container, e) => {
 
 
     switch (name) {
+
+        case 'maxBaseNumOfDailyOrders':
+            updatedState.generateOPIsJobModalTrendInputValues.maxBaseNumOfDailyOrders = value;
+            break;
+
+        case 'trendChangePercentage':
+            updatedState.generateOPIsJobModalTrendInputValues.trendChangePercentage = value;
+            break;
+
         case 'trendPeriodRadioBtns':
 
             const oldTrendPeriodGroup = updatedState.generateOPIsJobModalTrendInputValues.trendPeriodGroup;

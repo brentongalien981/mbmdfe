@@ -25,6 +25,7 @@ class AutomatedJobs extends React.Component {
     state = {
         isReadingAutomatedJobs: false,
         isDispatchDateModalOpen: false,
+        isGeneratingOPIs: false,
         isGenerateOPIsJobParamsModalOpen: false,
         isResettingJobStatus: false,
         selectedJobId: 0,
@@ -35,6 +36,11 @@ class AutomatedJobs extends React.Component {
         generateOPIsJobParamsModalEndDate: getInitialDate(),
         // BMD-TODO: Move this to eventFuncs FILE.
         generateOPIsJobModalTrendInputValues: {
+            maxBaseNumOfDailyOrders: 10,
+            trendChangePercentage: 0.01,
+            selectedTrendChangeOptionValue: consts.TREND_CHANGE_OPTION_INCREASING.value,
+            selectedTrendPeriodOptionValue: consts.TREND_PERIOD_OPTION_DAILY.value,
+
             trendPeriodGroup: [
                 {...consts.TREND_PERIOD_OPTION_DAILY, checked: true},
                 {...consts.TREND_PERIOD_OPTION_WEEKLY, checked: false},
@@ -46,9 +52,7 @@ class AutomatedJobs extends React.Component {
                 {...consts.TREND_CHANGE_OPTION_DECREASING, checked: false},
                 {...consts.TREND_CHANGE_OPTION_AVERAGE, checked: false},
                 {...consts.TREND_CHANGE_OPTION_INCREAS_AND_DECREASE, checked: false},
-            ],
-            selectedTrendChangeOptionValue: consts.TREND_CHANGE_OPTION_INCREASING.value,
-            selectedTrendPeriodOptionValue: consts.TREND_PERIOD_OPTION_DAILY.value
+            ]
         }
         
     };
@@ -302,7 +306,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         resetJobStatus: (data) => dispatch(actions.resetJobStatus(data)),
         executeJob: (data) => dispatch(actions.executeJob(data)),
-        readAutomatedJobs: (data) => dispatch(actions.readAutomatedJobs(data))
+        readAutomatedJobs: (data) => dispatch(actions.readAutomatedJobs(data)),
     };
 };
 

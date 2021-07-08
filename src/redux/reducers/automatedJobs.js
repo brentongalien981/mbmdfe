@@ -66,6 +66,11 @@ const onExecuteJobReturn = (state, action) => {
         }
     }
 
+    if (action.callBackData.doCallBackFunc) {
+        action.callBackData.doCallBackFunc(action.callBackData.isResultOk);
+    }
+    
+
     return {
         ...state
     };
