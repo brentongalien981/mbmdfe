@@ -112,7 +112,11 @@ const trendChangePercentageFormGroup = (props) => {
         <FormGroup row>
             <Label sm={4} className="text-sm-right">Trend Change Percentage</Label>
             <Col sm={4}>
-                <Input type="number" step="0.01" min="0" name="trendChangePercentage" value={props.trendInputValues.trendChangePercentage} onChange={props.onTrendInputChange} />
+                <Input type="number" step="0.01" min="0" name="trendChangePercentage"
+                    value={props.trendInputValues.trendChangePercentage}
+                    onChange={props.onTrendInputChange}
+                />
+                {'%'}
             </Col>
         </FormGroup>
     );
