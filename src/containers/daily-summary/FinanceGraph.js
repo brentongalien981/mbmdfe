@@ -3,68 +3,38 @@ import { Line } from "react-chartjs-2";
 import { connect } from "react-redux";
 
 import { Badge, Card, CardBody, CardHeader, CardTitle } from "reactstrap";
+import Bs from "../../bs/core/Bs";
 
 const FinanceGraph = (props) => {
+
     const theme = props.theme;
+
+    let graphLabels = [];
+    let graphData = [];
+    let maxRevenue = 0.0;
+
+    for (const revenueThisPeriod of props.financeGraphData.revenuesByPeriod) {
+        graphLabels.push(revenueThisPeriod.startDate);
+        graphData.push(revenueThisPeriod.revenue);
+
+        if (revenueThisPeriod.revenue > maxRevenue) {
+            maxRevenue = revenueThisPeriod.revenue;
+        }
+    }
+
+    const yAxisInterval = parseInt(maxRevenue / 10);
 
     
 
     const data = {
-        labels: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
-        ],
+        labels: graphLabels,
         datasets: [
             {
                 label: "Sales ($)",
                 fill: true,
                 backgroundColor: "transparent",
                 borderColor: theme.primary,
-                data: [
-                    2015,
-                    1465,
-                    1487,
-                    1796,
-                    1387,
-                    2123,
-                    2866,
-                    2548,
-                    3902,
-                    4938,
-                    3917,
-                    4927
-                ]
-            },
-            {
-                label: "Orders",
-                fill: true,
-                backgroundColor: "transparent",
-                borderColor: theme.tertiary,
-                borderDash: [4, 4],
-                data: [
-                    928,
-                    734,
-                    626,
-                    893,
-                    921,
-                    1202,
-                    1396,
-                    1232,
-                    1524,
-                    2102,
-                    1506,
-                    1887
-                ]
+                data: graphData
             }
         ]
     };
@@ -97,7 +67,7 @@ const FinanceGraph = (props) => {
             yAxes: [
                 {
                     ticks: {
-                        stepSize: 500
+                        stepSize: yAxisInterval
                     },
                     display: true,
                     borderDash: [5, 5],

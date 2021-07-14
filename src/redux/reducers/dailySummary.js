@@ -3,7 +3,7 @@ import * as actions from "../actions/dailySummary";
 
 /** DEFAULTS */
 const DEFAULT_FINANCE_GRAPH_DATA = {
-    revenuesByTimingMode: {}
+    revenuesByPeriod: []
 };
 
 
