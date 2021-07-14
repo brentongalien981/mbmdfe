@@ -4,9 +4,10 @@ import { MILLI_SEC_IN_DAY } from "../constants/consts";
  * 
  * @returns Yesterday's Date obj.
  */
-export const getInitialDate = () => {
+export const getInitialDate = (numDaysToAddOrSubtract = 1) => {
 
-    return new Date(Date.now() - MILLI_SEC_IN_DAY);
+    const numOfSecToAddOrSubtract = numDaysToAddOrSubtract * MILLI_SEC_IN_DAY;
+    return new Date(Date.now() + numOfSecToAddOrSubtract);
 };
 
 
@@ -50,24 +51,70 @@ const tryGetDateWithPaddedZero = (dateNum) => {
 
 
 export const convertDateToStr = (dateObj) => {
-    return dateObj.getFullYear() + '-' + tryGetMonthNumWithPaddedZero(parseInt(dateObj.getMonth())+1) + '-' + tryGetDateWithPaddedZero(dateObj.getDate());
+    return dateObj.getFullYear() + '-' + tryGetMonthNumWithPaddedZero(parseInt(dateObj.getMonth()) + 1) + '-' + tryGetDateWithPaddedZero(dateObj.getDate());
 };
 
 
 
 
-export const readDailySummaryData = (container) => {
+export const readDailySummaryData = (container, isInitRead = false) => {
+
     if (container.state.isReadingDailySummaryData) { return; }
 
-    container.setState({ isReadingDailySummaryData: true });
+
+    // For initially reading finance-graph-data.
+    let extraStateParams = {};
+    let extraRequestParams = {};
+    let callBackState = { isReadingDailySummaryData: false };
+
+    if (isInitRead) {
+        extraStateParams = { isReadingFinanceGraphData: true };
+        extraRequestParams = {
+            shouldIncludeFinanceGraphData: true,
+            graphStartDate: convertDateToStr(container.state.graphDatePickerStartDate),
+            graphEndDate: convertDateToStr(container.state.graphDatePickerEndDate),
+        };
+        callBackState = {
+            ...callBackState,
+            isReadingFinanceGraphData: false
+        };
+    }
+
+
+    container.setState({
+        isReadingDailySummaryData: true,
+        ...extraStateParams
+    });
+
 
     const data = {
         params: {
             statsStartDate: convertDateToStr(container.state.statsDatePickerStartDate),
-            statsEndDate: convertDateToStr(container.state.statsDatePickerEndDate)
+            statsEndDate: convertDateToStr(container.state.statsDatePickerEndDate),
+            ...extraRequestParams
         },
-        doCallBackFunc: () => { container.setState({ isReadingDailySummaryData: false }); }
+        doCallBackFunc: () => {
+            container.setState({ ...callBackState });
+        }
     };
 
     container.props.readDailySummaryData(data);
+};
+
+
+
+export const readFinanceGraphData = (container) => {
+    if (container.state.isReadingFinanceGraphData) { return; }
+
+    container.setState({ isReadingFinanceGraphData: true });
+
+    const data = {
+        params: {
+            graphStartDate: convertDateToStr(container.state.graphDatePickerStartDate),
+            graphEndDate: convertDateToStr(container.state.graphDatePickerEndDate)
+        },
+        doCallBackFunc: () => { container.setState({ isReadingFinanceGraphData: false }); }
+    };
+
+    container.props.readFinanceGraphData(data);
 };

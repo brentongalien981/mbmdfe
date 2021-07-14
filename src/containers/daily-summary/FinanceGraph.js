@@ -4,7 +4,11 @@ import { connect } from "react-redux";
 
 import { Badge, Card, CardBody, CardHeader, CardTitle } from "reactstrap";
 
-const FinanceGraph = ({ theme }) => {
+const FinanceGraph = (props) => {
+    const theme = props.theme;
+
+    
+
     const data = {
         labels: [
             "Jan",
@@ -109,12 +113,8 @@ const FinanceGraph = ({ theme }) => {
     return (
         <Card className="flex-fill w-100">
             <CardHeader>
-                <Badge color="primary" className="float-right">
-                    Monthly
-                </Badge>
-                <CardTitle tag="h5" className="mb-0">
-                    Revenue
-                </CardTitle>
+                <Badge color="primary" className="float-right">Daily</Badge>
+                <CardTitle tag="h5" className="mb-0">Revenue</CardTitle>
             </CardHeader>
             <CardBody>
                 <div className="chart chart-lg">
@@ -125,6 +125,7 @@ const FinanceGraph = ({ theme }) => {
     );
 };
 
-export default connect(store => ({
-    theme: store.theme.currentTheme
-}))(FinanceGraph);
+// export default connect(store => ({
+//     theme: store.theme.currentTheme
+// }))(FinanceGraph);
+export default FinanceGraph;

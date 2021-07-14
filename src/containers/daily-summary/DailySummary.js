@@ -22,11 +22,14 @@ class DailySummary extends React.Component {
     /** PROPERTIES */
     state = {
         isReadingDailySummaryData: false,
+        isReadingFinanceGraphData: false,
         isStatsDatePickerOpen: false,
         statsDatePickerStartDate: helperFuncs.getInitialDate(),
         statsDatePickerEndDate: helperFuncs.getInitialDate(),
         statsHeaderBtnStartDate: helperFuncs.getInitialDate(),
         statsHeaderBtnEndDate: helperFuncs.getInitialDate(),
+        graphDatePickerStartDate: helperFuncs.getInitialDate(-31),
+        graphDatePickerEndDate: helperFuncs.getInitialDate(-1)
     };
 
 
@@ -42,7 +45,8 @@ class DailySummary extends React.Component {
             return;
         }
 
-        helperFuncs.readDailySummaryData(this);
+        const isInitRead = true;
+        helperFuncs.readDailySummaryData(this, isInitRead);
     }
 
 
@@ -57,7 +61,7 @@ class DailySummary extends React.Component {
                     numOfIncompleteOrders={this.props.numOfIncompleteOrders}
                 />
 
-                <FinanceStats 
+                <FinanceStats
                     revenue={this.props.revenue}
                     expenses={this.props.expenses}
                 />
@@ -66,6 +70,16 @@ class DailySummary extends React.Component {
 
 
         const orderStatsSection = this.state.isReadingDailySummaryData ? <Spinner /> : orderStats;
+
+
+        let financeGraphSection = (
+            <FinanceGraph
+                financeGraphData={this.props.financeGraphData}
+                theme={this.props.currentTheme}
+            />
+        );
+
+        if (this.state.isReadingFinanceGraphData) { financeGraphSection = <Spinner />; }
 
 
         return (
@@ -94,7 +108,7 @@ class DailySummary extends React.Component {
                 <FinanceGraphSectionHeader />
                 <Row>
                     <Col /*lg="8"*/ className="d-flex">
-                        <FinanceGraph />
+                        {financeGraphSection}
                     </Col>
                 </Row>
 
@@ -117,7 +131,8 @@ const mapStateToProps = (state) => {
         numOfIncompleteOrders: state.dailySummary.numOfIncompleteOrders,
         revenue: state.dailySummary.revenue,
         expenses: state.dailySummary.expenses,
-        
+        financeGraphData: state.dailySummary.financeGraphData,
+        currentTheme: state.theme.currentTheme
     };
 };
 
@@ -125,7 +140,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        readDailySummaryData: (data) => dispatch(actions.readDailySummaryData(data))
+        readDailySummaryData: (data) => dispatch(actions.readDailySummaryData(data)),
+        readFinanceGraphData: (data) => dispatch(actions.readFinanceGraphData(data)),
     };
 };
 
