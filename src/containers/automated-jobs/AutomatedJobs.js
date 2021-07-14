@@ -196,6 +196,7 @@ class AutomatedJobs extends React.Component {
                     onDateChange={(calendarName, moment) => { eventFuncs.onBmdCalendarDateChange(this, calendarName, moment) }}
                     trendInputValues={this.state.generateOPIsJobModalTrendInputValues}
                     onTrendInputChange={(e) => eventFuncs.onTrendInputChange(this, e)}
+                    isGeneratingOPIs={this.state.isGeneratingOPIs}
                     onDispatch={() => eventFuncs.onGenerateOPIsDispatch(this)}
                 />
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Label, Modal, ModalBody, ModalFooter, ModalHeader, Col, Input, Form, FormGroup, Row } from 'reactstrap';
+import { Button, Label, Modal, ModalBody, ModalFooter, ModalHeader, Col, Input, Form, FormGroup, Row, Spinner, Container } from 'reactstrap';
 import BmdCalendar from '../../bmd/components/BmdCalendar';
 import { TREND_CHANGE_OPTIONS } from './constants/consts';
 
@@ -8,11 +8,15 @@ import { TREND_CHANGE_OPTIONS } from './constants/consts';
 const GenerateOPIsJobParamsModal = (props) => {
 
     const modalName = 'GenerateOPIsJobParamsModal';
+    
+    const dispatchBtnContent = props.isGeneratingOPIs ? <Spinner size="sm" /> : 'dispatch';
 
 
     return (
         <Modal isOpen={props.isOpen} toggle={() => props.onToggle(modalName)} size='lg'>
-            <ModalHeader>GenerateOPIs Job Parameters</ModalHeader>
+            <ModalHeader>
+                <Container className="my-2"><h3>GenerateOPIs Job Parameters</h3></Container>
+            </ModalHeader>
 
             <ModalBody>
 
@@ -46,7 +50,7 @@ const GenerateOPIsJobParamsModal = (props) => {
 
             <ModalFooter>
                 <Button color="secondary" onClick={() => props.onClose(modalName)}>close</Button>{" "}
-                <Button color='primary' onClick={props.onDispatch}>dispatch</Button>
+                <Button color='primary' onClick={props.onDispatch}>{dispatchBtnContent}</Button>
             </ModalFooter>
 
         </Modal>
@@ -73,7 +77,7 @@ const trendPeriodFormGroup = (props) => {
     return (
         <FormGroup row>
             <Label sm={4} className="text-sm-right">Trend Period</Label>
-            <Col sm={8}>{trendPeriodOptionsComponent}</Col>
+            <Col sm={8} className="mt-1">{trendPeriodOptionsComponent}</Col>
         </FormGroup>
     );
 };
@@ -100,7 +104,7 @@ const trendChangeFormGroup = (props) => {
     return (
         <FormGroup row>
             <Label sm={4} className="text-sm-right">Trend Change</Label>
-            <Col sm={8}>{trendChangeOptionsComponent}</Col>
+            <Col sm={8} className="mt-1">{trendChangeOptionsComponent}</Col>
         </FormGroup>
     );
 };
@@ -116,7 +120,6 @@ const trendChangePercentageFormGroup = (props) => {
                     value={props.trendInputValues.trendChangePercentage}
                     onChange={props.onTrendInputChange}
                 />
-                {'%'}
             </Col>
         </FormGroup>
     );
