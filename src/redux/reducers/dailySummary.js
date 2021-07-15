@@ -3,7 +3,12 @@ import * as actions from "../actions/dailySummary";
 
 /** DEFAULTS */
 const DEFAULT_FINANCE_GRAPH_DATA = {
-    revenuesByPeriod: []
+    revenuesByPeriod: [],
+    expensesByPeriod: [],
+    period: 1, // daily (aka number of days)
+    numOfPeriods: 0,
+    dateSpanStartDate: '',
+    dateSpanEndDate: ''
 };
 
 

@@ -26,7 +26,25 @@ const tryGetDateWithPaddedZero = (dateNum) => {
 
 
 export const convertDateToStr = (dateObj) => {
-    return dateObj.getFullYear() + '-' + tryGetMonthNumWithPaddedZero(parseInt(dateObj.getMonth())+1) + '-' + tryGetDateWithPaddedZero(dateObj.getDate());
+    return dateObj.getFullYear() + '-' + tryGetMonthNumWithPaddedZero(parseInt(dateObj.getMonth()) + 1) + '-' + tryGetDateWithPaddedZero(dateObj.getDate());
+};
+
+
+
+export const isDateFrameWithinPeriod = (data) => {
+
+    const periodStartDateTimestamp = Date.parse(data.periodStartDate + ' 00:00:01');
+    const periodEndDateTimestamp = Date.parse(data.periodStartDate + ' 23:59:59') + ((data.period - 1) * MILLI_SEC_IN_DAY);
+
+    const startDateTimestamp = Date.parse(data.startDate + ' 00:00:01');
+    const endDateTimestamp = Date.parse(data.endDate + ' 23:59:59');
+
+    if ((startDateTimestamp >= periodStartDateTimestamp) && (startDateTimestamp <= periodEndDateTimestamp)
+        && (endDateTimestamp >= periodStartDateTimestamp) && (endDateTimestamp <= periodEndDateTimestamp)) {
+        return true;
+    }
+
+    return false;
 };
 
 
@@ -70,9 +88,9 @@ export const addCommasToAmount = (amount) => {
     let wholeValueWithComma = '';
 
     let numOfLoops = 0;
-    
+
     for (let i = wholeValueLength; i > 0; i--) {
-        const digit = rWholeValue[i-1];
+        const digit = rWholeValue[i - 1];
 
         if ((numOfLoops != 0) && (numOfLoops % 3 == 0)) {
             wholeValueWithComma = digit + ',' + wholeValueWithComma;
