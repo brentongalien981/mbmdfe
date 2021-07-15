@@ -3,6 +3,7 @@ import { Line } from "react-chartjs-2";
 import { connect } from "react-redux";
 
 import { Badge, Card, CardBody, CardHeader, CardTitle } from "reactstrap";
+import { addCommasToAmount, roundUpToBaseFiveOrTen } from "../../bmd/helpers/HelperFuncsA";
 import Bs from "../../bs/core/Bs";
 
 const FinanceGraph = (props) => {
@@ -15,14 +16,16 @@ const FinanceGraph = (props) => {
 
     for (const revenueThisPeriod of props.financeGraphData.revenuesByPeriod) {
         graphLabels.push(revenueThisPeriod.startDate);
-        graphData.push(revenueThisPeriod.revenue);
+
+        graphData.push(revenueThisPeriod.revenue.toFixed(2));
 
         if (revenueThisPeriod.revenue > maxRevenue) {
             maxRevenue = revenueThisPeriod.revenue;
         }
     }
 
-    const yAxisInterval = parseInt(maxRevenue / 10);
+    let yAxisInterval = parseInt(maxRevenue / 10);
+    yAxisInterval = roundUpToBaseFiveOrTen(yAxisInterval);
 
     
 
@@ -30,7 +33,7 @@ const FinanceGraph = (props) => {
         labels: graphLabels,
         datasets: [
             {
-                label: "Sales ($)",
+                label: "Revenue ($)",
                 fill: true,
                 backgroundColor: "transparent",
                 borderColor: theme.primary,
@@ -80,6 +83,7 @@ const FinanceGraph = (props) => {
         }
     };
 
+
     return (
         <Card className="flex-fill w-100">
             <CardHeader>
@@ -95,7 +99,5 @@ const FinanceGraph = (props) => {
     );
 };
 
-// export default connect(store => ({
-//     theme: store.theme.currentTheme
-// }))(FinanceGraph);
+
 export default FinanceGraph;
