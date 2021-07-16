@@ -10,6 +10,7 @@ import FinanceStats from './FinanceStats';
 import * as eventFuncs from './helpers/EventFuncsA';
 import * as helperFuncs from './helpers/HelperFuncsA';
 import OrderStats from './OrderStats';
+import ProfitBarChart from './ProfitBarChart';
 import SectionHeader from './SectionHeader';
 import StatsDatePickerModal from './StatsDatePickerModal';
 
@@ -73,10 +74,17 @@ class DailySummary extends React.Component {
 
 
         let financeGraphSection = (
-            <FinanceGraph
-                financeGraphData={this.props.financeGraphData}
-                theme={this.props.currentTheme}
-            />
+            <Row>
+                <Col lg="8" className="d-flex">
+                    <FinanceGraph
+                        financeGraphData={this.props.financeGraphData}
+                        theme={this.props.currentTheme}
+                    />
+                </Col>
+                <Col lg="4" className="d-flex">
+                    <ProfitBarChart theme={this.props.currentTheme} financeGraphData={this.props.financeGraphData} />
+                </Col>
+            </Row>
         );
 
         if (this.state.isReadingFinanceGraphData) { financeGraphSection = <Spinner />; }
@@ -106,11 +114,7 @@ class DailySummary extends React.Component {
                 <br /><br /><br />
 
                 <FinanceGraphSectionHeader />
-                <Row>
-                    <Col /*lg="8"*/ className="d-flex">
-                        {financeGraphSection}
-                    </Col>
-                </Row>
+                {financeGraphSection}
 
             </Container>
         );

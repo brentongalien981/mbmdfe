@@ -6,118 +6,38 @@ import { Badge, Card, CardBody, CardHeader, CardTitle } from "reactstrap";
 import { MILLI_SEC_IN_DAY } from "../../bmd/constants/consts";
 import { addCommasToAmount, convertDateToStr, isDateFrameWithinPeriod, roundUpToBaseFiveOrTen } from "../../bmd/helpers/HelperFuncsA";
 import Bs from "../../bs/core/Bs";
+import { extractFinanceGraphData } from "./helpers/HelperFuncsB";
 
 const FinanceGraph = (props) => {
 
     const theme = props.theme;
 
-    let graphLabels = [];
-    let revenuesGraphData = [];
-    let expensesGraphData = [];
-    let maxRevenue = 0.0;
-    let maxExpense = 0.0;
-
-    const period = props.financeGraphData.period;
-    const numOfPeriods = props.financeGraphData.numOfPeriods;
-    const revenuesByPeriod = props.financeGraphData.revenuesByPeriod;
-    const expensesByPeriod = props.financeGraphData.expensesByPeriod;
-    const dateSpanStartDate = props.financeGraphData.dateSpanStartDate + ' 00:00:01'; // To use ET not UTC.
-    const dateSpanEndDate = props.financeGraphData.dateSpanEndDate;
-
-    let indexOfCurrentlyExtractedRevenue = 0;
-    let indexOfCurrentlyExtractedExpense = 0;
+    const extractedRevenuesGraphData = extractFinanceGraphData(props.financeGraphData, 'revenue');
+    const extractedExpensesGraphData = extractFinanceGraphData(props.financeGraphData, 'expenses');
 
 
-    for (let i = 0; i < numOfPeriods; i++) {
-
-        const periodStartDate = convertDateToStr(new Date(Date.parse(dateSpanStartDate) + (i * period * MILLI_SEC_IN_DAY)));
-        graphLabels.push(periodStartDate);
-
-
-        /* revenue-graph-data */
-        const revenueThisPeriod = revenuesByPeriod[indexOfCurrentlyExtractedRevenue];
-
-        if (revenueThisPeriod) {
-
-            const datesToCheck = {
-                periodStartDate: periodStartDate,
-                period: period,
-                startDate: revenueThisPeriod.startDate,
-                endDate: revenueThisPeriod.endDate
-            };
-
-            if (isDateFrameWithinPeriod(datesToCheck)) {
-                revenuesGraphData.push(revenueThisPeriod.revenue.toFixed(2));
-                ++indexOfCurrentlyExtractedRevenue;
-            } else {
-                revenuesGraphData.push('0.00');
-            }
-
-
-            if (revenueThisPeriod.revenue > maxRevenue) {
-                maxRevenue = revenueThisPeriod.revenue;
-            }
-        }
-        else {
-            revenuesGraphData.push('0.00');
-        }
-
-
-
-        /* expenses-graph-data */
-        const expenseThisPeriod = expensesByPeriod[indexOfCurrentlyExtractedExpense];
-
-        if (expenseThisPeriod) {
-
-            const datesToCheckForExpenses = {
-                periodStartDate: periodStartDate,
-                period: period,
-                startDate: expenseThisPeriod.startDate,
-                endDate: expenseThisPeriod.endDate
-            };
-
-            if (isDateFrameWithinPeriod(datesToCheckForExpenses)) {
-                expensesGraphData.push(expenseThisPeriod.expenses.toFixed(2));
-                ++indexOfCurrentlyExtractedExpense;
-            } else {
-                expensesGraphData.push('0.00');
-            }
-
-
-            if (expenseThisPeriod.expenses > maxExpense) {
-                maxExpense = expenseThisPeriod.expenses;
-            }
-        }
-        else {
-            expensesGraphData.push('0.00');
-        }
-
-    }
-
-
-
-    const maxYVal = (maxRevenue > maxExpense ? maxRevenue : maxExpense);
+    const maxYVal = (extractedRevenuesGraphData.financeStatMaxVal > extractedExpensesGraphData.financeStatMaxVal ? extractedRevenuesGraphData.financeStatMaxVal : extractedExpensesGraphData.financeStatMaxVal);
     let yAxisInterval = parseInt(maxYVal / 10);
     yAxisInterval = roundUpToBaseFiveOrTen(yAxisInterval);
 
 
 
     const data = {
-        labels: graphLabels,
+        labels: extractedRevenuesGraphData.labels,
         datasets: [
             {
                 label: "Revenue ($)",
                 fill: true,
                 backgroundColor: "transparent",
                 borderColor: theme.primary,
-                data: revenuesGraphData
+                data: extractedRevenuesGraphData.data
             },
             {
                 label: "Expenses ($)",
                 fill: true,
                 backgroundColor: "transparent",
                 borderColor: theme.danger,
-                data: expensesGraphData
+                data: extractedExpensesGraphData.data
             }
         ]
     };
@@ -168,7 +88,7 @@ const FinanceGraph = (props) => {
         <Card className="flex-fill w-100">
             <CardHeader>
                 <Badge color="primary" className="float-right">Daily</Badge>
-                <CardTitle tag="h5" className="mb-0">Revenue</CardTitle>
+                <CardTitle tag="h5" className="mb-0">{'Revenue & Expenses'}</CardTitle>
             </CardHeader>
             <CardBody>
                 <div className="chart chart-lg">

@@ -34,13 +34,13 @@ export const convertDateToStr = (dateObj) => {
 export const isDateFrameWithinPeriod = (data) => {
 
     const periodStartDateTimestamp = Date.parse(data.periodStartDate + ' 00:00:01');
-    const periodEndDateTimestamp = Date.parse(data.periodStartDate + ' 23:59:59') + ((data.period - 1) * MILLI_SEC_IN_DAY);
+    const periodEndDateTimestamp = Date.parse(data.periodStartDate + ' 23:59:59') + ((data.periodNumDays - 1) * MILLI_SEC_IN_DAY);
 
-    const startDateTimestamp = Date.parse(data.startDate + ' 00:00:01');
-    const endDateTimestamp = Date.parse(data.endDate + ' 23:59:59');
+    const dateFrameStartDateTimestamp = Date.parse(data.dateFrameStartDate + ' 00:00:01');
+    const dateFrameEndDateTimestamp = Date.parse(data.dateFrameEndDate + ' 23:59:59');
 
-    if ((startDateTimestamp >= periodStartDateTimestamp) && (startDateTimestamp <= periodEndDateTimestamp)
-        && (endDateTimestamp >= periodStartDateTimestamp) && (endDateTimestamp <= periodEndDateTimestamp)) {
+    if ((dateFrameStartDateTimestamp >= periodStartDateTimestamp) && (dateFrameStartDateTimestamp <= periodEndDateTimestamp)
+        && (dateFrameEndDateTimestamp >= periodStartDateTimestamp) && (dateFrameEndDateTimestamp <= periodEndDateTimestamp)) {
         return true;
     }
 
