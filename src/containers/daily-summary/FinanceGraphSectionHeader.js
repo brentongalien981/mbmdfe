@@ -12,7 +12,7 @@ import {
 
 import { Calendar, Filter, RefreshCw } from "react-feather";
 
-const FinanceGraphSectionHeader = () => {
+const FinanceGraphSectionHeader = (props) => {
     return (
         <Row className="mb-2 mb-xl-4">
             <Col xs="auto" className="d-none d-sm-block">
@@ -21,20 +21,7 @@ const FinanceGraphSectionHeader = () => {
 
             <Col xs="auto" className="ml-auto text-right mt-n1">
 
-                <UncontrolledDropdown className="d-inline mr-2">
-
-                    <DropdownToggle caret color="light" className="bg-white shadow-sm">
-                        <Calendar className="feather align-middle mt-n1" /> Today
-                    </DropdownToggle>
-
-                    <DropdownMenu right>
-                        <DropdownItem>Action</DropdownItem>
-                    </DropdownMenu>
-
-                </UncontrolledDropdown>
-
-
-                <Button color="primary" className="shadow-sm mr-1">
+                <Button color="primary" className="shadow-sm mr-1" onClick={props.onGraphFilterModalShow}>
                     <Filter className="feather" />
                 </Button>
 

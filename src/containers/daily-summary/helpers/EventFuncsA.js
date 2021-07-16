@@ -6,10 +6,18 @@ export const onStatsDatePickerClose = (container) => {
     container.setState({ isStatsDatePickerOpen: false });
 };
 
+export const onGraphFiltersModalClose = (container) => {
+    container.setState({ isGraphFiltersModalOpen: false });
+};
+
 
 
 export const onStatsDatePickerShow = (container) => {
     container.setState({ isStatsDatePickerOpen: true });
+};
+
+export const onGraphFilterModalShow = (container) => {
+    container.setState({ isGraphFiltersModalOpen: true });
 };
 
 
@@ -42,8 +50,19 @@ export const onStatsDatePickerApply = (container) => {
 
 
 
+export const onGraphFiltersModalApply = (container) => {
+
+    Bs.log('TODO: onGraphFiltersModalApply()');
+};
+
+
+
 export const onStatsDatePickerToggle = (container) => {
     container.setState({ isStatsDatePickerOpen: !container.state.isStatsDatePickerOpen });
+};
+
+export const onGraphFiltersModalToggle = (container) => {
+    container.setState({ isGraphFiltersModalOpen: !container.state.isGraphFiltersModalOpen });
 };
 
 
@@ -62,6 +81,28 @@ export const onStatsDateChange = (container, dateType, moment) => {
 
         container.setState({
             statsDatePickerEndDate: selectedDateObj
+        });
+
+    }
+
+};
+
+
+
+export const onGraphFilterDateChange = (container, dateType, moment) => {
+
+    const selectedDateObj = moment._d;
+
+    if (dateType == 'startDate') {
+
+        container.setState({
+            graphDatePickerStartDate: selectedDateObj
+        });
+
+    } else {
+
+        container.setState({
+            graphDatePickerEndDate: selectedDateObj
         });
 
     }

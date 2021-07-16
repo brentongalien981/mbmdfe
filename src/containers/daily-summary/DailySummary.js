@@ -7,6 +7,7 @@ import * as actions from '../../redux/actions/dailySummary';
 import FinanceGraph from './FinanceGraph';
 import FinanceGraphSectionHeader from './FinanceGraphSectionHeader';
 import FinanceStats from './FinanceStats';
+import GraphFiltersModal from './GraphFiltersModal';
 import * as eventFuncs from './helpers/EventFuncsA';
 import * as helperFuncs from './helpers/HelperFuncsA';
 import OrderStats from './OrderStats';
@@ -25,6 +26,7 @@ class DailySummary extends React.Component {
         isReadingDailySummaryData: false,
         isReadingFinanceGraphData: false,
         isStatsDatePickerOpen: false,
+        isGraphFiltersModalOpen: false,
         statsDatePickerStartDate: helperFuncs.getInitialDate(),
         statsDatePickerEndDate: helperFuncs.getInitialDate(),
         statsHeaderBtnStartDate: helperFuncs.getInitialDate(),
@@ -113,8 +115,21 @@ class DailySummary extends React.Component {
 
                 <br /><br /><br />
 
-                <FinanceGraphSectionHeader />
+                <FinanceGraphSectionHeader
+                    onGraphFilterModalShow={() => { eventFuncs.onGraphFilterModalShow(this) }}
+                />
+
                 {financeGraphSection}
+
+                <GraphFiltersModal
+                    startDate={this.state.graphDatePickerStartDate}
+                    endDate={this.state.graphDatePickerEndDate}
+                    isOpen={this.state.isGraphFiltersModalOpen}
+                    onToggle={() => { eventFuncs.onGraphFiltersModalToggle(this) }}
+                    onClose={() => { eventFuncs.onGraphFiltersModalClose(this) }}
+                    onApply={() => { eventFuncs.onGraphFiltersModalApply(this) }}
+                    onDateChange={(dateType, moment) => { eventFuncs.onGraphFilterDateChange(this, dateType, moment) }}
+                />
 
             </Container>
         );

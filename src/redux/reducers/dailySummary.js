@@ -55,8 +55,13 @@ const onReadDailySummaryDataReturn = (state, action) => {
 
     action.callBackData.doCallBackFunc();
 
-    // BMD-TODO: Finance Graph Data
-    const financeGraphData = isResultOk ? action.callBackData.objs.financeGraphData : { ...DEFAULT_FINANCE_GRAPH_DATA };
+
+    let financeGraphData = state.financeGraphData;
+
+    if (action.callBackData.params.shouldIncludeFinanceGraphData && action.callBackData.objs?.financeGraphData) {
+        financeGraphData = action.callBackData.objs.financeGraphData;
+    }
+
 
     return {
         ...state,

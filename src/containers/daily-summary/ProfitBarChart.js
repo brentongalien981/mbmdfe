@@ -33,8 +33,6 @@ const ProfitBarChart = (props) => {
         const ithProfit = parseFloat(ithRevenue) - parseFloat(ithExpense);
 
         profitData.push(ithProfit.toFixed(2));
-        
-        Bs.log(ithProfit);
 
         if (ithProfit > financeStatMaxVal) {
             financeStatMaxVal = ithProfit;
