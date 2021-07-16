@@ -71,6 +71,7 @@ export const readDailySummaryData = (container, isInitRead = false) => {
         extraStateParams = { isReadingFinanceGraphData: true };
         extraRequestParams = {
             shouldIncludeFinanceGraphData: true,
+            graphFilterSelectedPeriod: container.state.graphFilterSelectedPeriod,
             graphStartDate: convertDateToStr(container.state.graphDatePickerStartDate),
             graphEndDate: convertDateToStr(container.state.graphDatePickerEndDate),
         };
@@ -99,22 +100,4 @@ export const readDailySummaryData = (container, isInitRead = false) => {
     };
 
     container.props.readDailySummaryData(data);
-};
-
-
-
-export const readFinanceGraphData = (container) => {
-    if (container.state.isReadingFinanceGraphData) { return; }
-
-    container.setState({ isReadingFinanceGraphData: true });
-
-    const data = {
-        params: {
-            graphStartDate: convertDateToStr(container.state.graphDatePickerStartDate),
-            graphEndDate: convertDateToStr(container.state.graphDatePickerEndDate)
-        },
-        doCallBackFunc: () => { container.setState({ isReadingFinanceGraphData: false }); }
-    };
-
-    container.props.readFinanceGraphData(data);
 };

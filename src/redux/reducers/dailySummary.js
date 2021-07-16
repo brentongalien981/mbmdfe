@@ -5,7 +5,7 @@ import * as actions from "../actions/dailySummary";
 const DEFAULT_FINANCE_GRAPH_DATA = {
     revenuesByPeriod: [],
     expensesByPeriod: [],
-    period: 1, // daily (aka number of days)
+    periodNumDays: 1,
     numOfPeriods: 0,
     dateSpanStartDate: '',
     dateSpanEndDate: ''

@@ -7,7 +7,7 @@ export const extractFinanceGraphData = (rawData, financeStatType) => {
     let financeGraphData = [];
     let financeStatMaxVal = 0.0;
 
-    const periodNumDays = rawData.period;
+    const periodNumDays = rawData.periodNumDays;
     const numOfPeriods = rawData.numOfPeriods;
     const allFinanceDataByPeriod = (financeStatType == 'revenue' ? rawData.revenuesByPeriod : rawData.expensesByPeriod);
     const dateSpanStartDate = rawData.dateSpanStartDate + ' 00:00:01'; // To use EST or EDT not UTC.

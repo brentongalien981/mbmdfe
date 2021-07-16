@@ -10,7 +10,7 @@ import {
 import DateTime from "react-datetime";
 
 const BmdCalendar = (props) => (
-    <Card className="flex-fill w-100 m-3">
+    <Card className="flex-fill w-100">
         <CardHeader>
             <CardTitle tag="h5" className="mb-0">
                 {props.title}

@@ -22,11 +22,11 @@ const ProfitBarChart = (props) => {
 
     let profitLabels = extractedRevenuesGraphData.labels;
     let profitData = [];
-    const periodNumDays = props.financeGraphData.numOfPeriods;
+    const numOfPeriods = props.financeGraphData.numOfPeriods;
     let financeStatMaxVal = 0.0;
 
 
-    for (let i = 0; i < periodNumDays; i++) {
+    for (let i = 0; i < numOfPeriods; i++) {
         
         const ithRevenue = extractedRevenuesGraphData.data[i];
         const ithExpense = extractedExpensesGraphData.data[i];

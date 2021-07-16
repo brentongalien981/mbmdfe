@@ -29,7 +29,7 @@ export const onStatsDatePickerApply = (container) => {
         return;
     }
 
-    
+
     const startDateInStr = convertDateToStr(container.state.statsDatePickerStartDate);
     const endDateInStr = convertDateToStr(container.state.statsDatePickerEndDate);
     if (startDateInStr > endDateInStr) {
@@ -52,7 +52,36 @@ export const onStatsDatePickerApply = (container) => {
 
 export const onGraphFiltersModalApply = (container) => {
 
-    Bs.log('TODO: onGraphFiltersModalApply()');
+    if (container.state.isReadingFinanceGraphData) {
+        showToastr({ notificationType: 'info', message: 'Please wait. Previous read is still going.' });
+        return;
+    }
+
+
+    const graphStartDate = convertDateToStr(container.state.graphDatePickerStartDate);
+    const graphEndDate = convertDateToStr(container.state.graphDatePickerEndDate);
+
+    if (graphStartDate > graphEndDate) {
+        showToastr({ notificationType: 'info', message: 'Start-date can not be greater than end-date.' });
+        return;
+    }
+
+
+    container.setState({ 
+        isReadingFinanceGraphData: true
+    });
+
+
+    const data = {
+        params: {
+            graphFilterSelectedPeriod: container.state.graphFilterSelectedPeriod,
+            graphStartDate: graphStartDate,
+            graphEndDate: graphEndDate
+        },
+        doCallBackFunc: () => { container.setState({ isReadingFinanceGraphData: false }); }
+    };
+
+    container.props.readFinanceGraphData(data);
 };
 
 
@@ -118,7 +147,7 @@ export const onStatsReset = (container) => {
         return;
     }
 
-    
+
     const initialDate = getInitialDate();
 
     container.setState({
@@ -139,4 +168,14 @@ export const onStatsReset = (container) => {
     };
 
     container.props.readDailySummaryData(data);
+};
+
+
+
+export const onGraphFiltersModalSelectedPeriodChange = (e, container) => {
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    container.setState({ [name]: value });
 };

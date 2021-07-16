@@ -32,7 +32,8 @@ class DailySummary extends React.Component {
         statsHeaderBtnStartDate: helperFuncs.getInitialDate(),
         statsHeaderBtnEndDate: helperFuncs.getInitialDate(),
         graphDatePickerStartDate: helperFuncs.getInitialDate(-31),
-        graphDatePickerEndDate: helperFuncs.getInitialDate(-1)
+        graphDatePickerEndDate: helperFuncs.getInitialDate(-1),
+        graphFilterSelectedPeriod: 'daily'
     };
 
 
@@ -129,6 +130,8 @@ class DailySummary extends React.Component {
                     onClose={() => { eventFuncs.onGraphFiltersModalClose(this) }}
                     onApply={() => { eventFuncs.onGraphFiltersModalApply(this) }}
                     onDateChange={(dateType, moment) => { eventFuncs.onGraphFilterDateChange(this, dateType, moment) }}
+                    graphFilterSelectedPeriod={this.state.graphFilterSelectedPeriod}
+                    onSelectedPeriodChange={(e) => { eventFuncs.onGraphFiltersModalSelectedPeriodChange(e, this) }}
                 />
 
             </Container>
