@@ -117,6 +117,7 @@ class DailySummary extends React.Component {
                 <br /><br /><br />
 
                 <FinanceGraphSectionHeader
+                    financeGraphData={this.props.financeGraphData}
                     onGraphFilterModalShow={() => { eventFuncs.onGraphFilterModalShow(this) }}
                 />
 

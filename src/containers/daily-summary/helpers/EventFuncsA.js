@@ -68,15 +68,18 @@ export const onGraphFiltersModalApply = (container) => {
 
 
     container.setState({ 
-        isReadingFinanceGraphData: true
+        isReadingFinanceGraphData: true,
+        isGraphFiltersModalOpen: false
     });
 
 
     const data = {
         params: {
-            graphFilterSelectedPeriod: container.state.graphFilterSelectedPeriod,
             graphStartDate: graphStartDate,
             graphEndDate: graphEndDate
+        },
+        localParams: {
+            graphFilterSelectedPeriod: container.state.graphFilterSelectedPeriod,
         },
         doCallBackFunc: () => { container.setState({ isReadingFinanceGraphData: false }); }
     };

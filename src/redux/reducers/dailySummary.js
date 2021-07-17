@@ -87,15 +87,19 @@ const onReadDailySummaryDataReturn = (state, action) => {
 const onReadFinanceGraphDataReturn = (state, action) => {
 
     const isResultOk = action.callBackData.isResultOk;
+    let financeGraphData = state.financeGraphData;
 
-    if (!isResultOk) {
+    if (isResultOk) {
+        financeGraphData = prepareFinanceGraphData(action.callBackData);
+    } else {
         BsCore2.alertForCallBackDataErrors(action.callBackData);
     }
 
     action.callBackData.doCallBackFunc();
 
     return {
-        ...state
+        ...state,
+        financeGraphData: financeGraphData
     };
 };
 

@@ -1,5 +1,5 @@
 import { MILLI_SEC_IN_DAY } from "../../../bmd/constants/consts";
-import { convertDateToStr, isDateFrameWithinPeriod, isDateWithinPeriod, roundUpToBaseFiveOrTen } from "../../../bmd/helpers/HelperFuncsA";
+import { convertDateToStr, getDateLabelForGraph, getUnixTimestampForPossibleDST, isDateFrameWithinPeriod, isDateWithinPeriod, roundUpToBaseFiveOrTen } from "../../../bmd/helpers/HelperFuncsA";
 
 
 
@@ -40,25 +40,26 @@ export const extractFinanceGraphData = (rawData, financeStatType) => {
 
     const dateSpanStartDate = rawData.dateSpanStartDate;
     const dateSpanEndDate = rawData.dateSpanEndDate;
+    const dateSpanStartInMilliSec = Date.parse(dateSpanStartDate + ' 00:00:00');
     const periodNumDays = getPeriodNumDays(rawData.graphFilterSelectedPeriod);
     const numOfPeriods = calculateNumOfPeriods(dateSpanStartDate, dateSpanEndDate, periodNumDays);
     const allFinanceDataByPeriod = (financeStatType == 'revenue' ? rawData.revenuesByPeriod : rawData.expensesByPeriod);
 
-
-    let indexOfCurrentlyExtractedFinanceStat = 0;
     let iOfCurrentFinanceRecord = 0;
-
-    let haveAllFinancesBeenAccounted = false;
-    let currentPeriodNum = 0;
-
-    const dateSpanStartInMilliSec = Date.parse(dateSpanStartDate + ' 00:00:01');
 
     // Loop entire date-span.
     for (let i = 0; i < numOfPeriods; i++) {
 
         const periodStartInMilliSec = dateSpanStartInMilliSec + (i * periodNumDays * MILLI_SEC_IN_DAY);
+
+        let periodEndInMilliSec = dateSpanStartInMilliSec + ((i+1) * periodNumDays * MILLI_SEC_IN_DAY) - 1000;
+        periodEndInMilliSec = getUnixTimestampForPossibleDST(periodEndInMilliSec);
+
         const periodStartDate = convertDateToStr(new Date(periodStartInMilliSec));
-        graphLabels.push(periodStartDate);
+        // const periodEndDate = convertDateToStr(new Date(periodEndInMilliSec));
+
+        const graphLabel = getDateLabelForGraph(new Date(periodStartInMilliSec)) + '-' + getDateLabelForGraph(new Date(periodEndInMilliSec));
+        graphLabels.push(graphLabel);
 
 
         let periodTotalFinancialVal = 0.0;
@@ -86,9 +87,8 @@ export const extractFinanceGraphData = (rawData, financeStatType) => {
         }
 
 
-        financeGraphData.push(periodTotalFinancialVal);
-
         if (periodTotalFinancialVal > financeStatMaxVal) { financeStatMaxVal = periodTotalFinancialVal; }
+        financeGraphData.push(periodTotalFinancialVal.toFixed(2));
     }
 
 
