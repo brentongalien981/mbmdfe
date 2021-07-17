@@ -49,6 +49,22 @@ export const isDateFrameWithinPeriod = (data) => {
 
 
 
+export const isDateWithinPeriod = (data) => {
+
+    const periodStartDateTimestamp = Date.parse(data.periodStartDate + ' 00:00:01');
+    const periodEndDateTimestamp = Date.parse(data.periodStartDate + ' 23:59:59') + ((data.periodNumDays - 1) * MILLI_SEC_IN_DAY);
+
+    const dateTimestamp = Date.parse(data.date + ' 00:00:01');
+
+    if ((dateTimestamp >= periodStartDateTimestamp) && (dateTimestamp <= periodEndDateTimestamp)) {
+        return true;
+    }
+
+    return false;
+};
+
+
+
 export const roundUpToBaseFiveOrTen = (val) => {
 
     let returnVal = 0;

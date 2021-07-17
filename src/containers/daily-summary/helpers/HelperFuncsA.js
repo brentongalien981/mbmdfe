@@ -64,14 +64,16 @@ export const readDailySummaryData = (container, isInitRead = false) => {
 
     // For initially reading finance-graph-data.
     let extraStateParams = {};
+    let requestLocalParams = {};
     let extraRequestParams = {};
     let callBackState = { isReadingDailySummaryData: false };
+    
 
     if (isInitRead) {
         extraStateParams = { isReadingFinanceGraphData: true };
+        requestLocalParams = { graphFilterSelectedPeriod: container.state.graphFilterSelectedPeriod };
         extraRequestParams = {
             shouldIncludeFinanceGraphData: true,
-            graphFilterSelectedPeriod: container.state.graphFilterSelectedPeriod,
             graphStartDate: convertDateToStr(container.state.graphDatePickerStartDate),
             graphEndDate: convertDateToStr(container.state.graphDatePickerEndDate),
         };
@@ -94,6 +96,7 @@ export const readDailySummaryData = (container, isInitRead = false) => {
             statsEndDate: convertDateToStr(container.state.statsDatePickerEndDate),
             ...extraRequestParams
         },
+        localParams: requestLocalParams,
         doCallBackFunc: () => {
             container.setState({ ...callBackState });
         }

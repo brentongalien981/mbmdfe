@@ -5,8 +5,7 @@ import * as actions from "../actions/dailySummary";
 const DEFAULT_FINANCE_GRAPH_DATA = {
     revenuesByPeriod: [],
     expensesByPeriod: [],
-    periodNumDays: 1,
-    numOfPeriods: 0,
+    graphFilterSelectedPeriod: 'daily',
     dateSpanStartDate: '',
     dateSpanEndDate: ''
 };
@@ -41,6 +40,15 @@ const dailySummary = (state = initialState, action) => {
 
 
 /** HELPER FUNCS */
+const prepareFinanceGraphData = (callBackData) => {
+    return {
+        revenuesByPeriod: callBackData.objs.financeGraphData.revenuesByPeriod,
+        expensesByPeriod: callBackData.objs.financeGraphData.expensesByPeriod,
+        graphFilterSelectedPeriod: callBackData.localParams.graphFilterSelectedPeriod,
+        dateSpanStartDate: callBackData.params.graphStartDate,
+        dateSpanEndDate: callBackData.params.graphEndDate
+    };
+};
 
 
 
@@ -59,7 +67,7 @@ const onReadDailySummaryDataReturn = (state, action) => {
     let financeGraphData = state.financeGraphData;
 
     if (action.callBackData.params.shouldIncludeFinanceGraphData && action.callBackData.objs?.financeGraphData) {
-        financeGraphData = action.callBackData.objs.financeGraphData;
+        financeGraphData = prepareFinanceGraphData(action.callBackData);
     }
 
 

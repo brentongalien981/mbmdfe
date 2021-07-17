@@ -22,7 +22,7 @@ const ProfitBarChart = (props) => {
 
     let profitLabels = extractedRevenuesGraphData.labels;
     let profitData = [];
-    const numOfPeriods = props.financeGraphData.numOfPeriods;
+    const numOfPeriods = extractedRevenuesGraphData.data.length;
     let financeStatMaxVal = 0.0;
 
 
