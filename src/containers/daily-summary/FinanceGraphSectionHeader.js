@@ -28,7 +28,7 @@ const FinanceGraphSectionHeader = (props) => {
                     <Filter className="feather" />
                 </Button>
 
-                <Button color="primary" className="shadow-sm">
+                <Button color="primary" className="shadow-sm" onClick={props.onGraphFilterReset}>
                     <RefreshCw className="feather" />
                 </Button>
             </Col>

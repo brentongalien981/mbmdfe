@@ -6,8 +6,8 @@ import { MILLI_SEC_IN_DAY } from "../constants/consts";
  */
 export const getInitialDate = (numDaysToAddOrSubtract = 1) => {
 
-    const numOfSecToAddOrSubtract = numDaysToAddOrSubtract * MILLI_SEC_IN_DAY;
-    return new Date(Date.now() + numOfSecToAddOrSubtract);
+    const numOfMilliSecToAddOrSubtract = numDaysToAddOrSubtract * MILLI_SEC_IN_DAY;
+    return new Date(Date.now() + numOfMilliSecToAddOrSubtract);
 };
 
 

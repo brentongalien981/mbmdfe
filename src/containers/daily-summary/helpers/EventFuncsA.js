@@ -67,7 +67,7 @@ export const onGraphFiltersModalApply = (container) => {
     }
 
 
-    container.setState({ 
+    container.setState({
         isReadingFinanceGraphData: true,
         isGraphFiltersModalOpen: false
     });
@@ -171,6 +171,48 @@ export const onStatsReset = (container) => {
     };
 
     container.props.readDailySummaryData(data);
+};
+
+
+
+export const onGraphFilterReset = (container) => {
+
+    if (container.state.isReadingFinanceGraphData) {
+        showToastr({ notificationType: 'info', message: 'Please wait. Previous read is still going.' });
+        return;
+    }
+
+
+    const graphStartDate = getInitialDate(-31);
+    const graphEndDate = getInitialDate(-1);
+    const period = 'daily';
+
+    if (graphStartDate > graphEndDate) {
+        showToastr({ notificationType: 'info', message: 'Start-date can not be greater than end-date.' });
+        return;
+    }
+
+
+    container.setState({
+        isReadingFinanceGraphData: true,
+        graphFilterSelectedPeriod: period,
+        graphDatePickerStartDate: graphStartDate,
+        graphDatePickerEndDate: graphEndDate
+    });
+
+
+    const data = {
+        params: {
+            graphStartDate: convertDateToStr(graphStartDate),
+            graphEndDate: convertDateToStr(graphEndDate)
+        },
+        localParams: {
+            graphFilterSelectedPeriod: period
+        },
+        doCallBackFunc: () => { container.setState({ isReadingFinanceGraphData: false }); }
+    };
+
+    container.props.readFinanceGraphData(data);
 };
 
 

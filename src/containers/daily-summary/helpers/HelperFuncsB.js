@@ -1,5 +1,5 @@
-import { MILLI_SEC_IN_DAY } from "../../../bmd/constants/consts";
-import { convertDateToStr, getDateLabelForGraph, getUnixTimestampForPossibleDST, isDateFrameWithinPeriod, isDateWithinPeriod, roundUpToBaseFiveOrTen } from "../../../bmd/helpers/HelperFuncsA";
+import { MILLISEC_IN_SEC, MILLI_SEC_IN_DAY } from "../../../bmd/constants/consts";
+import { convertDateToStr, getAdjustedUnixTimestampForPossibleDST, getDateLabelForGraph, getUnixTimestampForPossibleDST, isDateFrameWithinPeriod, isDateTimestampWithPeriodTimestamp, isDateWithinPeriod, roundUpToBaseFiveOrTen } from "../../../bmd/helpers/HelperFuncsA";
 
 
 
@@ -46,19 +46,25 @@ export const extractFinanceGraphData = (rawData, financeStatType) => {
     const allFinanceDataByPeriod = (financeStatType == 'revenue' ? rawData.revenuesByPeriod : rawData.expensesByPeriod);
 
     let iOfCurrentFinanceRecord = 0;
+    let previousPeriodStartTimestamp = null;
+    let previousPeriodEndTimestamp = null;
 
     // Loop entire date-span.
     for (let i = 0; i < numOfPeriods; i++) {
 
         const periodStartInMilliSec = dateSpanStartInMilliSec + (i * periodNumDays * MILLI_SEC_IN_DAY);
+        const periodEndInMilliSec = periodStartInMilliSec + (periodNumDays * MILLI_SEC_IN_DAY) - MILLISEC_IN_SEC;
 
-        let periodEndInMilliSec = dateSpanStartInMilliSec + ((i+1) * periodNumDays * MILLI_SEC_IN_DAY) - 1000;
-        periodEndInMilliSec = getUnixTimestampForPossibleDST(periodEndInMilliSec);
+        // BMD-TODO
+        const paramsForDateLabels = {
+            previousPeriodStartTimestamp: previousPeriodStartTimestamp,
+            previousPeriodEndTimestamp: previousPeriodEndTimestamp,
+            currentPeriodStartTimestamp: periodStartInMilliSec,
+            currentPeriodEndTimestamp: periodEndInMilliSec,
+            period: rawData.graphFilterSelectedPeriod
+        };
+        const graphLabel = getDateLabelForGraph(paramsForDateLabels);
 
-        const periodStartDate = convertDateToStr(new Date(periodStartInMilliSec));
-        // const periodEndDate = convertDateToStr(new Date(periodEndInMilliSec));
-
-        const graphLabel = getDateLabelForGraph(new Date(periodStartInMilliSec)) + '-' + getDateLabelForGraph(new Date(periodEndInMilliSec));
         graphLabels.push(graphLabel);
 
 
@@ -71,14 +77,10 @@ export const extractFinanceGraphData = (rawData, financeStatType) => {
 
             if (!aFinanceRecord) { break; }
 
+            const theRecordTimestamp = Date.parse(aFinanceRecord.createdAt);
 
-            const dateCheckParams = {
-                periodStartDate: periodStartDate,
-                periodNumDays: periodNumDays,
-                date: convertDateToStr(new Date(aFinanceRecord.createdAt)),
-            };
-
-            if (isDateWithinPeriod(dateCheckParams)) {
+            // if timestamp is within period
+            if ((theRecordTimestamp >= periodStartInMilliSec) && (theRecordTimestamp <= periodEndInMilliSec)) {
                 periodTotalFinancialVal += extractFinancialValue(aFinanceRecord, financeStatType);
                 ++iOfCurrentFinanceRecord;
             } else {
@@ -89,6 +91,10 @@ export const extractFinanceGraphData = (rawData, financeStatType) => {
 
         if (periodTotalFinancialVal > financeStatMaxVal) { financeStatMaxVal = periodTotalFinancialVal; }
         financeGraphData.push(periodTotalFinancialVal.toFixed(2));
+
+
+        previousPeriodStartTimestamp = periodStartInMilliSec;
+        previousPeriodEndTimestamp = periodEndInMilliSec;
     }
 
 
@@ -112,7 +118,7 @@ export const getPeriodNumDays = (graphFilterSelectedPeriod) => {
         case 'daily': return 1;
         case 'weekly': return 7;
         case 'monthly': return 30;
-        case 'yearly': return 364;
+        case 'yearly': return 365;
         default: return 1;
     }
 };
