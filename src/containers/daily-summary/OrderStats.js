@@ -2,6 +2,7 @@ import React from "react";
 import { Col, Card, CardBody, Media, Row } from "reactstrap";
 
 import { ShoppingCart, Activity, DollarSign, ShoppingBag, List } from "react-feather";
+import { addCommasToAmount } from "../../bmd/helpers/HelperFuncsA";
 
 const OrderStats = (props) => (
     <Row>
@@ -14,7 +15,7 @@ const OrderStats = (props) => (
                             <ShoppingCart className="feather-lg text-success" />
                         </div>
                         <Media body>
-                            <h3 className="mb-2">{props.numOfOrders}</h3>
+                            <h3 className="mb-2">{addCommasToAmount(props.numOfOrders)}</h3>
                             <div className="mb-0">Orders</div>
                         </Media>
                     </Media>
@@ -31,7 +32,7 @@ const OrderStats = (props) => (
                             <List className="feather-lg text-success" />
                         </div>
                         <Media body>
-                            <h3 className="mb-2">{props.numOfOrderItems}</h3>
+                            <h3 className="mb-2">{addCommasToAmount(props.numOfOrderItems)}</h3>
                             <div className="mb-0">Order Items</div>
                         </Media>
                     </Media>
@@ -48,7 +49,7 @@ const OrderStats = (props) => (
                             <ShoppingBag className="feather-lg text-danger" />
                         </div>
                         <Media body>
-                            <h3 className="mb-2">{props.numOfIncompleteOrders}</h3>
+                            <h3 className="mb-2">{addCommasToAmount(props.numOfIncompleteOrders)}</h3>
                             <div className="mb-0">Incomplete Orders</div>
                         </Media>
                     </Media>

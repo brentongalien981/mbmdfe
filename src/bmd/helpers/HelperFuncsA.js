@@ -302,7 +302,7 @@ export const roundUpToBaseFiveOrTen = (val) => {
 
 
 
-export const addCommasToAmount = (amount) => {
+export const addCommasToAmount = (amount, withDecimals = false) => {
 
     let r = amount.toFixed(2);
     let rTokenized = r.split('.');
@@ -328,5 +328,9 @@ export const addCommasToAmount = (amount) => {
     }
 
 
-    return wholeValueWithComma + '.' + rDecimal;
+    if (withDecimals) {
+        return wholeValueWithComma + '.' + rDecimal;
+    }
+
+    return wholeValueWithComma;
 };

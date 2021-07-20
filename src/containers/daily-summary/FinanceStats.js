@@ -2,14 +2,16 @@ import React from "react";
 import { Col, Card, CardBody, Media, Row } from "reactstrap";
 
 import { DollarSign, TrendingUp, TrendingDown } from "react-feather";
+import { addCommasToAmount } from "../../bmd/helpers/HelperFuncsA";
 
 const FinanceStats = (props) => {
 
-    const profit = props.revenue - props.expenses;
-    let profitLabel = '$' + profit.toFixed(2);
+    let profit = props.revenue - props.expenses;
+    let profitLabel = '$' + addCommasToAmount(profit, true);
 
     if (profit < 0) {
-        profitLabel = '-$' + (profit * -1).toFixed(2);
+        profit = -1 * profit;
+        profitLabel = '-$' + addCommasToAmount(profit, true);
     }
 
     return (
@@ -23,7 +25,7 @@ const FinanceStats = (props) => {
                                 <TrendingUp className="feather-lg text-primary" />
                             </div>
                             <Media body>
-                                <h3 className="mb-2">${props.revenue.toFixed(2)}</h3>
+                                <h3 className="mb-2">${addCommasToAmount(props.revenue, true)}</h3>
                                 <div className="mb-0">Revenue</div>
                             </Media>
                         </Media>
@@ -40,7 +42,7 @@ const FinanceStats = (props) => {
                                 <TrendingDown className="feather-lg text-danger" />
                             </div>
                             <Media body>
-                                <h3 className="mb-2">${props.expenses.toFixed(2)}</h3>
+                                <h3 className="mb-2">${addCommasToAmount(props.expenses, true)}</h3>
                                 <div className="mb-0">Expenses</div>
                             </Media>
                         </Media>
