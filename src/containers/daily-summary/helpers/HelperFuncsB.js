@@ -55,7 +55,7 @@ export const extractFinanceGraphData = (rawData, financeStatType) => {
         const periodStartInMilliSec = dateSpanStartInMilliSec + (i * periodNumDays * MILLI_SEC_IN_DAY);
         const periodEndInMilliSec = periodStartInMilliSec + (periodNumDays * MILLI_SEC_IN_DAY) - MILLISEC_IN_SEC;
 
-        // BMD-TODO
+        
         const paramsForDateLabels = {
             previousPeriodStartTimestamp: previousPeriodStartTimestamp,
             previousPeriodEndTimestamp: previousPeriodEndTimestamp,

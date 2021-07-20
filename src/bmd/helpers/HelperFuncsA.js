@@ -133,7 +133,6 @@ export const getDateLabelForGraph = (data) => {
         case 'weekly': return getDateLabelForGraphWithPeriodWeekly(data);
         case 'monthly': return getDateLabelForGraphWithPeriodMonthly(data);
         case 'yearly': return getDateLabelForGraphWithPeriodYearly(data);
-        // BMD-TODO
     }
 };
 

@@ -34,7 +34,7 @@ class AutomatedJobs extends React.Component {
 
         generateOPIsJobParamsModalStartDate: getInitialDate(),
         generateOPIsJobParamsModalEndDate: getInitialDate(),
-        // BMD-TODO: Move this to eventFuncs FILE.
+        // BMD-ON-ITER: On DEV-ITER-002: Move this to eventFuncs FILE.
         generateOPIsJobModalTrendInputValues: {
             maxBaseNumOfDailyOrders: 10,
             trendChangePercentage: 0.01,
@@ -186,7 +186,7 @@ class AutomatedJobs extends React.Component {
                 />
 
 
-                {/* BMD-ISH */}
+                
                 <GenerateOPIsJobParamsModal
                     isOpen={this.state.isGenerateOPIsJobParamsModalOpen}
                     startDate={this.state.generateOPIsJobParamsModalStartDate}
