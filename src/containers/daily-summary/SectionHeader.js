@@ -3,19 +3,15 @@ import React from "react";
 import {
     Button,
     Col,
+    Label,
     Row
 } from "reactstrap";
 
-import { Calendar, RefreshCw } from "react-feather";
-import { getMonthNameByIndex } from "./helpers/HelperFuncsA";
+import {Filter, RefreshCw } from "react-feather";
+import { convertDateToStr } from "./helpers/HelperFuncsA";
+import { getReadableDate } from "../../bmd/helpers/HelperFuncsA";
 
 const SectionHeader = (props) => {
-
-    const startDateInStr = getMonthNameByIndex(props.startDate.getMonth()) + ' ' + props.startDate.getDate() + ', ' + props.startDate.getFullYear();
-    const endDateInStr = getMonthNameByIndex(props.endDate.getMonth()) + ' ' + props.endDate.getDate() + ', ' + props.endDate.getFullYear();
-
-    const startDateLabel = 'Start date ' + startDateInStr;
-    const endDateLabel = 'End date ' + endDateInStr;
 
     return (
         <Row className="mb-2 mb-xl-4">
@@ -24,13 +20,14 @@ const SectionHeader = (props) => {
             </Col>
 
             <Col xs="auto" className="ml-auto text-right mt-n1">
+                
+                <Label className="mr-2" style={{ fontWeight: '900', fontSize: '1.1em' }}>{'Date Span:'}</Label>
+                <Label className="mr-4">{getReadableDate(convertDateToStr(props.startDate)) + ' to ' + getReadableDate(convertDateToStr(props.endDate))}</Label>
+                <Label className="mr-2" style={{ fontWeight: '900', fontSize: '1.1em' }}>{'Period Mode:'}</Label>
+                <Label className="mr-4">{'daily'}</Label>
 
                 <Button color="primary" className="shadow-sm mr-1" onClick={props.onStatsDatePickerShow}>
-                    <Calendar className="feather align-middle mt-n1" /> {startDateLabel}
-                </Button>
-
-                <Button color="primary" className="shadow-sm mr-1" onClick={props.onStatsDatePickerShow}>
-                    <Calendar className="feather align-middle mt-n1" /> {endDateLabel}
+                    <Filter className="feather" />
                 </Button>
 
                 <Button color="primary" className="shadow-sm" onClick={props.onStatsReset}>
