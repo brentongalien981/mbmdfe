@@ -5,13 +5,13 @@ class Bs {
     static appUrl = "";
     static pubPhotoUrl = "https://s3.us-east-2.amazonaws.com/bs.s3.public/photos/";
 
-    // FOR MAC
-    static appBackendUrl = "http://mbmdbe.test:8000";
-    static appApiUrl = "http://mbmdbe.test:8000/api";
+    // // FOR MAC
+    // static appBackendUrl = "http://mbmdbe.test:8000";
+    // static appApiUrl = "http://mbmdbe.test:8000/api";
 
     // FOR WINDOWS
-    // static appBackendUrl = "http://mbmdbe.test";
-    // static appApiUrl = "http://mbmdbe.test/api";
+    static appBackendUrl = "http://mbmdbe.test";
+    static appApiUrl = "http://mbmdbe.test/api";
 
     
 
