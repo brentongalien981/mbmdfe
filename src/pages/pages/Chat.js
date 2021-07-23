@@ -48,6 +48,9 @@ const ChatMessage = ({ position, avatar, name, children, time }) => (
   </div>
 );
 
+
+
+
 const Chat = () => (
   <Container fluid className="p-0">
     <h1 className="h3 mb-3">Messages</h1>
@@ -55,6 +58,7 @@ const Chat = () => (
     <Card>
       <Row noGutters>
         <Col lg={5} xl={3} className="border-right">
+
           <div className="px-4 d-none d-md-block">
             <Media className="align-items-center">
               <Media body>
@@ -62,6 +66,9 @@ const Chat = () => (
               </Media>
             </Media>
           </div>
+
+
+
           <ListGroupItem action tag="a" href="#" className="border-0">
             <Badge color="success" className="float-right">
               5
@@ -215,7 +222,11 @@ const Chat = () => (
 
           <hr className="d-block d-lg-none mt-1 mb-0" />
         </Col>
+
+
+
         <Col lg={7} xl={9}>
+
           <div className="py-2 px-4 border-bottom d-none d-lg-block">
             <Media className="align-items-center py-1">
               <div className="position-relative">
@@ -385,7 +396,11 @@ const Chat = () => (
               </InputGroupAddon>
             </InputGroup>
           </div>
+
         </Col>
+
+
+
       </Row>
     </Card>
   </Container>

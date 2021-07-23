@@ -27,7 +27,8 @@ import {
   Settings,
   User,
   UserPlus,
-  Monitor
+  Monitor,
+  ShoppingBag
 } from "react-feather";
 
 import avatar1 from "../assets/img/avatars/avatar.jpg";
@@ -174,6 +175,14 @@ const NavbarComponent = (props) => {
               <DropdownItem>
                 <Link to='/automated-jobs'>
                   <Monitor size={18} className="align-middle mr-2" />Automated Jobs
+                </Link>
+              </DropdownItem>
+
+
+
+              <DropdownItem>
+                <Link to='/orders'>
+                  <ShoppingBag size={18} className="align-middle mr-2" />Orders
                 </Link>
               </DropdownItem>
 
