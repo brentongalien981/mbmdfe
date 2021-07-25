@@ -2,19 +2,47 @@ import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
+import { connect } from 'react-redux';
 import { Container, Row, Col, ListGroupItem, Media, Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 import avatar1 from "../../assets/img/avatars/avatar.jpg";
+import * as actions from '../../redux/actions/orders';
+import * as helperFuncs from './helpers/HelperFuncsA';
 
 
 
 class Orders extends React.Component {
 
     /** PROPERTIES */
+
+    // $table->string('city', 64);
+    // $table->string('province', 32);
+    // $table->string('country', 32);
+    // $table->string('postal_code', 16);
+    // $table->string('phone', 16);
+    // $table->string('email', 128);
+    // $table->timestamps();
+
+    // $table->decimal('charged_subtotal', 8, 2)->after('email');
+    // $table->decimal('charged_shipping_fee', 8, 2)->after('charged_subtotal');
+    // $table->decimal('charged_tax', 8, 2)->after('charged_shipping_fee');
+
+    // $table->timestamp('earliest_delivery_date')->after('charged_tax');
+    // $table->timestamp('latest_delivery_date')->after('earliest_delivery_date');
+
+    // $table->unsignedTinyInteger('projected_total_delivery_days')->after('latest_delivery_date');
+
+
+
     orderTableColumns = [
-        { dataField: "prop1", text: "Property 1", sort: true },
-        { dataField: "prop2", text: "Property 2", sort: false },
-        { dataField: "prop3", text: "Property 3", sort: false }
+        { dataField: 'id', text: 'ID', sort: true },
+        { dataField: 'user_id', text: 'User ID', sort: false },
+        { dataField: 'cart_id', text: 'Cart ID', sort: false },
+        { dataField: 'stripe_payment_intent_id', text: 'SPI ID', sort: false },
+        { dataField: 'status_code', text: 'Status', sort: false },
+        { dataField: 'first_name', text: 'First Name', sort: false },
+        { dataField: 'last_name', text: 'Last Name', sort: false },
+        { dataField: 'street', text: 'Street', sort: false },
     ];
 
 
@@ -102,19 +130,19 @@ class Orders extends React.Component {
 
     getOrdersTable = () => {
 
-        let data = [];
+        // let data = [];
 
-        for (let i = 0; i < 20; i++) {
-            data.push({ prop1: `val-${i}a`, prop2: `val-${i}b`, prop3: `val-${i}c` });
+        // for (let i = 0; i < 20; i++) {
+        //     data.push({ prop1: `val-${i}a`, prop2: `val-${i}b`, prop3: `val-${i}c` });
 
-        }
+        // }
 
         let mainContent = (
             <BootstrapTable
                 bootstrap4
                 bordered={false}
-                keyField="prop1"
-                data={data}
+                keyField="id"
+                data={this.props.orders}
                 columns={this.orderTableColumns}
             // expandRow={rowDetails}
             />
@@ -126,6 +154,12 @@ class Orders extends React.Component {
 
 
     /** MAIN FUNCS */
+    componentDidMount() {
+        helperFuncs.readOrders(this)
+    }
+
+
+
     render() {
         return (
             <Container fluid className="p-0">
@@ -187,7 +221,21 @@ const ChatMessage = ({ position, avatar, name, children, time }) => (
 
 
 /** REACT-FUNCS */
+const mapStateToProps = (state) => {
+    return {
+        orders: state.orders.orders,
+        paginationData: state.orders.paginationData,
+    };
+};
 
 
 
-export default Orders;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        readOrders: (data) => dispatch(actions.readOrders(data))
+    };
+};
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Orders);
