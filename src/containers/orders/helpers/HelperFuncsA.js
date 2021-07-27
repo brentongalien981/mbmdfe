@@ -3,6 +3,12 @@ import { MinusCircle, PlusCircle } from "react-feather";
 import Bs from "../../../bs/core/Bs";
 
 export const readOrders = (container) => {
+
+    if (container.state.isReadingOrders) { return; }
+
+    container.setState({ isReadingOrders: true });
+
+
     const data = {
         params: {
             queryFilters: {
@@ -12,7 +18,7 @@ export const readOrders = (container) => {
             }
         },
         doCallBackFunc: () => {
-
+            container.setState({ isReadingOrders: false });
         }
     };
 
@@ -23,7 +29,7 @@ export const readOrders = (container) => {
 
 
 export const getTableExpandedRowDetails = () => {
-    
+
     const minusIcon = (<MinusCircle width={16} height={16} />);
     const plusIcon = (<PlusCircle width={16} height={16} />);
 

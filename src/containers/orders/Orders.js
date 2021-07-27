@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { connect } from 'react-redux';
-import { Container, Row, Col, ListGroupItem, Media, Pagination, PaginationItem, PaginationLink, Input, Label, Form, FormGroup } from 'reactstrap';
+import { Container, Row, Col, ListGroupItem, Media } from 'reactstrap';
+import Spinner from 'reactstrap/lib/Spinner';
 
 import avatar1 from "../../assets/img/avatars/avatar.jpg";
 import * as actions from '../../redux/actions/orders';
@@ -11,16 +12,22 @@ import * as consts from './constants/consts';
 import * as eventFuncs from './helpers/EventFuncsA';
 import * as helperFuncs from './helpers/HelperFuncsA';
 import './Orders.css';
+import { PageNavigator } from './PageNavigator';
 
 
 
 class Orders extends React.Component {
 
     /** PROPERTIES */
+    state = {
+        pageNum: 1,
+        isReadingOrders: false
+    };
 
 
 
     /** HELPER-FUNCS */
+    // BMD-DELETE
     getListGroupItems = () => {
 
         let items = [];
@@ -52,50 +59,6 @@ class Orders extends React.Component {
 
 
 
-    getPaginationComponent = () => {
-
-        const pageNumInput = (
-            <Form inline>
-                <FormGroup>
-                    <Input
-                        value="1"
-                        type="number"
-                        min="1"
-                        name="pageNum"
-                        onChange={eventFuncs.onPageNumChange}
-                        className="mb-3"
-                    />
-                </FormGroup>
-
-                {/* <FormGroup className="mb-2 mr-sm-2 mb-sm-0"> */}
-                <FormGroup>
-                    <Label>of 34</Label>
-                </FormGroup>
-
-            </Form>
-        );
-
-
-        return (
-            <div>
-                <Pagination aria-label="Page navigation example">
-                    <PaginationItem>
-                        <PaginationLink previous href="#" />
-                    </PaginationItem>
-
-                    {pageNumInput}
-
-                    <PaginationItem>
-                        <PaginationLink next href="#" />
-                    </PaginationItem>
-
-                </Pagination>
-            </div>
-        );
-    };
-
-
-
     getOrdersTable = () => {
 
         let mainContent = (
@@ -108,6 +71,10 @@ class Orders extends React.Component {
                 expandRow={helperFuncs.getTableExpandedRowDetails()}
             />
         );
+
+        if (this.state.isReadingOrders) {
+            mainContent = (<Spinner />);
+        }
 
         return mainContent;
     };
@@ -145,7 +112,11 @@ class Orders extends React.Component {
                             </div>
                         </div>
 
-                        {this.getPaginationComponent()}
+                        <PageNavigator 
+                            pageNum={this.state.pageNum}
+                            numOfPages={this.props.paginationData.numOfPages}
+                            onPageNumChange={eventFuncs.onPageNumChange}
+                        />
                     </Col>
 
                 </Row>
@@ -154,30 +125,6 @@ class Orders extends React.Component {
     }
 
 }
-
-
-
-const ChatMessage = ({ position, avatar, name, children, time }) => (
-    <div className={`chat-message-${position} pb-4`}>
-        <div>
-            <img
-                src={avatar}
-                className="rounded-circle mr-1"
-                alt={name}
-                width="40"
-                height="40"
-            />
-            <div className="text-muted small text-nowrap mt-2">{time}</div>
-        </div>
-        <div
-            className={`flex-shrink-1 bg-light rounded py-2 px-3 ${position === "right" ? "mr-3" : "ml-3"
-                }`}
-        >
-            <div className="font-weight-bold mb-1">{name}</div>
-            {children}
-        </div>
-    </div>
-);
 
 
 

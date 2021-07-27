@@ -1,9 +1,12 @@
 import Bs from "../../bs/core/Bs";
+import BsCore2 from "../../bs/core/BsCore2";
+import { NUM_OF_DISPLAYED_ORDERS_PER_PAGE } from "../../containers/orders/constants/consts";
 import * as actions from "../actions/orders";
 
 /** DEFAULTS */
 const DEFAULT_PAGINATION_DATA = {
     totalNumOfProductsForQuery: 0,
+    numOfPages: 1,
     pageNum: 1
 };
 
@@ -42,9 +45,22 @@ const onReadOrdersReturn = (state, action) => {
     let paginationData = { ...DEFAULT_PAGINATION_DATA };
 
     if (action.callBackData.isResultOk) {
+
         orders = action.callBackData.objs.orders;
-        paginationData = action.callBackData.objs.paginationData;
+
+        const numOfPages = Math.ceil(action.callBackData.objs.paginationData.totalNumOfProductsForQuery / NUM_OF_DISPLAYED_ORDERS_PER_PAGE);
+
+        paginationData = {
+            numOfPages: numOfPages,
+            pageNum: action.callBackData.params.pageNum
+        };
     }
+    else {
+        BsCore2.alertForCallBackDataErrors(action.callBackData);
+    }
+
+
+    action.callBackData.doCallBackFunc();
 
 
     return {
