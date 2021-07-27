@@ -30,13 +30,13 @@ export const PageNavigator = (props) => {
         <div>
             <Pagination aria-label="Page navigation example">
                 <PaginationItem>
-                    <PaginationLink previous href="#" />
+                    <PaginationLink previous href="#" onClick={() => props.onPageNavBtnClick('previous')} />
                 </PaginationItem>
 
                 {pageNumInput}
 
                 <PaginationItem>
-                    <PaginationLink next href="#" />
+                <PaginationLink previous href="#" onClick={() => props.onPageNavBtnClick('next')} />
                 </PaginationItem>
 
             </Pagination>

@@ -26,7 +26,8 @@ export const readOrders = (data) => {
             url: '/orders',
             params: {
                 bmdToken: bmdAuth?.bmdToken,
-                authProviderId: bmdAuth?.authProviderId
+                authProviderId: bmdAuth?.authProviderId,
+                ...data.params
             },
             callBackFunc: (requestData, json) => {
                 const callBackData = { ...data, ...json };

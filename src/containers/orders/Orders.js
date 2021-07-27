@@ -83,7 +83,7 @@ class Orders extends React.Component {
 
     /** MAIN FUNCS */
     componentDidMount() {
-        helperFuncs.readOrders(this)
+        helperFuncs.readOrders(this);
     }
 
 
@@ -112,10 +112,11 @@ class Orders extends React.Component {
                             </div>
                         </div>
 
-                        <PageNavigator 
+                        <PageNavigator
                             pageNum={this.state.pageNum}
                             numOfPages={this.props.paginationData.numOfPages}
                             onPageNumChange={eventFuncs.onPageNumChange}
+                            onPageNavBtnClick={(prevOrNext) => eventFuncs.onPageNavBtnClick(this, prevOrNext)}
                         />
                     </Col>
 

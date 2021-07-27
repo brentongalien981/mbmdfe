@@ -2,27 +2,25 @@ import React from "react";
 import { MinusCircle, PlusCircle } from "react-feather";
 import Bs from "../../../bs/core/Bs";
 
-export const readOrders = (container) => {
+export const readOrders = (container, data = null) => {
 
     if (container.state.isReadingOrders) { return; }
 
     container.setState({ isReadingOrders: true });
 
 
-    const data = {
+    const requestData = {
         params: {
-            queryFilters: {
-                startDate: '',
-                endDate: '',
-                pageNum: 1
-            }
+            startDate: '',
+            endDate: '',
+            pageNum: data?.pageNum ?? 1
         },
         doCallBackFunc: () => {
             container.setState({ isReadingOrders: false });
         }
     };
 
-    container.props.readOrders(data);
+    container.props.readOrders(requestData);
 
 };
 
