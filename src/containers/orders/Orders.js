@@ -11,6 +11,7 @@ import * as actions from '../../redux/actions/orders';
 import * as consts from './constants/consts';
 import * as eventFuncs from './helpers/EventFuncsA';
 import * as helperFuncs from './helpers/HelperFuncsA';
+import { OrderFilters } from './OrderFilters';
 import './Orders.css';
 import { PageNavigator } from './PageNavigator';
 
@@ -101,13 +102,8 @@ class Orders extends React.Component {
         return (
             <Container fluid className="p-0">
                 <Row noGutters>
-                    <Col lg={3} className="border-right">
-                        <h3>Order Filters</h3>
-
-                        <div>
-                            {this.getListGroupItems()}
-                        </div>
-
+                    <Col lg={3} className="border-right">   
+                        <OrderFilters />
                     </Col>
 
 
