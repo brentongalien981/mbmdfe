@@ -23,7 +23,13 @@ class Orders extends React.Component {
     state = {
         pageNum: 1,
         isReadingOrders: false,
-        shouldRefreshOrders: false
+        shouldRefreshOrders: false,
+        readQueryParams: {
+            earlyDeliveryDateFilter: consts.INIT_DATE_FILTERS_IN_STR,
+            lateDeliveryDateFilter: consts.INIT_DATE_FILTERS_IN_STR,
+            createDateFilter: consts.INIT_DATE_FILTERS_IN_STR,
+            updateDateFilter: consts.INIT_DATE_FILTERS_IN_STR
+        }
     };
 
 
@@ -94,6 +100,7 @@ class Orders extends React.Component {
 
     componentDidMount() {
         helperFuncs.readOrders(this);
+        this.props.readOrderStatuses();
     }
 
 
@@ -102,8 +109,11 @@ class Orders extends React.Component {
         return (
             <Container fluid className="p-0">
                 <Row noGutters>
-                    <Col lg={3} className="border-right">   
-                        <OrderFilters />
+                    <Col lg={3} className="border-right">
+                        <OrderFilters
+                            filters={this.state.readQueryParams}
+                            orderStatuses={this.props.orderStatuses}
+                        />
                     </Col>
 
 
@@ -140,6 +150,7 @@ const mapStateToProps = (state) => {
     return {
         orders: state.orders.orders,
         paginationData: state.orders.paginationData,
+        orderStatuses: state.orders.orderStatuses
     };
 };
 
@@ -147,7 +158,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        readOrders: (data) => dispatch(actions.readOrders(data))
+        readOrders: (data) => dispatch(actions.readOrders(data)),
+        readOrderStatuses: () => dispatch(actions.readOrderStatuses())
     };
 };
 

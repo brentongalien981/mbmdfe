@@ -20,7 +20,8 @@ const DEFAULT_PAGINATION_DATA = {
 /** INITIAL STATE */
 const initialState = {
     orders: [],
-    paginationData: {}
+    paginationData: {},
+    orderStatuses: []
 };
 
 
@@ -29,6 +30,7 @@ const initialState = {
 const orders = (state = initialState, action) => {
     switch (action.type) {
         case actions.ON_READ_ORDERS_RETURN: return onReadOrdersReturn(state, action);
+        case actions.ON_READ_ORDER_STATUSES_RETURN: return onReadOrderStatusesReturn(state, action);
         default: return state;
     }
 }
@@ -40,6 +42,15 @@ const orders = (state = initialState, action) => {
 
 
 /** NORMAL FUNCS */
+const onReadOrderStatusesReturn = (state, action) => {
+    return {
+        ...state,
+        orderStatuses: action.callBackData.objs.orderStatuses ?? []
+    };
+};
+
+
+
 const onReadOrdersReturn = (state, action) => {
 
     let orders = [];

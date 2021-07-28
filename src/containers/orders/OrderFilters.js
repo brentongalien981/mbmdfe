@@ -1,6 +1,7 @@
 import React from 'react';
 import { Calendar } from 'react-feather';
 import { Input, Card, CardHeader, CardBody, Label, InputGroup, InputGroupAddon, Button, CardTitle, Form, FormGroup } from 'reactstrap';
+import { getInitialDate, parseDateToStr } from '../../bmd/helpers/HelperFuncsA';
 
 
 
@@ -122,8 +123,7 @@ export const OrderFilters = (props) => {
                                     name="statusFilter"
                                     className="mb-3"
                                 >
-                                    <option value="">TODO</option>
-                                    <option>TODO2</option>
+                                    {getOrderStatusOptions(props)}
                                 </Input>
                             </FormGroup>
                             <FormGroup>
@@ -132,26 +132,26 @@ export const OrderFilters = (props) => {
 
                             <br />
                             <FormGroup>
-                                <Label>Early Delivery Date</Label>
-                                <Input type="date" name="earlyDeliveryDateFilter" />
+                                <Label>Early Delivery Date on or after</Label>
+                                <Input type="date" name="earlyDeliveryDateFilter" value={props.filters.earlyDeliveryDateFilter} onChange={() => true} />
                             </FormGroup>
 
                             <br />
                             <FormGroup>
-                                <Label>Late Delivery Date</Label>
-                                <Input type="date" name="lateDeliveryDateFilter" />
+                                <Label>Late Delivery Date on or after</Label>
+                                <Input type="date" name="lateDeliveryDateFilter" value={props.filters.lateDeliveryDateFilter} onChange={() => true} />
                             </FormGroup>
 
                             <br />
                             <FormGroup>
-                                <Label>Order Create Date</Label>
-                                <Input type="date" name="createDateFilter" />
+                                <Label>Order Create Date on or after</Label>
+                                <Input type="date" name="createDateFilter" value={props.filters.createDateFilter} onChange={() => true} />
                             </FormGroup>
 
                             <br />
                             <FormGroup>
-                                <Label>Order Update Date</Label>
-                                <Input type="date" name="updateDateFilter" />
+                                <Label>Order Update Date on or after</Label>
+                                <Input type="date" name="updateDateFilter" value={props.filters.updateDateFilter} onChange={() => true} />
                             </FormGroup>
 
                             <FormGroup className="d-flex justify-content-between">
@@ -164,4 +164,13 @@ export const OrderFilters = (props) => {
             </div>
         </>
     );
+};
+
+
+
+const getOrderStatusOptions = (props) => {
+
+    return props.orderStatuses.map((s) => {
+        return (<option key={s.id} value={s.id}>{s.name}</option>);
+    });
 };

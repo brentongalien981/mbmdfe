@@ -31,8 +31,8 @@ class DailySummary extends React.Component {
         statsDatePickerEndDate: helperFuncs.getInitialDate(),
         statsHeaderBtnStartDate: helperFuncs.getInitialDate(),
         statsHeaderBtnEndDate: helperFuncs.getInitialDate(),
-        graphDatePickerStartDate: helperFuncs.getInitialDate(-31),
-        graphDatePickerEndDate: helperFuncs.getInitialDate(-1),
+        graphDatePickerStartDate: helperFuncs.getInitialDate(-30),
+        graphDatePickerEndDate: helperFuncs.getInitialDate(),
         graphFilterSelectedPeriod: 'daily'
     };
 

@@ -1,4 +1,7 @@
+import { getInitialDate, parseDateToStr } from "../../../bmd/helpers/HelperFuncsA";
+
 export const NUM_OF_DISPLAYED_ORDERS_PER_PAGE = 10;
+export const INIT_DATE_FILTERS_IN_STR = parseDateToStr(getInitialDate(-365), 'yyyy-mm-dd');
 
 
 

@@ -1,8 +1,8 @@
 import { MILLISEC_IN_SEC, MILLI_SEC_IN_DAY, MILLI_SEC_IN_HR } from "../constants/consts";
 
-export const getInitialDate = (numOfDaysToSubtract = 0) => {
+export const getInitialDate = (numOfDaysToAddOrSubtract = 0) => {
 
-    return new Date(Date.now() - (numOfDaysToSubtract * MILLI_SEC_IN_DAY));
+    return new Date(Date.now() + (numOfDaysToAddOrSubtract * MILLI_SEC_IN_DAY));
 };
 
 
@@ -246,7 +246,7 @@ export const getReadableMonthForDate = (date) => {
 
 export const getReadableDate = (dateStr) => {
 
-    const date = new Date(dateStr + ' 05:00:00');
+    const date = new Date(dateStr);
 
     if (!date) { return ''; }
 
@@ -269,6 +269,17 @@ export const getReadableDate = (dateStr) => {
 
     return month + ' ' + date.getDate() + ', ' + date.getFullYear();
 
+};
+
+
+
+export const parseDateToStr = (date, format = 'mm-dd-yyyy') => {
+
+    if (format == 'yyyy-mm-dd') {
+        return  date.getFullYear() + '-' + tryGetMonthNumWithPaddedZero(date.getMonth()) + '-' + tryGetDateWithPaddedZero(date.getDate());
+    }
+
+    return tryGetMonthNumWithPaddedZero(date.getMonth()) + '-' + tryGetDateWithPaddedZero(date.getDate()) + '-' + date.getFullYear();
 };
 
 
