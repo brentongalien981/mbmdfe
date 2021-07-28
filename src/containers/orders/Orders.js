@@ -21,7 +21,8 @@ class Orders extends React.Component {
     /** PROPERTIES */
     state = {
         pageNum: 1,
-        isReadingOrders: false
+        isReadingOrders: false,
+        shouldRefreshOrders: false
     };
 
 
@@ -82,6 +83,14 @@ class Orders extends React.Component {
 
 
     /** MAIN FUNCS */
+    componentDidUpdate() {
+        if (this.state.shouldRefreshOrders) {
+            helperFuncs.refreshOrders(this);
+        }
+    }
+
+
+
     componentDidMount() {
         helperFuncs.readOrders(this);
     }
@@ -115,8 +124,9 @@ class Orders extends React.Component {
                         <PageNavigator
                             pageNum={this.state.pageNum}
                             numOfPages={this.props.paginationData.numOfPages}
-                            onPageNumChange={eventFuncs.onPageNumChange}
+                            onPageNumChange={(e) => eventFuncs.onPageNumChange(this, e)}
                             onPageNavBtnClick={(prevOrNext) => eventFuncs.onPageNavBtnClick(this, prevOrNext)}
+                            onPageNumEnter={(e) => eventFuncs.onPageNumEnter(this, e)}
                         />
                     </Col>
 

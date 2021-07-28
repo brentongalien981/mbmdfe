@@ -2,6 +2,33 @@ import React from "react";
 import { MinusCircle, PlusCircle } from "react-feather";
 import Bs from "../../../bs/core/Bs";
 
+
+
+export const refreshOrders = (container) => {
+    if (container.state.isReadingOrders) { return; }
+
+    container.setState({ isReadingOrders: true });
+
+
+    const requestData = {
+        params: {
+            startDate: '',
+            endDate: '',
+            pageNum: container.state.pageNum
+        },
+        doCallBackFunc: () => {
+            container.setState({ 
+                isReadingOrders: false,
+                shouldRefreshOrders: false
+            });
+        }
+    };
+
+    container.props.readOrders(requestData);
+};
+
+
+
 export const readOrders = (container, data = null) => {
 
     if (container.state.isReadingOrders) { return; }

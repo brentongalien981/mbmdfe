@@ -22,28 +22,9 @@ export default class BsJLSOLM {
             accounts: { dateRefreshed: null, lifespan: 1440, isSensitiveInfo: false, shouldForceReadDb: false },
             temporaryGuestUserId: { dateRefreshed: null, lifespan: 1440, isSensitiveInfo: false, shouldForceReadDb: false }
         },
-        products: {
-            brands: { dateRefreshed: null, lifespan: 1440, isSensitiveInfo: false, shouldForceReadDb: false },
-            categories: { dateRefreshed: null, lifespan: 1440, isSensitiveInfo: false, shouldForceReadDb: false },
-            teams: { dateRefreshed: null, lifespan: 1440, isSensitiveInfo: false, shouldForceReadDb: false }
-        },
-        checkout: {
-            // Sensitive-info should not be kept in local-storage.
-            // addresses: { dateRefreshed: null, lifespan: 1, isSensitiveInfo: true, shouldForceReadDb: false },
-            // paymentInfos: { dateRefreshed: null, lifespan: 1, isSensitiveInfo: true, shouldForceReadDb: false }
-        },
-        cart: {
-            status: { dateRefreshed: null, lifespan: 1440, isSensitiveInfo: false, shouldForceReadDb: false }
-        },
-        profile: {
-            // Sensitive-info should not be kept in local-storage.
-            // personalData: { dateRefreshed: null, lifespan: 1, isSensitiveInfo: true, shouldForceReadDb: false },
-            // stripePaymentInfos: { dateRefreshed: null, lifespan: 1, isSensitiveInfo: true, shouldForceReadDb: false },
-            // addresses: { dateRefreshed: null, lifespan: 1, isSensitiveInfo: true, shouldForceReadDb: false },
-        },
-        temporaryAlerts: {
-            alerts: { dateRefreshed: null, lifespan: 10, isSensitiveInfo: false, shouldForceReadDb: false },
-        },
+        orders: {
+            readQueryParams: { dateRefreshed: null, lifespan: 1, isSensitiveInfo: false, shouldForceReadDb: true }
+        }
     };
 
     static defaultSearchQueryObjs = {
@@ -175,31 +156,6 @@ export default class BsJLSOLM {
         if (latestRefreshInDateObj.getDate() < nowInDateObj.getDate()) { return true; }
 
         const lifespanInMilliSec = searchQueryObj.lifespan * 60 * 1000;
-        const elapsedTime = nowInMilliSec - latestRefreshInMilliSec;
-
-        if (elapsedTime > lifespanInMilliSec) { return true; }
-
-        return false;
-    }
-
-
-
-    static shouldObjRefresh(obj) {
-        if (!obj) { return true; }
-        if (!obj.dateRefreshed) { return true; }
-        if (obj.shouldForceReadDb) { return true; }
-        
-
-        const nowInMilliSec = Date.now();
-        const latestRefreshInMilliSec = obj.dateRefreshed;
-        const nowInDateObj = new Date(nowInMilliSec);
-        const latestRefreshInDateObj = new Date(latestRefreshInMilliSec);
-
-        if (latestRefreshInDateObj.getFullYear() < nowInDateObj.getFullYear()) { return true; }
-        if (latestRefreshInDateObj.getMonth() < nowInDateObj.getMonth()) { return true; }
-        if (latestRefreshInDateObj.getDate() < nowInDateObj.getDate()) { return true; }
-
-        const lifespanInMilliSec = obj.lifespan * 60 * 1000;
         const elapsedTime = nowInMilliSec - latestRefreshInMilliSec;
 
         if (elapsedTime > lifespanInMilliSec) { return true; }

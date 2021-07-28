@@ -1,5 +1,6 @@
 import Bs from "../../bs/core/Bs";
 import BsCore2 from "../../bs/core/BsCore2";
+import BsJLS from "../../bs/core/BsJLS";
 import { NUM_OF_DISPLAYED_ORDERS_PER_PAGE } from "../../containers/orders/constants/consts";
 import * as actions from "../actions/orders";
 
@@ -54,6 +55,9 @@ const onReadOrdersReturn = (state, action) => {
             numOfPages: numOfPages,
             pageNum: action.callBackData.params.pageNum
         };
+
+
+        BsJLS.set('orders.readQueryParams', action.callBackData.params);
     }
     else {
         BsCore2.alertForCallBackDataErrors(action.callBackData);

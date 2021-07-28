@@ -3,7 +3,7 @@ import { Form, FormGroup, Input, Label, Pagination, PaginationItem, PaginationLi
 
 
 export const PageNavigator = (props) => {
-    
+
     const pageNumInput = (
         <Form inline>
             <FormGroup>
@@ -12,7 +12,8 @@ export const PageNavigator = (props) => {
                     type="number"
                     min="1"
                     name="pageNum"
-                    onChange={props.onPageNumChange}
+                    onChange={(e) => props.onPageNumChange(e)}
+                    onKeyPress={(e) => props.onPageNumEnter(e)}
                     className="mb-3"
                 />
             </FormGroup>
@@ -36,7 +37,7 @@ export const PageNavigator = (props) => {
                 {pageNumInput}
 
                 <PaginationItem>
-                <PaginationLink previous href="#" onClick={() => props.onPageNavBtnClick('next')} />
+                    <PaginationLink next href="#" onClick={() => props.onPageNavBtnClick('next')} />
                 </PaginationItem>
 
             </Pagination>
