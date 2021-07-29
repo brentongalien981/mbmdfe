@@ -1,12 +1,8 @@
-import { faCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { connect } from 'react-redux';
-import { Container, Row, Col, ListGroupItem, Media } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import Spinner from 'reactstrap/lib/Spinner';
-
-import avatar1 from "../../assets/img/avatars/avatar.jpg";
 import * as actions from '../../redux/actions/orders';
 import * as consts from './constants/consts';
 import * as eventFuncs from './helpers/EventFuncsA';
@@ -21,52 +17,14 @@ class Orders extends React.Component {
 
     /** PROPERTIES */
     state = {
-        pageNum: 1,
         isReadingOrders: false,
         shouldRefreshOrders: false,
-        readQueryParams: {
-            earlyDeliveryDateFilter: consts.INIT_DATE_FILTERS_IN_STR,
-            lateDeliveryDateFilter: consts.INIT_DATE_FILTERS_IN_STR,
-            createDateFilter: consts.INIT_DATE_FILTERS_IN_STR,
-            updateDateFilter: consts.INIT_DATE_FILTERS_IN_STR
-        }
+        readQueryParams: helperFuncs.getInitialOrderReadQueryParams()
     };
 
 
 
     /** HELPER-FUNCS */
-    // BMD-DELETE
-    getListGroupItems = () => {
-
-        let items = [];
-        for (let i = 0; i < 10; i++) {
-            items.push(
-                <ListGroupItem key={i} action tag="a" href="#" className="border-0">
-                    <Media>
-                        <img
-                            src={avatar1}
-                            className="rounded-circle mr-1"
-                            alt="Ashley Briggs"
-                            width="40"
-                            height="40"
-                        />
-                        <Media body className="ml-3">
-                            Ashley Briggs
-                            <div className="small">
-                                <FontAwesomeIcon icon={faCircle} className="chat-online" />{" "}
-                                Online
-                            </div>
-                        </Media>
-                    </Media>
-                </ListGroupItem>
-            );
-        }
-
-        return items;
-    };
-
-
-
     getOrdersTable = () => {
 
         let mainContent = (
@@ -128,7 +86,7 @@ class Orders extends React.Component {
                         </div>
 
                         <PageNavigator
-                            pageNum={this.state.pageNum}
+                            pageNum={this.state.readQueryParams.pageNum}
                             numOfPages={this.props.paginationData.numOfPages}
                             onPageNumChange={(e) => eventFuncs.onPageNumChange(this, e)}
                             onPageNavBtnClick={(prevOrNext) => eventFuncs.onPageNavBtnClick(this, prevOrNext)}

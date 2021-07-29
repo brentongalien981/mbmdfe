@@ -9,7 +9,7 @@ export const onPageNumEnter = (container, e) => {
 
         e.preventDefault();
 
-        const newPageNum = container.state.pageNum;
+        const newPageNum = container.state.readQueryParams.pageNum;
 
         if (container.state.isReadingOrders) { return; }
         if (newPageNum < 1) { return; }
@@ -28,7 +28,10 @@ export const onPageNumChange = (container, e) => {
 
     if (container.state.isReadingOrders) { return; }
 
-    container.setState({ pageNum: newPageNum });
+    let updatedReadQueryParams = container.state.readQueryParams;
+    updatedReadQueryParams.pageNum = newPageNum;
+
+    container.setState({ readQueryParams: updatedReadQueryParams });
 
 };
 
@@ -38,7 +41,8 @@ export const onPageNavBtnClick = (container, prevOrNext) => {
 
     if (container.state.isReadingOrders) { return; }
 
-    let newPageNum = container.state.pageNum;
+    let updatedReadQueryParams = container.state.readQueryParams;
+    let newPageNum = updatedReadQueryParams.pageNum;
 
     if (prevOrNext == 'previous') {
         if (newPageNum == 1) { return; }
@@ -52,9 +56,10 @@ export const onPageNavBtnClick = (container, prevOrNext) => {
     if (newPageNum > container.props.paginationData.numOfPages) { return; }
 
 
+    updatedReadQueryParams.pageNum = newPageNum;
 
     container.setState({
-        pageNum: newPageNum,
+        readQueryParams: updatedReadQueryParams,
         shouldRefreshOrders: true
     });
 };

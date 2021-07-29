@@ -1,6 +1,42 @@
 import React from "react";
 import { MinusCircle, PlusCircle } from "react-feather";
 import Bs from "../../../bs/core/Bs";
+import BsJLS from "../../../bs/core/BsJLS";
+import { INIT_DATE_FILTERS_IN_STR } from "../constants/consts";
+
+
+
+export const getInitialOrderReadQueryParams = () => {
+
+    const initialReadQueryParams = BsJLS.get('orders.readQueryParams');
+
+    return {
+        pageNum: initialReadQueryParams?.pageNum ?? 1,
+
+        orderIdFilter: initialReadQueryParams?.orderIdFilter ?? '',
+        userIdFilter: initialReadQueryParams?.userIdFilter ?? '',
+        stripePaymentIntentIdFilter: initialReadQueryParams?.stripePaymentIntentIdFilter ?? '',
+
+        firstNameFilter: initialReadQueryParams?.firstNameFilter ?? '',
+        lastNameFilter: initialReadQueryParams?.lastNameFilter ?? '',
+        phoneFilter: initialReadQueryParams?.phoneFilter ?? '',
+        emailFilter: initialReadQueryParams?.emailFilter ?? '',
+
+        streetFilter: initialReadQueryParams?.streetFilter ?? '',
+        cityFilter: initialReadQueryParams?.cityFilter ?? '',
+        provinceFilter: initialReadQueryParams?.provinceFilter ?? '',
+        countryFilter: initialReadQueryParams?.countryFilter ?? '',
+        postalCodeFilter: initialReadQueryParams?.postalCodeFilter ?? '',
+
+        statusFilter: initialReadQueryParams?.statusFilter ?? '',
+        deliveryDaysFilter: initialReadQueryParams?.deliveryDaysFilter ?? '',
+
+        earlyDeliveryDateFilter: initialReadQueryParams?.earlyDeliveryDateFilter ?? INIT_DATE_FILTERS_IN_STR,
+        lateDeliveryDateFilter: initialReadQueryParams?.lateDeliveryDateFilter ?? INIT_DATE_FILTERS_IN_STR,
+        createDateFilter: initialReadQueryParams?.createDateFilter ?? INIT_DATE_FILTERS_IN_STR,
+        updateDateFilter: initialReadQueryParams?.updateDateFilter ?? INIT_DATE_FILTERS_IN_STR
+    };
+};
 
 
 
@@ -11,13 +47,9 @@ export const refreshOrders = (container) => {
 
 
     const requestData = {
-        params: {
-            startDate: '',
-            endDate: '',
-            pageNum: container.state.pageNum
-        },
+        params: {...container.state.readQueryParams},
         doCallBackFunc: () => {
-            container.setState({ 
+            container.setState({
                 isReadingOrders: false,
                 shouldRefreshOrders: false
             });
@@ -38,9 +70,7 @@ export const readOrders = (container, data = null) => {
 
     const requestData = {
         params: {
-            startDate: '',
-            endDate: '',
-            pageNum: data?.pageNum ?? 1
+            ...container.state.readQueryParams
         },
         doCallBackFunc: () => {
             container.setState({ isReadingOrders: false });

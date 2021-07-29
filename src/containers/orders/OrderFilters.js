@@ -122,6 +122,8 @@ export const OrderFilters = (props) => {
                                     type="select"
                                     name="statusFilter"
                                     className="mb-3"
+                                    value={props.filters.statusFilter}
+                                    onChange={() => true}
                                 >
                                     {getOrderStatusOptions(props)}
                                 </Input>
