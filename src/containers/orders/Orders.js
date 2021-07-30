@@ -71,6 +71,7 @@ class Orders extends React.Component {
                         <OrderFilters
                             filters={this.state.readQueryParams}
                             orderStatuses={this.props.orderStatuses}
+                            onOrderFilterInputChange={(e) => eventFuncs.onOrderFilterInputChange(this, e)}
                         />
                     </Col>
 
