@@ -18,6 +18,7 @@ export const onReadOrderStatusesReturn = (callBackData) => ({ type: ON_READ_ORDE
 
 
 /** AJAX FUNCS */
+// BMD-TODO
 export const readOrders = (data) => {
 
     const bmdAuth = BmdAuth.getInstance();
