@@ -77,3 +77,13 @@ export const onOrderFilterInputChange = (container, e) => {
     container.setState({ readQueryParams: updatedReadQueryParams });
 
 };
+
+
+
+export const onOrderFiltersApply = (container) => {
+
+    if (container.state.isReadingOrders) { return; }
+
+    container.setState({ shouldRefreshOrders: true });
+
+};
