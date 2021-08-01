@@ -11,6 +11,8 @@ const DEFAULT_PAGINATION_DATA = {
     pageNum: 1
 };
 
+const FIRST_DEFAULT_ORDER_STATUS = { code: '', name: 'ALL_STATUS' };
+
 
 
 /** CONSTANTS */
@@ -21,7 +23,7 @@ const DEFAULT_PAGINATION_DATA = {
 const initialState = {
     orders: [],
     paginationData: {},
-    orderStatuses: []
+    orderStatuses: [FIRST_DEFAULT_ORDER_STATUS]
 };
 
 
@@ -43,9 +45,18 @@ const orders = (state = initialState, action) => {
 
 /** NORMAL FUNCS */
 const onReadOrderStatusesReturn = (state, action) => {
+
+    let updatedOrderStatuses = [FIRST_DEFAULT_ORDER_STATUS];
+    if (action.callBackData.isResultOk) {
+        updatedOrderStatuses = [
+            ...updatedOrderStatuses, 
+            ...action.callBackData.objs.orderStatuses
+        ];
+    }
+
     return {
         ...state,
-        orderStatuses: action.callBackData.objs.orderStatuses ?? []
+        orderStatuses: updatedOrderStatuses
     };
 };
 
