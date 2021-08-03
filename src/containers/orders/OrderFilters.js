@@ -57,7 +57,7 @@ const getObjectIdFilters = (props) => {
                     </FormGroup>
 
                     <FormGroup className="d-flex justify-content-between">
-                        <Button size="sm" color="primary" onClick={props.onOrderFiltersApply}>Apply All Filters</Button>
+                        <Button size="sm" color="primary" onClick={props.onOrderFiltersApply}>Apply</Button>
                         <Button size="sm" color="danger">Reset All Filters</Button>
                     </FormGroup>
                 </Form>
@@ -98,7 +98,7 @@ const getCustomerInfoFilters = (props) => {
                     </FormGroup>
 
                     <FormGroup className="d-flex justify-content-between">
-                        <Button size="sm" color="primary">Apply All Filters</Button>
+                        <Button size="sm" color="primary" onClick={props.onOrderFiltersApply}>Apply</Button>
                         <Button size="sm" color="danger">Reset All Filters</Button>
                     </FormGroup>
                 </Form>
@@ -139,7 +139,7 @@ const getAddressInfoFilters = (props) => {
                     </FormGroup>
 
                     <FormGroup className="d-flex justify-content-between">
-                        <Button size="sm" color="primary">Apply All Filters</Button>
+                        <Button size="sm" color="primary" onClick={props.onOrderFiltersApply}>Apply</Button>
                         <Button size="sm" color="danger">Reset All Filters</Button>
                     </FormGroup>
                 </Form>
@@ -202,7 +202,7 @@ const getStatusAndDatesFilters = (props) => {
                     </FormGroup>
 
                     <FormGroup className="d-flex justify-content-between">
-                        <Button size="sm" color="primary">Apply All Filters</Button>
+                        <Button size="sm" color="primary" onClick={props.onOrderFiltersApply}>Apply</Button>
                         <Button size="sm" color="danger">Reset All Filters</Button>
                     </FormGroup>
                 </Form>
