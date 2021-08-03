@@ -5,8 +5,9 @@ import { Form, FormGroup, Input, Label, Pagination, PaginationItem, PaginationLi
 export const PageNavigator = (props) => {
 
     const pageNumInput = (
-        <Form inline>
-            <FormGroup>
+        <Form inline className="mx-4 w-50 form-inline d-flex justify-content-center">
+
+            <FormGroup className="w-50 pr-1">
                 <Input
                     value={props.pageNum}
                     type="number"
@@ -14,12 +15,13 @@ export const PageNavigator = (props) => {
                     name="pageNum"
                     onChange={(e) => props.onPageNumChange(e)}
                     onKeyPress={(e) => props.onPageNumEnter(e)}
-                    className="mb-3"
+                    className="mb-3 w-100"
+                    
                 />
             </FormGroup>
 
-            {/* <FormGroup className="mb-2 mr-sm-2 mb-sm-0"> */}
-            <FormGroup>
+            
+            <FormGroup className="w-50 pl-1 mb-2">
                 <Label>of {props.numOfPages}</Label>
             </FormGroup>
 
@@ -28,7 +30,7 @@ export const PageNavigator = (props) => {
 
 
     return (
-        <div>
+        <div className="d-flex justify-content-center mt-4">
             <Pagination aria-label="Page navigation example">
                 <PaginationItem>
                     <PaginationLink previous href="#" onClick={() => props.onPageNavBtnClick('previous')} />

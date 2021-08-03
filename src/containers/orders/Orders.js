@@ -67,7 +67,7 @@ class Orders extends React.Component {
         return (
             <Container fluid className="p-0">
                 <Row noGutters>
-                    <Col lg={3} className="border-right">
+                    <Col lg={3} className="pr-1">
                         <OrderFilters
                             filters={this.state.readQueryParams}
                             orderStatuses={this.props.orderStatuses}
@@ -78,11 +78,11 @@ class Orders extends React.Component {
                     </Col>
 
 
-                    <Col lg={9}>
+                    <Col lg={9} className="pl-2">
 
                         <h3>Orders</h3>
 
-                        <div className="position-relative">
+                        <div className="position-relative orders-table-contianer p-2">
                             <div className="chat-messages p-4 bmd-table-section">
                                 {this.getOrdersTable()}
                             </div>
