@@ -21,12 +21,12 @@ export const ORDER_TABLE_COLUMNS = [
     { dataField: 'postal_code', text: 'ZIP / Postal Code', sort: false },
     { dataField: 'phone', text: 'Phone', sort: false },
     { dataField: 'email', text: 'Email', sort: false },
-    { dataField: 'created_at', text: 'Created At', sort: false },
-    { dataField: 'updated_at', text: 'Updated At', sort: false },
     { dataField: 'charged_subtotal', text: 'Subtotal', sort: false },
     { dataField: 'charged_shipping_fee', text: 'Shipping', sort: false },
     { dataField: 'charged_tax', text: 'Tax', sort: false },
     { dataField: 'earliest_delivery_date', text: 'Early D-Date', sort: false },
     { dataField: 'latest_delivery_date', text: 'Late D-Date', sort: false },
-    { dataField: 'projected_total_delivery_days', text: 'Projected D-Days', sort: false }
+    { dataField: 'projected_total_delivery_days', text: 'Projected D-Days', sort: false },
+    { dataField: 'created_at', text: 'Created At', sort: false },
+    { dataField: 'updated_at', text: 'Updated At', sort: false },
 ];

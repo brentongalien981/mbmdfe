@@ -40,6 +40,38 @@ export const getInitialOrderReadQueryParams = () => {
 
 
 
+export const getResetReadQueryParams = () => {
+
+    return {
+        pageNum: 1,
+
+        orderIdFilter: '',
+        userIdFilter: '',
+        stripePaymentIntentIdFilter: '',
+
+        firstNameFilter: '',
+        lastNameFilter: '',
+        phoneFilter: '',
+        emailFilter: '',
+
+        streetFilter: '',
+        cityFilter: '',
+        provinceFilter: '',
+        countryFilter: '',
+        postalCodeFilter: '',
+
+        statusFilter: '',
+        deliveryDaysFilter: '',
+
+        earlyDeliveryDateFilter: INIT_DATE_FILTERS_IN_STR,
+        lateDeliveryDateFilter: INIT_DATE_FILTERS_IN_STR,
+        createDateFilter: INIT_DATE_FILTERS_IN_STR,
+        updateDateFilter: INIT_DATE_FILTERS_IN_STR
+    };
+};
+
+
+
 export const refreshOrders = (container) => {
     if (container.state.isReadingOrders) { return; }
 

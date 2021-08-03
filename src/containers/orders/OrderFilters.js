@@ -58,7 +58,7 @@ const getObjectIdFilters = (props) => {
 
                     <FormGroup className="d-flex justify-content-between">
                         <Button size="sm" color="primary" onClick={props.onOrderFiltersApply}>Apply</Button>
-                        <Button size="sm" color="danger">Reset All Filters</Button>
+                        <Button size="sm" color="danger" onClick={props.onOrderFiltersReset}>Reset All</Button>
                     </FormGroup>
                 </Form>
 
@@ -99,7 +99,7 @@ const getCustomerInfoFilters = (props) => {
 
                     <FormGroup className="d-flex justify-content-between">
                         <Button size="sm" color="primary" onClick={props.onOrderFiltersApply}>Apply</Button>
-                        <Button size="sm" color="danger">Reset All Filters</Button>
+                        <Button size="sm" color="danger" onClick={props.onOrderFiltersReset}>Reset All</Button>
                     </FormGroup>
                 </Form>
 
@@ -140,7 +140,7 @@ const getAddressInfoFilters = (props) => {
 
                     <FormGroup className="d-flex justify-content-between">
                         <Button size="sm" color="primary" onClick={props.onOrderFiltersApply}>Apply</Button>
-                        <Button size="sm" color="danger">Reset All Filters</Button>
+                        <Button size="sm" color="danger" onClick={props.onOrderFiltersReset}>Reset All</Button>
                     </FormGroup>
                 </Form>
             </CardBody>
@@ -203,7 +203,7 @@ const getStatusAndDatesFilters = (props) => {
 
                     <FormGroup className="d-flex justify-content-between">
                         <Button size="sm" color="primary" onClick={props.onOrderFiltersApply}>Apply</Button>
-                        <Button size="sm" color="danger">Reset All Filters</Button>
+                        <Button size="sm" color="danger" onClick={props.onOrderFiltersReset}>Reset All</Button>
                     </FormGroup>
                 </Form>
             </CardBody>

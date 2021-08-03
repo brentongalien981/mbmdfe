@@ -1,5 +1,5 @@
 import Bs from "../../../bs/core/Bs";
-import { readOrders } from "./HelperFuncsA";
+import { getResetReadQueryParams, readOrders } from "./HelperFuncsA";
 
 
 
@@ -85,5 +85,18 @@ export const onOrderFiltersApply = (container) => {
     if (container.state.isReadingOrders) { return; }
 
     container.setState({ shouldRefreshOrders: true });
+
+};
+
+
+
+export const onOrderFiltersReset = (container) => {
+
+    if (container.state.isReadingOrders) { return; }
+
+    container.setState({ 
+        readQueryParams: getResetReadQueryParams(),
+        shouldRefreshOrders: true 
+    });
 
 };
