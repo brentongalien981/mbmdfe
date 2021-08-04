@@ -16,6 +16,7 @@ const CreateUser = React.lazy(() => import('../containers/user/CreateUser'));
 const AutomatedJobs = React.lazy(() => import('../containers/automated-jobs/AutomatedJobs'));
 const AutomatedJobLogs = React.lazy(() => import('../containers/automated-job-logs/AutomatedJobLogs'));
 const Orders = React.lazy(() => import('../containers/orders/Orders'));
+const Order = React.lazy(() => import('../containers/order/Order'));
 
 
 
@@ -36,6 +37,7 @@ const MBMDFERoutes = () => (
                 <Route path="/automated-job-logs" render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><AutomatedJobLogs /></Suspense></MBMDFELayoutA>} />
 
                 <Route path="/orders" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><Orders /></Suspense></MBMDFELayoutA>} />
+                <Route path="/orders/:id" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><Order /></Suspense></MBMDFELayoutA>} />
                 {/* <Route path="/xxx" component={TestContainerA} /> */}
 
 
