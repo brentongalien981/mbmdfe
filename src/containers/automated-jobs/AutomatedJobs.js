@@ -34,7 +34,7 @@ class AutomatedJobs extends React.Component {
 
         generateOPIsJobParamsModalStartDate: getInitialDate(),
         generateOPIsJobParamsModalEndDate: getInitialDate(),
-        // BMD-ON-ITER: On DEV-ITER-002: Move this to eventFuncs FILE.
+        // BMD-ON-ITER: On DEV-ITER-002: Move this to helperFuncs FILE.
         generateOPIsJobModalTrendInputValues: {
             maxBaseNumOfDailyOrders: 10,
             trendChangePercentage: 0.01,
