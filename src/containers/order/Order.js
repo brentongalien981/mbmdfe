@@ -1,7 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Col, Container, Row } from 'reactstrap';
 import Bs from '../../bs/core/Bs';
+import * as actions from '../../redux/actions/order';
+import * as helperFuncs from './helpers/HelperFuncsA';
 import { OrderForm } from './OrderForm';
 import { OrderItemsTable } from './OrderItemsTable';
 
@@ -10,6 +13,9 @@ import { OrderItemsTable } from './OrderItemsTable';
 class Order extends React.Component {
 
     /** PROPERTIES */
+    state = {
+        isReadingOrder: false
+    };
 
 
 
@@ -19,10 +25,7 @@ class Order extends React.Component {
 
     /** MAIN FUNCS */
     componentDidMount() {
-        Bs.log('this.props ==> ...');
-        Bs.log(this.props);
-        Bs.log('this.props.match.params ==> ...');
-        Bs.log(this.props.match.params);
+        helperFuncs.readOrder(this);
     }
 
 
@@ -46,7 +49,20 @@ class Order extends React.Component {
 
 
 /** REACT-FUNCS */
+const mapStateToProps = (state) => {
+    return {
+        order: state.order.order
+    };
+};
 
 
 
-export default withRouter(Order);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        readOrder: (data) => dispatch(actions.readOrder(data))
+    };
+};
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Order));
