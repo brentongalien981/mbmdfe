@@ -5,6 +5,9 @@ import { Button, Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 
 
 export const OrderForm = (props) => {
 
+    const formColumns = getFormColumns(props);
+
+
     return (
         <Row>
             <Col sm="12"><h2>Order</h2></Col>
@@ -12,22 +15,7 @@ export const OrderForm = (props) => {
             <Col lg="6">
                 <Card>
                     <CardBody>
-                        <Form>
-                            <FormGroup row>
-                                <Label sm={2} className="text-sm-right">Order ID</Label>
-                                <Col sm={10}><Input type="text" placeholder="Order ID" /></Col>
-                            </FormGroup>
-
-                            <FormGroup row>
-                                <Label sm={2} className="text-sm-right">Order ID</Label>
-                                <Col sm={10}><Input type="text" placeholder="Order ID" /></Col>
-                            </FormGroup>
-
-                            <FormGroup row>
-                                <Label sm={2} className="text-sm-right">Order ID</Label>
-                                <Col sm={10}><Input type="text" placeholder="Order ID" /></Col>
-                            </FormGroup>
-                        </Form>
+                        <Form>{formColumns.first}</Form>
                     </CardBody>
                 </Card>
             </Col>
@@ -37,27 +25,10 @@ export const OrderForm = (props) => {
             <Col lg="6">
                 <Card>
                     <CardBody>
-                        <Form>
-                            <FormGroup row>
-                                <Label sm={2} className="text-sm-right">Order ID</Label>
-                                <Col sm={10}><Input type="text" placeholder="Order ID" /></Col>
-                            </FormGroup>
-
-                            <FormGroup row>
-                                <Label sm={2} className="text-sm-right">Order ID</Label>
-                                <Col sm={10}><Input type="text" placeholder="Order ID" /></Col>
-                            </FormGroup>
-
-                            <FormGroup row>
-                                <Label sm={2} className="text-sm-right">Order ID</Label>
-                                <Col sm={10}><Input type="text" placeholder="Order ID" /></Col>
-                            </FormGroup>
-                        </Form>
+                        <Form>{formColumns.second}</Form>
                     </CardBody>
                 </Card>
             </Col>
-
-
 
 
             <Col sm="12">
@@ -65,4 +36,37 @@ export const OrderForm = (props) => {
             </Col>
         </Row>
     );
+};
+
+
+
+const getFormColumns = (props) => {
+    let i = 0;
+    let firstColFormInputRows = [];
+    let secondColFormInputRows = [];
+    let whichFormColToPopulate = firstColFormInputRows;
+
+    for (const key in props.order) {
+
+        const val = props.order[key];
+
+        if (i > 12) { whichFormColToPopulate = secondColFormInputRows; }
+
+        whichFormColToPopulate.push(
+            <FormGroup row key={i}>
+                <Label sm={4} className="text-sm-right">{key}</Label>
+                <Col sm={8}>
+                    <Input type="text" name="orderIdInput" value={val ?? ''} onChange={(e) => props.onOrderInputChange(e)} />
+                </Col>
+            </FormGroup>
+        );
+
+        ++i;
+    }
+
+
+    return {
+        first: firstColFormInputRows,
+        second: secondColFormInputRows
+    };
 };

@@ -4,9 +4,11 @@ import { withRouter } from 'react-router-dom';
 import { Col, Container, Row } from 'reactstrap';
 import Bs from '../../bs/core/Bs';
 import * as actions from '../../redux/actions/order';
+import * as eventFuncs from './helpers/EventFuncs';
 import * as helperFuncs from './helpers/HelperFuncsA';
 import { OrderForm } from './OrderForm';
 import { OrderItemsTable } from './OrderItemsTable';
+import './Order.css';
 
 
 
@@ -14,7 +16,9 @@ class Order extends React.Component {
 
     /** PROPERTIES */
     state = {
-        isReadingOrder: false
+        isReadingOrder: false,
+        order: {},
+        orderItems: []
     };
 
 
@@ -33,11 +37,16 @@ class Order extends React.Component {
     render() {
         return (
             <Container fluid className="p-0">
-                <OrderForm />
+                <OrderForm
+                    order={this.state.order}
+                    onOrderInputChange={(e) => eventFuncs.onOrderInputChange(this, e)}
+                />
 
                 <br /><br /><br />
 
-                <OrderItemsTable />
+                <OrderItemsTable
+                    orderItems={this.state.orderItems}
+                />
             </Container>
         );
     }

@@ -1,0 +1,10 @@
+.order-items-table-container {
+    overflow-x: scroll;
+    overflow-y: scroll;
+    background-color: white;
+    border-radius: 2px;
+}
+
+.order-items-table-container .table {
+    width: max-content;
+}

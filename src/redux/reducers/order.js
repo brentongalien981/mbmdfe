@@ -42,7 +42,10 @@ const onReadOrderReturn = (state, action) => {
     }
 
 
-    action.callBackData.doCallBackFunc();
+    action.callBackData.doCallBackFunc({
+        order: order,
+        orderItems: orderItems
+    });
 
     return {
         ...state,
