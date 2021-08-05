@@ -1,5 +1,6 @@
 import React from "react";
 import { MinusCircle, PlusCircle } from "react-feather";
+import { Link } from "react-router-dom";
 import Bs from "../../../bs/core/Bs";
 import BsJLS from "../../../bs/core/BsJLS";
 import { INIT_DATE_FILTERS_IN_STR } from "../constants/consts";
@@ -126,7 +127,18 @@ export const getTableExpandedRowDetails = () => {
 
             let rowProps = [];
             for (const key in row) {
-                rowProps.push(<li key={rowProps.length}>{key}: {row[key]}</li>);
+
+                if (key === 'order_id_link') {                    
+                    const val = row[key];
+                    rowProps.push(
+                        <li key={rowProps.length}>
+                            {key}: <Link to={val} target="_blank">order-id-link</Link>
+                        </li>                        
+                    );
+                }
+                else {
+                    rowProps.push(<li key={rowProps.length}>{key}: {row[key]}</li>);
+                }
             }
 
             return (<ul>{rowProps}</ul>);
@@ -134,5 +146,30 @@ export const getTableExpandedRowDetails = () => {
         showExpandColumn: true,
         expandHeaderColumnRenderer: ({ isAnyExpands }) => isAnyExpands ? (minusIcon) : (plusIcon),
         expandColumnRenderer: ({ expanded }) => expanded ? (minusIcon) : (plusIcon)
+    };
+};
+
+
+
+export const addOrderLinkPropsToOrders = (orders) => {
+
+    let updatedOrders = [];
+
+    for (const o of orders) {
+        updatedOrders.push(addOrderLinkPropToOrder(o));    
+    }
+
+    return updatedOrders;
+};
+
+
+
+const addOrderLinkPropToOrder = (o) => {
+
+    const orderUrl = '/orders/' + o.id;
+
+    return {
+        order_id_link: orderUrl,
+        ...o
     };
 };

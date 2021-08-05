@@ -40,12 +40,14 @@ class Order extends React.Component {
                 <OrderForm
                     order={this.state.order}
                     onOrderInputChange={(e) => eventFuncs.onOrderInputChange(this, e)}
+                    isReadingOrder={this.state.isReadingOrder}
                 />
 
                 <br /><br /><br />
 
                 <OrderItemsTable
                     orderItems={this.state.orderItems}
+                    isReadingOrder={this.state.isReadingOrder}
                 />
             </Container>
         );

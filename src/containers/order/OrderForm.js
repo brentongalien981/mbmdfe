@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
+import Spinner from 'reactstrap/lib/Spinner';
 
 
 
@@ -7,11 +8,8 @@ export const OrderForm = (props) => {
 
     const formColumns = getFormColumns(props);
 
-
-    return (
-        <Row>
-            <Col sm="12"><h2>Order</h2></Col>
-
+    let mainContents = (
+        <>
             <Col lg="6">
                 <Card>
                     <CardBody>
@@ -19,8 +17,6 @@ export const OrderForm = (props) => {
                     </CardBody>
                 </Card>
             </Col>
-
-
 
             <Col lg="6">
                 <Card>
@@ -30,10 +26,25 @@ export const OrderForm = (props) => {
                 </Card>
             </Col>
 
-
             <Col sm="12">
                 <Button color="primary">Update</Button>
             </Col>
+        </>
+    );
+
+    if (props.isReadingOrder) {
+        mainContents = (
+            <Col sm="12">
+                <Spinner />
+            </Col>
+        );
+    }
+
+
+    return (
+        <Row>
+            <Col sm="12"><h2>Order Info</h2></Col>
+            {mainContents}
         </Row>
     );
 };

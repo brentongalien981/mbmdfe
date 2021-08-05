@@ -70,6 +70,7 @@ const onReadOrdersReturn = (state, action) => {
     if (action.callBackData.isResultOk) {
 
         orders = action.callBackData.objs.orders;
+        
 
         const numOfPages = Math.ceil(action.callBackData.objs.paginationData.totalNumOfProductsForQuery / NUM_OF_DISPLAYED_ORDERS_PER_PAGE);
 
