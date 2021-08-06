@@ -39,6 +39,7 @@ class Order extends React.Component {
             <Container fluid className="p-0">
                 <OrderForm
                     order={this.state.order}
+                    orderStatuses={this.props.orderStatuses}
                     onOrderInputChange={(e) => eventFuncs.onOrderInputChange(this, e)}
                     isReadingOrder={this.state.isReadingOrder}
                 />
@@ -62,7 +63,8 @@ class Order extends React.Component {
 /** REACT-FUNCS */
 const mapStateToProps = (state) => {
     return {
-        order: state.order.order
+        order: state.order.order,
+        orderStatuses: state.order.orderStatuses
     };
 };
 

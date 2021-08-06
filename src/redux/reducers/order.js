@@ -1,6 +1,8 @@
+import BsCore2 from "../../bs/core/BsCore2";
 import * as actions from "../actions/order";
 
 /** DEFAULTS */
+const FIRST_DEFAULT_ORDER_STATUS = { code: '', name: 'ALL_STATUS' };
 
 
 
@@ -11,7 +13,8 @@ import * as actions from "../actions/order";
 /** INITIAL STATE */
 const initialState = {
     order: {},
-    orderItems: []
+    orderItems: [],
+    orderStatuses: [FIRST_DEFAULT_ORDER_STATUS]
 };
 
 
@@ -35,22 +38,28 @@ const onReadOrderReturn = (state, action) => {
 
     let order = {};
     let orderItems = [];
+    let updatedOrderStatuses = state.orderStatuses;
 
     if (action.callBackData.isResultOk) {
         order = action.callBackData.objs.order;
         orderItems = action.callBackData.objs.orderItems;
+        updatedOrderStatuses = action.callBackData.objs.orderStatuses ?? updatedOrderStatuses;
+    }
+    else {
+        BsCore2.alertForCallBackDataErrors(action.callBackData);
     }
 
 
     action.callBackData.doCallBackFunc({
         order: order,
-        orderItems: orderItems
+        orderItems: orderItems,
     });
 
     return {
         ...state,
         order: order,
-        orderItems: orderItems
+        orderItems: orderItems,
+        orderStatuses: updatedOrderStatuses
     };
 };
 

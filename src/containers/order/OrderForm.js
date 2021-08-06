@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import Spinner from 'reactstrap/lib/Spinner';
+import Bs from '../../bs/core/Bs';
 
 
 
@@ -61,13 +62,16 @@ const getFormColumns = (props) => {
 
         const val = props.order[key];
 
+        if (key === 'status_name') { continue; }
+
         if (i > 12) { whichFormColToPopulate = secondColFormInputRows; }
+
 
         whichFormColToPopulate.push(
             <FormGroup row key={i}>
                 <Label sm={4} className="text-sm-right">{key}</Label>
                 <Col sm={8}>
-                    <Input type="text" name="orderIdInput" value={val ?? ''} onChange={(e) => props.onOrderInputChange(e)} />
+                    {getSpecificInputComponent(props, key, val)}
                 </Col>
             </FormGroup>
         );
@@ -80,4 +84,36 @@ const getFormColumns = (props) => {
         first: firstColFormInputRows,
         second: secondColFormInputRows
     };
+};
+
+
+
+const getSpecificInputComponent = (props, orderPropKey, orderPropVal) => {
+    Bs.log(orderPropKey);
+    const inputName = orderPropKey + '_input';
+
+    let comp = (<Input type="text" name={inputName} value={orderPropVal ?? ''} onChange={(e) => props.onOrderInputChange(e)} />);
+
+    if (orderPropKey === 'status_code') {
+        comp = (
+            <Input
+            type="select"
+            name={inputName}
+            value="status"
+            onChange={(e) => props.onOrderFilterInputChange(e)}
+        >
+            {getOrderStatusOptions(props.orderStatuses)}
+        </Input>
+        );
+    }
+
+    return comp;
+};
+
+
+
+const getOrderStatusOptions = (orderStatuses) => {
+    return orderStatuses.map((s) => {
+        return (<option key={s.code} value={s.code}>{s.name}</option>);
+    });
 };
