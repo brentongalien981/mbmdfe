@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import Spinner from 'reactstrap/lib/Spinner';
+import { getInitialDate, parseDateToStr } from '../../bmd/helpers/HelperFuncsA';
 import Bs from '../../bs/core/Bs';
 
 
@@ -89,22 +90,35 @@ const getFormColumns = (props) => {
 
 
 const getSpecificInputComponent = (props, orderPropKey, orderPropVal) => {
-    Bs.log(orderPropKey);
+
     const inputName = orderPropKey + '_input';
 
     let comp = (<Input type="text" name={inputName} value={orderPropVal ?? ''} onChange={(e) => props.onOrderInputChange(e)} />);
 
-    if (orderPropKey === 'status_code') {
-        comp = (
-            <Input
-            type="select"
-            name={inputName}
-            value="status"
-            onChange={(e) => props.onOrderFilterInputChange(e)}
-        >
-            {getOrderStatusOptions(props.orderStatuses)}
-        </Input>
-        );
+    switch (orderPropKey) {
+        case 'status_code':
+            comp = (
+                <Input
+                    type="select"
+                    name={inputName}
+                    value="status"
+                    onChange={(e) => props.onOrderFilterInputChange(e)}
+                >
+                    {getOrderStatusOptions(props.orderStatuses)}
+                </Input>
+            );
+            break;
+        case 'earliest_delivery_date':
+        case 'latest_delivery_date':
+        case 'created_at':
+        case 'updated_at':
+
+            orderPropVal = parseDateToStr(new Date(orderPropVal), 'yyyy-mm-dd');
+            
+            comp = (
+                <Input type="date" name={inputName} value={orderPropVal} onChange={(e) => props.onOrderFilterInputChange(e)} />
+            );
+            break;
     }
 
     return comp;

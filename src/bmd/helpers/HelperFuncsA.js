@@ -276,10 +276,10 @@ export const getReadableDate = (dateStr) => {
 export const parseDateToStr = (date, format = 'mm-dd-yyyy') => {
 
     if (format == 'yyyy-mm-dd') {
-        return  date.getFullYear() + '-' + tryGetMonthNumWithPaddedZero(date.getMonth()) + '-' + tryGetDateWithPaddedZero(date.getDate());
+        return  date.getFullYear() + '-' + tryGetMonthNumWithPaddedZero(date.getMonth()+1) + '-' + tryGetDateWithPaddedZero(date.getDate());
     }
 
-    return tryGetMonthNumWithPaddedZero(date.getMonth()) + '-' + tryGetDateWithPaddedZero(date.getDate()) + '-' + date.getFullYear();
+    return tryGetMonthNumWithPaddedZero(date.getMonth()+1) + '-' + tryGetDateWithPaddedZero(date.getDate()) + '-' + date.getFullYear();
 };
 
 
