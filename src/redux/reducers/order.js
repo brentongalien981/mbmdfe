@@ -1,4 +1,5 @@
 import BsCore2 from "../../bs/core/BsCore2";
+import { modifyOrderWithDatePropsToFormat } from "../../containers/order/helpers/HelperFuncsA";
 import * as actions from "../actions/order";
 
 /** DEFAULTS */
@@ -42,6 +43,7 @@ const onReadOrderReturn = (state, action) => {
 
     if (action.callBackData.isResultOk) {
         order = action.callBackData.objs.order;
+        order = modifyOrderWithDatePropsToFormat(order, 'yyyy-mm-dd');
         orderItems = action.callBackData.objs.orderItems;
         updatedOrderStatuses = action.callBackData.objs.orderStatuses ?? updatedOrderStatuses;
     }

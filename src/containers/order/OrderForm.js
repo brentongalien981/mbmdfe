@@ -91,18 +91,21 @@ const getFormColumns = (props) => {
 
 const getSpecificInputComponent = (props, orderPropKey, orderPropVal) => {
 
-    const inputName = orderPropKey + '_input';
+    const inputName = orderPropKey;
 
     let comp = (<Input type="text" name={inputName} value={orderPropVal ?? ''} onChange={(e) => props.onOrderInputChange(e)} />);
 
     switch (orderPropKey) {
+        case 'id':
+            comp = (<Input type="text" name={inputName} value={orderPropVal ?? ''} onChange={(e) => props.onOrderInputChange(e)} disabled />);
+            break;
         case 'status_code':
             comp = (
                 <Input
                     type="select"
                     name={inputName}
-                    value="status"
-                    onChange={(e) => props.onOrderFilterInputChange(e)}
+                    value={orderPropVal}
+                    onChange={(e) => props.onOrderInputChange(e)}
                 >
                     {getOrderStatusOptions(props.orderStatuses)}
                 </Input>
@@ -111,12 +114,9 @@ const getSpecificInputComponent = (props, orderPropKey, orderPropVal) => {
         case 'earliest_delivery_date':
         case 'latest_delivery_date':
         case 'created_at':
-        case 'updated_at':
-
-            orderPropVal = parseDateToStr(new Date(orderPropVal), 'yyyy-mm-dd');
-            
+        case 'updated_at':            
             comp = (
-                <Input type="date" name={inputName} value={orderPropVal} onChange={(e) => props.onOrderFilterInputChange(e)} />
+                <Input type="date" name={inputName} value={orderPropVal} onChange={(e) => props.onOrderInputChange(e)} />
             );
             break;
     }
