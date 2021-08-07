@@ -10,6 +10,14 @@ export const OrderForm = (props) => {
 
     const formColumns = getFormColumns(props);
 
+    let updateBtn = (<Button color="primary" onClick={props.onOrderUpdate}>update</Button>);
+
+    if (props.isUpdatingOrder) {
+        updateBtn = (<Button color="primary"><Spinner size="sm" /></Button>)
+    }
+
+
+
     let mainContents = (
         <>
             <Col lg="6">
@@ -29,7 +37,7 @@ export const OrderForm = (props) => {
             </Col>
 
             <Col sm="12">
-                <Button color="primary" onClick={props.onOrderUpdate}>update</Button>
+                {updateBtn}
             </Col>
         </>
     );
