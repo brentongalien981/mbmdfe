@@ -1,5 +1,7 @@
 export const onOrderInputChange = (container, e) => {
 
+    if (container.state.isReadingOrder || container.state.isUpdatingOrder) { return; }
+
     const targetName = e.target.name;
     const targetVal = e.target.value;
 
@@ -7,5 +9,24 @@ export const onOrderInputChange = (container, e) => {
     updatedOrder[targetName] = targetVal;
 
     container.setState({ order: updatedOrder });
+
+};
+
+
+
+export const onOrderUpdate = (container) => {
+
+    if (container.state.isReadingOrder || container.state.isUpdatingOrder) { return; }
+
+    container.setState({ isUpdatingOrder: true });
+
+    const data = {
+        params: { ...container.state.order },
+        doCallBackFunc: () => {
+            container.setState({ isUpdatingOrder: false });
+        }
+    };
+
+    container.props.updateOrder(data);
 
 };

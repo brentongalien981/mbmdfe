@@ -24,6 +24,7 @@ const initialState = {
 const order = (state = initialState, action) => {
     switch (action.type) {
         case actions.ON_READ_ORDER_RETURN: return onReadOrderReturn(state, action);
+        case actions.ON_UPDATE_ORDER_RETURN: return onUpdateOrderReturn(state, action);
         default: return state;
     }
 }
@@ -62,6 +63,23 @@ const onReadOrderReturn = (state, action) => {
         order: order,
         orderItems: orderItems,
         orderStatuses: updatedOrderStatuses
+    };
+};
+
+
+
+const onUpdateOrderReturn = (state, action) => {
+
+    if (!action.callBackData.isResultOk) {
+        BsCore2.alertForCallBackDataErrors(action.callBackData);
+    }
+
+
+    action.callBackData.doCallBackFunc();
+
+
+    return {
+        ...state
     };
 };
 

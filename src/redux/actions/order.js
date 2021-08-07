@@ -7,11 +7,13 @@ import { showToastr } from "../../helpers/notifications/NotificationsHelper";
 
 /** NAMES */
 export const ON_READ_ORDER_RETURN = "ON_READ_ORDER_RETURN";
+export const ON_UPDATE_ORDER_RETURN = "ON_UPDATE_ORDER_RETURN";
 
 
 
 /** FUNCS */
 export const onReadOrderReturn = (callBackData) => ({ type: ON_READ_ORDER_RETURN, callBackData: callBackData });
+export const onUpdateOrderReturn = (callBackData) => ({ type: ON_UPDATE_ORDER_RETURN, callBackData: callBackData });
 
 
 
@@ -39,6 +41,39 @@ export const readOrder = (data) => {
 
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onReadOrderReturn(callBackData));
+            }
+        });
+    };
+
+};
+
+
+
+export const updateOrder = (data) => {
+
+    const bmdAuth = BmdAuth.getInstance();
+
+    return (dispatch) => {
+
+        BsCore2.ajaxCrud({
+            url: '/orders/update',
+            method: 'post',
+            params: { 
+                bmdToken: bmdAuth?.bmdToken, 
+                authProviderId: bmdAuth?.authProviderId,
+                ...data.params
+            },
+            callBackFunc: (requestData, json) => {
+                showToastr({ notificationType: 'success', message: 'Update successful!' });
+                 const callBackData = { ...data, ...json };
+                dispatch(onUpdateOrderReturn(callBackData));
+            },
+            errorCallBackFunc: (errors, errorStatusCode) => {
+                
+                showToastr({ notificationType: 'error', message: GENERAL_HTTP_RESPONSE_ERROR_MSG });
+
+                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
+                dispatch(onUpdateOrderReturn(callBackData));
             }
         });
     };

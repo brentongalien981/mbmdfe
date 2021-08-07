@@ -29,7 +29,7 @@ export const OrderForm = (props) => {
             </Col>
 
             <Col sm="12">
-                <Button color="primary">Update</Button>
+                <Button color="primary" onClick={props.onOrderUpdate}>update</Button>
             </Col>
         </>
     );
@@ -54,6 +54,7 @@ export const OrderForm = (props) => {
 
 
 const getFormColumns = (props) => {
+
     let i = 0;
     let firstColFormInputRows = [];
     let secondColFormInputRows = [];
@@ -114,9 +115,13 @@ const getSpecificInputComponent = (props, orderPropKey, orderPropVal) => {
         case 'earliest_delivery_date':
         case 'latest_delivery_date':
         case 'created_at':
-        case 'updated_at':            
             comp = (
                 <Input type="date" name={inputName} value={orderPropVal} onChange={(e) => props.onOrderInputChange(e)} />
+            );
+            break;
+        case 'updated_at':            
+            comp = (
+                <Input type="date" name={inputName} value={orderPropVal} disabled />
             );
             break;
     }

@@ -17,6 +17,7 @@ class Order extends React.Component {
     /** PROPERTIES */
     state = {
         isReadingOrder: false,
+        isUpdatingOrder: false,
         order: {},
         orderItems: []
     };
@@ -42,6 +43,8 @@ class Order extends React.Component {
                     orderStatuses={this.props.orderStatuses}
                     onOrderInputChange={(e) => eventFuncs.onOrderInputChange(this, e)}
                     isReadingOrder={this.state.isReadingOrder}
+                    isUpdatingOrder={this.state.isUpdatingOrder}
+                    onOrderUpdate={() => eventFuncs.onOrderUpdate(this)}
                 />
 
                 <br /><br /><br />
@@ -72,7 +75,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        readOrder: (data) => dispatch(actions.readOrder(data))
+        readOrder: (data) => dispatch(actions.readOrder(data)),
+        updateOrder: (data) => dispatch(actions.updateOrder(data))
     };
 };
 
