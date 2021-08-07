@@ -25,6 +25,7 @@ const order = (state = initialState, action) => {
     switch (action.type) {
         case actions.ON_READ_ORDER_RETURN: return onReadOrderReturn(state, action);
         case actions.ON_UPDATE_ORDER_RETURN: return onUpdateOrderReturn(state, action);
+        case actions.ON_GET_CREATE_ORDER_DATA_RETURN: return onGetCreateOrderDataReturn(state, action);
         default: return state;
     }
 }
@@ -77,6 +78,15 @@ const onUpdateOrderReturn = (state, action) => {
 
     action.callBackData.doCallBackFunc();
 
+
+    return {
+        ...state
+    };
+};
+
+
+
+const onGetCreateOrderDataReturn = (state, action) => {
 
     return {
         ...state

@@ -63,6 +63,12 @@ export const OrderForm = (props) => {
 
 const getFormColumns = (props) => {
 
+    if (props.crudMethod === 'create') {
+        return getFormColumnsForCreateMethod(props);
+    }
+
+
+
     let i = 0;
     let firstColFormInputRows = [];
     let secondColFormInputRows = [];
@@ -98,6 +104,19 @@ const getFormColumns = (props) => {
 
 
 
+const getFormColumnsForCreateMethod = (props) => {
+
+    let firstColFormInputRows = null;
+    let secondColFormInputRows = null;
+
+    return {
+        first: firstColFormInputRows,
+        second: secondColFormInputRows
+    };
+};
+
+
+
 const getSpecificInputComponent = (props, orderPropKey, orderPropVal) => {
 
     const inputName = orderPropKey;
@@ -123,14 +142,10 @@ const getSpecificInputComponent = (props, orderPropKey, orderPropVal) => {
         case 'earliest_delivery_date':
         case 'latest_delivery_date':
         case 'created_at':
-            comp = (
-                <Input type="date" name={inputName} value={orderPropVal} onChange={(e) => props.onOrderInputChange(e)} />
-            );
+            comp = (<Input type="date" name={inputName} value={orderPropVal} onChange={(e) => props.onOrderInputChange(e)} />);
             break;
         case 'updated_at':            
-            comp = (
-                <Input type="date" name={inputName} value={orderPropVal} disabled />
-            );
+            comp = (<Input type="date" name={inputName} value={orderPropVal} disabled />);
             break;
     }
 

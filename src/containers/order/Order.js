@@ -24,10 +24,6 @@ class Order extends React.Component {
 
 
 
-    /** HELPER FUNCS */
-
-
-
     /** MAIN FUNCS */
     componentDidMount() {
         helperFuncs.readOrder(this);
@@ -57,8 +53,6 @@ class Order extends React.Component {
         );
     }
 
-
-    /** EVENT FUNCS */
 }
 
 

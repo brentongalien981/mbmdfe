@@ -28,7 +28,8 @@ import {
   User,
   UserPlus,
   Monitor,
-  ShoppingBag
+  ShoppingBag,
+  PlusSquare
 } from "react-feather";
 
 import avatar1 from "../assets/img/avatars/avatar.jpg";
@@ -183,6 +184,12 @@ const NavbarComponent = (props) => {
               <DropdownItem>
                 <Link to='/orders'>
                   <ShoppingBag size={18} className="align-middle mr-2" />Orders
+                </Link>
+              </DropdownItem>
+
+              <DropdownItem>
+                <Link to='/orders/create'>
+                  <PlusSquare size={18} className="align-middle mr-2" />Create Order
                 </Link>
               </DropdownItem>
 
