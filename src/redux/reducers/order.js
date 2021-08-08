@@ -1,3 +1,4 @@
+import Bs from "../../bs/core/Bs";
 import BsCore2 from "../../bs/core/BsCore2";
 import { modifyOrderWithDatePropsToFormat } from "../../containers/order/helpers/HelperFuncsA";
 import * as actions from "../actions/order";
@@ -15,7 +16,9 @@ const FIRST_DEFAULT_ORDER_STATUS = { code: '', name: 'ALL_STATUS' };
 const initialState = {
     order: {},
     orderItems: [],
-    orderStatuses: [FIRST_DEFAULT_ORDER_STATUS]
+    orderStatuses: [FIRST_DEFAULT_ORDER_STATUS],
+    newlySavedOrderId: '',
+    hasOrderBeenSaved: false
 };
 
 
@@ -25,6 +28,8 @@ const order = (state = initialState, action) => {
     switch (action.type) {
         case actions.ON_READ_ORDER_RETURN: return onReadOrderReturn(state, action);
         case actions.ON_UPDATE_ORDER_RETURN: return onUpdateOrderReturn(state, action);
+        case actions.ON_SAVE_ORDER_RETURN: return onSaveOrderReturn(state, action);
+        case actions.RESET_ORDER_REDUCER_FLAGS: return resetOrderReducerFlags(state, action);        
         default: return state;
     }
 }
@@ -80,6 +85,40 @@ const onUpdateOrderReturn = (state, action) => {
 
     return {
         ...state
+    };
+};
+
+
+
+const onSaveOrderReturn = (state, action) => {
+
+    let newlySavedOrderId = state.newlySavedOrderId;
+
+
+    if (action.callBackData.isResultOk) {
+        newlySavedOrderId = action.callBackData.objs.order.id;
+    } else {
+        BsCore2.alertForCallBackDataErrors(action.callBackData);
+    }
+
+
+    action.callBackData.doCallBackFunc();
+
+
+    return {
+        ...state,
+        newlySavedOrderId: newlySavedOrderId,
+        hasOrderBeenSaved: true
+    };
+};
+
+
+
+const resetOrderReducerFlags = (state, action) => {
+
+    return {
+        ...state,
+        hasOrderBeenSaved: false
     };
 };
 

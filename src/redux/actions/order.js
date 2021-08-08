@@ -8,12 +8,16 @@ import { showToastr } from "../../helpers/notifications/NotificationsHelper";
 /** NAMES */
 export const ON_READ_ORDER_RETURN = "ON_READ_ORDER_RETURN";
 export const ON_UPDATE_ORDER_RETURN = "ON_UPDATE_ORDER_RETURN";
+export const ON_SAVE_ORDER_RETURN = "ON_SAVE_ORDER_RETURN";
+export const RESET_ORDER_REDUCER_FLAGS = "RESET_ORDER_REDUCER_FLAGS";
 
 
 
 /** FUNCS */
 export const onReadOrderReturn = (callBackData) => ({ type: ON_READ_ORDER_RETURN, callBackData: callBackData });
 export const onUpdateOrderReturn = (callBackData) => ({ type: ON_UPDATE_ORDER_RETURN, callBackData: callBackData });
+export const onSaveOrderReturn = (callBackData) => ({ type: ON_SAVE_ORDER_RETURN, callBackData: callBackData });
+export const resetOrderReducerFlags = (callBackData) => ({ type: RESET_ORDER_REDUCER_FLAGS, callBackData: callBackData });
 
 
 
@@ -74,6 +78,39 @@ export const updateOrder = (data) => {
 
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onUpdateOrderReturn(callBackData));
+            }
+        });
+    };
+
+};
+
+
+
+export const saveOrder = (data) => {
+
+    const bmdAuth = BmdAuth.getInstance();
+
+    return (dispatch) => {
+
+        BsCore2.ajaxCrud({
+            url: '/orders/store',
+            method: 'post',
+            params: { 
+                bmdToken: bmdAuth?.bmdToken, 
+                authProviderId: bmdAuth?.authProviderId,
+                ...data.params
+            },
+            callBackFunc: (requestData, json) => {
+                showToastr({ notificationType: 'success', message: 'Creation successful!' });
+                 const callBackData = { ...data, ...json };
+                dispatch(onSaveOrderReturn(callBackData));
+            },
+            errorCallBackFunc: (errors, errorStatusCode) => {
+                
+                showToastr({ notificationType: 'error', message: GENERAL_HTTP_RESPONSE_ERROR_MSG });
+
+                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
+                dispatch(onSaveOrderReturn(callBackData));
             }
         });
     };

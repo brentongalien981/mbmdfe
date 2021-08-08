@@ -34,5 +34,18 @@ export const onOrderUpdate = (container) => {
 
 
 export const onOrderSave = (container) => {
-    
+
+    if (container.state.isSavingOrder) { return; }
+
+    container.setState({ isSavingOrder: true });
+
+    const data = {
+        params: { ...container.state.order },
+        doCallBackFunc: () => {
+            container.setState({ isSavingOrder: false });
+        }
+    };
+
+    container.props.saveOrder(data);
+
 };

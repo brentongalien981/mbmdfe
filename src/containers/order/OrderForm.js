@@ -11,13 +11,17 @@ export const OrderForm = (props) => {
 
     const formColumns = getFormColumns(props);
 
-    const btnLabel = props.crudMethod === 'create' ? 'create' : 'update';
+    const btnLabel = props.crudMethod === 'create' ? 'save' : 'update';
 
-    let updateBtn = (<Button color="primary" onClick={props.onOrderUpdate}>{btnLabel}</Button>);
+    let actionBtn = (<Button color="primary" onClick={props.onOrderUpdate}>update</Button>);
+
+    if (props.crudMethod === 'create') {
+        actionBtn = (<Button color="primary" onClick={props.onOrderSave}>save</Button>);
+    }
 
 
-    if (props.isUpdatingOrder || props.isCreatingOrder) {
-        updateBtn = (<Button color="primary"><Spinner size="sm" /></Button>)
+    if (props.isUpdatingOrder || props.isSavingOrder) {
+        actionBtn = (<Button color="primary"><Spinner size="sm" /></Button>)
     }
 
 
@@ -40,7 +44,7 @@ export const OrderForm = (props) => {
             </Col>
 
             <Col sm="12">
-                {updateBtn}
+                {actionBtn}
             </Col>
         </>
     );
@@ -120,11 +124,13 @@ const getSpecificInputComponent = (props, inputName, inputVal, inputType) => {
 
     switch (inputName) {
         case 'id':
+        case 'cart_id':
+        case 'created_at':
         case 'updated_at':
             disabledAttrib = { disabled: true };
             break;
     }
-    
+
 
     return (
         <Input type={inputType} name={inputName} value={inputVal} onChange={(e) => props.onOrderInputChange(e)} {...disabledAttrib}>{inputChild}</Input>

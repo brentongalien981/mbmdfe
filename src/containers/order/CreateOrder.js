@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Container } from 'reactstrap';
+import { getInitialDate, parseDateToStr } from '../../bmd/helpers/HelperFuncsA';
 import * as actions from '../../redux/actions/order';
 import { readOrderStatuses } from '../../redux/actions/orders';
 import * as eventFuncs from './helpers/EventFuncs';
@@ -13,14 +14,27 @@ class CreateOrder extends React.Component {
 
     /** PROPERTIES */
     state = {
-        order: {},
-        isCreatingOrder: false
+        order: {
+            earliest_delivery_date: parseDateToStr(getInitialDate(), 'yyyy-mm-dd'),
+            latest_delivery_date: parseDateToStr(getInitialDate(), 'yyyy-mm-dd'),
+        },
+        isSavingOrder: false
     };
 
 
 
     /** MAIN FUNCS */
+    componentDidUpdate() {
+        if (this.props.hasOrderBeenSaved) {
+            // redirect
+            this.props.history.push('/orders/' + this.props.newlySavedOrderId);
+        }
+    }
+
+
+
     componentDidMount() {
+        this.props.resetOrderReducerFlags();
         this.props.readOrderStatuses();
     }
 
@@ -34,7 +48,7 @@ class CreateOrder extends React.Component {
                     order={this.state.order}
                     orderStatuses={this.props.orderStatuses}
                     onOrderInputChange={(e) => eventFuncs.onOrderInputChange(this, e)}
-                    isCreatingOrder={this.state.isCreatingOrder}
+                    isSavingOrder={this.state.isSavingOrder}
                     onOrderSave={() => eventFuncs.onOrderSave(this)}
                 />
             </Container>
@@ -48,7 +62,9 @@ class CreateOrder extends React.Component {
 /** REACT-FUNCS */
 const mapStateToProps = (state) => {
     return {
-        orderStatuses: state.orders.orderStatuses
+        orderStatuses: state.orders.orderStatuses,
+        newlySavedOrderId: state.order.newlySavedOrderId,
+        hasOrderBeenSaved: state.order.hasOrderBeenSaved
     };
 };
 
@@ -56,11 +72,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        readOrderStatuses: () => dispatch(readOrderStatuses())
+        readOrderStatuses: () => dispatch(readOrderStatuses()),
+        saveOrder: (data) => dispatch(actions.saveOrder(data)),
+        resetOrderReducerFlags: (data) => dispatch(actions.resetOrderReducerFlags(data)),
     };
 };
 
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CreateOrder));
-
