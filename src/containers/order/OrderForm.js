@@ -3,6 +3,7 @@ import { Button, Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 
 import Spinner from 'reactstrap/lib/Spinner';
 import { getInitialDate, parseDateToStr } from '../../bmd/helpers/HelperFuncsA';
 import Bs from '../../bs/core/Bs';
+import { ORDER_FORM_FIELDS } from './constants/consts';
 
 
 
@@ -10,12 +11,14 @@ export const OrderForm = (props) => {
 
     const formColumns = getFormColumns(props);
 
-    let updateBtn = (<Button color="primary" onClick={props.onOrderUpdate}>update</Button>);
+    const btnLabel = props.crudMethod === 'create' ? 'create' : 'update';
 
-    if (props.isUpdatingOrder) {
+    let updateBtn = (<Button color="primary" onClick={props.onOrderUpdate}>{btnLabel}</Button>);
+
+
+    if (props.isUpdatingOrder || props.isCreatingOrder) {
         updateBtn = (<Button color="primary"><Spinner size="sm" /></Button>)
     }
-
 
 
     let mainContents = (
@@ -42,6 +45,7 @@ export const OrderForm = (props) => {
         </>
     );
 
+    
     if (props.isReadingOrder) {
         mainContents = (
             <Col sm="12">
@@ -63,31 +67,25 @@ export const OrderForm = (props) => {
 
 const getFormColumns = (props) => {
 
-    if (props.crudMethod === 'create') {
-        return getFormColumnsForCreateMethod(props);
-    }
-
-
-
     let i = 0;
     let firstColFormInputRows = [];
     let secondColFormInputRows = [];
     let whichFormColToPopulate = firstColFormInputRows;
 
-    for (const key in props.order) {
 
-        const val = props.order[key];
+    for (const formField of ORDER_FORM_FIELDS) {
 
-        if (key === 'status_name') { continue; }
+        const fieldName = formField.field;
 
-        if (i > 12) { whichFormColToPopulate = secondColFormInputRows; }
+        if (fieldName === 'email') { whichFormColToPopulate = secondColFormInputRows; }
 
+        const fieldVal = props.order?.[fieldName];
 
         whichFormColToPopulate.push(
             <FormGroup row key={i}>
-                <Label sm={4} className="text-sm-right">{key}</Label>
+                <Label sm={4} className="text-sm-right">{fieldName}</Label>
                 <Col sm={8}>
-                    {getSpecificInputComponent(props, key, val)}
+                    {getSpecificInputComponentForCreateForm(props, fieldName, fieldVal, formField.type)}
                 </Col>
             </FormGroup>
         );
@@ -104,52 +102,33 @@ const getFormColumns = (props) => {
 
 
 
-const getFormColumnsForCreateMethod = (props) => {
+const getSpecificInputComponentForCreateForm = (props, inputName, inputVal, inputType) => {
 
-    let firstColFormInputRows = null;
-    let secondColFormInputRows = null;
+    let inputChild = null;
+    let disabledAttrib = {};
+    inputVal = inputVal ?? '';
 
-    return {
-        first: firstColFormInputRows,
-        second: secondColFormInputRows
-    };
-};
-
-
-
-const getSpecificInputComponent = (props, orderPropKey, orderPropVal) => {
-
-    const inputName = orderPropKey;
-
-    let comp = (<Input type="text" name={inputName} value={orderPropVal ?? ''} onChange={(e) => props.onOrderInputChange(e)} />);
-
-    switch (orderPropKey) {
-        case 'id':
-            comp = (<Input type="text" name={inputName} value={orderPropVal ?? ''} onChange={(e) => props.onOrderInputChange(e)} disabled />);
+    switch (inputType) {
+        case 'select':
+            inputChild = getOrderStatusOptions(props.orderStatuses);
             break;
-        case 'status_code':
-            comp = (
-                <Input
-                    type="select"
-                    name={inputName}
-                    value={orderPropVal}
-                    onChange={(e) => props.onOrderInputChange(e)}
-                >
-                    {getOrderStatusOptions(props.orderStatuses)}
-                </Input>
-            );
-            break;
-        case 'earliest_delivery_date':
-        case 'latest_delivery_date':
-        case 'created_at':
-            comp = (<Input type="date" name={inputName} value={orderPropVal} onChange={(e) => props.onOrderInputChange(e)} />);
-            break;
-        case 'updated_at':            
-            comp = (<Input type="date" name={inputName} value={orderPropVal} disabled />);
+        case 'date':
+            inputVal = (inputVal == '' ? parseDateToStr(getInitialDate(), 'yyyy-mm-dd') : inputVal);
             break;
     }
 
-    return comp;
+
+    switch (inputName) {
+        case 'id':
+        case 'updated_at':
+            disabledAttrib = { disabled: true };
+            break;
+    }
+    
+
+    return (
+        <Input type={inputType} name={inputName} value={inputVal} onChange={(e) => props.onOrderInputChange(e)} {...disabledAttrib}>{inputChild}</Input>
+    );
 };
 
 

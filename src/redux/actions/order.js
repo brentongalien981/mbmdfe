@@ -8,14 +8,12 @@ import { showToastr } from "../../helpers/notifications/NotificationsHelper";
 /** NAMES */
 export const ON_READ_ORDER_RETURN = "ON_READ_ORDER_RETURN";
 export const ON_UPDATE_ORDER_RETURN = "ON_UPDATE_ORDER_RETURN";
-export const ON_GET_CREATE_ORDER_DATA_RETURN = "ON_GET_CREATE_ORDER_DATA_RETURN";
 
 
 
 /** FUNCS */
 export const onReadOrderReturn = (callBackData) => ({ type: ON_READ_ORDER_RETURN, callBackData: callBackData });
 export const onUpdateOrderReturn = (callBackData) => ({ type: ON_UPDATE_ORDER_RETURN, callBackData: callBackData });
-export const onGetCreateOrderDataReturn = (callBackData) => ({ type: ON_GET_CREATE_ORDER_DATA_RETURN, callBackData: callBackData });
 
 
 
@@ -76,37 +74,6 @@ export const updateOrder = (data) => {
 
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onUpdateOrderReturn(callBackData));
-            }
-        });
-    };
-
-};
-
-
-
-export const getCreateOrderData = (data = {}) => {
-
-    const bmdAuth = BmdAuth.getInstance();
-
-    return (dispatch) => {
-
-        BsCore2.ajaxCrud({
-            url: '/orders/create',
-            params: { 
-                bmdToken: bmdAuth?.bmdToken, 
-                authProviderId: bmdAuth?.authProviderId,
-                ...data.params
-            },
-            callBackFunc: (requestData, json) => {
-                 const callBackData = { ...data, ...json };
-                dispatch(onGetCreateOrderDataReturn(callBackData));
-            },
-            errorCallBackFunc: (errors, errorStatusCode) => {
-                
-                showToastr({ notificationType: 'error', message: GENERAL_HTTP_RESPONSE_ERROR_MSG });
-
-                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
-                dispatch(onGetCreateOrderDataReturn(callBackData));
             }
         });
     };
