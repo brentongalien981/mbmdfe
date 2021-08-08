@@ -45,7 +45,7 @@ export const OrderForm = (props) => {
         </>
     );
 
-    
+
     if (props.isReadingOrder) {
         mainContents = (
             <Col sm="12">
@@ -77,7 +77,7 @@ const getFormColumns = (props) => {
 
         const fieldName = formField.field;
 
-        if (fieldName === 'email') { whichFormColToPopulate = secondColFormInputRows; }
+        if (fieldName === 'status_code') { whichFormColToPopulate = secondColFormInputRows; }
 
         const fieldVal = props.order?.[fieldName];
 
@@ -85,7 +85,7 @@ const getFormColumns = (props) => {
             <FormGroup row key={i}>
                 <Label sm={4} className="text-sm-right">{fieldName}</Label>
                 <Col sm={8}>
-                    {getSpecificInputComponentForCreateForm(props, fieldName, fieldVal, formField.type)}
+                    {getSpecificInputComponent(props, fieldName, fieldVal, formField.type)}
                 </Col>
             </FormGroup>
         );
@@ -102,7 +102,7 @@ const getFormColumns = (props) => {
 
 
 
-const getSpecificInputComponentForCreateForm = (props, inputName, inputVal, inputType) => {
+const getSpecificInputComponent = (props, inputName, inputVal, inputType) => {
 
     let inputChild = null;
     let disabledAttrib = {};
