@@ -9,6 +9,7 @@ import * as helperFuncs from './helpers/HelperFuncsA';
 import { OrderForm } from './OrderForm';
 import { OrderItemsTable } from './OrderItemsTable';
 import './Order.css';
+import OrderItemFormModal from './OrderItemFormModal';
 
 
 
@@ -18,8 +19,11 @@ class Order extends React.Component {
     state = {
         isReadingOrder: false,
         isUpdatingOrder: false,
+        isSavingOrderItem: false,
+        isEditingOrderItem: false,
         order: {},
-        orderItems: []
+        orderItems: [],
+        orderItemToEdit: {}
     };
 
 
@@ -46,8 +50,16 @@ class Order extends React.Component {
                 <br /><br /><br />
 
                 <OrderItemsTable
-                    orderItems={this.state.orderItems}
+                    orderItems={helperFuncs.addActionsPropToOrderItems(this)}
                     isReadingOrder={this.state.isReadingOrder}
+                />
+
+
+                <OrderItemFormModal
+                    isOpen={this.state.isEditingOrderItem}
+                    onToggle={() => eventFuncs.onOrderItemFormModalToggle(this)}
+                    orderItem={this.state.orderItemToEdit}
+                    orderItemStatuses={this.props.orderItemStatuses}
                 />
             </Container>
         );
@@ -61,7 +73,8 @@ class Order extends React.Component {
 const mapStateToProps = (state) => {
     return {
         order: state.order.order,
-        orderStatuses: state.order.orderStatuses
+        orderStatuses: state.order.orderStatuses,
+        orderItemStatuses: state.order.orderItemStatuses
     };
 };
 

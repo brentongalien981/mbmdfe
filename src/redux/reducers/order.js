@@ -1,6 +1,6 @@
 import Bs from "../../bs/core/Bs";
 import BsCore2 from "../../bs/core/BsCore2";
-import { modifyOrderWithDatePropsToFormat } from "../../containers/order/helpers/HelperFuncsA";
+import { addActionsPropToOrderItems, modifyOrderWithDatePropsToFormat } from "../../containers/order/helpers/HelperFuncsA";
 import * as actions from "../actions/order";
 
 /** DEFAULTS */
@@ -17,6 +17,7 @@ const initialState = {
     order: {},
     orderItems: [],
     orderStatuses: [FIRST_DEFAULT_ORDER_STATUS],
+    orderItemStatuses: [FIRST_DEFAULT_ORDER_STATUS],
     newlySavedOrderId: '',
     hasOrderBeenSaved: false
 };
@@ -46,12 +47,16 @@ const onReadOrderReturn = (state, action) => {
     let order = {};
     let orderItems = [];
     let updatedOrderStatuses = state.orderStatuses;
+    let updatedOrderItemStatuses = state.orderItemStatuses;
 
     if (action.callBackData.isResultOk) {
         order = action.callBackData.objs.order;
         order = modifyOrderWithDatePropsToFormat(order, 'yyyy-mm-dd');
+
         orderItems = action.callBackData.objs.orderItems;
+
         updatedOrderStatuses = action.callBackData.objs.orderStatuses ?? updatedOrderStatuses;
+        updatedOrderItemStatuses = action.callBackData.objs.orderItemStatuses ?? updatedOrderItemStatuses;
     }
     else {
         BsCore2.alertForCallBackDataErrors(action.callBackData);
@@ -67,7 +72,8 @@ const onReadOrderReturn = (state, action) => {
         ...state,
         order: order,
         orderItems: orderItems,
-        orderStatuses: updatedOrderStatuses
+        orderStatuses: updatedOrderStatuses,
+        orderItemStatuses: updatedOrderItemStatuses
     };
 };
 

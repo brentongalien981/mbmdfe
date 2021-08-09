@@ -49,3 +49,23 @@ export const onOrderSave = (container) => {
     container.props.saveOrder(data);
 
 };
+
+
+
+export const onOrderItemEdit = (container, orderItemToEdit) => {
+
+    if (container.state.isSavingOrderItem) { return; }
+
+    container.setState({ 
+        isEditingOrderItem: true,
+        orderItemToEdit: orderItemToEdit
+    });
+};
+
+
+
+export const onOrderItemFormModalToggle = (container) => {
+    container.setState({ 
+        isEditingOrderItem: false,
+    });
+};

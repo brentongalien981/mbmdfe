@@ -1,4 +1,5 @@
 export const ORDER_ITEM_TABLE_COLUMNS = [
+    { dataField: 'actions', text: 'actions', sort: false },
     { dataField: 'id', text: 'ID', sort: true },
     { dataField: 'orderId', text: 'orderId', sort: true },
     { dataField: 'productId', text: 'productId', sort: true },
@@ -11,6 +12,22 @@ export const ORDER_ITEM_TABLE_COLUMNS = [
     { dataField: 'status_name', text: 'status_name', sort: true },
     { dataField: 'created_at', text: 'created_at', sort: true },
     { dataField: 'updated_at', text: 'updated_at', sort: true }
+];
+
+
+
+export const ORDER_ITEM_FORM_FIELDS = [
+    { name: 'id', type: 'text', isDisabled: true },
+    { name: 'orderId', type: 'number', isDisabled: false },
+    { name: 'productId', type: 'number', isDisabled: false },
+    { name: 'productSellerId', type: 'number', isDisabled: false },
+    { name: 'sizeAvailabilityId', type: 'number', isDisabled: false },
+    { name: 'purchaseItemId', type: 'number', isDisabled: false },
+    { name: 'price', type: 'number', isDisabled: false },
+    { name: 'quantity', type: 'number', isDisabled: false },
+    { name: 'status_code', type: 'select', isDisabled: false },
+    // { name: 'created_at', type: 'date', isDisabled: true },
+    // { name: 'updated_at', type: 'date', isDisabled: true }
 ];
 
 

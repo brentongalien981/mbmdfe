@@ -1,6 +1,8 @@
 import React from 'react';
-import { MinusCircle, PlusCircle } from "react-feather";
+import { Edit3, MinusCircle, PlusCircle, Trash2 } from "react-feather";
+import { Button } from 'reactstrap';
 import { parseDateToStr } from '../../../bmd/helpers/HelperFuncsA';
+import { onOrderItemEdit } from './EventFuncs';
 
 
 
@@ -16,6 +18,7 @@ export const readOrder = (container) => {
             orderId: container.props.match.params.id
         },
         doCallBackFunc: (objs) => {
+
             container.setState({
                 isReadingOrder: false,
                 order: objs.order,
@@ -41,6 +44,7 @@ export const getOrderItemsTableExpandedRowDetails = () => {
 
             let rowProps = [];
             for (const key in row) {
+                if (key === 'actions') { continue; }
                 rowProps.push(<li key={rowProps.length}>{key}: {row[key]}</li>);
             }
 
@@ -75,4 +79,37 @@ export const modifyOrderWithDatePropsToFormat = (order, format = 'yyyy-mm-dd') =
     }
 
     return updatedOrder;
+};
+
+
+
+export const addActionsPropToOrderItems = (container) => {
+
+    let modifiedOrderItems = [];
+
+    for (const oi of container.state.orderItems) {
+
+        const actionsComponent = (
+            <>
+                <Button className="mr-1 mb-1" outline color="primary" size="sm">
+                    <Edit3 size={14} onClick={() => onOrderItemEdit(container, oi)} />
+                </Button>
+    
+                <Button className="mr-1 mb-1" outline color="danger" size="sm">
+                    <Trash2 size={14} />
+                </Button>
+            </>
+        );
+
+
+        const actionsProp = { actions: actionsComponent };
+
+
+        modifiedOrderItems.push({
+            ...oi,
+            ...actionsProp
+        });
+    }
+
+    return modifiedOrderItems;
 };
