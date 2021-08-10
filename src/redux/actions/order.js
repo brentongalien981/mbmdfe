@@ -10,6 +10,7 @@ export const ON_READ_ORDER_RETURN = "ON_READ_ORDER_RETURN";
 export const ON_UPDATE_ORDER_RETURN = "ON_UPDATE_ORDER_RETURN";
 export const ON_SAVE_ORDER_RETURN = "ON_SAVE_ORDER_RETURN";
 export const RESET_ORDER_REDUCER_FLAGS = "RESET_ORDER_REDUCER_FLAGS";
+export const ON_SAVE_ORDER_ITEM_RETURN = "ON_SAVE_ORDER_ITEM_RETURN";
 
 
 
@@ -18,6 +19,7 @@ export const onReadOrderReturn = (callBackData) => ({ type: ON_READ_ORDER_RETURN
 export const onUpdateOrderReturn = (callBackData) => ({ type: ON_UPDATE_ORDER_RETURN, callBackData: callBackData });
 export const onSaveOrderReturn = (callBackData) => ({ type: ON_SAVE_ORDER_RETURN, callBackData: callBackData });
 export const resetOrderReducerFlags = (callBackData) => ({ type: RESET_ORDER_REDUCER_FLAGS, callBackData: callBackData });
+export const onSaveOrderItemReturn = (callBackData) => ({ type: ON_SAVE_ORDER_ITEM_RETURN, callBackData: callBackData });
 
 
 
@@ -114,5 +116,36 @@ export const saveOrder = (data) => {
             }
         });
     };
+};
 
+
+
+export const saveOrderItem = (data) => {
+
+    const bmdAuth = BmdAuth.getInstance();
+
+    return (dispatch) => {
+
+        BsCore2.ajaxCrud({
+            url: '/order-items/store',
+            method: 'post',
+            params: { 
+                bmdToken: bmdAuth?.bmdToken, 
+                authProviderId: bmdAuth?.authProviderId,
+                ...data.params
+            },
+            callBackFunc: (requestData, json) => {
+                showToastr({ notificationType: 'success', message: 'Item saved.' });
+                 const callBackData = { ...data, ...json };
+                dispatch(onSaveOrderItemReturn(callBackData));
+            },
+            errorCallBackFunc: (errors, errorStatusCode) => {
+                
+                showToastr({ notificationType: 'error', message: GENERAL_HTTP_RESPONSE_ERROR_MSG });
+
+                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
+                dispatch(onSaveOrderItemReturn(callBackData));
+            }
+        });
+    };
 };

@@ -59,6 +59,8 @@ class Order extends React.Component {
                     orderItem={this.state.orderItemToEdit}
                     orderItemStatuses={this.props.orderItemStatuses}
                     onOrderItemInputChange={(e) => eventFuncs.onOrderItemInputChange(this, e)}
+                    isSavingOrderItem={this.state.isSavingOrderItem}
+                    onOrderItemSave={() => eventFuncs.onOrderItemSave(this)}
                 />
             </Container>
         );
@@ -82,7 +84,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         readOrder: (data) => dispatch(actions.readOrder(data)),
-        updateOrder: (data) => dispatch(actions.updateOrder(data))
+        updateOrder: (data) => dispatch(actions.updateOrder(data)),
+        saveOrderItem: (data) => dispatch(actions.saveOrderItem(data))
     };
 };
 

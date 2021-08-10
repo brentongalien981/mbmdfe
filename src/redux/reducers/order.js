@@ -30,7 +30,8 @@ const order = (state = initialState, action) => {
         case actions.ON_READ_ORDER_RETURN: return onReadOrderReturn(state, action);
         case actions.ON_UPDATE_ORDER_RETURN: return onUpdateOrderReturn(state, action);
         case actions.ON_SAVE_ORDER_RETURN: return onSaveOrderReturn(state, action);
-        case actions.RESET_ORDER_REDUCER_FLAGS: return resetOrderReducerFlags(state, action);        
+        case actions.RESET_ORDER_REDUCER_FLAGS: return resetOrderReducerFlags(state, action);
+        case actions.ON_SAVE_ORDER_ITEM_RETURN: return onSaveOrderItemReturn(state, action);
         default: return state;
     }
 }
@@ -125,6 +126,24 @@ const resetOrderReducerFlags = (state, action) => {
     return {
         ...state,
         hasOrderBeenSaved: false
+    };
+};
+
+
+
+const onSaveOrderItemReturn = (state, action) => {
+
+    if (action.callBackData.isResultOk) {
+        
+    } else {
+        BsCore2.alertForCallBackDataErrors(action.callBackData);
+    }
+
+
+    action.callBackData.doCallBackFunc();
+
+    return {
+        ...state,
     };
 };
 

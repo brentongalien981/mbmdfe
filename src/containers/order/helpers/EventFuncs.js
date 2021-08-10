@@ -83,3 +83,22 @@ export const onOrderItemInputChange = (container, e) => {
     container.setState({ orderItemToEdit: updatedOrderItem });
 
 };
+
+
+
+export const onOrderItemSave = (container) => {
+
+    if (container.state.isSavingOrderItem) { return; }
+
+    container.setState({ isSavingOrderItem: true });
+
+    const data = {
+        params: { ...container.state.orderItemToEdit },
+        doCallBackFunc: () => {
+            container.setState({ isSavingOrderItem: false });
+        }
+    };
+
+    container.props.saveOrderItem(data);
+
+};
