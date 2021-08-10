@@ -17,7 +17,7 @@ const OrderItemFormModal = (props) => {
             </ModalBody>
 
             <ModalFooter>
-                <Button color="secondary" className="mr-1">cancel</Button>
+                <Button color="warning" className="mr-1" onClick={props.onToggle}>cancel</Button>
                 <Button color='primary'>save</Button>
             </ModalFooter>
 
