@@ -33,7 +33,7 @@ export const OrderItemsTable = (props) => {
 
 
     return (
-        <Row className="mb-4">
+        <Row className="my-4 py-4">
             <Col sm="12">
                 <h2>Order Items</h2>
             </Col>

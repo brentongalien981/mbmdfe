@@ -69,3 +69,17 @@ export const onOrderItemFormModalToggle = (container) => {
         isEditingOrderItem: false,
     });
 };
+
+
+
+export const onOrderItemInputChange = (container, e) => {
+
+    const targetName = e.target.name;
+    const targetVal = e.target.value;
+
+    let updatedOrderItem = container.state.orderItemToEdit;
+    updatedOrderItem[targetName] = targetVal;
+
+    container.setState({ orderItemToEdit: updatedOrderItem });
+
+};

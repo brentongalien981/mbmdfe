@@ -47,8 +47,6 @@ class Order extends React.Component {
                     onOrderUpdate={() => eventFuncs.onOrderUpdate(this)}
                 />
 
-                <br /><br /><br />
-
                 <OrderItemsTable
                     orderItems={helperFuncs.addActionsPropToOrderItems(this)}
                     isReadingOrder={this.state.isReadingOrder}
@@ -60,6 +58,7 @@ class Order extends React.Component {
                     onToggle={() => eventFuncs.onOrderItemFormModalToggle(this)}
                     orderItem={this.state.orderItemToEdit}
                     orderItemStatuses={this.props.orderItemStatuses}
+                    onOrderItemInputChange={(e) => eventFuncs.onOrderItemInputChange(this, e)}
                 />
             </Container>
         );

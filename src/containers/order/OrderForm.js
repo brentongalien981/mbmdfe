@@ -60,7 +60,7 @@ export const OrderForm = (props) => {
 
 
     return (
-        <Row>
+        <Row className="mb-4 pb-4">
             <Col sm="12"><h2>Order Info</h2></Col>
             {mainContents}
         </Row>
