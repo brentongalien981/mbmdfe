@@ -150,8 +150,8 @@ const onSaveOrderItemReturn = (state, action) => {
     let updatedOrderItems = state.orderItems;
 
     if (action.callBackData.isResultOk) {
-        const savedOrderItem = action.callBackData.objs.savedOrderItem;
 
+        const savedOrderItem = action.callBackData.objs.savedOrderItem;
         updatedOrderItems = replaceUpdatedOrderItem(updatedOrderItems, savedOrderItem);
 
     } else {
@@ -160,6 +160,7 @@ const onSaveOrderItemReturn = (state, action) => {
 
 
     action.callBackData.doCallBackFunc({ updatedOrderItems: updatedOrderItems });
+
 
     return {
         ...state,
