@@ -94,8 +94,11 @@ export const onOrderItemSave = (container) => {
 
     const data = {
         params: { ...container.state.orderItemToEdit },
-        doCallBackFunc: () => {
-            container.setState({ isSavingOrderItem: false });
+        doCallBackFunc: (objs) => {
+            container.setState({ 
+                orderItems: objs.updatedOrderItems,
+                isSavingOrderItem: false 
+            });
         }
     };
 

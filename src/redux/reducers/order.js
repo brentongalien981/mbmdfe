@@ -39,6 +39,20 @@ const order = (state = initialState, action) => {
 
 
 /** HELPER FUNCS */
+const replaceUpdatedOrderItem = (updatedOrderItems, savedOrderItem) => {
+
+    let theUpdatedOrderItems = [];
+
+    for (const oi of updatedOrderItems) {
+        if (oi.id === savedOrderItem.id) {
+            theUpdatedOrderItems.push(savedOrderItem);
+        } else {
+            theUpdatedOrderItems.push(oi);
+        }
+    }
+
+    return theUpdatedOrderItems;
+};
 
 
 
@@ -133,17 +147,23 @@ const resetOrderReducerFlags = (state, action) => {
 
 const onSaveOrderItemReturn = (state, action) => {
 
+    let updatedOrderItems = state.orderItems;
+
     if (action.callBackData.isResultOk) {
-        
+        const savedOrderItem = action.callBackData.objs.savedOrderItem;
+
+        updatedOrderItems = replaceUpdatedOrderItem(updatedOrderItems, savedOrderItem);
+
     } else {
         BsCore2.alertForCallBackDataErrors(action.callBackData);
     }
 
 
-    action.callBackData.doCallBackFunc();
+    action.callBackData.doCallBackFunc({ updatedOrderItems: updatedOrderItems });
 
     return {
         ...state,
+        orderItems: updatedOrderItems
     };
 };
 

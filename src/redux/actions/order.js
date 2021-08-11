@@ -140,9 +140,6 @@ export const saveOrderItem = (data) => {
                 dispatch(onSaveOrderItemReturn(callBackData));
             },
             errorCallBackFunc: (errors, errorStatusCode) => {
-                
-                showToastr({ notificationType: 'error', message: GENERAL_HTTP_RESPONSE_ERROR_MSG });
-
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onSaveOrderItemReturn(callBackData));
             }
