@@ -6,10 +6,18 @@ import { ORDER_ITEM_FORM_FIELDS } from './constants/consts';
 
 const OrderItemFormModal = (props) => {
 
+    const formLabel = (props.orderItemFormAction === 'create' ? 'Create Order Item' : 'Edit Order Item');
+
+    let saveBtnContent = 'save';
+    if (props.isSavingOrderItem) {
+        saveBtnContent = (<Spinner size="sm" />);
+    }
+
+
     return (
         <Modal isOpen={props.isOpen} toggle={props.onToggle} size='lg'>
             <ModalHeader>
-                <Container className="my-2"><h3>Order Item</h3></Container>
+                <Container className="my-2"><h3>{formLabel}</h3></Container>
             </ModalHeader>
 
             <ModalBody>
@@ -17,8 +25,8 @@ const OrderItemFormModal = (props) => {
             </ModalBody>
 
             <ModalFooter>
-                <Button color="warning" className="mr-1" onClick={props.onToggle}>cancel</Button>
-                <Button color="primary" onClick={props.onOrderItemSave}>save</Button>
+                <Button color="warning" className="mr-1" onClick={props.onToggle}>close</Button>
+                <Button color="primary" onClick={props.onOrderItemSave}>{saveBtnContent}</Button>
             </ModalFooter>
 
         </Modal>

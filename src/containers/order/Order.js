@@ -23,7 +23,8 @@ class Order extends React.Component {
         isEditingOrderItem: false,
         order: {},
         orderItems: [],
-        orderItemToEdit: {}
+        orderItemToEdit: {},
+        orderItemFormAction: 'create'
     };
 
 
@@ -50,12 +51,14 @@ class Order extends React.Component {
                 <OrderItemsTable
                     orderItems={helperFuncs.addActionsPropToOrderItems(this)}
                     isReadingOrder={this.state.isReadingOrder}
+                    onOrderItemCreate={() => eventFuncs.onOrderItemCreate(this)}
                 />
 
 
                 <OrderItemFormModal
                     isOpen={this.state.isEditingOrderItem}
                     onToggle={() => eventFuncs.onOrderItemFormModalToggle(this)}
+                    orderItemFormAction={this.state.orderItemFormAction}
                     orderItem={this.state.orderItemToEdit}
                     orderItemStatuses={this.props.orderItemStatuses}
                     onOrderItemInputChange={(e) => eventFuncs.onOrderItemInputChange(this, e)}

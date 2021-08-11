@@ -1,3 +1,5 @@
+import { extractDefaultOrderItemStatus } from "./HelperFuncsA";
+
 export const onOrderInputChange = (container, e) => {
 
     if (container.state.isReadingOrder || container.state.isUpdatingOrder) { return; }
@@ -58,7 +60,21 @@ export const onOrderItemEdit = (container, orderItemToEdit) => {
 
     container.setState({ 
         isEditingOrderItem: true,
-        orderItemToEdit: orderItemToEdit
+        orderItemToEdit: orderItemToEdit,
+        orderItemFormAction: 'edit'
+    });
+};
+
+
+
+export const onOrderItemCreate = (container) => {
+
+    if (container.state.isSavingOrderItem) { return; }
+
+    container.setState({ 
+        isEditingOrderItem: true,
+        orderItemToEdit: {},
+        orderItemFormAction: 'create'
     });
 };
 
@@ -92,8 +108,17 @@ export const onOrderItemSave = (container) => {
 
     container.setState({ isSavingOrderItem: true });
 
+    const orderItemFormAction = container.state.orderItemFormAction;
+
+    const orderItemToEdit = {
+        ...container.state.orderItemToEdit,
+        orderId: container.state.order.id,
+        status_code: container.state.orderItemToEdit.status_code ?? extractDefaultOrderItemStatus(container.props.orderItemStatuses).code
+    };
+
     const data = {
-        params: { ...container.state.orderItemToEdit },
+        localParams: { orderItemFormAction: orderItemFormAction },
+        params: { ...orderItemToEdit },
         doCallBackFunc: (objs) => {
             container.setState({ 
                 orderItems: objs.updatedOrderItems,

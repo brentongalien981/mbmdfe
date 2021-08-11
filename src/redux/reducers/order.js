@@ -152,7 +152,12 @@ const onSaveOrderItemReturn = (state, action) => {
     if (action.callBackData.isResultOk) {
 
         const savedOrderItem = action.callBackData.objs.savedOrderItem;
-        updatedOrderItems = replaceUpdatedOrderItem(updatedOrderItems, savedOrderItem);
+
+        if (action.callBackData.localParams.orderItemFormAction === 'create') {
+            updatedOrderItems = [...updatedOrderItems, savedOrderItem];
+        } else {
+            updatedOrderItems = replaceUpdatedOrderItem(updatedOrderItems, savedOrderItem);
+        }
 
     } else {
         BsCore2.alertForCallBackDataErrors(action.callBackData);

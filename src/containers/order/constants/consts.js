@@ -18,7 +18,7 @@ export const ORDER_ITEM_TABLE_COLUMNS = [
 
 export const ORDER_ITEM_FORM_FIELDS = [
     { name: 'id', type: 'number', isDisabled: true },
-    { name: 'orderId', type: 'text', isDisabled: false },
+    { name: 'orderId', type: 'text', isDisabled: true },
     { name: 'productId', type: 'number', isDisabled: false },
     { name: 'productSellerId', type: 'number', isDisabled: false },
     { name: 'sizeAvailabilityId', type: 'number', isDisabled: false },

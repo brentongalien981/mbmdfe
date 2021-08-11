@@ -1,6 +1,7 @@
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
-import { Col, Row, Spinner } from 'reactstrap';
+import { PlusSquare } from 'react-feather';
+import { Button, Col, Row, Spinner } from 'reactstrap';
 import { ORDER_ITEM_TABLE_COLUMNS } from './constants/consts';
 import { getOrderItemsTableExpandedRowDetails } from './helpers/HelperFuncsA';
 
@@ -32,10 +33,18 @@ export const OrderItemsTable = (props) => {
     }
 
 
+    const orderItemLabelStyle = {
+        display: 'inline-block'
+    };
+
+
     return (
         <Row className="my-4 py-4">
-            <Col sm="12">
-                <h2>Order Items</h2>
+            <Col sm="12" className="mb-2">
+                <h2 style={orderItemLabelStyle} className="mr-2">Order Items</h2>
+                <Button className="mb-2" color="primary" onClick={props.onOrderItemCreate}>
+                    <PlusSquare size="18" /> add order-item
+                </Button>
             </Col>
 
             {mainContent}

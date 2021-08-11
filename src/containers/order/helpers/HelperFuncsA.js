@@ -94,10 +94,6 @@ export const addActionsPropToOrderItems = (container) => {
                 <Button className="mr-1 mb-1" outline color="primary" size="sm">
                     <Edit3 size={14} onClick={() => onOrderItemEdit(container, oi)} />
                 </Button>
-    
-                <Button className="mr-1 mb-1" outline color="danger" size="sm">
-                    <Trash2 size={14} />
-                </Button>
             </>
         );
 
@@ -112,4 +108,16 @@ export const addActionsPropToOrderItems = (container) => {
     }
 
     return modifiedOrderItems;
+};
+
+
+
+export const extractDefaultOrderItemStatus = (statuses) => {
+
+    for (const s of statuses) {
+        if (s.name === 'DEFAULT') { return s; }
+    }
+
+    return null;
+
 };

@@ -126,8 +126,14 @@ export const saveOrderItem = (data) => {
 
     return (dispatch) => {
 
+        let url = '/order-items/store' ;
+        if (data.localParams.orderItemFormAction === 'edit') {
+            url = '/order-items/update';
+        }
+
+
         BsCore2.ajaxCrud({
-            url: '/order-items/store',
+            url: url,
             method: 'post',
             params: { 
                 bmdToken: bmdAuth?.bmdToken, 
