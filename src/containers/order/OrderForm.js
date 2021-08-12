@@ -11,14 +11,12 @@ export const OrderForm = (props) => {
 
     const formColumns = getFormColumns(props);
 
-    const btnLabel = props.crudMethod === 'create' ? 'save' : 'update';
 
     let actionBtn = (<Button color="primary" onClick={props.onOrderUpdate}>update</Button>);
 
     if (props.crudMethod === 'create') {
         actionBtn = (<Button color="primary" onClick={props.onOrderSave}>save</Button>);
     }
-
 
     if (props.isUpdatingOrder || props.isSavingOrder) {
         actionBtn = (<Button color="primary"><Spinner size="sm" /></Button>)

@@ -11,6 +11,7 @@ export const ON_UPDATE_ORDER_RETURN = "ON_UPDATE_ORDER_RETURN";
 export const ON_SAVE_ORDER_RETURN = "ON_SAVE_ORDER_RETURN";
 export const RESET_ORDER_REDUCER_FLAGS = "RESET_ORDER_REDUCER_FLAGS";
 export const ON_SAVE_ORDER_ITEM_RETURN = "ON_SAVE_ORDER_ITEM_RETURN";
+export const ON_ASSOCIATE_TO_PURCHASES_RETURN = "ON_ASSOCIATE_TO_PURCHASES_RETURN";
 
 
 
@@ -20,6 +21,7 @@ export const onUpdateOrderReturn = (callBackData) => ({ type: ON_UPDATE_ORDER_RE
 export const onSaveOrderReturn = (callBackData) => ({ type: ON_SAVE_ORDER_RETURN, callBackData: callBackData });
 export const resetOrderReducerFlags = (callBackData) => ({ type: RESET_ORDER_REDUCER_FLAGS, callBackData: callBackData });
 export const onSaveOrderItemReturn = (callBackData) => ({ type: ON_SAVE_ORDER_ITEM_RETURN, callBackData: callBackData });
+export const onAssociateToPurchasesReturn = (callBackData) => ({ type: ON_ASSOCIATE_TO_PURCHASES_RETURN, callBackData: callBackData });
 
 
 
@@ -148,6 +150,34 @@ export const saveOrderItem = (data) => {
             errorCallBackFunc: (errors, errorStatusCode) => {
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onSaveOrderItemReturn(callBackData));
+            }
+        });
+    };
+};
+
+
+
+export const associateToPurchases = (data) => {
+
+    const bmdAuth = BmdAuth.getInstance();
+
+    return (dispatch) => {
+
+        BsCore2.ajaxCrud({
+            url: '/order-items/associateToPurchases',
+            method: 'post',
+            params: { 
+                bmdToken: bmdAuth?.bmdToken, 
+                authProviderId: bmdAuth?.authProviderId,
+                ...data.params
+            },
+            callBackFunc: (requestData, json) => {
+                 const callBackData = { ...data, ...json };
+                dispatch(onAssociateToPurchasesReturn(callBackData));
+            },
+            errorCallBackFunc: (errors, errorStatusCode) => {
+                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
+                dispatch(onAssociateToPurchasesReturn(callBackData));
             }
         });
     };

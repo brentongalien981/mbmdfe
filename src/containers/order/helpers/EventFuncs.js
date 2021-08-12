@@ -1,3 +1,4 @@
+import Bs from "../../../bs/core/Bs";
 import { extractDefaultOrderItemStatus } from "./HelperFuncsA";
 
 export const onOrderInputChange = (container, e) => {
@@ -58,7 +59,7 @@ export const onOrderItemEdit = (container, orderItemToEdit) => {
 
     if (container.state.isSavingOrderItem) { return; }
 
-    container.setState({ 
+    container.setState({
         isEditingOrderItem: true,
         orderItemToEdit: orderItemToEdit,
         orderItemFormAction: 'edit'
@@ -71,7 +72,7 @@ export const onOrderItemCreate = (container) => {
 
     if (container.state.isSavingOrderItem) { return; }
 
-    container.setState({ 
+    container.setState({
         isEditingOrderItem: true,
         orderItemToEdit: {},
         orderItemFormAction: 'create'
@@ -81,7 +82,7 @@ export const onOrderItemCreate = (container) => {
 
 
 export const onOrderItemFormModalToggle = (container) => {
-    container.setState({ 
+    container.setState({
         isEditingOrderItem: false,
     });
 };
@@ -104,7 +105,7 @@ export const onOrderItemInputChange = (container, e) => {
 
 export const onOrderItemSave = (container) => {
 
-    if (container.state.isSavingOrderItem) { return; }
+    if (container.state.isSavingOrderItem || container.state.isAssociatingToPurchases) { return; }
 
     container.setState({ isSavingOrderItem: true });
 
@@ -120,13 +121,34 @@ export const onOrderItemSave = (container) => {
         localParams: { orderItemFormAction: orderItemFormAction },
         params: { ...orderItemToEdit },
         doCallBackFunc: (objs) => {
-            container.setState({ 
+            container.setState({
                 orderItems: objs.updatedOrderItems,
-                isSavingOrderItem: false 
+                isSavingOrderItem: false
             });
         }
     };
 
     container.props.saveOrderItem(data);
 
+};
+
+
+
+export const onAssociateToPurchases = (container) => {
+
+    if (container.state.isSavingOrderItem || container.state.isAssociatingToPurchases) { return; }
+
+    container.setState({ isAssociatingToPurchases: true });
+
+    const data = {
+        params: { orderId: container.state.order.id },
+        doCallBackFunc: (objs) => {
+            container.setState({ 
+                isAssociatingToPurchases: false,
+                orderItems: objs.orderItems
+            });
+        }
+    };
+
+    container.props.associateToPurchases(data);
 };

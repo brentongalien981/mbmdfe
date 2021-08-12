@@ -1,3 +1,4 @@
+import { OK } from "../../bmd/constants/bmdHttpResponseCodes";
 import Bs from "../../bs/core/Bs";
 import BsCore2 from "../../bs/core/BsCore2";
 import { addActionsPropToOrderItems, modifyOrderWithDatePropsToFormat } from "../../containers/order/helpers/HelperFuncsA";
@@ -32,6 +33,7 @@ const order = (state = initialState, action) => {
         case actions.ON_SAVE_ORDER_RETURN: return onSaveOrderReturn(state, action);
         case actions.RESET_ORDER_REDUCER_FLAGS: return resetOrderReducerFlags(state, action);
         case actions.ON_SAVE_ORDER_ITEM_RETURN: return onSaveOrderItemReturn(state, action);
+        case actions.ON_ASSOCIATE_TO_PURCHASES_RETURN: return onAssociateToPurchasesReturn(state, action);
         default: return state;
     }
 }
@@ -165,6 +167,32 @@ const onSaveOrderItemReturn = (state, action) => {
 
 
     action.callBackData.doCallBackFunc({ updatedOrderItems: updatedOrderItems });
+
+
+    return {
+        ...state,
+        orderItems: updatedOrderItems
+    };
+};
+
+
+
+const onAssociateToPurchasesReturn = (state, action) => {
+
+    let updatedOrderItems = state.orderItems;
+
+    if (action.callBackData.isResultOk) {
+        alert(action.callBackData.resultCode.readableMessage);
+
+        if (action.callBackData.resultCode.code == OK.code) {
+            updatedOrderItems = action.callBackData.objs.orderItems;
+        }
+    } else {
+        BsCore2.alertForCallBackDataErrors(action.callBackData);
+    }
+
+
+    action.callBackData.doCallBackFunc({ orderItems: updatedOrderItems });
 
 
     return {

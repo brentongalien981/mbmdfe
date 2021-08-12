@@ -21,6 +21,7 @@ class Order extends React.Component {
         isUpdatingOrder: false,
         isSavingOrderItem: false,
         isEditingOrderItem: false,
+        isAssociatingToPurchases: false,
         order: {},
         orderItems: [],
         orderItemToEdit: {},
@@ -52,6 +53,8 @@ class Order extends React.Component {
                     orderItems={helperFuncs.addActionsPropToOrderItems(this)}
                     isReadingOrder={this.state.isReadingOrder}
                     onOrderItemCreate={() => eventFuncs.onOrderItemCreate(this)}
+                    isAssociatingToPurchases={this.state.isAssociatingToPurchases}
+                    onAssociateToPurchases={() => eventFuncs.onAssociateToPurchases(this)}
                 />
 
 
@@ -88,7 +91,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         readOrder: (data) => dispatch(actions.readOrder(data)),
         updateOrder: (data) => dispatch(actions.updateOrder(data)),
-        saveOrderItem: (data) => dispatch(actions.saveOrderItem(data))
+        saveOrderItem: (data) => dispatch(actions.saveOrderItem(data)),
+        associateToPurchases: (data) => dispatch(actions.associateToPurchases(data))
     };
 };
 
