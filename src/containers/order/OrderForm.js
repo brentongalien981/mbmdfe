@@ -23,6 +23,12 @@ export const OrderForm = (props) => {
     }
 
 
+    let refreshBtn = (<Button color="primary" className="ml-2" onClick={props.onOrderRefresh}>refresh</Button>);
+    if (props.isRefreshingOrder) {
+        refreshBtn = (<Button color="primary" className="ml-2"><Spinner size="sm" /></Button>)
+    }
+
+
     let mainContents = (
         <>
             <Col lg="6">
@@ -43,6 +49,7 @@ export const OrderForm = (props) => {
 
             <Col sm="12">
                 {actionBtn}
+                {refreshBtn}
             </Col>
         </>
     );
@@ -115,7 +122,8 @@ const getSpecificInputComponent = (props, inputName, inputVal, inputType) => {
             inputChild = getOrderStatusOptions(props.orderStatuses);
             break;
         case 'date':
-            inputVal = (inputVal == '' ? parseDateToStr(getInitialDate(), 'yyyy-mm-dd') : inputVal);
+            let dateObj = (inputVal == '' ? getInitialDate() : new Date(inputVal));
+            inputVal = parseDateToStr(dateObj, 'yyyy-mm-dd');
             break;
     }
 

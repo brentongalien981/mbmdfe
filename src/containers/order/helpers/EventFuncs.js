@@ -19,7 +19,7 @@ export const onOrderInputChange = (container, e) => {
 
 export const onOrderUpdate = (container) => {
 
-    if (container.state.isReadingOrder || container.state.isUpdatingOrder) { return; }
+    if (container.state.isReadingOrder || container.state.isUpdatingOrder || container.state.isRefreshingOrder) { return; }
 
     container.setState({ isUpdatingOrder: true });
 
@@ -151,4 +151,25 @@ export const onAssociateToPurchases = (container) => {
     };
 
     container.props.associateToPurchases(data);
+};
+
+
+
+export const onOrderRefresh = (container) => {
+
+    if (container.state.isUpdatingOrder || container.state.isRefreshingOrder) { return; }
+
+    container.setState({ isRefreshingOrder: true });
+
+    const data = {
+        params: { orderId: container.state.order.id },
+        doCallBackFunc: (objs) => {
+            container.setState({ 
+                order: objs.order,
+                isRefreshingOrder: false
+            });
+        }
+    };
+
+    container.props.refreshOrder(data);
 };

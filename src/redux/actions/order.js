@@ -12,6 +12,7 @@ export const ON_SAVE_ORDER_RETURN = "ON_SAVE_ORDER_RETURN";
 export const RESET_ORDER_REDUCER_FLAGS = "RESET_ORDER_REDUCER_FLAGS";
 export const ON_SAVE_ORDER_ITEM_RETURN = "ON_SAVE_ORDER_ITEM_RETURN";
 export const ON_ASSOCIATE_TO_PURCHASES_RETURN = "ON_ASSOCIATE_TO_PURCHASES_RETURN";
+export const ON_REFRESH_ORDER_RETURN = "ON_REFRESH_ORDER_RETURN";
 
 
 
@@ -22,6 +23,7 @@ export const onSaveOrderReturn = (callBackData) => ({ type: ON_SAVE_ORDER_RETURN
 export const resetOrderReducerFlags = (callBackData) => ({ type: RESET_ORDER_REDUCER_FLAGS, callBackData: callBackData });
 export const onSaveOrderItemReturn = (callBackData) => ({ type: ON_SAVE_ORDER_ITEM_RETURN, callBackData: callBackData });
 export const onAssociateToPurchasesReturn = (callBackData) => ({ type: ON_ASSOCIATE_TO_PURCHASES_RETURN, callBackData: callBackData });
+export const onRefreshOrderReturn = (callBackData) => ({ type: ON_REFRESH_ORDER_RETURN, callBackData: callBackData });
 
 
 
@@ -34,17 +36,17 @@ export const readOrder = (data) => {
 
         BsCore2.ajaxCrud({
             url: '/orders/show',
-            params: { 
-                bmdToken: bmdAuth?.bmdToken, 
+            params: {
+                bmdToken: bmdAuth?.bmdToken,
                 authProviderId: bmdAuth?.authProviderId,
                 ...data.params
             },
             callBackFunc: (requestData, json) => {
-                 const callBackData = { ...data, ...json };
+                const callBackData = { ...data, ...json };
                 dispatch(onReadOrderReturn(callBackData));
             },
             errorCallBackFunc: (errors, errorStatusCode) => {
-                
+
                 showToastr({ notificationType: 'error', message: GENERAL_HTTP_RESPONSE_ERROR_MSG });
 
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
@@ -66,18 +68,18 @@ export const updateOrder = (data) => {
         BsCore2.ajaxCrud({
             url: '/orders/update',
             method: 'post',
-            params: { 
-                bmdToken: bmdAuth?.bmdToken, 
+            params: {
+                bmdToken: bmdAuth?.bmdToken,
                 authProviderId: bmdAuth?.authProviderId,
                 ...data.params
             },
             callBackFunc: (requestData, json) => {
                 showToastr({ notificationType: 'success', message: 'Update successful!' });
-                 const callBackData = { ...data, ...json };
+                const callBackData = { ...data, ...json };
                 dispatch(onUpdateOrderReturn(callBackData));
             },
             errorCallBackFunc: (errors, errorStatusCode) => {
-                
+
                 showToastr({ notificationType: 'error', message: GENERAL_HTTP_RESPONSE_ERROR_MSG });
 
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
@@ -99,18 +101,18 @@ export const saveOrder = (data) => {
         BsCore2.ajaxCrud({
             url: '/orders/store',
             method: 'post',
-            params: { 
-                bmdToken: bmdAuth?.bmdToken, 
+            params: {
+                bmdToken: bmdAuth?.bmdToken,
                 authProviderId: bmdAuth?.authProviderId,
                 ...data.params
             },
             callBackFunc: (requestData, json) => {
                 showToastr({ notificationType: 'success', message: 'Creation successful!' });
-                 const callBackData = { ...data, ...json };
+                const callBackData = { ...data, ...json };
                 dispatch(onSaveOrderReturn(callBackData));
             },
             errorCallBackFunc: (errors, errorStatusCode) => {
-                
+
                 showToastr({ notificationType: 'error', message: GENERAL_HTTP_RESPONSE_ERROR_MSG });
 
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
@@ -128,7 +130,7 @@ export const saveOrderItem = (data) => {
 
     return (dispatch) => {
 
-        let url = '/order-items/store' ;
+        let url = '/order-items/store';
         if (data.localParams.orderItemFormAction === 'edit') {
             url = '/order-items/update';
         }
@@ -137,14 +139,14 @@ export const saveOrderItem = (data) => {
         BsCore2.ajaxCrud({
             url: url,
             method: 'post',
-            params: { 
-                bmdToken: bmdAuth?.bmdToken, 
+            params: {
+                bmdToken: bmdAuth?.bmdToken,
                 authProviderId: bmdAuth?.authProviderId,
                 ...data.params
             },
             callBackFunc: (requestData, json) => {
                 showToastr({ notificationType: 'success', message: 'Item saved.' });
-                 const callBackData = { ...data, ...json };
+                const callBackData = { ...data, ...json };
                 dispatch(onSaveOrderItemReturn(callBackData));
             },
             errorCallBackFunc: (errors, errorStatusCode) => {
@@ -166,18 +168,47 @@ export const associateToPurchases = (data) => {
         BsCore2.ajaxCrud({
             url: '/order-items/associateToPurchases',
             method: 'post',
-            params: { 
-                bmdToken: bmdAuth?.bmdToken, 
+            params: {
+                bmdToken: bmdAuth?.bmdToken,
                 authProviderId: bmdAuth?.authProviderId,
                 ...data.params
             },
             callBackFunc: (requestData, json) => {
-                 const callBackData = { ...data, ...json };
+                const callBackData = { ...data, ...json };
                 dispatch(onAssociateToPurchasesReturn(callBackData));
             },
             errorCallBackFunc: (errors, errorStatusCode) => {
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onAssociateToPurchasesReturn(callBackData));
+            }
+        });
+    };
+};
+
+
+
+export const refreshOrder = (data) => {
+
+    const bmdAuth = BmdAuth.getInstance();
+
+    return (dispatch) => {
+
+        BsCore2.ajaxCrud({
+            url: '/orders/refresh',
+            method: 'post',
+            params: {
+                bmdToken: bmdAuth?.bmdToken,
+                authProviderId: bmdAuth?.authProviderId,
+                ...data.params
+            },
+            callBackFunc: (requestData, json) => {
+                showToastr({ notificationType: 'success', message: 'Process successful!' });
+                const callBackData = { ...data, ...json };
+                dispatch(onRefreshOrderReturn(callBackData));
+            },
+            errorCallBackFunc: (errors, errorStatusCode) => {
+                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
+                dispatch(onRefreshOrderReturn(callBackData));
             }
         });
     };

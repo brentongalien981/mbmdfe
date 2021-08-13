@@ -34,6 +34,7 @@ const order = (state = initialState, action) => {
         case actions.RESET_ORDER_REDUCER_FLAGS: return resetOrderReducerFlags(state, action);
         case actions.ON_SAVE_ORDER_ITEM_RETURN: return onSaveOrderItemReturn(state, action);
         case actions.ON_ASSOCIATE_TO_PURCHASES_RETURN: return onAssociateToPurchasesReturn(state, action);
+        case actions.ON_REFRESH_ORDER_RETURN: return onRefreshOrderReturn(state, action);
         default: return state;
     }
 }
@@ -68,7 +69,7 @@ const onReadOrderReturn = (state, action) => {
 
     if (action.callBackData.isResultOk) {
         order = action.callBackData.objs.order;
-        order = modifyOrderWithDatePropsToFormat(order, 'yyyy-mm-dd');
+        // order = modifyOrderWithDatePropsToFormat(order, 'yyyy-mm-dd');
 
         orderItems = action.callBackData.objs.orderItems;
 
@@ -198,6 +199,28 @@ const onAssociateToPurchasesReturn = (state, action) => {
     return {
         ...state,
         orderItems: updatedOrderItems
+    };
+};
+
+
+
+const onRefreshOrderReturn = (state, action) => {
+
+    let updateOrder = state.order;
+
+    if (action.callBackData.isResultOk) {
+        updateOrder = action.callBackData.objs.order;
+    } else {
+        BsCore2.alertForCallBackDataErrors(action.callBackData);
+    }
+
+    action.callBackData.doCallBackFunc({
+        order: updateOrder
+    });
+
+    return {
+        ...state,
+        order: updateOrder
     };
 };
 

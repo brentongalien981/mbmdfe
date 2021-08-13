@@ -19,6 +19,7 @@ class Order extends React.Component {
     state = {
         isReadingOrder: false,
         isUpdatingOrder: false,
+        isRefreshingOrder: false,
         isSavingOrderItem: false,
         isEditingOrderItem: false,
         isAssociatingToPurchases: false,
@@ -47,6 +48,8 @@ class Order extends React.Component {
                     isReadingOrder={this.state.isReadingOrder}
                     isUpdatingOrder={this.state.isUpdatingOrder}
                     onOrderUpdate={() => eventFuncs.onOrderUpdate(this)}
+                    isRefreshingOrder={this.state.isRefreshingOrder}
+                    onOrderRefresh={() => eventFuncs.onOrderRefresh(this)}
                 />
 
                 <OrderItemsTable
@@ -92,7 +95,8 @@ const mapDispatchToProps = (dispatch) => {
         readOrder: (data) => dispatch(actions.readOrder(data)),
         updateOrder: (data) => dispatch(actions.updateOrder(data)),
         saveOrderItem: (data) => dispatch(actions.saveOrderItem(data)),
-        associateToPurchases: (data) => dispatch(actions.associateToPurchases(data))
+        associateToPurchases: (data) => dispatch(actions.associateToPurchases(data)),
+        refreshOrder: (data) => dispatch(actions.refreshOrder(data))
     };
 };
 
