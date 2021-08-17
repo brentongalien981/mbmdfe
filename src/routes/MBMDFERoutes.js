@@ -15,9 +15,12 @@ const Signin = React.lazy(() => import('../containers/auth/Signin'));
 const CreateUser = React.lazy(() => import('../containers/user/CreateUser'));
 const AutomatedJobs = React.lazy(() => import('../containers/automated-jobs/AutomatedJobs'));
 const AutomatedJobLogs = React.lazy(() => import('../containers/automated-job-logs/AutomatedJobLogs'));
+
 const Orders = React.lazy(() => import('../containers/orders/Orders'));
 const Order = React.lazy(() => import('../containers/order/Order'));
 const CreateOrder = React.lazy(() => import('../containers/order/CreateOrder'));
+
+const Purchases = React.lazy(() => import('../containers/purchases/Purchases'));
 
 
 
@@ -40,6 +43,8 @@ const MBMDFERoutes = () => (
                 <Route path="/orders" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><Orders /></Suspense></MBMDFELayoutA>} />
                 <Route path="/orders/create" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><CreateOrder /></Suspense></MBMDFELayoutA>} />
                 <Route path="/orders/:id" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><Order /></Suspense></MBMDFELayoutA>} />
+
+                <Route path="/purchases" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><Purchases /></Suspense></MBMDFELayoutA>} />
                 {/* <Route path="/xxx" component={TestContainerA} /> */}
 
 
