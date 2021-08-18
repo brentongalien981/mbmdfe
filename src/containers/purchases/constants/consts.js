@@ -1,3 +1,9 @@
+import { getInitialDate, parseDateToStr } from "../../../bmd/helpers/HelperFuncsA";
+
+export const INITIAL_DATE_FILTER_IN_STR = parseDateToStr(getInitialDate(-365), 'yyyy-mm-dd');
+
+
+
 export const PURCHASE_FILTERS_FORM_FIELDS = [
     { name: 'id', type: 'number' },
     { name: 'sellerId', type: 'number' },

@@ -24,6 +24,9 @@ export default class BsJLSOLM {
         },
         orders: {
             readQueryParams: { dateRefreshed: null, lifespan: 1, isSensitiveInfo: false, shouldForceReadDb: true }
+        },
+        purchases: {
+            filters: { dateRefreshed: null, lifespan: 1, isSensitiveInfo: false, shouldForceReadDb: true }
         }
     };
 

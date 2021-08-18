@@ -4,6 +4,7 @@ import { PurchaseFilters } from './PurchaseFilters';
 import * as helperFuncs from './helpers/HelperFuncsA';
 import { connect } from 'react-redux';
 import './Purchases.css';
+import * as actions from '../../redux/actions/purchases';
 
 
 
@@ -11,18 +12,26 @@ class Purchases extends React.Component {
 
     /** PROPERTIES */
     state = {
-        isReadingPurchases: false
+        isReadingPurchases: false,
+        purchaseFilters: helperFuncs.getInitialPurchaseFilters()
     };
 
 
 
     /** MAIN FUNCS */
+    componentDidMount() {
+        helperFuncs.readPurchases(this);
+    }
+
+
+
     render() {
         return (
             <Container fluid className="p-0">
                 <Row noGutters>
                     <Col lg={3} className="pr-1">
                         <PurchaseFilters
+                            filters={this.state.purchaseFilters}
                         />
                     </Col>
 
@@ -69,7 +78,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // readOrders: (data) => dispatch(actions.readOrders(data)),
+        readPurchases: (data) => dispatch(actions.readPurchases(data)),
         // readOrderStatuses: () => dispatch(actions.readOrderStatuses())
     };
 };

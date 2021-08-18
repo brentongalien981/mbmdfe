@@ -1,5 +1,7 @@
 // import * as actions from '../actions/xxxactions';
 
+import * as actions from "../actions/purchases";
+
 /** DEFAULTS */
 
 
@@ -18,7 +20,7 @@ const initialState = {
 /** REDUCER */
 const purchases = (state = initialState, action) => {
     switch (action.type) {
-        // case actions.TRY_RESET_SYSTEM: return tryResetSystem(state, action);
+        case actions.ON_READ_PURCHASES_RETURN: return onReadPurchasesReturn(state, action);
         default: return state;
     }
 }
@@ -30,9 +32,13 @@ const purchases = (state = initialState, action) => {
 
 
 /** NORMAL FUNCS */
-const zzz = (state, action) => {
+const onReadPurchasesReturn = (state, action) => {
+
+    action.callBackData.doCallBackFunc();
+
     return {
-        ...state
+        ...state,
+        
     };
 };
 

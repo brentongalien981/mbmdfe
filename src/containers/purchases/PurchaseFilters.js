@@ -34,12 +34,10 @@ function getInputs(props) {
 
     return PURCHASE_FILTERS_FORM_FIELDS.map((formField, i) => {
 
-        const formFieldName = formField.name + 'Filter';
-
         return (
             <FormGroup key={i}>
                 <Label>{formField.name}</Label>
-                <Input type={formField.type} name={formFieldName} value={''} onChange={() => true} />
+                <Input type={formField.type} name={formField.name} value={props.filters[formField.name]} onChange={() => true} />
             </FormGroup>
         );
     });
