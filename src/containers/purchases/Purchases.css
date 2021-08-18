@@ -1,0 +1,10 @@
+.purchases-table-section {
+    background-color: white;
+    border-radius: 2px;
+}
+
+
+
+.purchases-table-container .table {
+    width: max-content;
+}

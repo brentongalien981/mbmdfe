@@ -10,6 +10,7 @@ import automatedJobLogs from "./automatedJobLogs";
 import dailySummary from "./dailySummary";
 import orders from "./orders";
 import order from "./order";
+import purchases from "./purchases";
 
 import { reducer as toastr } from "react-redux-toastr";
 
@@ -25,5 +26,6 @@ export default combineReducers({
   automatedJobLogs,
   dailySummary,
   orders,
-  order
+  order,
+  purchases
 });

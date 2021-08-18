@@ -1,12 +1,18 @@
 import React from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import { PurchaseFilters } from './PurchaseFilters';
+import * as helperFuncs from './helpers/HelperFuncsA';
+import { connect } from 'react-redux';
+import './Purchases.css';
 
 
 
-class ContainerTemplate extends React.Component {
+class Purchases extends React.Component {
 
     /** PROPERTIES */
+    state = {
+        isReadingPurchases: false
+    };
 
 
 
@@ -25,11 +31,11 @@ class ContainerTemplate extends React.Component {
 
                         <h3>Purchases</h3>
 
-                        {/* <div className="position-relative orders-table-contianer p-2">
-                            <div className="chat-messages p-4 bmd-table-section">
-                                {this.getOrdersTable()}
+                        <div className="position-relative purchases-table-section p-2">
+                            <div className="chat-messages p-4 purchases-table-container">
+                                {helperFuncs.gePurchasesTable(this.props.purchases, this.state.isReadingPurchases)}
                             </div>
-                        </div> */}
+                        </div>
 
                         {/* <PageNavigator
                             pageNum={this.state.readQueryParams.pageNum}
@@ -51,7 +57,23 @@ class ContainerTemplate extends React.Component {
 
 
 /** REACT-FUNCS */
+const mapStateToProps = (state) => {
+    return {
+        purchases: state.purchases.purchases,
+        // paginationData: state.orders.paginationData,
+        // orderStatuses: state.orders.orderStatuses
+    };
+};
 
 
 
-export default ContainerTemplate;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // readOrders: (data) => dispatch(actions.readOrders(data)),
+        // readOrderStatuses: () => dispatch(actions.readOrderStatuses())
+    };
+};
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Purchases);
