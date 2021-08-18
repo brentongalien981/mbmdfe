@@ -1,14 +1,21 @@
 export const PURCHASE_FILTERS_FORM_FIELDS = [
-    { name: 'id', type: 'number', isDisabled: false },
-
-    { name: 'orderId', type: 'text', isDisabled: true },
-    { name: 'productId', type: 'number', isDisabled: false },
-    { name: 'productSellerId', type: 'number', isDisabled: false },
-    { name: 'sizeAvailabilityId', type: 'number', isDisabled: false },
-    { name: 'purchaseItemId', type: 'number', isDisabled: false },
-    { name: 'price', type: 'number', isDisabled: false },
-    { name: 'quantity', type: 'number', isDisabled: false },
-    { name: 'status_code', type: 'select', isDisabled: false },
-    { name: 'created_at', type: 'date', isDisabled: true },
-    { name: 'updated_at', type: 'date', isDisabled: true }
+    { name: 'id', type: 'number' },
+    { name: 'sellerId', type: 'number' },
+    // { name: 'projectedSubtotal', type: 'number' },
+    // { name: 'projectedShippingFee', type: 'number' },
+    // { name: 'projectedOtherFee', type: 'number' },
+    // { name: 'projectedTax', type: 'number' },
+    { name: 'chargedSubtotal', type: 'number' },
+    { name: 'chargedShippingFee', type: 'number' },
+    { name: 'chargedOtherFee', type: 'number' },
+    { name: 'chargedTax', type: 'number' },
+    { name: 'statusCode', type: 'number' },
+    { name: 'statusName', type: 'text' },
+    { name: 'estimatedDeliveryDate', type: 'date' },
+    { name: 'orderIdFromSellerSite', type: 'text' },
+    { name: 'shippingIdFromCarrier', type: 'text' },
+    { name: 'notes', type: 'text' },
+    { name: 'createdAt', type: 'date' },
+    { name: 'updatedAt', type: 'date' },
+    // { name: 'purchaseItems', type: 'text' }
 ];
