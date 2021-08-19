@@ -1,6 +1,8 @@
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
+import { MinusCircle, PlusCircle } from 'react-feather';
 import { Spinner } from 'reactstrap';
+import Bs from '../../bs/core/Bs';
 import { PURCHASES_TABLE_COLUMNS } from './constants/consts';
 
 
@@ -15,7 +17,7 @@ export const PurchasesTable = (props) => {
             // data={helperFuncs.addOrderLinkPropsToOrders(this.props.orders)}
             data={modifyPurchasesForDisplay(props.purchases)}
             columns={PURCHASES_TABLE_COLUMNS}
-        // expandRow={helperFuncs.getTableExpandedRowDetails()}
+            expandRow={getTableExpandedRowDetails()}
         />
     );
 
@@ -39,7 +41,7 @@ function modifyPurchasesForDisplay(purchases) {
     let modifiedPurchases = [];
 
     for (const p of purchases) {
-        modifiedPurchases.push(replaceNullValsWithSlashes(p));    
+        modifiedPurchases.push(replaceNullValsWithSlashes(p));
     }
 
     return modifiedPurchases;
@@ -61,3 +63,29 @@ function replaceNullValsWithSlashes(purchase) {
 
     return p;
 }
+
+
+
+function getTableExpandedRowDetails() {
+
+    const minusIcon = (<MinusCircle width={16} height={16} />);
+    const plusIcon = (<PlusCircle width={16} height={16} />);
+
+
+    return {
+        renderer: (row) => {
+
+            let rowProps = [];
+
+            for (const k in row) {
+                if (k == 'purchaseItems') { continue; }
+                rowProps.push(<li key={rowProps.length}>{k}: {row[k]}</li>);
+            }
+
+            return (<ul>{rowProps}</ul>);
+        },
+        showExpandColumn: true,
+        expandHeaderColumnRenderer: ({ isAnyExpands }) => isAnyExpands ? (minusIcon) : (plusIcon),
+        expandColumnRenderer: ({ expanded }) => expanded ? (minusIcon) : (plusIcon)
+    };
+};
