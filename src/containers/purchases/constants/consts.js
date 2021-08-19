@@ -8,10 +8,16 @@ export const PURCHASE_STATUSES = {
     EVALUATED_INCOMPLETELY_FOR_PURCHASE: {code: -301, name: 'EVALUATED_INCOMPLETELY_FOR_PURCHASE' },
     DEFAULT: {code: 300, name: 'DEFAULT' },
     TO_BE_PURCHASED: {code: 301, name: 'TO_BE_PURCHASED' },
-    // PURCHASED: {code: 302, name: 'PURCHASED' },
+    PURCHASED: {code: 302, name: 'PURCHASED' },
     TO_BE_PURCHASE_RECEIVED: {code: 303, name: 'TO_BE_PURCHASE_RECEIVED' },
     PURCHASE_RECEIVED: {code: 304, name: 'PURCHASE_RECEIVED' },
-    // IN_STOCK: {code: 305, name: 'IN_STOCK' }
+    
+    IN_STOCK: {code: 305, name: 'IN_STOCK' },
+    TO_BE_PACKAGED: {code: 306, name: 'TO_BE_PACKAGED' },
+    PACKAGED: {code: 307, name: 'PACKAGED' },
+    TO_BE_DISPATCHED: {code: 308, name: 'TO_BE_DISPATCHED' },
+    DISPATCHED: {code: 309, name: 'DISPATCHED' }
+
 };
 
 
@@ -42,10 +48,15 @@ export const PURCHASE_FILTERS_FORM_FIELDS = [
 
 export const PURCHASES_TABLE_COLUMNS = [
     { dataField: 'id', text: 'id', sort: true },
-    { dataField: 'sellerId', text: 'sellerId', sort: true },    
+
+    { dataField: 'colorCodedStatus', text: 'colorCodedStatus', sort: false },
+    { dataField: 'statusCode', text: 'statusCode', sort: true },
+    { dataField: 'statusName', text: 'statusName', sort: true },
 
     { dataField: 'numOfPurchaseItems', text: 'numOfPurchaseItems', sort: true },
     { dataField: 'totalQuantityOfPurchaseItems', text: 'totalQuantityOfPurchaseItems', sort: true },
+
+    { dataField: 'sellerId', text: 'sellerId', sort: true },    
 
     { dataField: 'projectedSubtotal', text: 'projectedSubtotal', sort: false },
     { dataField: 'projectedShippingFee', text: 'projectedShippingFee', sort: false },
@@ -55,8 +66,7 @@ export const PURCHASES_TABLE_COLUMNS = [
     { dataField: 'chargedShippingFee', text: 'chargedShippingFee', sort: false },
     { dataField: 'chargedOtherFee', text: 'chargedOtherFee', sort: false },
     { dataField: 'chargedTax', text: 'chargedTax', sort: false },
-    { dataField: 'statusCode', text: 'statusCode', sort: true },
-    { dataField: 'statusName', text: 'statusName', sort: true },
+
     { dataField: 'estimatedDeliveryDate', text: 'estimatedDeliveryDate', sort: true },
     { dataField: 'orderIdFromSellerSite', text: 'orderIdFromSellerSite', sort: false },
     { dataField: 'shippingIdFromCarrier', text: 'shippingIdFromCarrier', sort: false },

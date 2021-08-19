@@ -1,6 +1,6 @@
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
-import { MinusCircle, PlusCircle } from 'react-feather';
+import { Circle, MinusCircle, PlusCircle } from 'react-feather';
 import { Spinner } from 'reactstrap';
 import Bs from '../../bs/core/Bs';
 import { PURCHASES_TABLE_COLUMNS, PURCHASE_STATUSES } from './constants/consts';
@@ -43,10 +43,50 @@ function modifyPurchasesForDisplay(purchases) {
     for (const p of purchases) {
         let modifiedPurchase = replaceNullValsWithSlashes(p);
         modifiedPurchase = addRelevantPurchaseItemPropStats(modifiedPurchase);
+        modifiedPurchase = addColorCodedPurchaseStatus(modifiedPurchase);
         modifiedPurchases.push(modifiedPurchase);
     }
 
     return modifiedPurchases;
+}
+
+
+
+function addColorCodedPurchaseStatus(purchase) {
+
+    let color = 'black';
+
+    switch (purchase.statusCode) {
+        case PURCHASE_STATUSES.EVALUATED_INCOMPLETELY_FOR_PURCHASE.code:
+            color = 'orange';
+            break;
+        case PURCHASE_STATUSES.PURCHASE_INCOMPLETELY_RECEIVED.code:
+            color = 'red';
+            break;
+        case PURCHASE_STATUSES.DEFAULT.code:
+            color = 'white';
+            break;
+        case PURCHASE_STATUSES.TO_BE_PURCHASED.code:
+            color = 'rgb(230, 230, 230)';
+            break;
+        case PURCHASE_STATUSES.PURCHASED.code:            
+        case PURCHASE_STATUSES.TO_BE_PURCHASE_RECEIVED.code:
+            color = 'blue';
+            break;
+        case PURCHASE_STATUSES.PURCHASE_RECEIVED.code:
+            color = 'green';
+            break;
+    }
+
+    const style = {
+        backgroundColor: color,
+        borderRadius: '9px'
+    };
+    const colorCodedStatus = (<Circle size={18} className="align-middle" style={style} />);
+
+    purchase.colorCodedStatus = colorCodedStatus;
+
+    return purchase;
 }
 
 
