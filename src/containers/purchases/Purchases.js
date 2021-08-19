@@ -5,6 +5,7 @@ import * as helperFuncs from './helpers/HelperFuncsA';
 import { connect } from 'react-redux';
 import './Purchases.css';
 import * as actions from '../../redux/actions/purchases';
+import { PurchasesTable } from './PurchasesTable';
 
 
 
@@ -40,11 +41,10 @@ class Purchases extends React.Component {
 
                         <h3>Purchases</h3>
 
-                        <div className="position-relative purchases-table-section p-2">
-                            <div className="chat-messages p-4 purchases-table-container">
-                                {helperFuncs.gePurchasesTable(this.props.purchases, this.state.isReadingPurchases)}
-                            </div>
-                        </div>
+                        <PurchasesTable 
+                            purchases={this.props.purchases}
+                            isReadingPurchases={this.state.isReadingPurchases}
+                        />
 
                         {/* <PageNavigator
                             pageNum={this.state.readQueryParams.pageNum}
