@@ -3,6 +3,17 @@ import { getInitialDate, parseDateToStr } from "../../../bmd/helpers/HelperFuncs
 export const INITIAL_DATE_FILTER_IN_STR = parseDateToStr(getInitialDate(-365), 'yyyy-mm-dd');
 export const NUM_OF_DISPLAYED_PURCHASES_PER_PAGE = 10;
 
+export const PURCHASE_STATUSES = {
+    PURCHASE_INCOMPLETELY_RECEIVED: {code: -304, name: 'PURCHASE_INCOMPLETELY_RECEIVED' },
+    EVALUATED_INCOMPLETELY_FOR_PURCHASE: {code: -301, name: 'EVALUATED_INCOMPLETELY_FOR_PURCHASE' },
+    DEFAULT: {code: 300, name: 'DEFAULT' },
+    TO_BE_PURCHASED: {code: 301, name: 'TO_BE_PURCHASED' },
+    // PURCHASED: {code: 302, name: 'PURCHASED' },
+    TO_BE_PURCHASE_RECEIVED: {code: 303, name: 'TO_BE_PURCHASE_RECEIVED' },
+    PURCHASE_RECEIVED: {code: 304, name: 'PURCHASE_RECEIVED' },
+    // IN_STOCK: {code: 305, name: 'IN_STOCK' }
+};
+
 
 
 export const PURCHASE_FILTERS_FORM_FIELDS = [
@@ -31,7 +42,11 @@ export const PURCHASE_FILTERS_FORM_FIELDS = [
 
 export const PURCHASES_TABLE_COLUMNS = [
     { dataField: 'id', text: 'id', sort: true },
-    { dataField: 'sellerId', text: 'sellerId', sort: true },
+    { dataField: 'sellerId', text: 'sellerId', sort: true },    
+
+    { dataField: 'numOfPurchaseItems', text: 'numOfPurchaseItems', sort: true },
+    { dataField: 'totalQuantityOfPurchaseItems', text: 'totalQuantityOfPurchaseItems', sort: true },
+
     { dataField: 'projectedSubtotal', text: 'projectedSubtotal', sort: false },
     { dataField: 'projectedShippingFee', text: 'projectedShippingFee', sort: false },
     { dataField: 'projectedOtherFee', text: 'projectedOtherFee', sort: false },
