@@ -58,7 +58,7 @@ const onReadPurchasesReturn = (state, action) => {
 
         paginationData = {
             numOfPages: numOfPages,
-            // BMD-TODO
+            // BMD-TODO:
             // pageNum: action.callBackData.params.pageNum
             pageNum: 1
         };
