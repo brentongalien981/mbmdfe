@@ -8,3 +8,25 @@
 .purchases-table-container .table {
     width: max-content;
 }
+
+
+
+.purchase-row-details-purchase-item-stat-attrib-key {
+    color: white;
+}
+
+.numOfPurchaseItemsIncompletelyReceived {
+    background-color: red;
+}
+.numOfPurchaseItemsToBePurchased {
+    background-color: gray;
+}
+.numOfPurchaseItemsToBeReceived {
+    background-color: blue;
+}
+.numOfPurchaseItemsReceived {
+    background-color: green;
+}
+.numOfPurchaseItemsWithOtherStatus {
+    background-color: black;
+}

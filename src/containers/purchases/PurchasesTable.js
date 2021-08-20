@@ -67,7 +67,7 @@ function addColorCodedPurchaseStatus(purchase) {
             color = 'white';
             break;
         case PURCHASE_STATUSES.TO_BE_PURCHASED.code:
-            color = 'rgb(230, 230, 230)';
+            color = 'rgb(200, 200, 200)';
             break;
         case PURCHASE_STATUSES.PURCHASED.code:            
         case PURCHASE_STATUSES.TO_BE_PURCHASE_RECEIVED.code:
@@ -178,7 +178,7 @@ function getTableExpandedRowDetails() {
                 if (k === 'purchaseItems') { continue; }
                 if (k === 'numOfPurchaseItems') { currentList = secondList; }
 
-                currentList.push(<li key={currentList.length}>{k}: {row[k]}</li>);
+                currentList.push(<li key={currentList.length}>{getStyledAttribKey(k)}: {row[k]}</li>);
             }
 
             return (
@@ -193,3 +193,16 @@ function getTableExpandedRowDetails() {
         expandColumnRenderer: ({ expanded }) => expanded ? (minusIcon) : (plusIcon)
     };
 };
+
+
+
+function getStyledAttribKey(key) {
+    switch (key) {
+        case 'numOfPurchaseItemsIncompletelyReceived': return (<span className="purchase-row-details-purchase-item-stat-attrib-key numOfPurchaseItemsIncompletelyReceived">{key}</span>);
+        case 'numOfPurchaseItemsToBePurchased': return (<span className="purchase-row-details-purchase-item-stat-attrib-key numOfPurchaseItemsToBePurchased">{key}</span>);
+        case 'numOfPurchaseItemsToBeReceived': return (<span className="purchase-row-details-purchase-item-stat-attrib-key numOfPurchaseItemsToBeReceived">{key}</span>);
+        case 'numOfPurchaseItemsReceived': return (<span className="purchase-row-details-purchase-item-stat-attrib-key numOfPurchaseItemsReceived">{key}</span>);
+        case 'numOfPurchaseItemsWithOtherStatus': return (<span className="purchase-row-details-purchase-item-stat-attrib-key numOfPurchaseItemsWithOtherStatus">{key}</span>);
+        default: return key;
+    }
+}
