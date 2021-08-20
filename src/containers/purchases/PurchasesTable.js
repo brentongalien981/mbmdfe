@@ -69,7 +69,7 @@ function addColorCodedPurchaseStatus(purchase) {
         case PURCHASE_STATUSES.TO_BE_PURCHASED.code:
             color = 'rgb(200, 200, 200)';
             break;
-        case PURCHASE_STATUSES.PURCHASED.code:            
+        case PURCHASE_STATUSES.PURCHASED.code:
         case PURCHASE_STATUSES.TO_BE_PURCHASE_RECEIVED.code:
             color = 'blue';
             break;

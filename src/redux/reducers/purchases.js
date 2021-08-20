@@ -12,6 +12,8 @@ const DEFAULT_PAGINATION_DATA = {
     pageNum: 1
 };
 
+const FIRST_DEFAULT_PURCHASE_STATUS = { code: '', name: 'ALL_STATUS' };
+
 
 
 /** CONSTANTS */
@@ -20,7 +22,8 @@ const DEFAULT_PAGINATION_DATA = {
 
 /** INITIAL STATE */
 const initialState = {
-    purchases: []
+    purchases: [],
+    purchaseStatuses: [FIRST_DEFAULT_PURCHASE_STATUS]
 };
 
 
@@ -29,6 +32,7 @@ const initialState = {
 const purchases = (state = initialState, action) => {
     switch (action.type) {
         case actions.ON_READ_PURCHASES_RETURN: return onReadPurchasesReturn(state, action);
+        case actions.ON_READ_PURCHASE_STATUSES_RETURN: return onReadPurchaseStatusesReturn(state, action);
         default: return state;
     }
 }
@@ -73,6 +77,25 @@ const onReadPurchasesReturn = (state, action) => {
         purchases,
         paginationData
 
+    };
+};
+
+
+
+const onReadPurchaseStatusesReturn = (state, action) => {
+
+    let updatedPurchaseStatuses = [FIRST_DEFAULT_PURCHASE_STATUS];
+
+    if (action.callBackData.isResultOk) {
+        updatedPurchaseStatuses = [
+            ...updatedPurchaseStatuses, 
+            ...action.callBackData.objs.purchaseStatuses
+        ];
+    }
+
+    return {
+        ...state,
+        purchaseStatuses: updatedPurchaseStatuses
     };
 };
 

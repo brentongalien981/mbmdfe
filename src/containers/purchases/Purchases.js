@@ -22,6 +22,7 @@ class Purchases extends React.Component {
     /** MAIN FUNCS */
     componentDidMount() {
         helperFuncs.readPurchases(this);
+        this.props.readPurchaseStatuses();
     }
 
 
@@ -33,6 +34,7 @@ class Purchases extends React.Component {
                     <Col lg={3} className="pr-1">
                         <PurchaseFilters
                             filters={this.state.purchaseFilters}
+                            purchaseStatuses={this.props.purchaseStatuses}
                         />
                     </Col>
 
@@ -70,7 +72,7 @@ const mapStateToProps = (state) => {
     return {
         purchases: state.purchases.purchases,
         // paginationData: state.orders.paginationData,
-        // orderStatuses: state.orders.orderStatuses
+        purchaseStatuses: state.purchases.purchaseStatuses
     };
 };
 
@@ -79,7 +81,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         readPurchases: (data) => dispatch(actions.readPurchases(data)),
-        // readOrderStatuses: () => dispatch(actions.readOrderStatuses())
+        readPurchaseStatuses: () => dispatch(actions.readPurchaseStatuses())
     };
 };
 

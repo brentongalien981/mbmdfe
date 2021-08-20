@@ -11,7 +11,7 @@ export const PURCHASE_STATUSES = {
     PURCHASED: {code: 302, name: 'PURCHASED' },
     TO_BE_PURCHASE_RECEIVED: {code: 303, name: 'TO_BE_PURCHASE_RECEIVED' },
     PURCHASE_RECEIVED: {code: 304, name: 'PURCHASE_RECEIVED' },
-    
+
     IN_STOCK: {code: 305, name: 'IN_STOCK' },
     TO_BE_PACKAGED: {code: 306, name: 'TO_BE_PACKAGED' },
     PACKAGED: {code: 307, name: 'PACKAGED' },
@@ -33,8 +33,8 @@ export const PURCHASE_FILTERS_FORM_FIELDS = [
     { name: 'chargedShippingFee', type: 'number' },
     { name: 'chargedOtherFee', type: 'number' },
     { name: 'chargedTax', type: 'number' },
-    { name: 'statusCode', type: 'number' },
-    { name: 'statusName', type: 'text' },
+    { name: 'statusCode', type: 'select' },
+    // { name: 'statusName', type: 'text' },
     { name: 'estimatedDeliveryDate', type: 'date' },
     { name: 'orderIdFromSellerSite', type: 'text' },
     { name: 'shippingIdFromCarrier', type: 'text' },

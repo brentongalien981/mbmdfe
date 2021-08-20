@@ -37,8 +37,37 @@ function getInputs(props) {
         return (
             <FormGroup key={i}>
                 <Label>{formField.name}</Label>
-                <Input type={formField.type} name={formField.name} value={props.filters[formField.name]} onChange={() => true} />
+                {getSpecificInputComponent(props, formField)}
+                {/* <Input type={formField.type} name={formField.name} value={props.filters[formField.name]} onChange={() => true} /> */}
             </FormGroup>
         );
+    });
+}
+
+
+
+function getSpecificInputComponent(props, formField) {
+
+    let inputChild = null;
+    let disabledAttrib = formField.isDisabled ? { disabled: true } : {};
+    const inputVal = props.filters[formField.name] ?? '';
+
+    if (formField.type === 'select') {
+        inputChild = getPurchaseStatusOptions(props.purchaseStatuses);
+    }
+
+
+    return (
+        <Input type={formField.type} name={formField.name} value={inputVal} onChange={(e) => true} {...disabledAttrib}>
+            {inputChild}
+        </Input>
+    );
+}
+
+
+
+function getPurchaseStatusOptions(purchaseStatuses) {
+    return purchaseStatuses.map((s) => {
+        return (<option key={s.code} value={s.code}>{s.name}</option>);
     });
 }
