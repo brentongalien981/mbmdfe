@@ -6,6 +6,9 @@ import { connect } from 'react-redux';
 import './Purchases.css';
 import * as actions from '../../redux/actions/purchases';
 import { PurchasesTable } from './PurchasesTable';
+import { PageNavigator } from '../orders/PageNavigator';
+import BsJLS from '../../bs/core/BsJLS';
+import * as eventFuncs from './helpers/EventFuncsA';
 
 
 
@@ -14,7 +17,8 @@ class Purchases extends React.Component {
     /** PROPERTIES */
     state = {
         isReadingPurchases: false,
-        purchaseFilters: helperFuncs.getInitialPurchaseFilters()
+        purchaseFilters: helperFuncs.getInitialPurchaseFilters(),
+        pageNum: BsJLS.get('purchases.filters').pageNum ?? 1
     };
 
 
@@ -48,13 +52,13 @@ class Purchases extends React.Component {
                             isReadingPurchases={this.state.isReadingPurchases}
                         />
 
-                        {/* <PageNavigator
-                            pageNum={this.state.readQueryParams.pageNum}
-                            numOfPages={this.props.paginationData.numOfPages}
+                        <PageNavigator
+                            pageNum={this.state.pageNum}
+                            numOfPages={1}
                             onPageNumChange={(e) => eventFuncs.onPageNumChange(this, e)}
-                            onPageNavBtnClick={(prevOrNext) => eventFuncs.onPageNavBtnClick(this, prevOrNext)}
-                            onPageNumEnter={(e) => eventFuncs.onPageNumEnter(this, e)}
-                        /> */}
+                            onPageNavBtnClick={(prevOrNext) => true}
+                            onPageNumEnter={(e) => true}
+                        />
 
                     </Col>
 

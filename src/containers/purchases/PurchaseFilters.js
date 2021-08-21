@@ -38,7 +38,6 @@ function getInputs(props) {
             <FormGroup key={i}>
                 <Label>{formField.name}</Label>
                 {getSpecificInputComponent(props, formField)}
-                {/* <Input type={formField.type} name={formField.name} value={props.filters[formField.name]} onChange={() => true} /> */}
             </FormGroup>
         );
     });

@@ -32,7 +32,8 @@ export const readPurchases = (container) => {
 
     const requestData = {
         params: {
-            ...container.state.purchaseFilters
+            ...container.state.purchaseFilters,
+            pageNum: container.state.pageNum
         },
         doCallBackFunc: () => {
             container.setState({ isReadingPurchases: false });
