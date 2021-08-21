@@ -26,3 +26,28 @@ export const onPageNumEnter = (container, e) => {
     }
 
 };
+
+
+
+export const onPageNavBtnClick = (container, prevOrNext) => {
+
+    if (container.state.isReadingPurchases) { return; }
+
+    let newPageNum = container.state.pageNum;
+
+    if (prevOrNext == 'previous') {
+        if (newPageNum == 1) { return; }
+        --newPageNum;
+    }
+    else {
+        ++newPageNum;
+    }
+
+
+    if (newPageNum > container.props.paginationData.numOfPages) { return; }
+
+    container.setState({
+        pageNum: newPageNum,
+        shouldRefreshPurchases: true
+    });
+};

@@ -65,7 +65,7 @@ class Purchases extends React.Component {
                             pageNum={this.state.pageNum}
                             numOfPages={this.props.paginationData.numOfPages}
                             onPageNumChange={(e) => eventFuncs.onPageNumChange(this, e)}
-                            onPageNavBtnClick={(prevOrNext) => true}
+                            onPageNavBtnClick={(prevOrNext) => eventFuncs.onPageNavBtnClick(this, prevOrNext)}
                             onPageNumEnter={(e) => eventFuncs.onPageNumEnter(this, e)}
                         />
 
