@@ -18,12 +18,21 @@ class Purchases extends React.Component {
     state = {
         isReadingPurchases: false,
         purchaseFilters: helperFuncs.getInitialPurchaseFilters(),
-        pageNum: BsJLS.get('purchases.filters').pageNum ?? 1
+        pageNum: BsJLS.get('purchases.filters').pageNum ?? 1,
+        shouldRefreshPurchases: false
     };
 
 
 
     /** MAIN FUNCS */
+    componentDidUpdate() {
+        if (this.state.shouldRefreshPurchases) {
+            helperFuncs.readPurchases(this);
+        }
+    }
+
+
+
     componentDidMount() {
         helperFuncs.readPurchases(this);
         this.props.readPurchaseStatuses();
@@ -54,10 +63,10 @@ class Purchases extends React.Component {
 
                         <PageNavigator
                             pageNum={this.state.pageNum}
-                            numOfPages={1}
+                            numOfPages={this.props.paginationData.numOfPages}
                             onPageNumChange={(e) => eventFuncs.onPageNumChange(this, e)}
                             onPageNavBtnClick={(prevOrNext) => true}
-                            onPageNumEnter={(e) => true}
+                            onPageNumEnter={(e) => eventFuncs.onPageNumEnter(this, e)}
                         />
 
                     </Col>
@@ -75,7 +84,7 @@ class Purchases extends React.Component {
 const mapStateToProps = (state) => {
     return {
         purchases: state.purchases.purchases,
-        // paginationData: state.orders.paginationData,
+        paginationData: state.purchases.paginationData,
         purchaseStatuses: state.purchases.purchaseStatuses
     };
 };

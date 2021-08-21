@@ -36,7 +36,10 @@ export const readPurchases = (container) => {
             pageNum: container.state.pageNum
         },
         doCallBackFunc: () => {
-            container.setState({ isReadingPurchases: false });
+            container.setState({ 
+                isReadingPurchases: false,
+                shouldRefreshPurchases: false
+            });
         }
     };
 

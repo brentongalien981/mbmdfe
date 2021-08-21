@@ -23,7 +23,8 @@ const FIRST_DEFAULT_PURCHASE_STATUS = { code: '', name: 'ALL_STATUS' };
 /** INITIAL STATE */
 const initialState = {
     purchases: [],
-    purchaseStatuses: [FIRST_DEFAULT_PURCHASE_STATUS]
+    purchaseStatuses: [FIRST_DEFAULT_PURCHASE_STATUS],
+    paginationData: {}
 };
 
 
@@ -58,9 +59,7 @@ const onReadPurchasesReturn = (state, action) => {
 
         paginationData = {
             numOfPages: numOfPages,
-            // BMD-TODO:
-            // pageNum: action.callBackData.params.pageNum
-            pageNum: 1
+            pageNum: action.callBackData.params.pageNum
         };
 
 
