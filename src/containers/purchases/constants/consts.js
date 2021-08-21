@@ -41,7 +41,6 @@ export const PURCHASE_FILTERS_FORM_FIELDS = [
     { name: 'notes', type: 'text' },
     { name: 'createdAt', type: 'date', label: 'createdAt (greater/equal)' },
     { name: 'updatedAt', type: 'date', label: 'updatedAt (greater/equal)' },
-    // { name: 'purchaseItems', type: 'text' }
 ];
 
 
