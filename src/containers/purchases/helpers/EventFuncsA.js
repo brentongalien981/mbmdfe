@@ -1,3 +1,5 @@
+import { getResetPurchaseFilters } from "./HelperFuncsA";
+
 export const onPageNumChange = (container, e) => {
 
     const newPageNum = e.target.value;
@@ -74,6 +76,20 @@ export const onPurchaseFiltersApply = (container) => {
 
     container.setState({ 
         pageNum: 1,
+        shouldRefreshPurchases: true 
+    });
+
+};
+
+
+
+export const onPurchaseFiltersReset = (container) => {
+
+    if (container.state.isReadingPurchases) { return; }
+
+    container.setState({ 
+        pageNum: 1,
+        purchaseFilters: getResetPurchaseFilters(),
         shouldRefreshPurchases: true 
     });
 

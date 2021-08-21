@@ -23,6 +23,23 @@ export const getInitialPurchaseFilters = () => {
 
 
 
+export const getResetPurchaseFilters = () => {
+
+    let filters = {};
+
+    for (const formField of PURCHASE_FILTERS_FORM_FIELDS) {
+        
+        const defaultFilterVal = formField.type == 'date' ? INITIAL_DATE_FILTER_IN_STR : '';
+
+        filters[formField.name] = defaultFilterVal;
+    }
+
+    return filters;
+
+};
+
+
+
 export const readPurchases = (container) => {
 
     if (container.state.isReadingPurchases) { return; }
