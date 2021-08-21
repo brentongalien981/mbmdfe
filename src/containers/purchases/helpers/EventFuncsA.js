@@ -51,3 +51,17 @@ export const onPageNavBtnClick = (container, prevOrNext) => {
         shouldRefreshPurchases: true
     });
 };
+
+
+
+export const onPurchaseFilterInputChange = (container, e) => {
+
+    const targetName = e.target.name;
+    const targetVal = e.target.value;
+
+    let updatedPurchaseFilters = container.state.purchaseFilters;
+    updatedPurchaseFilters[targetName] = targetVal;
+
+    container.setState({ purchaseFilters: updatedPurchaseFilters });
+
+};

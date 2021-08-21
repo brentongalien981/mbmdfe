@@ -57,7 +57,7 @@ function getSpecificInputComponent(props, formField) {
 
 
     return (
-        <Input type={formField.type} name={formField.name} value={inputVal} onChange={(e) => true} {...disabledAttrib}>
+        <Input type={formField.type} name={formField.name} value={inputVal} onChange={(e) => props.onPurchaseFilterInputChange(e)} {...disabledAttrib}>
             {inputChild}
         </Input>
     );

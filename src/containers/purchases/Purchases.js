@@ -48,6 +48,7 @@ class Purchases extends React.Component {
                         <PurchaseFilters
                             filters={this.state.purchaseFilters}
                             purchaseStatuses={this.props.purchaseStatuses}
+                            onPurchaseFilterInputChange={(e) => eventFuncs.onPurchaseFilterInputChange(this, e)}
                         />
                     </Col>
 
