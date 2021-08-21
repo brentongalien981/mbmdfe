@@ -16,7 +16,7 @@ export const PurchaseFilters = (props) => {
                         <Form>                            
                             {getInputs(props)}
                             <FormGroup className="d-flex justify-content-between">
-                                <Button size="sm" color="primary" onClick={() => true}>Apply</Button>
+                                <Button size="sm" color="primary" onClick={props.onPurchaseFiltersApply}>Apply</Button>
                                 <Button size="sm" color="danger" onClick={() => true}>Reset All</Button>
                             </FormGroup>
                         </Form>
@@ -36,7 +36,7 @@ function getInputs(props) {
 
         return (
             <FormGroup key={i}>
-                <Label>{formField.name}</Label>
+                <Label>{formField.label ?? formField.name}</Label>
                 {getSpecificInputComponent(props, formField)}
             </FormGroup>
         );

@@ -35,12 +35,12 @@ export const PURCHASE_FILTERS_FORM_FIELDS = [
     { name: 'chargedTax', type: 'number' },
     { name: 'statusCode', type: 'select' },
     // { name: 'statusName', type: 'text' },
-    { name: 'estimatedDeliveryDate', type: 'date' },
+    // { name: 'estimatedDeliveryDate', type: 'date', label: 'estimatedDeliveryDate (greater/equal)' },
     { name: 'orderIdFromSellerSite', type: 'text' },
     { name: 'shippingIdFromCarrier', type: 'text' },
     { name: 'notes', type: 'text' },
-    { name: 'createdAt', type: 'date' },
-    { name: 'updatedAt', type: 'date' },
+    { name: 'createdAt', type: 'date', label: 'createdAt (greater/equal)' },
+    { name: 'updatedAt', type: 'date', label: 'updatedAt (greater/equal)' },
     // { name: 'purchaseItems', type: 'text' }
 ];
 

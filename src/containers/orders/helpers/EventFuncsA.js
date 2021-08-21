@@ -84,7 +84,13 @@ export const onOrderFiltersApply = (container) => {
 
     if (container.state.isReadingOrders) { return; }
 
-    container.setState({ shouldRefreshOrders: true });
+    let updatedReadQueryParams = container.state.readQueryParams;
+    updatedReadQueryParams.pageNum = 1;
+
+    container.setState({ 
+        readQueryParams: updatedReadQueryParams,
+        shouldRefreshOrders: true 
+    });
 
 };
 

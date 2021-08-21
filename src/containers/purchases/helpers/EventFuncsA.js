@@ -65,3 +65,16 @@ export const onPurchaseFilterInputChange = (container, e) => {
     container.setState({ purchaseFilters: updatedPurchaseFilters });
 
 };
+
+
+
+export const onPurchaseFiltersApply = (container) => {
+
+    if (container.state.isReadingPurchases) { return; }
+
+    container.setState({ 
+        pageNum: 1,
+        shouldRefreshPurchases: true 
+    });
+
+};
