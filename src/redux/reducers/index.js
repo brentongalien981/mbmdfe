@@ -11,6 +11,7 @@ import dailySummary from "./dailySummary";
 import orders from "./orders";
 import order from "./order";
 import purchases from "./purchases";
+import purchase from "./purchase";
 
 import { reducer as toastr } from "react-redux-toastr";
 
@@ -27,5 +28,6 @@ export default combineReducers({
   dailySummary,
   orders,
   order,
-  purchases
+  purchases,
+  purchase
 });

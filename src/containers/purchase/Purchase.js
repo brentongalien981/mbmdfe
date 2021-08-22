@@ -1,17 +1,58 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { Container } from 'reactstrap';
+import { PurchaseForm } from './PurchaseForm';
 
 
 
 class Purchase extends React.Component {
 
     /** PROPERTIES */
+    state = {
+        purchase: {},
+        isReadingPurchase: false
+    };
 
 
 
     /** MAIN FUNCS */
     render() {
         return (
-            <h3>Purchase</h3>
+            <Container fluid className="p-0">
+
+                <PurchaseForm
+                    purchase={this.state.purchase}
+                    purchaseStatuses={this.props.purchaseStatuses}
+                    isReadingPurchase={this.state.isReadingPurchase}
+                    // onOrderInputChange={(e) => eventFuncs.onOrderInputChange(this, e)}                    
+                    // isUpdatingOrder={this.state.isUpdatingOrder}
+                    // onOrderUpdate={() => eventFuncs.onOrderUpdate(this)}
+                    // isRefreshingOrder={this.state.isRefreshingOrder}
+                    // onOrderRefresh={() => eventFuncs.onOrderRefresh(this)}
+                />
+
+                {/* <OrderItemsTable
+                    orderItems={helperFuncs.addActionsPropToOrderItems(this)}
+                    isReadingOrder={this.state.isReadingOrder}
+                    onOrderItemCreate={() => eventFuncs.onOrderItemCreate(this)}
+                    isAssociatingToPurchases={this.state.isAssociatingToPurchases}
+                    onAssociateToPurchases={() => eventFuncs.onAssociateToPurchases(this)}
+                /> */}
+
+
+                {/* <OrderItemFormModal
+                    isOpen={this.state.isEditingOrderItem}
+                    onToggle={() => eventFuncs.onOrderItemFormModalToggle(this)}
+                    orderItemFormAction={this.state.orderItemFormAction}
+                    orderItem={this.state.orderItemToEdit}
+                    orderItemStatuses={this.props.orderItemStatuses}
+                    onOrderItemInputChange={(e) => eventFuncs.onOrderItemInputChange(this, e)}
+                    isSavingOrderItem={this.state.isSavingOrderItem}
+                    onOrderItemSave={() => eventFuncs.onOrderItemSave(this)}
+                /> */}
+
+            </Container>
         );
     }
 }
@@ -19,7 +60,20 @@ class Purchase extends React.Component {
 
 
 /** REACT-FUNCS */
+const mapStateToProps = (state) => {
+    return {
+        purchaseStatuses: state.purchase.purchaseStatuses,
+    };
+};
 
 
 
-export default Purchase;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // readOrder: (data) => dispatch(actions.readOrder(data)),
+    };
+};
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Purchase));

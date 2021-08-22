@@ -12,7 +12,7 @@ export const getInitialPurchaseFilters = () => {
     for (const formField of PURCHASE_FILTERS_FORM_FIELDS) {
         
         const filterName = formField.name;
-        const defaultFilterVal = formField.type == 'date' ? INITIAL_DATE_FILTER_IN_STR : '';
+        const defaultFilterVal = formField.type === 'date' ? INITIAL_DATE_FILTER_IN_STR : '';
         const filterVal = initialFilters?.[filterName] ?? defaultFilterVal;
 
         filters[filterName] = filterVal;
@@ -29,7 +29,7 @@ export const getResetPurchaseFilters = () => {
 
     for (const formField of PURCHASE_FILTERS_FORM_FIELDS) {
         
-        const defaultFilterVal = formField.type == 'date' ? INITIAL_DATE_FILTER_IN_STR : '';
+        const defaultFilterVal = formField.type === 'date' ? INITIAL_DATE_FILTER_IN_STR : '';
 
         filters[formField.name] = defaultFilterVal;
     }
