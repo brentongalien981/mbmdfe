@@ -9,6 +9,7 @@ import TestContainerA from "../containers/my-test/TestContainerA";
 import MBMDFEAuthLayout from "../layouts/MBMDFEAuthLayout";
 import MBMDFELayoutA from "../layouts/MBMDFELayoutA";
 
+const PageNotFound = React.lazy(() => import('../pages/auth/Page404'));
 
 const DailySummary = React.lazy(() => import('../containers/daily-summary/DailySummary'));
 const Signin = React.lazy(() => import('../containers/auth/Signin'));
@@ -21,6 +22,7 @@ const Order = React.lazy(() => import('../containers/order/Order'));
 const CreateOrder = React.lazy(() => import('../containers/order/CreateOrder'));
 
 const Purchases = React.lazy(() => import('../containers/purchases/Purchases'));
+const Purchase = React.lazy(() => import('../containers/purchase/Purchase'));
 
 
 
@@ -45,10 +47,13 @@ const MBMDFERoutes = () => (
                 <Route path="/orders/:id" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><Order /></Suspense></MBMDFELayoutA>} />
 
                 <Route path="/purchases" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><Purchases /></Suspense></MBMDFELayoutA>} />
+                <Route path="/purchase/:id" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><Purchase /></Suspense></MBMDFELayoutA>} />
                 {/* <Route path="/xxx" component={TestContainerA} /> */}
 
 
                 <Route path="/signin" exact render={() => <MBMDFEAuthLayout><Suspense fallback={<div>loading...</div>}><Signin /></Suspense></MBMDFEAuthLayout>} />
+
+                <Route path="/" render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><PageNotFound /></Suspense></MBMDFELayoutA>} />
             </Switch>
 
 

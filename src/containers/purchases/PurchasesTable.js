@@ -1,6 +1,7 @@
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
-import { Circle, MinusCircle, PlusCircle } from 'react-feather';
+import { Circle, ExternalLink, MinusCircle, PlusCircle } from 'react-feather';
+import { Link } from 'react-router-dom';
 import { Spinner } from 'reactstrap';
 import Bs from '../../bs/core/Bs';
 import { PURCHASES_TABLE_COLUMNS, PURCHASE_STATUSES } from './constants/consts';
@@ -44,10 +45,24 @@ function modifyPurchasesForDisplay(purchases) {
         let modifiedPurchase = replaceNullValsWithSlashes(p);
         modifiedPurchase = addRelevantPurchaseItemPropStats(modifiedPurchase);
         modifiedPurchase = addColorCodedPurchaseStatus(modifiedPurchase);
+        modifiedPurchase = setPurchaseIdLink(modifiedPurchase);
+
         modifiedPurchases.push(modifiedPurchase);
     }
 
     return modifiedPurchases;
+}
+
+
+
+function setPurchaseIdLink(purchase) {
+    const purchaseLink = 'purchase/' + purchase.id;
+    purchase.purchaseLink = (
+        <Link to={purchaseLink} target="_blank">
+            <ExternalLink size={18} className="align-middle" />
+        </Link>
+    );
+    return purchase;
 }
 
 

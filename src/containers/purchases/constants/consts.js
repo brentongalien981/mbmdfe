@@ -47,6 +47,7 @@ export const PURCHASE_FILTERS_FORM_FIELDS = [
 
 export const PURCHASES_TABLE_COLUMNS = [
     { dataField: 'id', text: 'id', sort: true },
+    { dataField: 'purchaseLink', text: 'link', sort: false },
 
     { dataField: 'colorCodedStatus', text: 'colorCodedStatus', sort: false },
     { dataField: 'statusCode', text: 'statusCode', sort: true },
