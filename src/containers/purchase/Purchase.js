@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Container } from 'reactstrap';
+import * as actions from '../../redux/actions/purchase';
+import * as helperFuncs from './helpers/HelperFuncsA';
 import { PurchaseForm } from './PurchaseForm';
 import { PurchaseItemsTable } from './PurchaseItemsTable';
 
@@ -12,12 +14,19 @@ class Purchase extends React.Component {
     /** PROPERTIES */
     state = {
         purchase: {},
+        purchaseItems: [],
         isReadingPurchase: false
     };
 
 
 
     /** MAIN FUNCS */
+    componentDidMount() {
+        helperFuncs.readPurchase(this);        
+    }
+
+
+
     render() {
         return (
             <Container fluid className="p-0">
@@ -71,7 +80,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // readOrder: (data) => dispatch(actions.readOrder(data)),
+        readPurchase: (data) => dispatch(actions.readPurchase(data)),
+        
     };
 };
 

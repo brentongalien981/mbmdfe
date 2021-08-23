@@ -130,7 +130,7 @@ const getSpecificInputComponent = (props, formField) => {
 
 
     return (
-        <Input type={inputType} name={inputName} value={inputVal} onChange={(e) => true} {...disabledAttrib}>
+        <Input type={inputType} name={inputName} value={inputVal ?? ''} onChange={(e) => true} {...disabledAttrib}>
             {inputChild}
         </Input>
     );
