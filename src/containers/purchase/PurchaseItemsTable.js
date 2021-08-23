@@ -1,7 +1,8 @@
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
-import { Link, PlusSquare } from 'react-feather';
+import { Circle, Edit3, Link, MinusCircle, PlusCircle, PlusSquare } from 'react-feather';
 import { Button, Col, Row, Spinner } from 'reactstrap';
+import { PURCHASE_STATUSES } from '../purchases/constants/consts';
 import { PURCHASE_ITEMS_TABLE_COLUMNS } from './constants/consts';
 import './PurchaseItemsTable.css';
 
@@ -17,8 +18,8 @@ export const PurchaseItemsTable = (props) => {
                     bordered={false}
                     keyField="id"
                     columns={PURCHASE_ITEMS_TABLE_COLUMNS}
-                    data={props.purchaseItems ?? []} // BMD-TODO: Set the purchase-item-row's action-btn                    
-                    // expandRow={getOrderItemsTableExpandedRowDetails()} // BMD-TODO
+                    data={modifyPurchaseItems(props.purchaseItems)}
+                    expandRow={getPurchaseItemsTableExpandedRowDetails()}
                 />
             </div>
         </Col>
@@ -48,3 +49,108 @@ export const PurchaseItemsTable = (props) => {
         </Row>
     );
 };
+
+
+
+function modifyPurchaseItems(purchaseItems = []) {
+
+    let modifiedPurchaseItems = [];
+
+    for (const pi of purchaseItems) {
+
+        let updatedPurchaseItem = addActionBtnsField(pi);
+        updatedPurchaseItem = addColorCodedPurchaseItemStatus(updatedPurchaseItem);
+
+        modifiedPurchaseItems.push(updatedPurchaseItem);
+    }
+
+
+    return modifiedPurchaseItems;
+}
+
+
+
+function addColorCodedPurchaseItemStatus(purchaseItem) {
+
+    let color = 'black';
+
+    switch (purchaseItem.statusCode) {
+        case PURCHASE_STATUSES.EVALUATED_INCOMPLETELY_FOR_PURCHASE.code:
+            color = 'orange';
+            break;
+        case PURCHASE_STATUSES.PURCHASE_INCOMPLETELY_RECEIVED.code:
+            color = 'red';
+            break;
+        case PURCHASE_STATUSES.DEFAULT.code:
+            color = 'white';
+            break;
+        case PURCHASE_STATUSES.TO_BE_PURCHASED.code:
+            color = 'rgb(200, 200, 200)';
+            break;
+        case PURCHASE_STATUSES.PURCHASED.code:
+        case PURCHASE_STATUSES.TO_BE_PURCHASE_RECEIVED.code:
+            color = 'blue';
+            break;
+        case PURCHASE_STATUSES.PURCHASE_RECEIVED.code:
+            color = 'green';
+            break;
+    }
+
+
+    const style = {
+        backgroundColor: color,
+        borderRadius: '9px'
+    };
+
+    const colorCodedStatus = (<Circle size={18} className="align-middle" style={style} />);
+
+    purchaseItem.colorCodedStatus = colorCodedStatus;
+
+    return purchaseItem;
+}
+
+
+
+function addActionBtnsField(purchaseItem) {
+    
+    const actionsComponent = (
+        <>
+            <Button className="mr-1 mb-1" outline color="primary" size="sm">
+                <Edit3 size={14} onClick={() => true} />
+            </Button>
+        </>
+    );
+
+
+    purchaseItem.actions = actionsComponent;
+    return purchaseItem;
+}
+
+
+
+function getPurchaseItemsTableExpandedRowDetails() {
+
+    const minusIcon = (<MinusCircle width={16} height={16} />);
+    const plusIcon = (<PlusCircle width={16} height={16} />);
+
+
+    return {
+        renderer: (row) => {
+
+            let rowProps = [];
+
+            for (const key in row) {
+
+                if (key === 'actions') { continue; }
+
+                rowProps.push(<li key={rowProps.length}>{key}: {row[key]}</li>);
+            }
+
+
+            return (<ul>{rowProps}</ul>);
+        },
+        showExpandColumn: true,
+        expandHeaderColumnRenderer: ({ isAnyExpands }) => isAnyExpands ? (minusIcon) : (plusIcon),
+        expandColumnRenderer: ({ expanded }) => expanded ? (minusIcon) : (plusIcon)
+    };
+}

@@ -48,7 +48,7 @@ const onReadPurchaseReturn = (state, action) => {
 
         purchase = action.callBackData.objs.purchase;
 
-        purchaseItems = action.callBackData.objs.purchase.purchasetems;
+        purchaseItems = action.callBackData.objs.purchase.purchaseItems;
 
         updatedPurchaseStatuses = action.callBackData.objs.purchaseStatuses ?? updatedPurchaseStatuses;
         updatedPurchaseItemStatuses = action.callBackData.objs.purchaseItemStatuses ?? updatedPurchaseItemStatuses;
@@ -62,6 +62,7 @@ const onReadPurchaseReturn = (state, action) => {
         purchase: purchase,
         purchaseItems: purchaseItems,
     });
+
 
     return {
         ...state,
