@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Container } from 'reactstrap';
 import { PurchaseForm } from './PurchaseForm';
+import { PurchaseItemsTable } from './PurchaseItemsTable';
 
 
 
@@ -32,13 +33,13 @@ class Purchase extends React.Component {
                     // onOrderRefresh={() => eventFuncs.onOrderRefresh(this)}
                 />
 
-                {/* <OrderItemsTable
-                    orderItems={helperFuncs.addActionsPropToOrderItems(this)}
-                    isReadingOrder={this.state.isReadingOrder}
-                    onOrderItemCreate={() => eventFuncs.onOrderItemCreate(this)}
-                    isAssociatingToPurchases={this.state.isAssociatingToPurchases}
-                    onAssociateToPurchases={() => eventFuncs.onAssociateToPurchases(this)}
-                /> */}
+                <PurchaseItemsTable
+                    purhcaseItems={this.state.purchase.purchaseItems}
+                    isReadingPurchase={this.state.isReadingPurchase}
+                    // onOrderItemCreate={() => eventFuncs.onOrderItemCreate(this)}
+                    // isAssociatingToPurchases={this.state.isAssociatingToPurchases}
+                    // onAssociateToPurchases={() => eventFuncs.onAssociateToPurchases(this)}
+                />
 
 
                 {/* <OrderItemFormModal

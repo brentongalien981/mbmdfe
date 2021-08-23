@@ -1,0 +1,16 @@
+.purchase-items-table-container {
+    overflow-x: scroll;
+    overflow-y: scroll;
+    background-color: white;
+    border-radius: 2px;
+}
+
+.purchase-items-table-container .table {
+    width: max-content;
+}
+
+
+
+.purchase-item-label {
+    display: inline-block;
+}

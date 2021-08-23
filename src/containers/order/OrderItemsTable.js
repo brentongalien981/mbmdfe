@@ -24,6 +24,7 @@ export const OrderItemsTable = (props) => {
         </Col>
     );
 
+    
     if (props.isReadingOrder) {
         mainContent = (
             <Col sm="12">

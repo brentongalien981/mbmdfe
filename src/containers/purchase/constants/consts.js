@@ -19,3 +19,20 @@ export const PURCHASE_FORM_FIELDS = [
     { field: 'createdAt', type: 'date', isDisabled: true },
     { field: 'updatedAt', type: 'date', isDisabled: true }
 ];
+
+
+
+export const PURCHASE_ITEMS_TABLE_COLUMNS = [
+    // { dataField: 'actions', text: 'actions', sort: false },
+    { dataField: 'id', text: 'id', sort: true },
+    { dataField: 'purchaseId', text: 'purchaseId', sort: true },
+    { dataField: 'sellerProductId', text: 'sellerProductId', sort: true },
+    { dataField: 'sizeAvailabilityId', text: 'sizeAvailabilityId', sort: true },
+    { dataField: 'quantity', text: 'quantity', sort: true },
+    { dataField: 'projectedPrice', text: 'projectedPrice', sort: false },
+    { dataField: 'actualPrice', text: 'actualPrice', sort: false },
+    { dataField: 'statusCode', text: 'statusCode', sort: true },
+    { dataField: 'statusName', text: 'statusName', sort: true },
+    { dataField: 'createdAt', text: 'createdAt', sort: true },
+    { dataField: 'updatedAt', text: 'updatedAt', sort: true }
+];
