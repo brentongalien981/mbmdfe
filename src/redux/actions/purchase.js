@@ -7,11 +7,13 @@ import { showToastr } from "../../helpers/notifications/NotificationsHelper";
 
 /** NAMES */
 export const ON_READ_PURCHASE_RETURN = "ON_READ_PURCHASE_RETURN";
+export const RESET_CREATE_PURCHASE_FLAGS = "RESET_CREATE_PURCHASE_FLAGS";
 
 
 
 /** FUNCS */
 export const onReadPurchaseReturn = (callBackData) => ({ type: ON_READ_PURCHASE_RETURN, callBackData: callBackData });
+export const resetCreatePurchaseFlags = (callBackData) => ({ type: RESET_CREATE_PURCHASE_FLAGS, callBackData: callBackData });
 
 
 

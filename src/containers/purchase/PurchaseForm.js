@@ -4,31 +4,13 @@ import Spinner from 'reactstrap/lib/Spinner';
 import { getInitialDate, parseDateToStr } from '../../bmd/helpers/HelperFuncsA';
 import Bs from '../../bs/core/Bs';
 import { PURCHASE_FORM_FIELDS } from './constants/consts';
+import { shouldNotIncludeForPurchaseForm } from './helpers/HelperFuncsA';
 
 
 
 export const PurchaseForm = (props) => {
 
     const formColumns = getFormColumns(props);
-
-
-    const btnsSection = null;
-    // let actionBtn = (<Button color="primary" onClick={props.onOrderUpdate}>update</Button>);
-
-    // if (props.crudMethod === 'create') {
-    //     actionBtn = (<Button color="primary" onClick={props.onOrderSave}>save</Button>);
-    // }
-
-    // if (props.isUpdatingOrder || props.isSavingOrder) {
-    //     actionBtn = (<Button color="primary"><Spinner size="sm" /></Button>)
-    // }
-
-
-    // let refreshBtn = (<Button color="primary" className="ml-2" onClick={props.onOrderRefresh}>refresh</Button>);
-    // if (props.isRefreshingOrder) {
-    //     refreshBtn = (<Button color="primary" className="ml-2"><Spinner size="sm" /></Button>)
-    // }
-
 
     let mainContents = (
         <>
@@ -49,7 +31,7 @@ export const PurchaseForm = (props) => {
             </Col>
 
             <Col sm="12">
-                {btnsSection}
+                {getBtnsSection(props)}
             </Col>
         </>
     );
@@ -74,17 +56,44 @@ export const PurchaseForm = (props) => {
 
 
 
+function getBtnsSection(props) {
+    
+    let actionBtn = (<Button color="primary" onClick={() => true}>update</Button>);
+
+    if (props.crudMethod === 'create') {
+        actionBtn = (<Button color="primary" onClick={() => true}>save</Button>);
+    }
+
+    if (props.isUpdatingPurchase || props.isSavingPurchase) {
+        actionBtn = (<Button color="primary"><Spinner size="sm" /></Button>)
+    }
+
+
+    // let refreshBtn = (<Button color="primary" className="ml-2" onClick={props.onOrderRefresh}>refresh</Button>);
+    // if (props.isRefreshingOrder) {
+    //     refreshBtn = (<Button color="primary" className="ml-2"><Spinner size="sm" /></Button>)
+    // }
+
+    return (<>{actionBtn}</>);
+
+}
+
+
+
 const getFormColumns = (props) => {
 
     let i = 0;
     let firstColFormInputRows = [];
     let secondColFormInputRows = [];
     let whichFormColToPopulate = firstColFormInputRows;
+    let actionName = props.crudMethod ?? 'update';
 
 
     for (const formField of PURCHASE_FORM_FIELDS) {
 
         if (formField.field === 'statusCode') { whichFormColToPopulate = secondColFormInputRows; }
+        
+        if (shouldNotIncludeForPurchaseForm(formField.field, actionName)) { continue; }
 
         whichFormColToPopulate.push(
             <FormGroup row key={i}>

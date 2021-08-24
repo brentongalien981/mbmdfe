@@ -22,6 +22,12 @@ export const PURCHASE_FORM_FIELDS = [
 
 
 
+export const NOT_INCLUDED_FIELDS_FOR_CREATE_PURCHASE_FORM = [
+    'createdAt', 'updatedAt'
+];
+
+
+
 export const PURCHASE_ITEMS_TABLE_COLUMNS = [    
     { dataField: 'id', text: 'id', sort: true },
     { dataField: 'actions', text: 'actions', sort: false },

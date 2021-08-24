@@ -17,7 +17,8 @@ const initialState = {
     purchase: {},
     purchaseItems: [],
     purchaseStatuses: [FIRST_DEFAULT_PURCHASE_STATUS],
-    purchaseItemStatuses: [FIRST_DEFAULT_PURCHASE_STATUS]
+    purchaseItemStatuses: [FIRST_DEFAULT_PURCHASE_STATUS],
+    hasPurchaseBeenStored: false
 };
 
 
@@ -26,6 +27,7 @@ const initialState = {
 const purchase = (state = initialState, action) => {
     switch (action.type) {
         case actions.ON_READ_PURCHASE_RETURN: return onReadPurchaseReturn(state, action);
+        case actions.RESET_CREATE_PURCHASE_FLAGS: return resetCreatePurchaseFlags(state, action);        
         default: return state;
     }
 }
@@ -70,6 +72,16 @@ const onReadPurchaseReturn = (state, action) => {
         purchaseItems: purchaseItems,
         purchaseStatuses: updatedPurchaseStatuses,
         purchaseItemStatuses: updatedPurchaseItemStatuses
+    };
+};
+
+
+
+const resetCreatePurchaseFlags = (state, action) => {
+
+    return {
+        ...state,
+        hasPurchaseBeenStored: false
     };
 };
 
