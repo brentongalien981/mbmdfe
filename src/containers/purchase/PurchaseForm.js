@@ -9,11 +9,9 @@ import { PURCHASE_FORM_FIELDS } from './constants/consts';
 
 export const PurchaseForm = (props) => {
 
-    // BMD-TODO
     const formColumns = getFormColumns(props);
 
 
-    // BMD-TODO: Move these to FUNC: btnsSection()
     const btnsSection = null;
     // let actionBtn = (<Button color="primary" onClick={props.onOrderUpdate}>update</Button>);
 
