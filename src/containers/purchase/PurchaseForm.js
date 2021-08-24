@@ -130,14 +130,14 @@ const getSpecificInputComponent = (props, formField) => {
             inputChild = getPurchaseStatusOptions(props.purchaseStatuses);
             break;
         case 'date':
-            let dateObj = (inputVal ? new Date(inputVal) : getInitialDate());
+            let dateObj = (inputVal ? new Date(inputVal + ' 00:00:00') : getInitialDate());
             inputVal = parseDateToStr(dateObj, 'yyyy-mm-dd');
             break;
     }
 
 
     return (
-        <Input type={inputType} name={inputName} value={inputVal ?? ''} onChange={(e) => true} {...disabledAttrib}>
+        <Input type={inputType} name={inputName} value={inputVal ?? ''} onChange={(e) => props.onPurchaseInputChange(e)} {...disabledAttrib}>
             {inputChild}
         </Input>
     );

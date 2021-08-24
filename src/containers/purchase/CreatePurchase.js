@@ -5,6 +5,7 @@ import { Container } from 'reactstrap';
 import { getInitialDate, parseDateToStr } from '../../bmd/helpers/HelperFuncsA';
 import * as actions from '../../redux/actions/purchase';
 import { readPurchaseStatuses } from '../../redux/actions/purchases';
+import * as eventFuncs from './helpers/EventFuncs';
 import { PurchaseForm } from './PurchaseForm';
 
 
@@ -35,7 +36,7 @@ class CreatePurchase extends React.Component {
                     purchase={this.state.purchase}
                     isSavingPurchase={this.state.isSavingPurchase}
                     purchaseStatuses={this.props.purchaseStatuses}
-                    // onOrderInputChange={(e) => eventFuncs.onOrderInputChange(this, e)}                    
+                    onPurchaseInputChange={(e) => eventFuncs.onPurchaseInputChange(this, e)}                    
                     // onOrderSave={() => eventFuncs.onOrderSave(this)}
                 />
             </Container>
