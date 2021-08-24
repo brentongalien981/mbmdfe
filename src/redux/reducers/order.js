@@ -117,10 +117,12 @@ const onUpdateOrderReturn = (state, action) => {
 const onSaveOrderReturn = (state, action) => {
 
     let newlySavedOrderId = state.newlySavedOrderId;
+    let hasOrderBeenSaved = false;
 
 
     if (action.callBackData.isResultOk) {
         newlySavedOrderId = action.callBackData.objs.order.id;
+        hasOrderBeenSaved = true;
     } else {
         BsCore2.alertForCallBackDataErrors(action.callBackData);
     }
@@ -132,7 +134,7 @@ const onSaveOrderReturn = (state, action) => {
     return {
         ...state,
         newlySavedOrderId: newlySavedOrderId,
-        hasOrderBeenSaved: true
+        hasOrderBeenSaved: hasOrderBeenSaved
     };
 };
 
