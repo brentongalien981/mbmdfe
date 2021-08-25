@@ -44,7 +44,7 @@ class CreatePurchase extends React.Component {
                     purchase={this.state.purchase}
                     isSavingPurchase={this.state.isSavingPurchase}
                     purchaseStatuses={this.props.purchaseStatuses}
-                    onPurchaseInputChange={(e) => eventFuncs.onPurchaseInputChange(this, e)}                    
+                    onPurchaseInputChange={(e) => eventFuncs.onPurchaseInputChange(this, e)}
                     onPurchaseSave={() => eventFuncs.onPurchaseSave(this)}
                 />
             </Container>

@@ -1,7 +1,13 @@
+import Bs from "../../../bs/core/Bs";
+
 export const onPurchaseInputChange = (container, e) => {
 
     const targetName = e.target.name;
-    const targetVal = e.target.value;
+    let targetVal = e.target.value;
+    
+    if (e.target.type === 'date') {
+        targetVal += ' 00:00:00';
+    }
 
     let updatedPurchase = container.state.purchase;
     updatedPurchase[targetName] = targetVal;
@@ -29,5 +35,24 @@ export const onPurchaseSave = (container) => {
     };
 
     container.props.savePurchase(data);
+
+};
+
+
+
+export const onPurchaseUpdate = (container) => {
+
+    if (container.state.isReadingPurchase || container.state.isUpdatingPurchase) { return; }
+
+    container.setState({ isUpdatingPurchase: true });
+
+    const data = {
+        params: { ...container.state.purchase },
+        doCallBackFunc: () => {
+            container.setState({ isUpdatingPurchase: false });
+        }
+    };
+
+    container.props.updatePurchase(data);
 
 };

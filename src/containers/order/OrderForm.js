@@ -122,7 +122,7 @@ const getSpecificInputComponent = (props, inputName, inputVal, inputType) => {
             inputChild = getOrderStatusOptions(props.orderStatuses);
             break;
         case 'date':
-            let dateObj = (inputVal == '' ? getInitialDate() : new Date(inputVal + ' 00:00:00'));
+            let dateObj = (inputVal == '' ? getInitialDate() : new Date(inputVal));
             inputVal = parseDateToStr(dateObj, 'yyyy-mm-dd');
             break;
     }

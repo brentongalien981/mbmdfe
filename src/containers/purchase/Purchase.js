@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Container } from 'reactstrap';
 import * as actions from '../../redux/actions/purchase';
+import * as eventFuncs from './helpers/EventFuncs';
 import * as helperFuncs from './helpers/HelperFuncsA';
 import { PurchaseForm } from './PurchaseForm';
 import { PurchaseItemsTable } from './PurchaseItemsTable';
@@ -15,7 +16,8 @@ class Purchase extends React.Component {
     state = {
         purchase: {},
         purchaseItems: [],
-        isReadingPurchase: false
+        isReadingPurchase: false,
+        isUpdatingPurchase: false
     };
 
 
@@ -35,9 +37,9 @@ class Purchase extends React.Component {
                     purchase={this.state.purchase}
                     purchaseStatuses={this.props.purchaseStatuses}
                     isReadingPurchase={this.state.isReadingPurchase}
-                    // onOrderInputChange={(e) => eventFuncs.onOrderInputChange(this, e)}                    
-                    // isUpdatingOrder={this.state.isUpdatingOrder}
-                    // onOrderUpdate={() => eventFuncs.onOrderUpdate(this)}
+                    onPurchaseInputChange={(e) => eventFuncs.onPurchaseInputChange(this, e)}              
+                    isUpdatingPurchase={this.state.isUpdatingPurchase}
+                    onPurchaseUpdate={() => eventFuncs.onPurchaseUpdate(this)}
                     // isRefreshingOrder={this.state.isRefreshingOrder}
                     // onOrderRefresh={() => eventFuncs.onOrderRefresh(this)}
                 />
@@ -79,6 +81,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         readPurchase: (data) => dispatch(actions.readPurchase(data)),
+        updatePurchase: (data) => dispatch(actions.updatePurchase(data)),
         
     };
 };

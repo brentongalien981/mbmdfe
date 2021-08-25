@@ -6,7 +6,11 @@ export const onOrderInputChange = (container, e) => {
     if (container.state.isReadingOrder || container.state.isUpdatingOrder) { return; }
 
     const targetName = e.target.name;
-    const targetVal = e.target.value;
+    let targetVal = e.target.value;
+    
+    if (e.target.type === 'date') {
+        targetVal += ' 00:00:00';
+    }
 
     let updatedOrder = container.state.order;
     updatedOrder[targetName] = targetVal;

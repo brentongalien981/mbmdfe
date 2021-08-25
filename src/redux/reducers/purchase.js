@@ -26,9 +26,10 @@ const initialState = {
 /** REDUCER */
 const purchase = (state = initialState, action) => {
     switch (action.type) {
+        case actions.RESET_CREATE_PURCHASE_FLAGS: return resetCreatePurchaseFlags(state, action);        
         case actions.ON_READ_PURCHASE_RETURN: return onReadPurchaseReturn(state, action);
         case actions.ON_SAVE_PURCHASE_RETURN: return onSavePurchaseReturn(state, action);
-        case actions.RESET_CREATE_PURCHASE_FLAGS: return resetCreatePurchaseFlags(state, action);        
+        case actions.ON_UPDATE_PURCHASE_RETURN: return onUpdatePurchaseReturn(state, action);        
         default: return state;
     }
 }
@@ -40,6 +41,23 @@ const purchase = (state = initialState, action) => {
 
 
 /** NORMAL FUNCS */
+const onUpdatePurchaseReturn = (state, action) => {
+
+    if (!action.callBackData.isResultOk) {
+        BsCore2.alertForCallBackDataErrors(action.callBackData);
+    }
+
+
+    action.callBackData.doCallBackFunc();
+
+
+    return {
+        ...state
+    };
+};
+
+
+
 const onReadPurchaseReturn = (state, action) => {
 
     let purchase = {};

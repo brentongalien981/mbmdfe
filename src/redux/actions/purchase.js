@@ -6,16 +6,18 @@ import { showToastr } from "../../helpers/notifications/NotificationsHelper";
 
 
 /** NAMES */
+export const RESET_CREATE_PURCHASE_FLAGS = "RESET_CREATE_PURCHASE_FLAGS";
 export const ON_READ_PURCHASE_RETURN = "ON_READ_PURCHASE_RETURN";
 export const ON_SAVE_PURCHASE_RETURN = "ON_SAVE_PURCHASE_RETURN";
-export const RESET_CREATE_PURCHASE_FLAGS = "RESET_CREATE_PURCHASE_FLAGS";
+export const ON_UPDATE_PURCHASE_RETURN = "ON_UPDATE_PURCHASE_RETURN";
 
 
 
 /** FUNCS */
+export const resetCreatePurchaseFlags = (callBackData) => ({ type: RESET_CREATE_PURCHASE_FLAGS, callBackData: callBackData });
 export const onReadPurchaseReturn = (callBackData) => ({ type: ON_READ_PURCHASE_RETURN, callBackData: callBackData });
 export const onSavePurchaseReturn = (callBackData) => ({ type: ON_SAVE_PURCHASE_RETURN, callBackData: callBackData });
-export const resetCreatePurchaseFlags = (callBackData) => ({ type: RESET_CREATE_PURCHASE_FLAGS, callBackData: callBackData });
+export const onUpdatePurchaseReturn = (callBackData) => ({ type: ON_UPDATE_PURCHASE_RETURN, callBackData: callBackData });
 
 
 
@@ -74,6 +76,36 @@ export const savePurchase = (data) => {
 
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onSavePurchaseReturn(callBackData));
+            }
+        });
+    };
+};
+
+
+
+export const updatePurchase = (data) => {
+
+    const bmdAuth = BmdAuth.getInstance();
+
+    return (dispatch) => {
+
+        BsCore2.ajaxCrud({
+            url: '/purchases/update',
+            method: 'post',
+            params: {
+                bmdToken: bmdAuth?.bmdToken,
+                authProviderId: bmdAuth?.authProviderId,
+                ...data.params
+            },
+            callBackFunc: (requestData, json) => {
+                showToastr({ notificationType: 'success', message: 'Creation successful!' });
+                const callBackData = { ...data, ...json };
+                dispatch(onUpdatePurchaseReturn(callBackData));
+            },
+            errorCallBackFunc: (errors, errorStatusCode) => {
+
+                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
+                dispatch(onUpdatePurchaseReturn(callBackData));
             }
         });
     };

@@ -58,7 +58,7 @@ export const PurchaseForm = (props) => {
 
 function getBtnsSection(props) {
     
-    let actionBtn = (<Button color="primary" onClick={() => true}>update</Button>);
+    let actionBtn = (<Button color="primary" onClick={props.onPurchaseUpdate}>update</Button>);
 
     if (props.crudMethod === 'create') {
         actionBtn = (<Button color="primary" onClick={props.onPurchaseSave}>save</Button>);
@@ -130,7 +130,7 @@ const getSpecificInputComponent = (props, formField) => {
             inputChild = getPurchaseStatusOptions(props.purchaseStatuses);
             break;
         case 'date':
-            let dateObj = (inputVal ? new Date(inputVal + ' 00:00:00') : getInitialDate());
+            let dateObj = (inputVal ? new Date(inputVal) : getInitialDate());
             inputVal = parseDateToStr(dateObj, 'yyyy-mm-dd');
             break;
     }
