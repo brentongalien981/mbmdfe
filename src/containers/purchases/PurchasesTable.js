@@ -56,7 +56,7 @@ function modifyPurchasesForDisplay(purchases) {
 
 
 function setPurchaseIdLink(purchase) {
-    const purchaseLink = 'purchase/' + purchase.id;
+    const purchaseLink = 'purchases/' + purchase.id;
     purchase.purchaseLink = (
         <Link to={purchaseLink} target="_blank">
             <ExternalLink size={18} className="align-middle" />

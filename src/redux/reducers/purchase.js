@@ -18,7 +18,7 @@ const initialState = {
     purchaseItems: [],
     purchaseStatuses: [FIRST_DEFAULT_PURCHASE_STATUS],
     purchaseItemStatuses: [FIRST_DEFAULT_PURCHASE_STATUS],
-    hasPurchaseBeenStored: false
+    hasPurchaseBeenSaved: false
 };
 
 
@@ -27,6 +27,7 @@ const initialState = {
 const purchase = (state = initialState, action) => {
     switch (action.type) {
         case actions.ON_READ_PURCHASE_RETURN: return onReadPurchaseReturn(state, action);
+        case actions.ON_SAVE_PURCHASE_RETURN: return onSavePurchaseReturn(state, action);
         case actions.RESET_CREATE_PURCHASE_FLAGS: return resetCreatePurchaseFlags(state, action);        
         default: return state;
     }
@@ -77,11 +78,38 @@ const onReadPurchaseReturn = (state, action) => {
 
 
 
+const onSavePurchaseReturn = (state, action) => {
+
+    let hasPurchaseBeenSaved = false;
+    let savedPurchaseId = 0;
+
+
+    if (action.callBackData.isResultOk) {
+        hasPurchaseBeenSaved = true;
+        savedPurchaseId = action.callBackData.objs.purchase?.id;
+    } else {
+        BsCore2.alertForCallBackDataErrors(action.callBackData);
+    }
+
+
+    action.callBackData.doCallBackFunc({
+        savedPurchaseId: savedPurchaseId
+    });
+
+
+    return {
+        ...state,
+        hasPurchaseBeenSaved: hasPurchaseBeenSaved
+    };
+};
+
+
+
 const resetCreatePurchaseFlags = (state, action) => {
 
     return {
         ...state,
-        hasPurchaseBeenStored: false
+        hasPurchaseBeenSaved: false
     };
 };
 

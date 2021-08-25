@@ -9,3 +9,25 @@ export const onPurchaseInputChange = (container, e) => {
     container.setState({ purchase: updatedPurchase });
 
 };
+
+
+
+export const onPurchaseSave = (container) => {
+
+    if (container.state.isSavingPurchase) { return; }
+
+    container.setState({ isSavingPurchase: true });
+
+    const data = {
+        params: { ...container.state.purchase },
+        doCallBackFunc: (objs) => {
+            container.setState({ 
+                isSavingPurchase: false,
+                savedPurchaseId: objs.savedPurchaseId
+            });
+        }
+    };
+
+    container.props.savePurchase(data);
+
+};

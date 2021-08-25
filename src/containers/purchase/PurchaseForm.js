@@ -61,7 +61,7 @@ function getBtnsSection(props) {
     let actionBtn = (<Button color="primary" onClick={() => true}>update</Button>);
 
     if (props.crudMethod === 'create') {
-        actionBtn = (<Button color="primary" onClick={() => true}>save</Button>);
+        actionBtn = (<Button color="primary" onClick={props.onPurchaseSave}>save</Button>);
     }
 
     if (props.isUpdatingPurchase || props.isSavingPurchase) {

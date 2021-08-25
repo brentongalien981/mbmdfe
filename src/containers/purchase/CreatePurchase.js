@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Container } from 'reactstrap';
-import { getInitialDate, parseDateToStr } from '../../bmd/helpers/HelperFuncsA';
 import * as actions from '../../redux/actions/purchase';
 import { readPurchaseStatuses } from '../../redux/actions/purchases';
 import * as eventFuncs from './helpers/EventFuncs';
@@ -15,12 +14,22 @@ class CreatePurchase extends React.Component {
     /** PROPERTIES */
     state = {
         purchase: {},
-        isSavingPurchase: false
+        isSavingPurchase: false,
+        savedPurchaseId: 0
     };
 
 
 
     /** MAIN FUNCS */
+    componentDidUpdate() {
+        if (this.props.hasPurchaseBeenSaved) {
+            // redirect
+            this.props.history.push('/purchases/' + this.state.savedPurchaseId);
+        }
+    }
+
+
+
     componentDidMount() {
         this.props.resetCreatePurchaseFlags();
         this.props.readPurchaseStatuses();
@@ -37,7 +46,7 @@ class CreatePurchase extends React.Component {
                     isSavingPurchase={this.state.isSavingPurchase}
                     purchaseStatuses={this.props.purchaseStatuses}
                     onPurchaseInputChange={(e) => eventFuncs.onPurchaseInputChange(this, e)}                    
-                    // onOrderSave={() => eventFuncs.onOrderSave(this)}
+                    onPurchaseSave={() => eventFuncs.onPurchaseSave(this)}
                 />
             </Container>
         );
@@ -51,8 +60,7 @@ class CreatePurchase extends React.Component {
 const mapStateToProps = (state) => {
     return {
         purchaseStatuses: state.purchases.purchaseStatuses,
-        // newlySavedOrderId: state.order.newlySavedOrderId,
-        // hasOrderBeenSaved: state.order.hasOrderBeenSaved
+        hasPurchaseBeenSaved: state.purchase.hasPurchaseBeenSaved    
     };
 };
 
@@ -62,7 +70,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         resetCreatePurchaseFlags: () => dispatch(actions.resetCreatePurchaseFlags()),
         readPurchaseStatuses: () => dispatch(readPurchaseStatuses()),
-        // saveOrder: (data) => dispatch(actions.saveOrder(data))        
+        savePurchase: (data) => dispatch(actions.savePurchase(data))        
     };
 };
 
