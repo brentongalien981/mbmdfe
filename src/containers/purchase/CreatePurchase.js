@@ -23,7 +23,6 @@ class CreatePurchase extends React.Component {
     /** MAIN FUNCS */
     componentDidUpdate() {
         if (this.props.hasPurchaseBeenSaved) {
-            // redirect
             this.props.history.push('/purchases/' + this.state.savedPurchaseId);
         }
     }
