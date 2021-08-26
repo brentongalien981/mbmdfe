@@ -74,7 +74,7 @@ function getBtnsSection(props) {
     //     refreshBtn = (<Button color="primary" className="ml-2"><Spinner size="sm" /></Button>)
     // }
 
-    return (<>{actionBtn}</>);
+    return actionBtn;
 
 }
 

@@ -46,8 +46,14 @@ export const onPurchaseUpdate = (container) => {
 
     container.setState({ isUpdatingPurchase: true });
 
+    // NOTE: This step is necessary to prevent react from
+    // throwing Circular shit error.
+    let thePurchase = container.state.purchase;
+    thePurchase.purchaseItems = null;
+    
+
     const data = {
-        params: { ...container.state.purchase },
+        params: { ...thePurchase },
         doCallBackFunc: () => {
             container.setState({ isUpdatingPurchase: false });
         }

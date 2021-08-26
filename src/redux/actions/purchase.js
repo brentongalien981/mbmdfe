@@ -98,7 +98,11 @@ export const updatePurchase = (data) => {
                 ...data.params
             },
             callBackFunc: (requestData, json) => {
-                showToastr({ notificationType: 'success', message: 'Creation successful!' });
+                
+                if (json.isResultOk) {
+                    showToastr({ notificationType: 'success', message: 'Update successful!' });
+                }
+                
                 const callBackData = { ...data, ...json };
                 dispatch(onUpdatePurchaseReturn(callBackData));
             },

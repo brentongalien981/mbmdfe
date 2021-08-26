@@ -44,7 +44,13 @@ const purchase = (state = initialState, action) => {
 const onUpdatePurchaseReturn = (state, action) => {
 
     if (!action.callBackData.isResultOk) {
-        BsCore2.alertForCallBackDataErrors(action.callBackData);
+
+        const resultCode = action.callBackData.resultCode;
+        if (resultCode) {
+            alert(resultCode.readableMessage);
+        } else {
+            BsCore2.alertForCallBackDataErrors(action.callBackData);
+        }        
     }
 
 

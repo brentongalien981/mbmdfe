@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Container } from 'reactstrap';
+import Bs from '../../bs/core/Bs';
 import * as actions from '../../redux/actions/purchase';
 import * as eventFuncs from './helpers/EventFuncs';
 import * as helperFuncs from './helpers/HelperFuncsA';
