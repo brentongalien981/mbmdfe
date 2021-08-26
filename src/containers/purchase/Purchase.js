@@ -62,8 +62,8 @@ class Purchase extends React.Component {
                     isOpen={this.state.isEditingPurchaseItem}
                     onToggle={() => eventFuncs.onPurchaseItemFormModalToggle(this)}
                     purchaseItemFormAction={this.state.purchaseItemFormAction}
-                    // orderItem={this.state.orderItemToEdit}
-                    // orderItemStatuses={this.props.orderItemStatuses}
+                    purchaseItemToEdit={this.state.purchaseItemToEdit}
+                    purchaseItemStatuses={this.props.purchaseItemStatuses}
                     // onOrderItemInputChange={(e) => eventFuncs.onOrderItemInputChange(this, e)}
                     isSavingPurchaseItem={this.state.isSavingPurchaseItem}
                     isUpdatingPurchaseItem={this.state.isUpdatingPurchaseItem}
@@ -81,6 +81,7 @@ class Purchase extends React.Component {
 const mapStateToProps = (state) => {
     return {
         purchaseStatuses: state.purchase.purchaseStatuses,
+        purchaseItemStatuses: state.purchase.purchaseItemStatuses,
     };
 };
 

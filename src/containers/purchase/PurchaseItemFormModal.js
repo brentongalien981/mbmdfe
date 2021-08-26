@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Label, Modal, ModalBody, ModalFooter, ModalHeader, Col, Input, Form, FormGroup, Row, Spinner, Container } from 'reactstrap';
+import { PURCHASE_ITEM_FORM_FIELDS } from './constants/consts';
 
 
 
@@ -35,17 +36,45 @@ const PurchaseItemFormModal = (props) => {
 
 
 const getFormInputSections = (props) => {
-    return null;
-    // return ORDER_ITEM_FORM_FIELDS.map((formField, i) => {
-    //     return (
-    //         <FormGroup row key={i}>
-    //             <Label sm={4} className="text-sm-right">{formField.name}</Label>
-    //             <Col sm={8}>
-    //                 {getSpecificInputComponent(props, formField)}
-    //             </Col>
-    //         </FormGroup>
-    //     );
-    // });
+    
+    return PURCHASE_ITEM_FORM_FIELDS.map((formField, i) => {
+        return (
+            <FormGroup row key={i}>
+                <Label sm={4} className="text-sm-right">{formField.field}</Label>
+                <Col sm={8}>
+                    {getSpecificInputComponent(props, formField)}
+                </Col>
+            </FormGroup>
+        );
+    });
+};
+
+
+
+const getSpecificInputComponent = (props, formField) => {
+
+    let inputChild = null;
+    let disabledAttrib = formField.isDisabled ? { disabled: true } : {};
+    const inputVal = props.purchaseItemToEdit[formField.field] ?? '';
+
+    if (formField.type === 'select') {
+        inputChild = getPurchaseItemStatusOptions(props.purchaseItemStatuses);
+    }
+
+
+    return (
+        <Input type={formField.type} name={formField.field} value={inputVal} onChange={(e) => true} {...disabledAttrib}>
+            {inputChild}
+        </Input>
+    );
+};
+
+
+
+const getPurchaseItemStatusOptions = (purchaseItemStatuses) => {
+    return purchaseItemStatuses.map((s) => {
+        return (<option key={s.code} value={s.code}>{s.name}</option>);
+    });
 };
 
 

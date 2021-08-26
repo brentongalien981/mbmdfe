@@ -45,3 +45,15 @@ export const PURCHASE_ITEMS_TABLE_COLUMNS = [
     { dataField: 'createdAt', text: 'createdAt', sort: true },
     { dataField: 'updatedAt', text: 'updatedAt', sort: true }
 ];
+
+
+
+export const PURCHASE_ITEM_FORM_FIELDS = [    
+    { field: 'purchaseId', label: 'purchaseId', type: 'number', isDisabled: true },
+    { field: 'sellerProductId', label: 'sellerProductId', type: 'number', isDisabled: false },
+    { field: 'sizeAvailabilityId', label: 'sizeAvailabilityId', type: 'number', isDisabled: false },
+    { field: 'quantity', label: 'quantity', type: 'number', isDisabled: false },
+    { field: 'statusCode', label: 'statusCode', type: 'select', isDisabled: false },
+    { field: 'projectedPrice', label: 'projectedPrice', type: 'number', isDisabled: false },
+    { field: 'actualPrice', label: 'actualPrice', type: 'number', isDisabled: false }
+];
