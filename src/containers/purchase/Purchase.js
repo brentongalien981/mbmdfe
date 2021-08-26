@@ -64,7 +64,7 @@ class Purchase extends React.Component {
                     purchaseItemFormAction={this.state.purchaseItemFormAction}
                     purchaseItemToEdit={this.state.purchaseItemToEdit}
                     purchaseItemStatuses={this.props.purchaseItemStatuses}
-                    // onOrderItemInputChange={(e) => eventFuncs.onOrderItemInputChange(this, e)}
+                    onPurchaseItemInputChange={(e) => eventFuncs.onPurchaseItemInputChange(this, e)}
                     isSavingPurchaseItem={this.state.isSavingPurchaseItem}
                     isUpdatingPurchaseItem={this.state.isUpdatingPurchaseItem}
                     // onOrderItemSave={() => eventFuncs.onOrderItemSave(this)}

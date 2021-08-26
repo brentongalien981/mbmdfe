@@ -83,3 +83,17 @@ export const onPurchaseItemFormModalToggle = (container) => {
         isEditingPurchaseItem: false,
     });
 };
+
+
+
+export const onPurchaseItemInputChange = (container, e) => {
+
+    const targetName = e.target.name;
+    const targetVal = e.target.value;
+
+    let updatedPurchaseItem = container.state.purchaseItemToEdit;
+    updatedPurchaseItem[targetName] = targetVal;
+
+    container.setState({ purchaseItemToEdit: updatedPurchaseItem });
+
+};
