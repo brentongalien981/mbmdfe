@@ -50,7 +50,7 @@ export const onPurchaseUpdate = (container) => {
     // throwing Circular shit error.
     let thePurchase = container.state.purchase;
     thePurchase.purchaseItems = null;
-    
+
 
     const data = {
         params: { ...thePurchase },
@@ -61,4 +61,19 @@ export const onPurchaseUpdate = (container) => {
 
     container.props.updatePurchase(data);
 
+};
+
+
+
+export const onPurchaseItemCreate = (container) => {
+
+    if (container.state.isSavingPurchaseItem || container.state.isUpdatingPurchaseItem) { return; }
+
+    Bs.log('TODO: Setup the PurchaseItemForm-Modal');
+
+    container.setState({
+        isEditingPurchaseItem: true,
+        purchaseItemToEdit: {},
+        purchaseItemFormAction: 'create'
+    });
 };

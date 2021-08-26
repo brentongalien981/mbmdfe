@@ -40,7 +40,7 @@ export const PurchaseItemsTable = (props) => {
             <Col sm="12" className="mb-2">
                 <h2 className="mr-2 purchase-item-label">Purchase Items</h2>
                 
-                <Button className="mb-2 mr-2" color="primary">
+                <Button className="mb-2 mr-2" color="primary" onClick={props.onPurchaseItemCreate}>
                     <PlusSquare size="18" /> add purhase-item
                 </Button>
             </Col>

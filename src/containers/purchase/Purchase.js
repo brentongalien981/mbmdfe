@@ -18,14 +18,19 @@ class Purchase extends React.Component {
         purchase: {},
         purchaseItems: [],
         isReadingPurchase: false,
-        isUpdatingPurchase: false
+        isUpdatingPurchase: false,
+        isSavingPurchaseItem: false,
+        isUpdatingPurchaseItem: false,
+        isEditingPurchaseItem: false,
+        purchaseItemToEdit: {},
+        purchaseItemFormAction: 'create'
     };
 
 
 
     /** MAIN FUNCS */
     componentDidMount() {
-        helperFuncs.readPurchase(this);        
+        helperFuncs.readPurchase(this);
     }
 
 
@@ -38,17 +43,17 @@ class Purchase extends React.Component {
                     purchase={this.state.purchase}
                     purchaseStatuses={this.props.purchaseStatuses}
                     isReadingPurchase={this.state.isReadingPurchase}
-                    onPurchaseInputChange={(e) => eventFuncs.onPurchaseInputChange(this, e)}              
+                    onPurchaseInputChange={(e) => eventFuncs.onPurchaseInputChange(this, e)}
                     isUpdatingPurchase={this.state.isUpdatingPurchase}
                     onPurchaseUpdate={() => eventFuncs.onPurchaseUpdate(this)}
-                    // isRefreshingOrder={this.state.isRefreshingOrder}
-                    // onOrderRefresh={() => eventFuncs.onOrderRefresh(this)}
+                // isRefreshingOrder={this.state.isRefreshingOrder}
+                // onOrderRefresh={() => eventFuncs.onOrderRefresh(this)}
                 />
 
                 <PurchaseItemsTable
                     purchaseItems={this.state.purchaseItems}
                     isReadingPurchase={this.state.isReadingPurchase}
-                    // onOrderItemCreate={() => eventFuncs.onOrderItemCreate(this)}
+                    onPurchaseItemCreate={() => eventFuncs.onPurchaseItemCreate(this)}
                 />
 
 
@@ -83,7 +88,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         readPurchase: (data) => dispatch(actions.readPurchase(data)),
         updatePurchase: (data) => dispatch(actions.updatePurchase(data)),
-        
+
     };
 };
 
