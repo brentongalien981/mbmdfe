@@ -69,11 +69,17 @@ export const onPurchaseItemCreate = (container) => {
 
     if (container.state.isSavingPurchaseItem || container.state.isUpdatingPurchaseItem) { return; }
 
-    Bs.log('TODO: Setup the PurchaseItemForm-Modal');
-
     container.setState({
         isEditingPurchaseItem: true,
         purchaseItemToEdit: {},
         purchaseItemFormAction: 'create'
+    });
+};
+
+
+
+export const onPurchaseItemFormModalToggle = (container) => {
+    container.setState({
+        isEditingPurchaseItem: false,
     });
 };

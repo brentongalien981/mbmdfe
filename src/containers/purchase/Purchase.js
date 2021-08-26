@@ -7,6 +7,7 @@ import * as actions from '../../redux/actions/purchase';
 import * as eventFuncs from './helpers/EventFuncs';
 import * as helperFuncs from './helpers/HelperFuncsA';
 import { PurchaseForm } from './PurchaseForm';
+import PurchaseItemFormModal from './PurchaseItemFormModal';
 import { PurchaseItemsTable } from './PurchaseItemsTable';
 
 
@@ -57,16 +58,17 @@ class Purchase extends React.Component {
                 />
 
 
-                {/* <OrderItemFormModal
-                    isOpen={this.state.isEditingOrderItem}
-                    onToggle={() => eventFuncs.onOrderItemFormModalToggle(this)}
-                    orderItemFormAction={this.state.orderItemFormAction}
-                    orderItem={this.state.orderItemToEdit}
-                    orderItemStatuses={this.props.orderItemStatuses}
-                    onOrderItemInputChange={(e) => eventFuncs.onOrderItemInputChange(this, e)}
-                    isSavingOrderItem={this.state.isSavingOrderItem}
-                    onOrderItemSave={() => eventFuncs.onOrderItemSave(this)}
-                /> */}
+                <PurchaseItemFormModal
+                    isOpen={this.state.isEditingPurchaseItem}
+                    onToggle={() => eventFuncs.onPurchaseItemFormModalToggle(this)}
+                    purchaseItemFormAction={this.state.purchaseItemFormAction}
+                    // orderItem={this.state.orderItemToEdit}
+                    // orderItemStatuses={this.props.orderItemStatuses}
+                    // onOrderItemInputChange={(e) => eventFuncs.onOrderItemInputChange(this, e)}
+                    isSavingPurchaseItem={this.state.isSavingPurchaseItem}
+                    isUpdatingPurchaseItem={this.state.isUpdatingPurchaseItem}
+                    // onOrderItemSave={() => eventFuncs.onOrderItemSave(this)}
+                />
 
             </Container>
         );
