@@ -10,6 +10,7 @@ export const RESET_CREATE_PURCHASE_FLAGS = "RESET_CREATE_PURCHASE_FLAGS";
 export const ON_READ_PURCHASE_RETURN = "ON_READ_PURCHASE_RETURN";
 export const ON_SAVE_PURCHASE_RETURN = "ON_SAVE_PURCHASE_RETURN";
 export const ON_UPDATE_PURCHASE_RETURN = "ON_UPDATE_PURCHASE_RETURN";
+export const ON_SAVE_PURCHASE_ITEM_RETURN = "ON_SAVE_PURCHASE_ITEM_RETURN";
 
 
 
@@ -18,6 +19,7 @@ export const resetCreatePurchaseFlags = (callBackData) => ({ type: RESET_CREATE_
 export const onReadPurchaseReturn = (callBackData) => ({ type: ON_READ_PURCHASE_RETURN, callBackData: callBackData });
 export const onSavePurchaseReturn = (callBackData) => ({ type: ON_SAVE_PURCHASE_RETURN, callBackData: callBackData });
 export const onUpdatePurchaseReturn = (callBackData) => ({ type: ON_UPDATE_PURCHASE_RETURN, callBackData: callBackData });
+export const onSavePurchaseItemReturn = (callBackData) => ({ type: ON_SAVE_PURCHASE_ITEM_RETURN, callBackData: callBackData });
 
 
 
@@ -102,7 +104,7 @@ export const updatePurchase = (data) => {
                 if (json.isResultOk) {
                     showToastr({ notificationType: 'success', message: 'Update successful!' });
                 }
-                
+
                 const callBackData = { ...data, ...json };
                 dispatch(onUpdatePurchaseReturn(callBackData));
             },
@@ -110,6 +112,41 @@ export const updatePurchase = (data) => {
 
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onUpdatePurchaseReturn(callBackData));
+            }
+        });
+    };
+};
+
+
+
+export const savePurchaseItem = (data) => {
+
+    const bmdAuth = BmdAuth.getInstance();
+
+    return (dispatch) => {
+
+        let url = '/purchase-items/store';
+        if (data.localParams.orderItemFormAction === 'edit') {
+            url = '/purchase-items/update';
+        }
+
+
+        BsCore2.ajaxCrud({
+            url: url,
+            method: 'post',
+            params: {
+                bmdToken: bmdAuth?.bmdToken,
+                authProviderId: bmdAuth?.authProviderId,
+                ...data.params
+            },
+            callBackFunc: (requestData, json) => {
+                showToastr({ notificationType: 'success', message: 'Item saved.' });
+                const callBackData = { ...data, ...json };
+                dispatch(onSavePurchaseItemReturn(callBackData));
+            },
+            errorCallBackFunc: (errors, errorStatusCode) => {
+                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
+                dispatch(onSavePurchaseItemReturn(callBackData));
             }
         });
     };

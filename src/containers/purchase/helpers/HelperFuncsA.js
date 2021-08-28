@@ -30,9 +30,21 @@ export const readPurchase = (container) => {
 export function shouldNotIncludeForPurchaseForm(fieldName, formActionName = 'create') {
 
     if (formActionName === 'update') { return false; }
-    
+
     if (NOT_INCLUDED_FIELDS_FOR_CREATE_PURCHASE_FORM.includes(fieldName)) { 
         return true;
     }
     return false;
 }
+
+
+
+export const extractDefaultPurchaseItemStatus = (statuses) => {
+
+    for (const s of statuses) {
+        if (s.name === 'DEFAULT') { return s; }
+    }
+
+    return null;
+
+};

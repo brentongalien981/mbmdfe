@@ -29,7 +29,8 @@ const purchase = (state = initialState, action) => {
         case actions.RESET_CREATE_PURCHASE_FLAGS: return resetCreatePurchaseFlags(state, action);        
         case actions.ON_READ_PURCHASE_RETURN: return onReadPurchaseReturn(state, action);
         case actions.ON_SAVE_PURCHASE_RETURN: return onSavePurchaseReturn(state, action);
-        case actions.ON_UPDATE_PURCHASE_RETURN: return onUpdatePurchaseReturn(state, action);        
+        case actions.ON_UPDATE_PURCHASE_RETURN: return onUpdatePurchaseReturn(state, action);
+        case actions.ON_SAVE_PURCHASE_ITEM_RETURN: return onSavePurchaseItemReturn(state, action);        
         default: return state;
     }
 }
@@ -124,6 +125,36 @@ const onSavePurchaseReturn = (state, action) => {
     return {
         ...state,
         hasPurchaseBeenSaved: hasPurchaseBeenSaved
+    };
+};
+
+
+
+const onSavePurchaseItemReturn = (state, action) => {
+
+    let updatedPurchaseItems = state.purchaseItems;
+
+    // if (action.callBackData.isResultOk) {
+
+    //     const savedOrderItem = action.callBackData.objs.savedOrderItem;
+
+    //     if (action.callBackData.localParams.orderItemFormAction === 'create') {
+    //         updatedOrderItems = [...updatedOrderItems, savedOrderItem];
+    //     } else {
+    //         updatedOrderItems = replaceUpdatedOrderItem(updatedOrderItems, savedOrderItem);
+    //     }
+
+    // } else {
+    //     BsCore2.alertForCallBackDataErrors(action.callBackData);
+    // }
+
+
+    action.callBackData.doCallBackFunc({ updatedPurchaseItems: updatedPurchaseItems });
+
+
+    return {
+        ...state,
+        // orderItems: updatedOrderItems
     };
 };
 

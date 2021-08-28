@@ -1,4 +1,5 @@
 import Bs from "../../../bs/core/Bs";
+import { extractDefaultPurchaseItemStatus } from "./HelperFuncsA";
 
 export const onPurchaseInputChange = (container, e) => {
 
@@ -95,5 +96,36 @@ export const onPurchaseItemInputChange = (container, e) => {
     updatedPurchaseItem[targetName] = targetVal;
 
     container.setState({ purchaseItemToEdit: updatedPurchaseItem });
+
+};
+
+
+
+export const onPurchaseItemSave = (container) => {
+
+    if (container.state.isSavingPurchaseItem || container.state.updatingPurchaseItem) { return; }
+
+    container.setState({ isSavingPurchaseItem: true });
+
+    const purchaseItemFormAction = container.state.purchaseItemFormAction;
+
+    const purchaseItemToEdit = {
+        ...container.state.purchaseItemToEdit,
+        purchaseId: container.state.purchase.id,
+        statusCode: container.state.purchaseItemToEdit.status_code ?? extractDefaultPurchaseItemStatus(container.props.purchaseItemStatuses).code
+    };
+
+    const data = {
+        localParams: { purchaseItemFormAction: purchaseItemFormAction },
+        params: { ...purchaseItemToEdit },
+        doCallBackFunc: (objs) => {
+            container.setState({
+                purchaseItems: objs.updatedPurchaseItems,
+                isSavingPurchaseItem: false
+            });
+        }
+    };
+
+    container.props.savePurchaseItem(data);
 
 };

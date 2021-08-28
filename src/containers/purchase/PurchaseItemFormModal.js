@@ -9,6 +9,7 @@ const PurchaseItemFormModal = (props) => {
     const formLabel = (props.purchaseItemFormAction === 'create' ? 'Create Purchase Item' : 'Edit Purchase Item');
 
     let actionBtnContent = (props.purchaseItemFormAction === 'create' ? 'save' : 'update');
+
     if (props.isSavingPurchaseItem || props.isUpdatingPurchaseItem) {
         actionBtnContent = (<Spinner size="sm" />);
     }
@@ -26,7 +27,7 @@ const PurchaseItemFormModal = (props) => {
 
             <ModalFooter>
                 <Button color="warning" className="mr-1" onClick={props.onToggle}>close</Button>
-                <Button color="primary" onClick={() => true}>{actionBtnContent}</Button>
+                <Button color="primary" onClick={props.onPurchaseItemSave}>{actionBtnContent}</Button>
             </ModalFooter>
 
         </Modal>

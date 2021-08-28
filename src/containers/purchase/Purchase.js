@@ -67,7 +67,7 @@ class Purchase extends React.Component {
                     onPurchaseItemInputChange={(e) => eventFuncs.onPurchaseItemInputChange(this, e)}
                     isSavingPurchaseItem={this.state.isSavingPurchaseItem}
                     isUpdatingPurchaseItem={this.state.isUpdatingPurchaseItem}
-                    // onOrderItemSave={() => eventFuncs.onOrderItemSave(this)}
+                    onPurchaseItemSave={() => eventFuncs.onPurchaseItemSave(this)}
                 />
 
             </Container>
@@ -91,7 +91,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         readPurchase: (data) => dispatch(actions.readPurchase(data)),
         updatePurchase: (data) => dispatch(actions.updatePurchase(data)),
-
+        savePurchaseItem: (data) => dispatch(actions.savePurchaseItem(data)),
     };
 };
 
