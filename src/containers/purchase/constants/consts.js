@@ -49,6 +49,7 @@ export const PURCHASE_ITEMS_TABLE_COLUMNS = [
 
 
 export const PURCHASE_ITEM_FORM_FIELDS = [    
+    { field: 'id', label: 'id', type: 'number', isDisabled: true },
     { field: 'purchaseId', label: 'purchaseId', type: 'number', isDisabled: true },
     { field: 'sellerProductId', label: 'sellerProductId', type: 'number', isDisabled: false },
     { field: 'sizeAvailabilityId', label: 'sizeAvailabilityId', type: 'number', isDisabled: false },

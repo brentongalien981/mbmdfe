@@ -134,19 +134,19 @@ const onSavePurchaseItemReturn = (state, action) => {
 
     let updatedPurchaseItems = state.purchaseItems;
 
-    // if (action.callBackData.isResultOk) {
+    if (action.callBackData.isResultOk) {
 
-    //     const savedOrderItem = action.callBackData.objs.savedOrderItem;
+        // const savedOrderItem = action.callBackData.objs.savedOrderItem;
 
-    //     if (action.callBackData.localParams.orderItemFormAction === 'create') {
-    //         updatedOrderItems = [...updatedOrderItems, savedOrderItem];
-    //     } else {
-    //         updatedOrderItems = replaceUpdatedOrderItem(updatedOrderItems, savedOrderItem);
-    //     }
+        // if (action.callBackData.localParams.orderItemFormAction === 'create') {
+        //     updatedOrderItems = [...updatedOrderItems, savedOrderItem];
+        // } else {
+        //     updatedOrderItems = replaceUpdatedOrderItem(updatedOrderItems, savedOrderItem);
+        // }
 
-    // } else {
-    //     BsCore2.alertForCallBackDataErrors(action.callBackData);
-    // }
+    } else {
+        BsCore2.alertForCallBackDataErrors(action.callBackData);
+    }
 
 
     action.callBackData.doCallBackFunc({ updatedPurchaseItems: updatedPurchaseItems });
