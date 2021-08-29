@@ -140,7 +140,11 @@ export const savePurchaseItem = (data) => {
                 ...data.params
             },
             callBackFunc: (requestData, json) => {
-                showToastr({ notificationType: 'success', message: 'Item saved.' });
+                
+                if (json.isResultOk) {
+                    showToastr({ notificationType: 'success', message: 'Item saved.' });
+                }
+                
                 const callBackData = { ...data, ...json };
                 dispatch(onSavePurchaseItemReturn(callBackData));
             },

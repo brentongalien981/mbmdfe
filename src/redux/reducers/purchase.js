@@ -145,7 +145,14 @@ const onSavePurchaseItemReturn = (state, action) => {
         // }
 
     } else {
-        BsCore2.alertForCallBackDataErrors(action.callBackData);
+
+        const resultCode = action.callBackData.resultCode;
+
+        if (resultCode) {
+            alert(resultCode.readableMessage);
+        } else {
+            BsCore2.alertForCallBackDataErrors(action.callBackData);
+        }        
     }
 
 
