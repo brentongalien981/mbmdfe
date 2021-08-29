@@ -141,7 +141,7 @@ const onSavePurchaseItemReturn = (state, action) => {
         if (action.callBackData.localParams.purchaseItemFormAction === 'create') {
             updatedPurchaseItems = [...updatedPurchaseItems, savedPurchaseItem];
         } else {
-            // BMD-TODO
+            // BMD-TODO:
             // updatedOrderItems = replaceUpdatedOrderItem(updatedOrderItems, savedOrderItem);
         }
 
