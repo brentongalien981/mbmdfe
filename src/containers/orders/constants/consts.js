@@ -6,7 +6,7 @@ export const INIT_DATE_FILTERS_IN_STR = parseDateToStr(getInitialDate(-365), 'yy
 
 
 export const ORDER_TABLE_COLUMNS = [
-    // { dataField: 'idLink', text: 'ID Link', sort: true },
+    { dataField: 'order_id_link', text: 'Link', sort: false },
     { dataField: 'id', text: 'ID', sort: true },
     { dataField: 'user_id', text: 'User ID', sort: false },
     { dataField: 'cart_id', text: 'Cart ID', sort: false },
