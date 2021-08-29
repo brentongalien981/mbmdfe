@@ -126,7 +126,7 @@ export const savePurchaseItem = (data) => {
     return (dispatch) => {
 
         let url = '/purchase-items/store';
-        if (data.localParams.orderItemFormAction === 'edit') {
+        if (data.localParams.purchaseItemFormAction === 'edit') {
             url = '/purchase-items/update';
         }
 
@@ -140,7 +140,7 @@ export const savePurchaseItem = (data) => {
                 ...data.params
             },
             callBackFunc: (requestData, json) => {
-                
+
                 if (json.isResultOk) {
                     showToastr({ notificationType: 'success', message: 'Item saved.' });
                 }

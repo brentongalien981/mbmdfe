@@ -1,4 +1,4 @@
-import { NOT_INCLUDED_FIELDS_FOR_CREATE_PURCHASE_FORM } from "../constants/consts";
+import { NOT_INCLUDED_FIELDS_FOR_CREATE_PURCHASE_FORM, PURCHASE_ITEM_FORM_FIELDS } from "../constants/consts";
 
 export const readPurchase = (container) => {
 
@@ -48,3 +48,16 @@ export const extractDefaultPurchaseItemStatus = (statuses) => {
     return null;
 
 };
+
+
+
+export function extractPurePurchaseItemObj(purchaseItem) {
+
+    let purePurchaseItem = {};
+
+    for (const field of PURCHASE_ITEM_FORM_FIELDS) {
+        purePurchaseItem[field.field] = purchaseItem[field.field];
+    }
+
+    return purePurchaseItem;
+}

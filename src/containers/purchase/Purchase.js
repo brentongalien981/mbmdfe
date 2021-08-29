@@ -54,6 +54,7 @@ class Purchase extends React.Component {
                 <PurchaseItemsTable
                     purchaseItems={this.state.purchaseItems}
                     isReadingPurchase={this.state.isReadingPurchase}
+                    onPurchaseItemEdit={(purchaseItemToEdit) => eventFuncs.onPurchaseItemEdit(this, purchaseItemToEdit)}
                     onPurchaseItemCreate={() => eventFuncs.onPurchaseItemCreate(this)}
                 />
 

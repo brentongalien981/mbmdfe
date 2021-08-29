@@ -38,6 +38,20 @@ const purchase = (state = initialState, action) => {
 
 
 /** HELPER FUNCS */
+const replaceUpdatedPurchaseItem = (oldPurchaseItems, savedPurchaseItem) => {
+
+    let updatedPurchaseItems = [];
+
+    for (const pi of oldPurchaseItems) {
+        if (pi.id === savedPurchaseItem.id) {
+            updatedPurchaseItems.push(savedPurchaseItem);
+        } else {
+            updatedPurchaseItems.push(pi);
+        }
+    }
+
+    return updatedPurchaseItems;
+};
 
 
 
@@ -141,8 +155,7 @@ const onSavePurchaseItemReturn = (state, action) => {
         if (action.callBackData.localParams.purchaseItemFormAction === 'create') {
             updatedPurchaseItems = [...updatedPurchaseItems, savedPurchaseItem];
         } else {
-            // BMD-TODO:
-            // updatedOrderItems = replaceUpdatedOrderItem(updatedOrderItems, savedOrderItem);
+            updatedPurchaseItems = replaceUpdatedPurchaseItem(updatedPurchaseItems, savedPurchaseItem);
         }
 
     } else {

@@ -18,7 +18,7 @@ export const PurchaseItemsTable = (props) => {
                     bordered={false}
                     keyField="id"
                     columns={PURCHASE_ITEMS_TABLE_COLUMNS}
-                    data={modifyPurchaseItems(props.purchaseItems)}
+                    data={modifyPurchaseItems(props)}
                     expandRow={getPurchaseItemsTableExpandedRowDetails()}
                 />
             </div>
@@ -52,13 +52,15 @@ export const PurchaseItemsTable = (props) => {
 
 
 
-function modifyPurchaseItems(purchaseItems = []) {
+function modifyPurchaseItems(props) {
+
+    const purchaseItems = props.purchaseItems ?? [];
 
     let modifiedPurchaseItems = [];
 
     for (const pi of purchaseItems) {
 
-        let updatedPurchaseItem = addActionBtnsField(pi);
+        let updatedPurchaseItem = addActionBtnsField(pi, props.onPurchaseItemEdit);
         updatedPurchaseItem = addColorCodedPurchaseItemStatus(updatedPurchaseItem);
 
         modifiedPurchaseItems.push(updatedPurchaseItem);
@@ -111,12 +113,12 @@ function addColorCodedPurchaseItemStatus(purchaseItem) {
 
 
 
-function addActionBtnsField(purchaseItem) {
+function addActionBtnsField(purchaseItem, onPurchaseItemEdit) {
     
     const actionsComponent = (
         <>
             <Button className="mr-1 mb-1" outline color="primary" size="sm">
-                <Edit3 size={14} onClick={() => true} />
+                <Edit3 size={14} onClick={() => onPurchaseItemEdit(purchaseItem)} />
             </Button>
         </>
     );
