@@ -136,13 +136,14 @@ const onSavePurchaseItemReturn = (state, action) => {
 
     if (action.callBackData.isResultOk) {
 
-        // const savedOrderItem = action.callBackData.objs.savedOrderItem;
+        const savedPurchaseItem = action.callBackData.objs.savedPurchaseItem ?? {};
 
-        // if (action.callBackData.localParams.orderItemFormAction === 'create') {
-        //     updatedOrderItems = [...updatedOrderItems, savedOrderItem];
-        // } else {
-        //     updatedOrderItems = replaceUpdatedOrderItem(updatedOrderItems, savedOrderItem);
-        // }
+        if (action.callBackData.localParams.purchaseItemFormAction === 'create') {
+            updatedPurchaseItems = [...updatedPurchaseItems, savedPurchaseItem];
+        } else {
+            // BMD-TODO
+            // updatedOrderItems = replaceUpdatedOrderItem(updatedOrderItems, savedOrderItem);
+        }
 
     } else {
 
@@ -161,7 +162,7 @@ const onSavePurchaseItemReturn = (state, action) => {
 
     return {
         ...state,
-        // orderItems: updatedOrderItems
+        purchaseItems: updatedPurchaseItems
     };
 };
 

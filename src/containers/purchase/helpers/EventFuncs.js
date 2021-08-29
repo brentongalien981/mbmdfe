@@ -112,7 +112,7 @@ export const onPurchaseItemSave = (container) => {
     const purchaseItemToEdit = {
         ...container.state.purchaseItemToEdit,
         purchaseId: container.state.purchase.id,
-        statusCode: container.state.purchaseItemToEdit.status_code ?? extractDefaultPurchaseItemStatus(container.props.purchaseItemStatuses).code
+        statusCode: container.state.purchaseItemToEdit.statusCode ?? extractDefaultPurchaseItemStatus(container.props.purchaseItemStatuses).code
     };
 
     const data = {

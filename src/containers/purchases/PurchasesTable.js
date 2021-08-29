@@ -71,7 +71,7 @@ function addColorCodedPurchaseStatus(purchase) {
 
     let color = 'black';
 
-    switch (purchase.statusCode) {
+    switch (parseInt(purchase.statusCode)) {
         case PURCHASE_STATUSES.EVALUATED_INCOMPLETELY_FOR_PURCHASE.code:
             color = 'orange';
             break;
