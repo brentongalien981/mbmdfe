@@ -47,8 +47,6 @@ class Purchase extends React.Component {
                     onPurchaseInputChange={(e) => eventFuncs.onPurchaseInputChange(this, e)}
                     isUpdatingPurchase={this.state.isUpdatingPurchase}
                     onPurchaseUpdate={() => eventFuncs.onPurchaseUpdate(this)}
-                // isRefreshingOrder={this.state.isRefreshingOrder}
-                // onOrderRefresh={() => eventFuncs.onOrderRefresh(this)}
                 />
 
                 <PurchaseItemsTable
