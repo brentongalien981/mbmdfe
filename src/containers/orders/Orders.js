@@ -32,7 +32,7 @@ class Orders extends React.Component {
                 bootstrap4
                 bordered={false}
                 keyField="id"
-                data={helperFuncs.addOrderLinkPropsToOrders(this.props.orders)}
+                data={helperFuncs.modifyOrdersForDisplay(this.props.orders)}
                 columns={consts.ORDER_TABLE_COLUMNS}
                 expandRow={helperFuncs.getTableExpandedRowDetails()}
             />
