@@ -1,5 +1,5 @@
 import Bs from "../../../bs/core/Bs";
-import { extractDefaultPurchaseItemStatus, extractPurePurchaseItemObj } from "./HelperFuncsA";
+import { extractDefaultPurchaseItemStatus, extractPurePurchaseItemObj, removeReactComponentsFromPurchase } from "./HelperFuncsA";
 
 export const onPurchaseInputChange = (container, e) => {
 
@@ -26,7 +26,7 @@ export const onPurchaseSave = (container) => {
     container.setState({ isSavingPurchase: true });
 
     const data = {
-        params: { ...container.state.purchase },
+        params: { ...removeReactComponentsFromPurchase(container.state.purchase) },
         doCallBackFunc: (objs) => {
             container.setState({ 
                 isSavingPurchase: false,
@@ -47,14 +47,9 @@ export const onPurchaseUpdate = (container) => {
 
     container.setState({ isUpdatingPurchase: true });
 
-    // NOTE: This step is necessary to prevent react from
-    // throwing Circular shit error.
-    let thePurchase = container.state.purchase;
-    thePurchase.purchaseItems = null;
-
 
     const data = {
-        params: { ...thePurchase },
+        params: { ...removeReactComponentsFromPurchase(container.state.purchase) },
         doCallBackFunc: () => {
             container.setState({ isUpdatingPurchase: false });
         }

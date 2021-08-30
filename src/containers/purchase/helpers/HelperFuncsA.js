@@ -1,4 +1,4 @@
-import { NOT_INCLUDED_FIELDS_FOR_CREATE_PURCHASE_FORM, PURCHASE_ITEM_FORM_FIELDS } from "../constants/consts";
+import { NOT_INCLUDED_FIELDS_FOR_CREATE_PURCHASE_FORM, PURCHASE_FORM_FIELDS, PURCHASE_ITEM_FORM_FIELDS } from "../constants/consts";
 
 export const readPurchase = (container) => {
 
@@ -60,4 +60,18 @@ export function extractPurePurchaseItemObj(purchaseItem) {
     }
 
     return purePurchaseItem;
+}
+
+
+
+export function removeReactComponentsFromPurchase(purchase) {
+
+    let updatedPurchase = {};
+
+    for (const field of PURCHASE_FORM_FIELDS) {
+        if (field.isMetaField) { continue; }
+        updatedPurchase[field.field] = purchase[field.field];
+    }
+
+    return updatedPurchase;
 }

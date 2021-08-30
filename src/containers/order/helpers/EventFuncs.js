@@ -1,5 +1,5 @@
 import Bs from "../../../bs/core/Bs";
-import { extractDefaultOrderItemStatus, removeReactComponentsFromOrder } from "./HelperFuncsA";
+import { extractDefaultOrderItemStatus, removeReactComponentsFromOrder, removeReactComponentsFromOrderItem } from "./HelperFuncsA";
 
 export const onOrderInputChange = (container, e) => {
 
@@ -28,7 +28,7 @@ export const onOrderUpdate = (container) => {
     container.setState({ isUpdatingOrder: true });
 
     const data = {
-        params: { ...container.state.order },
+        params: { ...removeReactComponentsFromOrder(container.state.order) },
         doCallBackFunc: () => {
             container.setState({ isUpdatingOrder: false });
         }
@@ -116,7 +116,7 @@ export const onOrderItemSave = (container) => {
     const orderItemFormAction = container.state.orderItemFormAction;
 
     const orderItemToEdit = {
-        ...container.state.orderItemToEdit,
+        ...removeReactComponentsFromOrderItem(container.state.orderItemToEdit),
         orderId: container.state.order.id,
         status_code: container.state.orderItemToEdit.status_code ?? extractDefaultOrderItemStatus(container.props.orderItemStatuses).code
     };

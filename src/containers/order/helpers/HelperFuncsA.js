@@ -2,7 +2,7 @@ import React from 'react';
 import { Circle, Edit3, MinusCircle, PlusCircle, Trash2 } from "react-feather";
 import { Button } from 'reactstrap';
 import { parseDateToStr } from '../../../bmd/helpers/HelperFuncsA';
-import { ORDER_FORM_FIELDS, ORDER_ITEM_STATUSES } from '../constants/consts';
+import { ORDER_FORM_FIELDS, ORDER_ITEM_FORM_FIELDS, ORDER_ITEM_STATUSES } from '../constants/consts';
 import { onOrderItemEdit } from './EventFuncs';
 
 
@@ -180,4 +180,17 @@ export function removeReactComponentsFromOrder(order) {
     }
 
     return updatedOrder;
+}
+
+
+
+export function removeReactComponentsFromOrderItem(orderItem) {
+
+    let updatedOrderItem = {};
+
+    for (const field of ORDER_ITEM_FORM_FIELDS) {
+        updatedOrderItem[field.name] = orderItem[field.name];
+    }
+
+    return updatedOrderItem;
 }

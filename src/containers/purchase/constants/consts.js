@@ -10,10 +10,10 @@ export const PURCHASE_FORM_FIELDS = [
     { field: 'chargedOtherFee', type: 'number', isDisabled: false },
     { field: 'chargedTax', type: 'number', isDisabled: false },
 
-    { field: 'colorCodedStatus', type: null, isLabel: true },
+    { field: 'colorCodedStatus', type: null, isLabel: true, isMetaField: true },
     { field: 'statusCode', type: 'select', isDisabled: false },
     // { field: 'statusName', type: 'text', isDisabled: false },    
-    
+
     { field: 'orderIdFromSellerSite', type: 'text', isDisabled: false },
     { field: 'shippingIdFromCarrier', type: 'text', isDisabled: false },
     { field: 'notes', type: 'text', isDisabled: false },
