@@ -1,6 +1,8 @@
 export const PURCHASE_FORM_FIELDS = [
     { field: 'id', type: 'number', isDisabled: true },
     { field: 'sellerId', type: 'number', isDisabled: false },
+    { field: 'sellerWebsite', type: null, isLabel: true, isMetaField: true },
+
     { field: 'projectedSubtotal', type: 'number', isDisabled: false },
     { field: 'projectedShippingFee', type: 'number', isDisabled: false },
     { field: 'projectedOtherFee', type: 'number', isDisabled: false },
@@ -38,9 +40,13 @@ export const PURCHASE_ITEMS_TABLE_COLUMNS = [
     { dataField: 'statusCode', text: 'statusCode', sort: true },
     { dataField: 'statusName', text: 'statusName', sort: true },
 
-    { dataField: 'purchaseId', text: 'purchaseId', sort: true },
+    { dataField: 'purchaseId', text: 'purchaseId', sort: true },    
+    { dataField: 'productName', text: 'productName', sort: true },
     { dataField: 'sellerProductId', text: 'sellerProductId', sort: true },
+    { dataField: 'sellerProductLinkComponent', text: 'sellerProductLink', sort: false },
+
     { dataField: 'sizeAvailabilityId', text: 'sizeAvailabilityId', sort: true },
+    { dataField: 'size', text: 'size', sort: true },
     { dataField: 'quantity', text: 'quantity', sort: true },
     { dataField: 'projectedPrice', text: 'projectedPrice', sort: false },
     { dataField: 'actualPrice', text: 'actualPrice', sort: false },    

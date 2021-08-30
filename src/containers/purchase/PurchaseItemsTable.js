@@ -1,6 +1,6 @@
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
-import { Circle, Edit3, Link, MinusCircle, PlusCircle, PlusSquare } from 'react-feather';
+import { Circle, Edit3, ExternalLink, Link, MinusCircle, PlusCircle, PlusSquare } from 'react-feather';
 import { Button, Col, Row, Spinner } from 'reactstrap';
 import { PURCHASE_STATUSES } from '../purchases/constants/consts';
 import { PURCHASE_ITEMS_TABLE_COLUMNS } from './constants/consts';
@@ -62,6 +62,7 @@ function modifyPurchaseItems(props) {
 
         let updatedPurchaseItem = addActionBtnsField(pi, props.onPurchaseItemEdit);
         updatedPurchaseItem = addColorCodedPurchaseItemStatus(updatedPurchaseItem);
+        updatedPurchaseItem = addSellerProductLinkComponent(updatedPurchaseItem);
 
         modifiedPurchaseItems.push(updatedPurchaseItem);
     }
@@ -69,6 +70,28 @@ function modifyPurchaseItems(props) {
 
     return modifiedPurchaseItems;
 }
+
+
+
+function addSellerProductLinkComponent(purchaseItem) {
+
+    let link = purchaseItem.sellerProductLink;
+    if (!link || link === '') {
+        link = '/404';
+    }
+
+    let linkComponent = (
+        <a href={link} target="_blank">
+            <ExternalLink size={18} className="align-middle" />
+        </a>
+    );
+
+
+    purchaseItem.sellerProductLinkComponent = linkComponent;
+
+    return purchaseItem;
+
+};
 
 
 

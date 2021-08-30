@@ -5,6 +5,7 @@ import Spinner from 'reactstrap/lib/Spinner';
 import { getInitialDate, parseDateToStr } from '../../bmd/helpers/HelperFuncsA';
 import Bs from '../../bs/core/Bs';
 import { PURCHASE_STATUSES } from '../purchases/constants/consts';
+import { setSellerLink } from '../purchases/PurchasesTable';
 import { PURCHASE_FORM_FIELDS } from './constants/consts';
 import { shouldNotIncludeForPurchaseForm } from './helpers/HelperFuncsA';
 
@@ -135,6 +136,7 @@ const getFormColumns = (props) => {
 
 function modifyPurchaseForDisplay(purchase) {
     purchase = addColorCodedPurchaseStatus(purchase);
+    purchase = setSellerLink(purchase);
     return purchase;
 }
 

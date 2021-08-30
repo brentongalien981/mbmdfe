@@ -104,15 +104,17 @@ export const addActionsPropToOrderItem = (container, oi) => {
 
 export const addSellerProductLinkComponent = (orderItem) => {
 
-    const link = orderItem.sellerProductLink;
+    let link = orderItem.sellerProductLink;
+    if (!link || link === '') {
+        link = '/404';
+    }
 
     let linkComponent = (
-        <a href={link ?? ''} target="_blank">
+        <a href={link} target="_blank">
             <ExternalLink size={18} className="align-middle" />
         </a>
     );
 
-    if (!link) { linkComponent = null; }
 
     orderItem.sellerProductLinkComponent = linkComponent;
 

@@ -55,19 +55,19 @@ function modifyPurchasesForDisplay(purchases) {
 
 
 
-function setSellerLink(purchase) {
+export function setSellerLink(purchase) {
 
-    let sellerLinkComponent = null;
+    let sellerLink = purchase.sellerLink;
 
-    if (purchase.sellerLink) {
-
-        sellerLinkComponent = (
-            <a href={purchase.sellerLink} target="_blank">
-                {purchase.sellerName} <ExternalLink size={18} className="align-middle" />
-            </a>
-        );
-
+    if (!sellerLink || sellerLink == '') {
+        sellerLink = '/404';
     }
+
+    let sellerLinkComponent = (
+        <a href={sellerLink} target="_blank">
+            {purchase.sellerName} <ExternalLink size={18} className="align-middle" />
+        </a>
+    );
 
     purchase.sellerWebsite = sellerLinkComponent;
 
