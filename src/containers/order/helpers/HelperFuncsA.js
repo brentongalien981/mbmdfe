@@ -101,7 +101,7 @@ export const addActionsPropToOrderItem = (container, oi) => {
 };
 
 
-// BMD-TODO
+
 export const addSellerProductLinkComponent = (orderItem) => {
 
     const link = orderItem.sellerProductLink;

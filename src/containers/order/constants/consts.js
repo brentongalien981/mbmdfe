@@ -2,7 +2,7 @@ export const ORDER_ITEM_TABLE_COLUMNS = [
     { dataField: 'actions', text: 'actions', sort: false },
     { dataField: 'id', text: 'ID', sort: true },
 
-    { dataField: 'colorCodedStatus', text: 'color', sort: false },
+    { dataField: 'colorCodedStatus', text: 'colorStatus', sort: false },
     { dataField: 'status_code', text: 'status_code', sort: true },
     { dataField: 'status_name', text: 'status_name', sort: true },
     
@@ -15,6 +15,7 @@ export const ORDER_ITEM_TABLE_COLUMNS = [
     { dataField: 'productSellerId', text: 'productSellerId', sort: true },
     { dataField: 'sellerProductLinkComponent', text: 'sellerProductLink', sort: false, isMetaField: true },
     { dataField: 'sizeAvailabilityId', text: 'sizeAvailabilityId', sort: true },
+    { dataField: 'size', text: 'size', sort: true, isMetaField: true },
     { dataField: 'purchaseItemId', text: 'purchaseItemId', sort: true },
     { dataField: 'price', text: 'price', sort: true },    
 
