@@ -189,6 +189,7 @@ export function removeReactComponentsFromOrderItem(orderItem) {
     let updatedOrderItem = {};
 
     for (const field of ORDER_ITEM_FORM_FIELDS) {
+        if (field.isMetaField) { continue; }
         updatedOrderItem[field.name] = orderItem[field.name];
     }
 
