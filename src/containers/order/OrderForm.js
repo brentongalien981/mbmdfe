@@ -1,8 +1,10 @@
 import React from 'react';
+import { Circle } from 'react-feather';
 import { Button, Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import Spinner from 'reactstrap/lib/Spinner';
 import { getInitialDate, parseDateToStr } from '../../bmd/helpers/HelperFuncsA';
 import Bs from '../../bs/core/Bs';
+import { addColorCodedOrderStatus } from '../orders/helpers/HelperFuncsA';
 import { ORDER_FORM_FIELDS } from './constants/consts';
 
 
@@ -76,6 +78,9 @@ export const OrderForm = (props) => {
 
 const getFormColumns = (props) => {
 
+    let order = props.order ?? {};
+    order = modifyOrderForDisplay(order);
+
     let i = 0;
     let firstColFormInputRows = [];
     let secondColFormInputRows = [];
@@ -86,18 +91,28 @@ const getFormColumns = (props) => {
 
         const fieldName = formField.field;
 
-        if (fieldName === 'status_code') { whichFormColToPopulate = secondColFormInputRows; }
+        if (fieldName === 'colorCodedStatus') { whichFormColToPopulate = secondColFormInputRows; }
 
-        const fieldVal = props.order?.[fieldName];
+        const fieldVal = order?.[fieldName];
+        let formGroup = null;
 
-        whichFormColToPopulate.push(
-            <FormGroup row key={i}>
-                <Label sm={4} className="text-sm-right">{fieldName}</Label>
-                <Col sm={8}>
-                    {getSpecificInputComponent(props, fieldName, fieldVal, formField.type)}
-                </Col>
-            </FormGroup>
-        );
+
+        if (formField.isLabel) {
+            formGroup = prepareFormGroupLabel(fieldName, fieldVal, i);
+        }
+        else {
+            formGroup = (
+                <FormGroup row key={i}>
+                    <Label sm={4} className="text-sm-right">{fieldName}</Label>
+                    <Col sm={8}>
+                        {getSpecificInputComponent(props, fieldName, fieldVal, formField.type)}
+                    </Col>
+                </FormGroup>
+            );
+        }
+
+
+        whichFormColToPopulate.push(formGroup);
 
         ++i;
     }
@@ -108,6 +123,26 @@ const getFormColumns = (props) => {
         second: secondColFormInputRows
     };
 };
+
+
+
+function prepareFormGroupLabel(fieldName, fieldVal, componentKey) {
+    return (
+        <FormGroup row key={componentKey}>
+            <Label sm={4} className="text-sm-right">{fieldName}</Label>
+            <Col sm={8}>
+                <Label>{fieldVal}</Label>
+            </Col>
+        </FormGroup>
+    );
+}
+
+
+
+function modifyOrderForDisplay(order) {
+    order = addColorCodedOrderStatus(order);
+    return order;
+}
 
 
 

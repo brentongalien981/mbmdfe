@@ -50,6 +50,8 @@ export const ORDER_FORM_FIELDS = [
     { field: 'postal_code', type: 'text' },
     { field: 'phone', type: 'text' },
     { field: 'email', type: 'text' },
+
+    { field: 'colorCodedStatus', type: null, isLabel: true },
     { field: 'status_code', type: 'select' },
     // { field: 'status_name', type: 'text' },
     { field: 'charged_subtotal', type: 'text' },

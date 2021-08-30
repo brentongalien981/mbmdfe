@@ -241,7 +241,7 @@ function addRelevantOrderItemPropStats(order) {
 
 
 
-function addColorCodedOrderStatus(order) {
+export function addColorCodedOrderStatus(order) {
 
     let color = 'black';
 
