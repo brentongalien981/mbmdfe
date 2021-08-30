@@ -51,7 +51,7 @@ export const ORDER_FORM_FIELDS = [
     { field: 'phone', type: 'text' },
     { field: 'email', type: 'text' },
 
-    { field: 'colorCodedStatus', type: null, isLabel: true },
+    { field: 'colorCodedStatus', type: null, isLabel: true, isMetaField: true },
     { field: 'status_code', type: 'select' },
     // { field: 'status_name', type: 'text' },
     { field: 'charged_subtotal', type: 'text' },

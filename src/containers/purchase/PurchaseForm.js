@@ -1,8 +1,10 @@
 import React from 'react';
+import { Circle } from 'react-feather';
 import { Button, Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import Spinner from 'reactstrap/lib/Spinner';
 import { getInitialDate, parseDateToStr } from '../../bmd/helpers/HelperFuncsA';
 import Bs from '../../bs/core/Bs';
+import { PURCHASE_STATUSES } from '../purchases/constants/consts';
 import { PURCHASE_FORM_FIELDS } from './constants/consts';
 import { shouldNotIncludeForPurchaseForm } from './helpers/HelperFuncsA';
 
@@ -57,7 +59,7 @@ export const PurchaseForm = (props) => {
 
 
 function getBtnsSection(props) {
-    
+
     let actionBtn = (<Button color="primary" onClick={props.onPurchaseUpdate}>update</Button>);
 
     if (props.crudMethod === 'create') {
@@ -82,6 +84,9 @@ function getBtnsSection(props) {
 
 const getFormColumns = (props) => {
 
+    let purchase = props.purchase ?? {};
+    purchase = modifyPurchaseForDisplay(purchase);
+
     let i = 0;
     let firstColFormInputRows = [];
     let secondColFormInputRows = [];
@@ -91,18 +96,30 @@ const getFormColumns = (props) => {
 
     for (const formField of PURCHASE_FORM_FIELDS) {
 
-        if (formField.field === 'statusCode') { whichFormColToPopulate = secondColFormInputRows; }
+        if (formField.field === 'colorCodedStatus') { whichFormColToPopulate = secondColFormInputRows; }
         
         if (shouldNotIncludeForPurchaseForm(formField.field, actionName)) { continue; }
 
-        whichFormColToPopulate.push(
-            <FormGroup row key={i}>
-                <Label sm={4} className="text-sm-right">{formField.field}</Label>
-                <Col sm={8}>
-                    {getSpecificInputComponent(props, formField)}
-                </Col>
-            </FormGroup>
-        );
+        let formGroup = null;
+
+
+        if (formField.isLabel) {
+            formGroup = prepareFormGroupLabel(formField.field, purchase[formField.field], i);
+        }
+        else {
+            formGroup = (
+                <FormGroup row key={i}>
+                    <Label sm={4} className="text-sm-right">{formField.field}</Label>
+                    <Col sm={8}>
+                        {getSpecificInputComponent(props, formField)}
+                    </Col>
+                </FormGroup>
+            );
+        }
+
+
+        whichFormColToPopulate.push(formGroup);
+
 
         ++i;
     }
@@ -113,6 +130,67 @@ const getFormColumns = (props) => {
         second: secondColFormInputRows
     };
 };
+
+
+
+function modifyPurchaseForDisplay(purchase) {
+    purchase = addColorCodedPurchaseStatus(purchase);
+    return purchase;
+}
+
+
+
+function addColorCodedPurchaseStatus(purchase) {
+
+    let color = 'black';
+
+    switch (parseInt(purchase.statusCode)) {
+        case PURCHASE_STATUSES.EVALUATED_INCOMPLETELY_FOR_PURCHASE.code:
+            color = 'orange';
+            break;
+        case PURCHASE_STATUSES.PURCHASE_INCOMPLETELY_RECEIVED.code:
+            color = 'red';
+            break;
+        case PURCHASE_STATUSES.DEFAULT.code:
+            color = 'white';
+            break;
+        case PURCHASE_STATUSES.TO_BE_PURCHASED.code:
+            color = 'rgb(200, 200, 200)';
+            break;
+        case PURCHASE_STATUSES.PURCHASED.code:
+        case PURCHASE_STATUSES.TO_BE_PURCHASE_RECEIVED.code:
+            color = 'blue';
+            break;
+        case PURCHASE_STATUSES.PURCHASE_RECEIVED.code:
+            color = 'green';
+            break;
+    }
+
+
+    const style = {
+        backgroundColor: color,
+        borderRadius: '9px'
+    };
+
+    const colorCodedStatus = (<Circle size={18} className="align-middle" style={style} />);
+
+    purchase.colorCodedStatus = colorCodedStatus;
+
+    return purchase;
+}
+
+
+
+function prepareFormGroupLabel(fieldName, fieldVal, componentKey) {
+    return (
+        <FormGroup row key={componentKey}>
+            <Label sm={4} className="text-sm-right">{fieldName}</Label>
+            <Col sm={8}>
+                <Label>{fieldVal}</Label>
+            </Col>
+        </FormGroup>
+    );
+}
 
 
 
