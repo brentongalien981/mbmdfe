@@ -13,6 +13,7 @@ export const ORDER_ITEM_TABLE_COLUMNS = [
     { dataField: 'productName', text: 'productName', sort: true, isMetaField: true },
 
     { dataField: 'productSellerId', text: 'productSellerId', sort: true },
+    { dataField: 'sellerProductLinkComponent', text: 'sellerProductLink', sort: false, isMetaField: true },
     { dataField: 'sizeAvailabilityId', text: 'sizeAvailabilityId', sort: true },
     { dataField: 'purchaseItemId', text: 'purchaseItemId', sort: true },
     { dataField: 'price', text: 'price', sort: true },    

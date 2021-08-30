@@ -1,5 +1,6 @@
 import React from 'react';
-import { Circle, Edit3, MinusCircle, PlusCircle, Trash2 } from "react-feather";
+import { Circle, Edit3, ExternalLink, MinusCircle, PlusCircle, Trash2 } from "react-feather";
+import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { parseDateToStr } from '../../../bmd/helpers/HelperFuncsA';
 import { ORDER_FORM_FIELDS, ORDER_ITEM_FORM_FIELDS, ORDER_ITEM_STATUSES } from '../constants/consts';
@@ -100,6 +101,26 @@ export const addActionsPropToOrderItem = (container, oi) => {
 };
 
 
+// BMD-TODO
+export const addSellerProductLinkComponent = (orderItem) => {
+
+    const link = orderItem.sellerProductLink;
+
+    let linkComponent = (
+        <a href={link ?? ''} target="_blank">
+            <ExternalLink size={18} className="align-middle" />
+        </a>
+    );
+
+    if (!link) { linkComponent = null; }
+
+    orderItem.sellerProductLinkComponent = linkComponent;
+
+    return orderItem;
+
+};
+
+
 
 export function modifyOrderItemsForDisplay(container) {
     let modifiedOrderItems = [];
@@ -107,7 +128,7 @@ export function modifyOrderItemsForDisplay(container) {
     for (const oi of container.state.orderItems) {
         let modifiedOrderItem = addColorCodedOrderItemStatus(oi);
         modifiedOrderItem = addActionsPropToOrderItem(container, oi);
-        // modifiedOrderItem = addOrderLinkPropToOrder(modifiedOrderItem);
+        modifiedOrderItem = addSellerProductLinkComponent(oi);
 
         modifiedOrderItems.push(modifiedOrderItem);
     }
