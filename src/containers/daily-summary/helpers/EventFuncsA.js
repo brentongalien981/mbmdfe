@@ -151,7 +151,7 @@ export const onStatsReset = (container) => {
     }
 
 
-    const initialDate = getInitialDate();
+    const initialDate = getInitialDate(0);
 
     container.setState({
         isReadingDailySummaryData: true,
@@ -184,7 +184,7 @@ export const onGraphFilterReset = (container) => {
 
 
     const graphStartDate = getInitialDate(-31);
-    const graphEndDate = getInitialDate(-1);
+    const graphEndDate = getInitialDate(0);
     const period = 'daily';
 
     if (graphStartDate > graphEndDate) {

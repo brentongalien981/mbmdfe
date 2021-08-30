@@ -56,6 +56,12 @@ export const convertDateToStr = (dateObj) => {
 
 
 
+export const convertDatetimeToStr = (datetimeObj) => {
+    return datetimeObj.getFullYear() + '-' + tryGetMonthNumWithPaddedZero(parseInt(datetimeObj.getMonth()) + 1) + '-' + tryGetDateWithPaddedZero(datetimeObj.getDate()) + ' ' + datetimeObj.getHours() + ':' + datetimeObj.getMinutes() + ':' + datetimeObj.getSeconds();
+};
+
+
+
 
 export const readDailySummaryData = (container, isInitRead = false) => {
 

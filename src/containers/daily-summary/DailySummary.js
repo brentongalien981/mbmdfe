@@ -27,12 +27,14 @@ class DailySummary extends React.Component {
         isReadingFinanceGraphData: false,
         isStatsDatePickerOpen: false,
         isGraphFiltersModalOpen: false,
-        statsDatePickerStartDate: helperFuncs.getInitialDate(),
-        statsDatePickerEndDate: helperFuncs.getInitialDate(),
-        statsHeaderBtnStartDate: helperFuncs.getInitialDate(),
-        statsHeaderBtnEndDate: helperFuncs.getInitialDate(),
-        graphDatePickerStartDate: helperFuncs.getInitialDate(-30),
-        graphDatePickerEndDate: helperFuncs.getInitialDate(),
+
+        statsDatePickerStartDate: helperFuncs.getInitialDate(0),
+        statsDatePickerEndDate: helperFuncs.getInitialDate(0),
+        statsHeaderBtnStartDate: helperFuncs.getInitialDate(0),
+        statsHeaderBtnEndDate: helperFuncs.getInitialDate(0),
+
+        graphDatePickerStartDate: helperFuncs.getInitialDate(-31),
+        graphDatePickerEndDate: helperFuncs.getInitialDate(0),
         graphFilterSelectedPeriod: 'daily'
     };
 

@@ -8,8 +8,8 @@ import {
 } from "reactstrap";
 
 import {Filter, RefreshCw } from "react-feather";
-import { convertDateToStr } from "./helpers/HelperFuncsA";
-import { getReadableDate } from "../../bmd/helpers/HelperFuncsA";
+import { convertDatetimeToStr, convertDateToStr } from "./helpers/HelperFuncsA";
+import { getReadableDate, getReadableDate2 } from "../../bmd/helpers/HelperFuncsA";
 
 const SectionHeader = (props) => {
 
@@ -22,7 +22,7 @@ const SectionHeader = (props) => {
             <Col xs="auto" className="ml-auto text-right mt-n1">
                 
                 <Label className="mr-2" style={{ fontWeight: '900', fontSize: '1.1em' }}>{'Date Span:'}</Label>
-                <Label className="mr-4">{getReadableDate(convertDateToStr(props.startDate)) + ' to ' + getReadableDate(convertDateToStr(props.endDate))}</Label>
+                <Label className="mr-4">{getReadableDate2(convertDatetimeToStr(props.startDate)) + ' to ' + getReadableDate2(convertDatetimeToStr(props.endDate))}</Label>
                 <Label className="mr-2" style={{ fontWeight: '900', fontSize: '1.1em' }}>{'Period Mode:'}</Label>
                 <Label className="mr-4">{'daily'}</Label>
 
