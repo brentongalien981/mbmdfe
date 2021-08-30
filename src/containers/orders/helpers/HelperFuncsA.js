@@ -179,11 +179,64 @@ export function modifyOrdersForDisplay(orders) {
     for (const o of orders) {
         let modifiedOrder = addColorCodedOrderStatus(o);
         modifiedOrder = addOrderLinkPropToOrder(modifiedOrder);
+        // modifiedOrder = addRelevantOrderItemPropStats(modifiedOrder);
 
         modifiedOrders.push(modifiedOrder);
     }
 
     return modifiedOrders;
+}
+
+
+
+function addRelevantOrderItemPropStats(order) {
+    let modifiedOrder = order;
+
+    let numOfOrderItems = order.orderItems.length;
+    let totalQuantityOfOrderItems = 0;
+
+    let numOfOrderItemsIncompletelyReceived = 0;
+    let numOfOrderItemsToBePurchased = 0;
+    let numOfOrderItemsToBeReceived = 0;
+    let numOfOrderItemsReceived = 0;
+    let numOfOrderItemsWithOtherStatus = 0;
+
+
+    for (const oi of order.orderItems) {
+
+        totalQuantityOfOrderItems += oi.quantity;
+
+        // switch (pi.statusCode) {
+        //     case PURCHASE_STATUSES.PURCHASE_INCOMPLETELY_RECEIVED.code:
+        //         ++numOfOrderItemsIncompletelyReceived;
+        //         break;
+        //     case PURCHASE_STATUSES.TO_BE_PURCHASED.code:
+        //         ++numOfOrderItemsToBePurchased;
+        //         break;
+        //     case PURCHASE_STATUSES.TO_BE_PURCHASE_RECEIVED.code:
+        //         ++numOfOrderItemsToBeReceived;
+        //         break;
+        //     case PURCHASE_STATUSES.PURCHASE_RECEIVED.code:
+        //         ++numOfOrderItemsReceived;
+        //         break;
+        //     default:
+        //         ++numOfOrderItemsWithOtherStatus;
+        //         break;
+        // }
+    }
+
+
+    modifiedOrder.numOfOrderItems = numOfOrderItems;
+    modifiedOrder.totalQuantityOfOrderItems = totalQuantityOfOrderItems;
+
+    modifiedOrder.numOfOrderItemsIncompletelyReceived = numOfOrderItemsIncompletelyReceived + ' / ' + numOfOrderItems;
+    modifiedOrder.numOfOrderItemsToBePurchased = numOfOrderItemsToBePurchased + ' / ' + numOfOrderItems;
+    modifiedOrder.numOfOrderItemsToBeReceived = numOfOrderItemsToBeReceived + ' / ' + numOfOrderItems;
+    modifiedOrder.numOfOrderItemsReceived = numOfOrderItemsReceived + ' / ' + numOfOrderItems;
+    modifiedOrder.numOfOrderItemsWithOtherStatus = numOfOrderItemsWithOtherStatus + ' / ' + numOfOrderItems;    
+
+
+    return modifiedOrder;
 }
 
 

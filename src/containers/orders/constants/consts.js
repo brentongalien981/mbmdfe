@@ -29,11 +29,11 @@ export const ORDER_TABLE_COLUMNS = [
     { dataField: 'charged_subtotal', text: 'Subtotal', sort: false },
     { dataField: 'charged_shipping_fee', text: 'Shipping', sort: false },
     { dataField: 'charged_tax', text: 'Tax', sort: false },
-    { dataField: 'earliest_delivery_date', text: 'Early D-Date', sort: false },
-    { dataField: 'latest_delivery_date', text: 'Late D-Date', sort: false },
+    { dataField: 'earliest_delivery_date', text: 'Early D-Date', sort: true },
+    { dataField: 'latest_delivery_date', text: 'Late D-Date', sort: true },
     { dataField: 'projected_total_delivery_days', text: 'Projected D-Days', sort: false },
-    { dataField: 'created_at', text: 'Created At', sort: false },
-    { dataField: 'updated_at', text: 'Updated At', sort: false },
+    { dataField: 'created_at', text: 'Created At', sort: true },
+    { dataField: 'updated_at', text: 'Updated At', sort: true },
 ];
 
 

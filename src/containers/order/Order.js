@@ -53,7 +53,7 @@ class Order extends React.Component {
                 />
 
                 <OrderItemsTable
-                    orderItems={helperFuncs.addActionsPropToOrderItems(this)}
+                    orderItems={helperFuncs.modifyOrderItemsForDisplay(this)}
                     isReadingOrder={this.state.isReadingOrder}
                     onOrderItemCreate={() => eventFuncs.onOrderItemCreate(this)}
                     isAssociatingToPurchases={this.state.isAssociatingToPurchases}

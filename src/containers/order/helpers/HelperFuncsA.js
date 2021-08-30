@@ -1,7 +1,8 @@
 import React from 'react';
-import { Edit3, MinusCircle, PlusCircle, Trash2 } from "react-feather";
+import { Circle, Edit3, MinusCircle, PlusCircle, Trash2 } from "react-feather";
 import { Button } from 'reactstrap';
 import { parseDateToStr } from '../../../bmd/helpers/HelperFuncsA';
+import { ORDER_ITEM_STATUSES } from '../constants/consts';
 import { onOrderItemEdit } from './EventFuncs';
 
 
@@ -83,32 +84,77 @@ export const modifyOrderWithDatePropsToFormat = (order, format = 'yyyy-mm-dd') =
 
 
 
-export const addActionsPropToOrderItems = (container) => {
+export const addActionsPropToOrderItem = (container, oi) => {
 
+    const actionsComponent = (
+        <>
+            <Button className="mr-1 mb-1" outline color="primary" size="sm">
+                <Edit3 size={14} onClick={() => onOrderItemEdit(container, oi)} />
+            </Button>
+        </>
+    );
+
+    oi.actions = actionsComponent;
+
+    return oi;
+};
+
+
+
+export function modifyOrderItemsForDisplay(container) {
     let modifiedOrderItems = [];
 
     for (const oi of container.state.orderItems) {
+        let modifiedOrderItem = addColorCodedOrderItemStatus(oi);
+        modifiedOrderItem = addActionsPropToOrderItem(container, oi);
+        // modifiedOrderItem = addOrderLinkPropToOrder(modifiedOrderItem);
 
-        const actionsComponent = (
-            <>
-                <Button className="mr-1 mb-1" outline color="primary" size="sm">
-                    <Edit3 size={14} onClick={() => onOrderItemEdit(container, oi)} />
-                </Button>
-            </>
-        );
-
-
-        const actionsProp = { actions: actionsComponent };
-
-
-        modifiedOrderItems.push({
-            ...oi,
-            ...actionsProp
-        });
+        modifiedOrderItems.push(modifiedOrderItem);
     }
 
     return modifiedOrderItems;
-};
+}
+
+
+
+function addColorCodedOrderItemStatus(orderItem) {
+
+    let color = 'black';
+
+    switch (parseInt(orderItem.status_code)) {
+        case ORDER_ITEM_STATUSES.EVALUATED_INCOMPLETELY_FOR_PURCHASE.code:
+            color = 'orange';
+            break;
+        case ORDER_ITEM_STATUSES.PURCHASE_INCOMPLETELY_RECEIVED.code:
+            color = 'red';
+            break;
+        case ORDER_ITEM_STATUSES.DEFAULT.code:
+            color = 'white';
+            break;
+        case ORDER_ITEM_STATUSES.TO_BE_PURCHASED.code:
+            color = 'rgb(200, 200, 200)';
+            break;
+        case ORDER_ITEM_STATUSES.PURCHASED.code:
+        case ORDER_ITEM_STATUSES.TO_BE_PURCHASE_RECEIVED.code:
+            color = 'blue';
+            break;
+        case ORDER_ITEM_STATUSES.PURCHASE_RECEIVED.code:
+            color = 'green';
+            break;
+    }
+
+
+    const style = {
+        backgroundColor: color,
+        borderRadius: '9px'
+    };
+
+    const colorCodedStatus = (<Circle size={18} className="align-middle" style={style} />);
+
+    orderItem.colorCodedStatus = colorCodedStatus;
+
+    return orderItem;
+}
 
 
 

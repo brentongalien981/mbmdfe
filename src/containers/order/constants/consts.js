@@ -1,15 +1,19 @@
 export const ORDER_ITEM_TABLE_COLUMNS = [
     { dataField: 'actions', text: 'actions', sort: false },
     { dataField: 'id', text: 'ID', sort: true },
+
+    { dataField: 'colorCodedStatus', text: 'color', sort: false },
+    { dataField: 'status_code', text: 'status_code', sort: true },
+    { dataField: 'status_name', text: 'status_name', sort: true },
+    
     { dataField: 'orderId', text: 'orderId', sort: true },
+    { dataField: 'quantity', text: 'quantity', sort: true },
     { dataField: 'productId', text: 'productId', sort: true },
     { dataField: 'productSellerId', text: 'productSellerId', sort: true },
     { dataField: 'sizeAvailabilityId', text: 'sizeAvailabilityId', sort: true },
     { dataField: 'purchaseItemId', text: 'purchaseItemId', sort: true },
-    { dataField: 'price', text: 'price', sort: true },
-    { dataField: 'quantity', text: 'quantity', sort: true },
-    { dataField: 'status_code', text: 'status_code', sort: true },
-    { dataField: 'status_name', text: 'status_name', sort: true },
+    { dataField: 'price', text: 'price', sort: true },    
+
     { dataField: 'created_at', text: 'created_at', sort: true },
     { dataField: 'updated_at', text: 'updated_at', sort: true }
 ];
@@ -57,3 +61,22 @@ export const ORDER_FORM_FIELDS = [
     { field: 'created_at', type: 'date' },
     { field: 'updated_at', type: 'date' }
 ];
+
+
+
+export const ORDER_ITEM_STATUSES = {
+    PURCHASE_INCOMPLETELY_RECEIVED: {code: -304, name: 'PURCHASE_INCOMPLETELY_RECEIVED' },
+    EVALUATED_INCOMPLETELY_FOR_PURCHASE: {code: -301, name: 'EVALUATED_INCOMPLETELY_FOR_PURCHASE' },
+    DEFAULT: {code: 300, name: 'DEFAULT' },
+    TO_BE_PURCHASED: {code: 301, name: 'TO_BE_PURCHASED' },
+    PURCHASED: {code: 302, name: 'PURCHASED' },
+    TO_BE_PURCHASE_RECEIVED: {code: 303, name: 'TO_BE_PURCHASE_RECEIVED' },
+    PURCHASE_RECEIVED: {code: 304, name: 'PURCHASE_RECEIVED' },
+
+    IN_STOCK: {code: 305, name: 'IN_STOCK' },
+    TO_BE_PACKAGED: {code: 306, name: 'TO_BE_PACKAGED' },
+    PACKAGED: {code: 307, name: 'PACKAGED' },
+    TO_BE_DISPATCHED: {code: 308, name: 'TO_BE_DISPATCHED' },
+    DISPATCHED: {code: 309, name: 'DISPATCHED' }
+
+};
