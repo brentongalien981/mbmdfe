@@ -15,7 +15,6 @@ export const PurchasesTable = (props) => {
             bootstrap4
             bordered={false}
             keyField="id"
-            // data={helperFuncs.addOrderLinkPropsToOrders(this.props.orders)}
             data={modifyPurchasesForDisplay(props.purchases)}
             columns={PURCHASES_TABLE_COLUMNS}
             expandRow={getTableExpandedRowDetails()}
@@ -46,11 +45,33 @@ function modifyPurchasesForDisplay(purchases) {
         modifiedPurchase = addRelevantPurchaseItemPropStats(modifiedPurchase);
         modifiedPurchase = addColorCodedPurchaseStatus(modifiedPurchase);
         modifiedPurchase = setPurchaseIdLink(modifiedPurchase);
+        modifiedPurchase = setSellerLink(modifiedPurchase);
 
         modifiedPurchases.push(modifiedPurchase);
     }
 
     return modifiedPurchases;
+}
+
+
+
+function setSellerLink(purchase) {
+
+    let sellerLinkComponent = null;
+
+    if (purchase.sellerLink) {
+
+        sellerLinkComponent = (
+            <a href={purchase.sellerLink} target="_blank">
+                {purchase.sellerName} <ExternalLink size={18} className="align-middle" />
+            </a>
+        );
+
+    }
+
+    purchase.sellerWebsite = sellerLinkComponent;
+
+    return purchase;
 }
 
 

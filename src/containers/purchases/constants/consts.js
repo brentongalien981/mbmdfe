@@ -56,7 +56,8 @@ export const PURCHASES_TABLE_COLUMNS = [
     { dataField: 'numOfPurchaseItems', text: 'numOfPurchaseItems', sort: true },
     { dataField: 'totalQuantityOfPurchaseItems', text: 'totalQuantityOfPurchaseItems', sort: true },
 
-    { dataField: 'sellerId', text: 'sellerId', sort: true },    
+    { dataField: 'sellerId', text: 'sellerId', sort: true },
+    { dataField: 'sellerWebsite', text: 'sellerWebsite', sort: false, isMetaField: true },
 
     { dataField: 'projectedSubtotal', text: 'projectedSubtotal', sort: false },
     { dataField: 'projectedShippingFee', text: 'projectedShippingFee', sort: false },
