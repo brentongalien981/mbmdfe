@@ -38,6 +38,8 @@ import avatar1 from "../assets/img/avatars/avatar.jpg";
 import avatar3 from "../assets/img/avatars/avatar-3.jpg";
 import BmdAuth from "../bs/core/BmdAuth";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlane } from "@fortawesome/free-solid-svg-icons";
 
 const notifications = [
   {
@@ -206,6 +208,14 @@ const NavbarComponent = (props) => {
               <DropdownItem>
                 <Link to='/purchases/create'>
                   <FilePlus size={18} className="align-middle mr-2" />Create Purchase
+                </Link>
+              </DropdownItem>
+
+
+
+              <DropdownItem>
+                <Link to='/dispatches/create'>
+                  <FontAwesomeIcon icon={faPlane} className="align-middle mr-2" />Create Dispatch
                 </Link>
               </DropdownItem>
 
