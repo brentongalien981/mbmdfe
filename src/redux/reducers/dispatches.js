@@ -1,6 +1,7 @@
 import * as actions from "../actions/dispatches";
 
 /** DEFAULTS */
+const FIRST_DEFAULT_DISPATCH_STATUS = { code: null, name: 'ALL_STATUS' };
 
 
 
@@ -10,6 +11,7 @@ import * as actions from "../actions/dispatches";
 
 /** INITIAL STATE */
 const initialState = {
+    dispatchStatuses: [FIRST_DEFAULT_DISPATCH_STATUS],
     hasNewDispatchBeenSaved: false
 };
 
