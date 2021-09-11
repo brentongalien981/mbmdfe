@@ -12,6 +12,7 @@ import orders from "./orders";
 import order from "./order";
 import purchases from "./purchases";
 import purchase from "./purchase";
+import dispatches from "./dispatches";
 
 import { reducer as toastr } from "react-redux-toastr";
 
@@ -29,5 +30,6 @@ export default combineReducers({
   orders,
   order,
   purchases,
-  purchase
+  purchase,
+  dispatches
 });
