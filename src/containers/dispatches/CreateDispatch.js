@@ -4,13 +4,15 @@ import { withRouter } from 'react-router';
 import { Container } from 'reactstrap';
 import * as actions from '../../redux/actions/dispatches';
 import { DispatchForm } from './DispatchForm';
+import * as eventFuncs from './helpers/EventFuncsA';
 
 
 
 class CreateDispatch extends React.Component {
 
     state = {
-        dispatch: {}
+        dispatch: {},
+        isSavingDispatch: false
     };
 
 
@@ -36,9 +38,8 @@ class CreateDispatch extends React.Component {
                     crudMethod="create"
                     dispatch={this.state.dispatch}
                     dispatchStatuses={this.props.dispatchStatuses}
-                // isSavingPurchase={this.state.isSavingPurchase}
-                // onPurchaseInputChange={(e) => eventFuncs.onPurchaseInputChange(this, e)}
-                // onPurchaseSave={() => eventFuncs.onPurchaseSave(this)}
+                    isSavingDispatch={this.state.isSavingDispatch}
+                    onDispatchSave={() => eventFuncs.onDispatchSave(this)}
                 />
             </Container>
         );
@@ -59,7 +60,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        resetCreateDispatchFlags: () => dispatch(actions.resetCreateDispatchFlags())
+        resetCreateDispatchFlags: () => dispatch(actions.resetCreateDispatchFlags()),
+        saveDispatch: (data) => dispatch(actions.saveDispatch(data))
     };
 };
 

@@ -19,8 +19,7 @@ export const DispatchForm = (props) => {
             </Col>
 
             <Col sm="12">
-                {/* BMD-TODO */}
-                {/* {getBtnsSection(props)} */}
+                {getBtnsSection(props)}
             </Col>
         </>
     );
@@ -42,6 +41,24 @@ export const DispatchForm = (props) => {
         </Row>
     );
 };
+
+
+
+function getBtnsSection(props) {
+
+    let actionBtn = (<Button color="primary" onClick={props.onDispatchUpdate}>update</Button>);
+
+    if (props.crudMethod === 'create') {
+        actionBtn = (<Button color="primary" onClick={props.onDispatchSave}>save</Button>);
+    }
+
+    if (props.isUpdatingDispatch || props.isSavingDispatch) {
+        actionBtn = (<Button color="primary"><Spinner size="sm" /></Button>)
+    }
+
+    return actionBtn;
+
+}
 
 
 
