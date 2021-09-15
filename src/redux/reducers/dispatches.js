@@ -36,13 +36,13 @@ const dispatches = (state = initialState, action) => {
 /** NORMAL FUNCS */
 const onSaveDispatchReturn = (state, action) => {
 
-    // let hasPurchaseBeenSaved = false;
+    let hasNewDispatchBeenSaved = false;
     let savedDispatchId = 0;
 
 
     if (action.callBackData.isResultOk) {
-        // hasPurchaseBeenSaved = true;
-        // savedPurchaseId = action.callBackData.objs.purchase?.id;
+        hasNewDispatchBeenSaved = true;
+        savedDispatchId = action.callBackData.objs.dispatch.id;
     } else {
         BsCore2.alertForCallBackDataErrors(action.callBackData);
     }
@@ -55,7 +55,7 @@ const onSaveDispatchReturn = (state, action) => {
 
     return {
         ...state,
-        // hasPurchaseBeenSaved: hasPurchaseBeenSaved
+        hasNewDispatchBeenSaved: hasNewDispatchBeenSaved
     };
 };
 

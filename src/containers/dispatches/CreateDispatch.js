@@ -12,7 +12,8 @@ class CreateDispatch extends React.Component {
 
     state = {
         dispatch: {},
-        isSavingDispatch: false
+        isSavingDispatch: false,
+        savedDispatchId: 0
     };
 
 
@@ -24,9 +25,9 @@ class CreateDispatch extends React.Component {
 
 
     componentDidUpdate() {
-        // if (this.props.hasPurchaseBeenSaved) {
-        //     this.props.history.push('/purchases/' + this.state.savedPurchaseId);
-        // }
+        if (this.props.hasNewDispatchBeenSaved) {
+            this.props.history.push('/dispatches/' + this.state.savedDispatchId);
+        }
     }
 
 
