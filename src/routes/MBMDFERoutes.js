@@ -27,6 +27,7 @@ const CreatePurchase = React.lazy(() => import('../containers/purchase/CreatePur
 
 const CreateDispatch = React.lazy(() => import('../containers/dispatches/CreateDispatch'));
 const Dispatch = React.lazy(() => import('../containers/dispatches/Dispatch'));
+const Dispatches = React.lazy(() => import('../containers/dispatches/Dispatches'));
 
 
 
@@ -54,6 +55,7 @@ const MBMDFERoutes = () => (
                 <Route path="/purchases/create" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><CreatePurchase /></Suspense></MBMDFELayoutA>} />
                 <Route path="/purchases/:id" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><Purchase /></Suspense></MBMDFELayoutA>} />
 
+                <Route path="/dispatches" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><Dispatches /></Suspense></MBMDFELayoutA>} />
                 <Route path="/dispatches/create" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><CreateDispatch /></Suspense></MBMDFELayoutA>} />
                 <Route path="/dispatches/:id" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><Dispatch /></Suspense></MBMDFELayoutA>} />
                 {/* <Route path="/xxx" component={TestContainerA} /> */}

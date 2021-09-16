@@ -214,8 +214,14 @@ const NavbarComponent = (props) => {
 
 
               <DropdownItem>
+                <Link to='/dispatches'>
+                  <FontAwesomeIcon icon={faPlane} className="align-middle mr-2" />Dispatches
+                </Link>
+              </DropdownItem>
+
+              <DropdownItem>
                 <Link to='/dispatches/create'>
-                  <FontAwesomeIcon icon={faPlane} className="align-middle mr-2" />Create Dispatch
+                  <FilePlus size={18} className="align-middle mr-2" />Create Dispatch
                 </Link>
               </DropdownItem>
 

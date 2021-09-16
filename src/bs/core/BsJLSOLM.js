@@ -27,6 +27,9 @@ export default class BsJLSOLM {
         },
         purchases: {
             filters: { dateRefreshed: null, lifespan: 1, isSensitiveInfo: false, shouldForceReadDb: true }
+        },
+        dispatches: {
+            filters: { dateRefreshed: null, lifespan: 1, isSensitiveInfo: false, shouldForceReadDb: true }
         }
     };
 
