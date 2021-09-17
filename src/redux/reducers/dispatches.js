@@ -22,7 +22,8 @@ const initialState = {
 const dispatches = (state = initialState, action) => {
     switch (action.type) {
         case actions.RESET_CREATE_DISPATCH_FLAGS: return resetCreateDispatchFlags(state, action);
-        case actions.ON_SAVE_DISPATCH_RETURN: return onSaveDispatchReturn(state, action);        
+        case actions.ON_SAVE_DISPATCH_RETURN: return onSaveDispatchReturn(state, action);
+        case actions.ON_READ_DISPATCH_STATUSES_RETURN: return onReadDispatchStatusesReturn(state, action);        
         default: return state;
     }
 }
@@ -65,6 +66,25 @@ const resetCreateDispatchFlags = (state, action) => {
     return {
         ...state,
         hasNewDispatchBeenSaved: false
+    };
+};
+
+
+
+const onReadDispatchStatusesReturn = (state, action) => {
+
+    let updatedDispatchStatuses = [FIRST_DEFAULT_DISPATCH_STATUS];
+
+    if (action.callBackData.isResultOk) {
+        updatedDispatchStatuses = [
+            ...updatedDispatchStatuses, 
+            ...action.callBackData.objs.dispatchStatuses
+        ];
+    }
+
+    return {
+        ...state,
+        dispatchStatuses: updatedDispatchStatuses
     };
 };
 

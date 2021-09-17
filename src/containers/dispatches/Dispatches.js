@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Col, Container, Row } from 'reactstrap';
+import * as action from '../../redux/actions/dispatches';
 import { DispatchFilters } from './DispatchFilters';
 import * as helperFuncs from './helpers/HelperFuncsA';
 
@@ -16,6 +17,13 @@ class Dispatches extends React.Component {
         // pageNum: BsJLS.get('purchases.filters').pageNum ?? 1,
         // shouldRefreshPurchases: false
     };
+
+
+
+    componentDidMount() {
+        // helperFuncs.readPurchases(this);
+        this.props.readDispatchStatuses();
+    }
 
 
 
@@ -71,8 +79,8 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        // saveDispatch: (data) => dispatch(actions.saveDispatch(data))
+    return {        
+        readDispatchStatuses: () => dispatch(action.readDispatchStatuses())
     };
 };
 
