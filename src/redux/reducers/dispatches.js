@@ -4,6 +4,12 @@ import * as actions from "../actions/dispatches";
 /** DEFAULTS */
 const FIRST_DEFAULT_DISPATCH_STATUS = { code: null, name: '---' };
 
+const DEFAULT_PAGINATION_DATA = {
+    totalNumOfDispatchesForQuery: 0,
+    numOfPages: 1,
+    pageNum: 1
+};
+
 
 
 /** CONSTANTS */
@@ -14,7 +20,8 @@ const FIRST_DEFAULT_DISPATCH_STATUS = { code: null, name: '---' };
 const initialState = {
     dispatches: [],
     dispatchStatuses: [FIRST_DEFAULT_DISPATCH_STATUS],
-    hasNewDispatchBeenSaved: false
+    hasNewDispatchBeenSaved: false,
+    paginationData: {...DEFAULT_PAGINATION_DATA}
 };
 
 

@@ -18,7 +18,7 @@ class Purchases extends React.Component {
     state = {
         isReadingPurchases: false,
         purchaseFilters: helperFuncs.getInitialPurchaseFilters(),
-        pageNum: BsJLS.get('purchases.filters').pageNum ?? 1,
+        pageNum: BsJLS.get('purchases.filters')?.pageNum ?? 1,
         shouldRefreshPurchases: false
     };
 

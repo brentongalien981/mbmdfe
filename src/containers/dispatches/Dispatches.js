@@ -7,6 +7,8 @@ import { DispatchesTable } from './DispatchesTable';
 import { DispatchFilters } from './DispatchFilters';
 import * as helperFuncs from './helpers/HelperFuncsA';
 import './Dispatches.css';
+import { PageNavigator } from '../../bmd/components/PageNavigator';
+import BsJLS from '../../bs/core/BsJLS';
 
 
 
@@ -15,8 +17,8 @@ class Dispatches extends React.Component {
     state = {
         dispatchFilters: helperFuncs.getInitialDispatchFilters(),
         isReadingDispatches: false,
-        // BMD-TODO        
-        // pageNum: BsJLS.get('purchases.filters').pageNum ?? 1,
+        pageNum: BsJLS.get('dispatches.filters')?.pageNum ?? 1,
+        // BMD-TODO                
         // shouldRefreshPurchases: false
     };
 
@@ -54,13 +56,13 @@ class Dispatches extends React.Component {
                             isReadingDispatches={this.state.isReadingDispatches}
                         />
 
-                        {/* <PageNavigator
+                        <PageNavigator
                             pageNum={this.state.pageNum}
                             numOfPages={this.props.paginationData.numOfPages}
-                            onPageNumChange={(e) => eventFuncs.onPageNumChange(this, e)}
-                            onPageNavBtnClick={(prevOrNext) => eventFuncs.onPageNavBtnClick(this, prevOrNext)}
-                            onPageNumEnter={(e) => eventFuncs.onPageNumEnter(this, e)}
-                        /> */}
+                            onPageNumChange={(e) => true}
+                            onPageNavBtnClick={(prevOrNext) => true}
+                            onPageNumEnter={(e) => true}
+                        />
 
                     </Col>
 
@@ -76,8 +78,8 @@ class Dispatches extends React.Component {
 const mapStateToProps = (state) => {
     return {
         dispatchStatuses: state.dispatches.dispatchStatuses,
-        dispatches: state.dispatches.dispatches
-        
+        dispatches: state.dispatches.dispatches,
+        paginationData: state.dispatches.paginationData,
     };
 };
 
