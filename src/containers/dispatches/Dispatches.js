@@ -3,17 +3,19 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Col, Container, Row } from 'reactstrap';
 import * as action from '../../redux/actions/dispatches';
+import { DispatchesTable } from './DispatchesTable';
 import { DispatchFilters } from './DispatchFilters';
 import * as helperFuncs from './helpers/HelperFuncsA';
+import './Dispatches.css';
 
 
 
 class Dispatches extends React.Component {
 
     state = {
-        dispatchFilters: helperFuncs.getInitialDispatchFilters(), 
-        // BMD-TODO
-        // isReadingPurchases: false,        
+        dispatchFilters: helperFuncs.getInitialDispatchFilters(),
+        isReadingDispatches: false,
+        // BMD-TODO        
         // pageNum: BsJLS.get('purchases.filters').pageNum ?? 1,
         // shouldRefreshPurchases: false
     };
@@ -32,6 +34,7 @@ class Dispatches extends React.Component {
             <Container fluid className="p-0">
                 <Row noGutters>
                     <Col lg={3} className="pr-1">
+
                         <DispatchFilters
                             filters={this.state.dispatchFilters}
                             dispatchStatuses={this.props.dispatchStatuses}
@@ -46,10 +49,10 @@ class Dispatches extends React.Component {
 
                         <h3>Dispatches</h3>
 
-                        {/* <PurchasesTable
-                            purchases={this.props.purchases}
-                            isReadingPurchases={this.state.isReadingPurchases}
-                        /> */}
+                        <DispatchesTable
+                            dispatches={this.props.dispatches}
+                            isReadingDispatches={this.state.isReadingDispatches}
+                        />
 
                         {/* <PageNavigator
                             pageNum={this.state.pageNum}
@@ -72,7 +75,9 @@ class Dispatches extends React.Component {
 /** REACT-FUNCS */
 const mapStateToProps = (state) => {
     return {
-        dispatchStatuses: state.dispatches.dispatchStatuses
+        dispatchStatuses: state.dispatches.dispatchStatuses,
+        dispatches: state.dispatches.dispatches
+        
     };
 };
 

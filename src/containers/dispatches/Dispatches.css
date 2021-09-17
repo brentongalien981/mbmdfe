@@ -1,0 +1,10 @@
+.dispatches-table-section {
+    background-color: white;
+    border-radius: 2px;
+}
+
+
+
+.dispatches-table-container .table {
+    width: max-content;
+}

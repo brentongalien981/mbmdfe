@@ -12,6 +12,7 @@ const FIRST_DEFAULT_DISPATCH_STATUS = { code: null, name: '---' };
 
 /** INITIAL STATE */
 const initialState = {
+    dispatches: [],
     dispatchStatuses: [FIRST_DEFAULT_DISPATCH_STATUS],
     hasNewDispatchBeenSaved: false
 };
