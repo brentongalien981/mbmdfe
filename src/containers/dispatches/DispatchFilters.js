@@ -16,8 +16,8 @@ export const DispatchFilters = (props) => {
                         <Form>                            
                             {getInputs(props)}
                             <FormGroup className="d-flex justify-content-between">
-                                <Button size="sm" color="primary" onClick={() => true}>Apply</Button>
-                                <Button size="sm" color="danger" onClick={() => true}>Reset All</Button>
+                                <Button size="sm" color="primary" onClick={props.onDispatchFiltersApply}>Apply</Button>
+                                <Button size="sm" color="danger" onClick={props.onDispatchFiltersReset}>Reset All</Button>
                             </FormGroup>
                         </Form>
 
@@ -57,7 +57,7 @@ function getSpecificInputComponent(props, formField) {
 
 
     return (
-        <Input type={formField.type} name={formField.name} value={inputVal} onChange={(e) => true} {...disabledAttrib}>
+        <Input type={formField.type} name={formField.name} value={inputVal} onChange={(e) => props.onDispatchFilterInputChange(e)} {...disabledAttrib}>
             {inputChild}
         </Input>
     );

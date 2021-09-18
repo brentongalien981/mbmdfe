@@ -48,9 +48,9 @@ class Dispatches extends React.Component {
                         <DispatchFilters
                             filters={this.state.dispatchFilters}
                             dispatchStatuses={this.props.dispatchStatuses}
-                            // onPurchaseFilterInputChange={(e) => eventFuncs.onPurchaseFilterInputChange(this, e)}
-                            // onPurchaseFiltersApply={() => eventFuncs.onPurchaseFiltersApply(this)}
-                            // onPurchaseFiltersReset={() => eventFuncs.onPurchaseFiltersReset(this)}
+                            onDispatchFilterInputChange={(e) => eventFuncs.onDispatchFilterInputChange(this, e)}
+                            onDispatchFiltersApply={() => eventFuncs.onDispatchFiltersApply(this)}
+                            onDispatchFiltersReset={() => eventFuncs.onDispatchFiltersReset(this)}
                         />
                     </Col>
 

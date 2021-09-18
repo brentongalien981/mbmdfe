@@ -1,4 +1,4 @@
-import { removeReactComponentsFromDispatch } from "./HelperFuncsA";
+import { getResetDispatchFilters, removeReactComponentsFromDispatch } from "./HelperFuncsA";
 
 
 
@@ -77,4 +77,45 @@ export const onPageNavBtnClick = (container, prevOrNext) => {
         pageNum: newPageNum,
         shouldRefreshDispatches: true
     });
+};
+
+
+
+export const onDispatchFilterInputChange = (container, e) => {
+
+    const targetName = e.target.name;
+    const targetVal = e.target.value;
+
+    let updatedDispatchFilters = container.state.dispatchFilters;
+    updatedDispatchFilters[targetName] = targetVal;
+
+    container.setState({ dispatchFilters: updatedDispatchFilters });
+
+};
+
+
+
+export const onDispatchFiltersApply = (container) => {
+
+    if (container.state.isReadingDispatches) { return; }
+
+    container.setState({ 
+        pageNum: 1,
+        shouldRefreshDispatches: true 
+    });
+
+};
+
+
+
+export const onDispatchFiltersReset = (container) => {
+
+    if (container.state.isReadingDispatches) { return; }
+
+    container.setState({ 
+        pageNum: 1,
+        dispatchFilters: getResetDispatchFilters(),
+        shouldRefreshDispatches: true 
+    });
+
 };

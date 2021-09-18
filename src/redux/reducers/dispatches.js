@@ -3,7 +3,7 @@ import BsJLS from "../../bs/core/BsJLS";
 import * as actions from "../actions/dispatches";
 
 /** DEFAULTS */
-const FIRST_DEFAULT_DISPATCH_STATUS = { code: null, name: '---' };
+const FIRST_DEFAULT_DISPATCH_STATUS = { code: '', name: '---' };
 const NUM_OF_DISPLAYED_DISPATCHES_PER_PAGE = 10;
 
 const DEFAULT_PAGINATION_DATA = {

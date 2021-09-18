@@ -60,3 +60,20 @@ export const readDispatches = (container) => {
     container.props.readDispatches(requestData);
 
 };
+
+
+
+export const getResetDispatchFilters = () => {
+
+    let filters = {};
+
+    for (const formField of DISPATCH_FILTERS_FORM_FIELDS) {
+        
+        const defaultFilterVal = formField.type === 'date' ? INITIAL_DISPATCH_DATE_FILTER_IN_STR : '';
+
+        filters[formField.name] = defaultFilterVal;
+    }
+
+    return filters;
+
+};
