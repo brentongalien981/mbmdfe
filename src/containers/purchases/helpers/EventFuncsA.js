@@ -21,6 +21,7 @@ export const onPageNumEnter = (container, e) => {
         const newPageNum = container.state.pageNum;
 
         if (container.state.isReadingPurchases) { return; }
+        if (newPageNum == '') { return; }
         if (newPageNum < 1) { return; }
         if (newPageNum > container.props.paginationData.numOfPages) { return; }
 

@@ -9,6 +9,7 @@ import * as helperFuncs from './helpers/HelperFuncsA';
 import './Dispatches.css';
 import { PageNavigator } from '../../bmd/components/PageNavigator';
 import BsJLS from '../../bs/core/BsJLS';
+import * as eventFuncs from './helpers/EventFuncsA';
 
 
 
@@ -26,6 +27,14 @@ class Dispatches extends React.Component {
     componentDidMount() {
         helperFuncs.readDispatches(this);
         this.props.readDispatchStatuses();
+    }
+
+
+
+    componentDidUpdate() {
+        if (this.state.shouldRefreshDispatches) {
+            helperFuncs.readDispatches(this);
+        }
     }
 
 
@@ -58,9 +67,9 @@ class Dispatches extends React.Component {
                         <PageNavigator
                             pageNum={this.state.pageNum}
                             numOfPages={this.props.paginationData.numOfPages}
-                            onPageNumChange={(e) => true}
-                            onPageNavBtnClick={(prevOrNext) => true}
-                            onPageNumEnter={(e) => true}
+                            onPageNumChange={(e) => eventFuncs.onPageNumChange(this, e)}
+                            onPageNumEnter={(e) => eventFuncs.onPageNumEnter(this, e)}
+                            onPageNavBtnClick={(prevOrNext) => eventFuncs.onPageNavBtnClick(this, prevOrNext)}                            
                         />
 
                     </Col>

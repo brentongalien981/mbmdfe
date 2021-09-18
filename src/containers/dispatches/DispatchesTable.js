@@ -22,7 +22,7 @@ export const DispatchesTable = (props) => {
     );
 
 
-    if (props.isReadingPurchases) {
+    if (props.isReadingDispatches) {
         mainContent = (<Spinner />);
     }
 
