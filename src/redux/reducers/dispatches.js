@@ -1,8 +1,10 @@
 import BsCore2 from "../../bs/core/BsCore2";
+import BsJLS from "../../bs/core/BsJLS";
 import * as actions from "../actions/dispatches";
 
 /** DEFAULTS */
 const FIRST_DEFAULT_DISPATCH_STATUS = { code: null, name: '---' };
+const NUM_OF_DISPLAYED_DISPATCHES_PER_PAGE = 10;
 
 const DEFAULT_PAGINATION_DATA = {
     totalNumOfDispatchesForQuery: 0,
@@ -31,7 +33,8 @@ const dispatches = (state = initialState, action) => {
     switch (action.type) {
         case actions.RESET_CREATE_DISPATCH_FLAGS: return resetCreateDispatchFlags(state, action);
         case actions.ON_SAVE_DISPATCH_RETURN: return onSaveDispatchReturn(state, action);
-        case actions.ON_READ_DISPATCH_STATUSES_RETURN: return onReadDispatchStatusesReturn(state, action);        
+        case actions.ON_READ_DISPATCH_STATUSES_RETURN: return onReadDispatchStatusesReturn(state, action);
+        case actions.ON_READ_DISPATCHES_RETURN: return onReadDispatchesReturn(state, action);        
         default: return state;
     }
 }
@@ -93,6 +96,42 @@ const onReadDispatchStatusesReturn = (state, action) => {
     return {
         ...state,
         dispatchStatuses: updatedDispatchStatuses
+    };
+};
+
+
+
+const onReadDispatchesReturn = (state, action) => {
+
+    let dispatches = [];
+    let paginationData = { ...DEFAULT_PAGINATION_DATA };
+
+    if (action.callBackData.isResultOk) {
+
+        dispatches = action.callBackData.objs.dispatches;
+
+
+        const numOfPages = Math.ceil(action.callBackData.objs.paginationData.totalNumOfDispatchesForQuery / NUM_OF_DISPLAYED_DISPATCHES_PER_PAGE);
+
+        paginationData = {
+            numOfPages: numOfPages,
+            pageNum: action.callBackData.params.pageNum
+        };
+
+
+        BsJLS.set('dispatches.filters', action.callBackData.params);
+    }
+    else {
+        BsCore2.alertForCallBackDataErrors(action.callBackData);
+    }
+
+    action.callBackData.doCallBackFunc();
+
+    return {
+        ...state,
+        dispatches,
+        paginationData
+
     };
 };
 

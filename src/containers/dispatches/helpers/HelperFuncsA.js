@@ -1,6 +1,8 @@
 import BsJLS from "../../../bs/core/BsJLS";
 import { DISPATCH_FILTERS_FORM_FIELDS, DISPATCH_FORM_FIELDS, INITIAL_DISPATCH_DATE_FILTER_IN_STR } from "../constants/consts";
 
+
+
 export function removeReactComponentsFromDispatch(dispatch) {
 
     let updatedDispatch = {};
@@ -31,4 +33,30 @@ export const getInitialDispatchFilters = () => {
     }
 
     return filters;
+};
+
+
+
+export const readDispatches = (container) => {
+
+    if (container.state.isReadingDispatches) { return; }
+
+    container.setState({ isReadingDispatches: true });
+
+
+    const requestData = {
+        params: {
+            ...container.state.dispatchFilters,
+            pageNum: container.state.pageNum
+        },
+        doCallBackFunc: () => {
+            container.setState({ 
+                isReadingDispatches: false,
+                shouldRefreshDispatches: false
+            });
+        }
+    };
+
+    container.props.readDispatches(requestData);
+
 };

@@ -18,14 +18,13 @@ class Dispatches extends React.Component {
         dispatchFilters: helperFuncs.getInitialDispatchFilters(),
         isReadingDispatches: false,
         pageNum: BsJLS.get('dispatches.filters')?.pageNum ?? 1,
-        // BMD-TODO                
-        // shouldRefreshPurchases: false
+        shouldRefreshDispatches: false                
     };
 
 
 
     componentDidMount() {
-        // helperFuncs.readPurchases(this);
+        helperFuncs.readDispatches(this);
         this.props.readDispatchStatuses();
     }
 
@@ -87,7 +86,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {        
-        readDispatchStatuses: () => dispatch(action.readDispatchStatuses())
+        readDispatchStatuses: () => dispatch(action.readDispatchStatuses()),
+        readDispatches: (data) => dispatch(action.readDispatches(data))        
     };
 };
 
