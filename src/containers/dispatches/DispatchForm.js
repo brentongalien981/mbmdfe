@@ -107,7 +107,6 @@ function addColorCodedDispatchStatus(dispatch) {
     let color = 'black';
 
     switch (parseInt(dispatch?.statusCode)) {        
-        // BMD-TODO: Add more cases.
         case DISPATCH_STATUSES.DEFAULT.code:
             color = 'rgb(200, 200, 200)'; // gray
             break;
