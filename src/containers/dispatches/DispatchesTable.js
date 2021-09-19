@@ -16,8 +16,7 @@ export const DispatchesTable = (props) => {
             keyField="id"
             data={modifyDispatchesForDisplay(props.dispatches)}
             columns={DISPATCHES_TABLE_COLUMNS}
-        // BMD-TODO
-        // expandRow={getTableExpandedRowDetails()}
+            expandRow={getTableExpandedRowDetails()}
         />
     );
 
@@ -44,6 +43,7 @@ function modifyDispatchesForDisplay(dispatches) {
     for (const d of dispatches) {
         let theModifiedDispatch = d;
         theModifiedDispatch = addColorCodedDispatchStatus(theModifiedDispatch);
+        theModifiedDispatch = addDispatchLink(theModifiedDispatch);
 
         modifiedDispatches.push(theModifiedDispatch);
     }
@@ -83,10 +83,50 @@ function addColorCodedDispatchStatus(dispatch) {
         backgroundColor: color,
         borderRadius: '9px'
     };
-    
+
     const colorCodedStatus = (<Circle size={18} className="align-middle" style={style} />);
 
     dispatch.colorCodedStatus = colorCodedStatus;
 
     return dispatch;
 }
+
+
+
+export function addDispatchLink(dispatch) {
+
+    let dispatchUrl = '/dispatches/' + dispatch.id;
+
+    dispatch.dispatchLink = (
+        <a href={dispatchUrl} target="_blank">
+            <ExternalLink size={18} className="align-middle" />
+        </a>
+    );
+
+    return dispatch;
+}
+
+
+
+function getTableExpandedRowDetails() {
+
+    const minusIcon = (<MinusCircle width={16} height={16} />);
+    const plusIcon = (<PlusCircle width={16} height={16} />);
+
+
+    return {
+        renderer: (row) => {
+
+            let list = [];
+
+            for (const k in row) {
+                list.push(<li key={list.length}>{k}: {row[k]}</li>);
+            }
+
+            return (<ul>{list}</ul>);
+        },
+        showExpandColumn: true,
+        expandHeaderColumnRenderer: ({ isAnyExpands }) => isAnyExpands ? (minusIcon) : (plusIcon),
+        expandColumnRenderer: ({ expanded }) => expanded ? (minusIcon) : (plusIcon)
+    };
+};
