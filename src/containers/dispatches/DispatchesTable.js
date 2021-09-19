@@ -3,7 +3,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { Circle, ExternalLink, MinusCircle, PlusCircle } from 'react-feather';
 import { Link } from 'react-router-dom';
 import { Spinner } from 'reactstrap';
-import { DISPATCHES_TABLE_COLUMNS } from './constants/consts';
+import { DISPATCHES_TABLE_COLUMNS, DISPATCH_STATUSES } from './constants/consts';
 
 
 
@@ -16,8 +16,8 @@ export const DispatchesTable = (props) => {
             keyField="id"
             data={modifyDispatchesForDisplay(props.dispatches)}
             columns={DISPATCHES_TABLE_COLUMNS}
-            // BMD-TODO
-            // expandRow={getTableExpandedRowDetails()}
+        // BMD-TODO
+        // expandRow={getTableExpandedRowDetails()}
         />
     );
 
@@ -37,17 +37,56 @@ export const DispatchesTable = (props) => {
 };
 
 
-// BMD-TODO
+
 function modifyDispatchesForDisplay(dispatches) {
     let modifiedDispatches = [];
 
     for (const d of dispatches) {
         let theModifiedDispatch = d;
-        // theModifiedDispatch = replaceNullValsWithSlashes(d);
-        // theModifiedDispatch = addColorCodedPurchaseStatus(theModifiedDispatch);
+        theModifiedDispatch = addColorCodedDispatchStatus(theModifiedDispatch);
 
         modifiedDispatches.push(theModifiedDispatch);
     }
 
     return modifiedDispatches;
+}
+
+
+
+function addColorCodedDispatchStatus(dispatch) {
+
+    let color = 'black';
+
+    switch (parseInt(dispatch.statusCode)) {
+        case DISPATCH_STATUSES.EP_BATCH_CREATION_FAILED.code:
+        case DISPATCH_STATUSES.OTHER_ERRORS.code:
+            color = 'red';
+            break;
+        case DISPATCH_STATUSES.DEFAULT.code:
+        case DISPATCH_STATUSES.EP_BATCH_CREATING.code:
+            color = 'rgb(200, 200, 200)'; // GRAY
+            break;
+        case DISPATCH_STATUSES.EP_BATCH_CREATED.code:
+        case DISPATCH_STATUSES.EP_BATCH_UPDATED.code:
+        case DISPATCH_STATUSES.EP_BATCH_LABELS_GENERATED.code:
+        case DISPATCH_STATUSES.EP_BATCH_SCANFORM_GENERATED.code:
+            color = 'blue';
+            break;
+        case DISPATCH_STATUSES.EP_PICKUP_BOUGHT.code:
+        case DISPATCH_STATUSES.DISPATCHING.code:
+            color = 'green';
+            break;
+    }
+
+
+    const style = {
+        backgroundColor: color,
+        borderRadius: '9px'
+    };
+    
+    const colorCodedStatus = (<Circle size={18} className="align-middle" style={style} />);
+
+    dispatch.colorCodedStatus = colorCodedStatus;
+
+    return dispatch;
 }

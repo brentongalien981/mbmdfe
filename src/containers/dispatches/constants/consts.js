@@ -1,7 +1,31 @@
 import { getInitialDate, parseDateToStr } from "../../../bmd/helpers/HelperFuncsA";
 
+export const INITIAL_DISPATCH_DATE_FILTER_IN_STR = parseDateToStr(getInitialDate(-365), 'yyyy-mm-dd');
+
+
 export const DISPATCH_STATUSES = {
-    DEFAULT: {code: 500, name: 'DEFAULT' }
+
+    // RED
+    EP_BATCH_CREATION_FAILED: { code: -504, name: 'EP_BATCH_CREATION_FAILED' },
+    OTHER_ERRORS: { code: -501, name: 'OTHER_ERRORS' },
+
+    // GRAY
+    DEFAULT: { code: 500, name: 'DEFAULT' },
+    EP_BATCH_CREATING: { code: 501, name: 'EP_BATCH_CREATING' },
+
+    // BLUE
+    EP_BATCH_CREATED: { code: 502, name: 'EP_BATCH_CREATED' },
+    EP_BATCH_UPDATED: { code: 503, name: 'EP_BATCH_UPDATED' },
+    EP_BATCH_LABELS_GENERATED: { code: 504, name: 'EP_BATCH_LABELS_GENERATED' },
+    EP_BATCH_SCANFORM_GENERATED: { code: 505, name: 'EP_BATCH_SCANFORM_GENERATED' },
+
+    // GREEN
+    EP_PICKUP_BOUGHT: { code: 509, name: 'EP_PICKUP_BOUGHT' },
+    DISPATCHING: { code: 506, name: 'DISPATCHING' },
+
+    // BLACK
+    DISPATCHED: { code: 507, name: 'DISPATCHED' },
+    CANCELLED: { code: 508, name: 'CANCELLED' },
 };
 
 
@@ -42,7 +66,3 @@ export const DISPATCHES_TABLE_COLUMNS = [
     { dataField: 'createdAt', text: 'createdAt', sort: true },
     { dataField: 'updatedAt', text: 'updatedAt', sort: true }
 ];
-
-
-
-export const INITIAL_DISPATCH_DATE_FILTER_IN_STR = parseDateToStr(getInitialDate(-365), 'yyyy-mm-dd');
