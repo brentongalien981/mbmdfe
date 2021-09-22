@@ -1,9 +1,9 @@
 import React from 'react';
 import { Circle } from 'react-feather';
-import { Button, Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
-import Spinner from 'reactstrap/lib/Spinner';
+import { Button, Card, CardBody, Col, Form, FormGroup, Input, Label, Row, Spinner } from 'reactstrap';
 import { getInitialDate, parseDateToStr } from '../../bmd/helpers/HelperFuncsA';
 import Bs from '../../bs/core/Bs';
+import { TO_BE_PACKAGED } from '../orders/constants/consts';
 import { addColorCodedOrderStatus } from '../orders/helpers/HelperFuncsA';
 import { ORDER_FORM_FIELDS } from './constants/consts';
 
@@ -52,6 +52,7 @@ export const OrderForm = (props) => {
             <Col sm="12">
                 {actionBtn}
                 {refreshBtn}
+                {getCheckPossibleShippingBtn(props)}
             </Col>
         </>
     );
@@ -185,3 +186,18 @@ const getOrderStatusOptions = (orderStatuses) => {
         return (<option key={s.code} value={s.code}>{s.name}</option>);
     });
 };
+
+
+
+function getCheckPossibleShippingBtn(props) {
+
+    if (props.order.status_code == TO_BE_PACKAGED) {
+        if (props.isCheckingPossibleShipping) {
+            return (<Button className="ml-2" color="primary" ><Spinner size="sm" /></Button>);
+        } else {
+            return (<Button className="ml-2" color="primary" onClick={props.onCheckPossibleShipping}>check possible shipping</Button>);
+        }        
+    }
+
+    return null;
+}

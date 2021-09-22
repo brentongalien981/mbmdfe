@@ -218,3 +218,22 @@ export function removeReactComponentsFromOrderItem(orderItem) {
 
     return updatedOrderItem;
 }
+
+
+
+export function isOrderContainerBusyProcessing(container) {
+
+    if (
+        container.state.isReadingOrder
+        || container.state.isUpdatingOrder
+        || container.state.isRefreshingOrder
+        || container.state.isSavingOrderItem
+        || container.state.isEditingOrderItem
+        || container.state.isAssociatingToPurchases
+    ) {
+        alert('Please wait for previous process to finish.');
+        return true;
+    }
+
+    return false;
+}

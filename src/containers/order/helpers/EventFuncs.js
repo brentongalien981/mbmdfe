@@ -1,5 +1,5 @@
 import Bs from "../../../bs/core/Bs";
-import { extractDefaultOrderItemStatus, removeReactComponentsFromOrder, removeReactComponentsFromOrderItem } from "./HelperFuncsA";
+import { extractDefaultOrderItemStatus, isOrderContainerBusyProcessing, removeReactComponentsFromOrder, removeReactComponentsFromOrderItem } from "./HelperFuncsA";
 
 export const onOrderInputChange = (container, e) => {
 
@@ -7,7 +7,7 @@ export const onOrderInputChange = (container, e) => {
 
     const targetName = e.target.name;
     let targetVal = e.target.value;
-    
+
     if (e.target.type === 'date') {
         targetVal += ' 00:00:00';
     }
@@ -147,7 +147,7 @@ export const onAssociateToPurchases = (container) => {
     const data = {
         params: { orderId: container.state.order.id },
         doCallBackFunc: (objs) => {
-            container.setState({ 
+            container.setState({
                 isAssociatingToPurchases: false,
                 orderItems: objs.orderItems
             });
@@ -168,7 +168,7 @@ export const onOrderRefresh = (container) => {
     const data = {
         params: { orderId: container.state.order.id },
         doCallBackFunc: (objs) => {
-            container.setState({ 
+            container.setState({
                 order: objs.order,
                 isRefreshingOrder: false
             });
@@ -176,4 +176,20 @@ export const onOrderRefresh = (container) => {
     };
 
     container.props.refreshOrder(data);
+};
+
+
+
+export const onCheckPossibleShipping = (container) => {
+
+    if (isOrderContainerBusyProcessing(container)) { return; }
+
+    container.setState({ isCheckingPossibleShipping: true });
+
+    const data = {
+        params: { orderId: container.state.order.id },
+        doCallBackFunc: () => { container.setState({ isCheckingPossibleShipping: false }); }
+    };
+
+    container.props.checkPossibleShipping(data);
 };

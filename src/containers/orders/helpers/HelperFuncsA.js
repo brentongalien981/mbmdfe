@@ -307,7 +307,7 @@ export function addColorCodedOrderStatus(order) {
         case consts.TO_BE_PACKAGED:
         case consts.PACKAGED:
         case consts.TO_BE_DISPATCHED:
-            color = 'bluegreen';
+            color = 'rgb(52, 232, 235)';
             break;
 
         // Order Processing - with hiccup

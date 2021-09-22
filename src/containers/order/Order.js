@@ -23,6 +23,7 @@ class Order extends React.Component {
         isSavingOrderItem: false,
         isEditingOrderItem: false,
         isAssociatingToPurchases: false,
+        isCheckingPossibleShipping: false,
         order: {},
         orderItems: [],
         orderItemToEdit: {},
@@ -47,9 +48,11 @@ class Order extends React.Component {
                     onOrderInputChange={(e) => eventFuncs.onOrderInputChange(this, e)}
                     isReadingOrder={this.state.isReadingOrder}
                     isUpdatingOrder={this.state.isUpdatingOrder}
+                    isCheckingPossibleShipping={this.state.isCheckingPossibleShipping}                    
                     onOrderUpdate={() => eventFuncs.onOrderUpdate(this)}
                     isRefreshingOrder={this.state.isRefreshingOrder}
                     onOrderRefresh={() => eventFuncs.onOrderRefresh(this)}
+                    onCheckPossibleShipping={() => eventFuncs.onCheckPossibleShipping(this)}
                 />
 
                 <OrderItemsTable
@@ -96,7 +99,8 @@ const mapDispatchToProps = (dispatch) => {
         updateOrder: (data) => dispatch(actions.updateOrder(data)),
         saveOrderItem: (data) => dispatch(actions.saveOrderItem(data)),
         associateToPurchases: (data) => dispatch(actions.associateToPurchases(data)),
-        refreshOrder: (data) => dispatch(actions.refreshOrder(data))
+        refreshOrder: (data) => dispatch(actions.refreshOrder(data)),
+        checkPossibleShipping: (data) => dispatch(actions.checkPossibleShipping(data)),
     };
 };
 

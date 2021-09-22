@@ -35,6 +35,7 @@ const order = (state = initialState, action) => {
         case actions.ON_SAVE_ORDER_ITEM_RETURN: return onSaveOrderItemReturn(state, action);
         case actions.ON_ASSOCIATE_TO_PURCHASES_RETURN: return onAssociateToPurchasesReturn(state, action);
         case actions.ON_REFRESH_ORDER_RETURN: return onRefreshOrderReturn(state, action);
+        case actions.ON_CHECK_POSSIBLE_SHIPPING_RETURN: return onCheckPossibleShippingReturn(state, action);        
         default: return state;
     }
 }
@@ -223,6 +224,19 @@ const onRefreshOrderReturn = (state, action) => {
     return {
         ...state,
         order: updateOrder
+    };
+};
+
+
+
+const onCheckPossibleShippingReturn = (state, action) => {
+
+    Bs.log('TODO: onCheckPossibleShippingReturn()');
+
+    action.callBackData.doCallBackFunc();
+
+    return {
+        ...state
     };
 };
 
