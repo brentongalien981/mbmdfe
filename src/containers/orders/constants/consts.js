@@ -105,6 +105,7 @@ export const TO_BE_PURCHASE_RECEIVED = 8303;
 export const PURCHASE_RECEIVED = 8304;
 export const IN_STOCK = 8305;
 export const TO_BE_PACKAGED = 8306;
+export const BEING_PACKAGED = 8310;
 export const PACKAGED = 8307;
 export const TO_BE_DISPATCHED = 8308;
 
