@@ -20,7 +20,8 @@ const initialState = {
     orderStatuses: [FIRST_DEFAULT_ORDER_STATUS],
     orderItemStatuses: [FIRST_DEFAULT_ORDER_STATUS],
     newlySavedOrderId: '',
-    hasOrderBeenSaved: false
+    hasOrderBeenSaved: false,
+    probableShippingRates: null
 };
 
 
@@ -231,12 +232,20 @@ const onRefreshOrderReturn = (state, action) => {
 
 const onCheckPossibleShippingReturn = (state, action) => {
 
-    Bs.log('TODO: onCheckPossibleShippingReturn()');
+    let updatedProbableShippingRates = state.probableShippingRates;
+
+    if (action.callBackData.isResultOk) {
+        updatedProbableShippingRates = action.callBackData.objs.modifiedRateObjs;
+    } else {
+        BsCore2.tryAlertForBmdResultCodeErrors(action.callBackData);
+        
+    }
 
     action.callBackData.doCallBackFunc();
 
     return {
-        ...state
+        ...state,
+        probableShippingRates: updatedProbableShippingRates
     };
 };
 

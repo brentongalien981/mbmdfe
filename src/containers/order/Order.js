@@ -10,6 +10,7 @@ import { OrderForm } from './OrderForm';
 import { OrderItemsTable } from './OrderItemsTable';
 import './Order.css';
 import OrderItemFormModal from './OrderItemFormModal';
+import { ProbableShippingRatesForm } from './ProbableShippingRatesForm';
 
 
 
@@ -55,6 +56,11 @@ class Order extends React.Component {
                     onCheckPossibleShipping={() => eventFuncs.onCheckPossibleShipping(this)}
                 />
 
+                <ProbableShippingRatesForm
+                    probableShippingRates={this.props.probableShippingRates}
+                    orderStatusCode={this.state.order.status_code}
+                />
+
                 <OrderItemsTable
                     orderItems={helperFuncs.modifyOrderItemsForDisplay(this)}
                     isReadingOrder={this.state.isReadingOrder}
@@ -87,7 +93,8 @@ const mapStateToProps = (state) => {
     return {
         order: state.order.order,
         orderStatuses: state.order.orderStatuses,
-        orderItemStatuses: state.order.orderItemStatuses
+        orderItemStatuses: state.order.orderItemStatuses,
+        probableShippingRates: state.order.probableShippingRates,        
     };
 };
 

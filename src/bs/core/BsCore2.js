@@ -29,6 +29,19 @@ class BsCore2 {
 
 
 
+    static tryAlertForBmdResultCodeErrors(data = {}) {
+
+        if (data.objs?.resultCode) {
+            alert("Oops!" + data.objs.resultCode?.readableMessage);
+        }
+        else {
+            BsCore2.alertForCallBackDataErrors(data);
+        }
+
+    }
+
+
+
     static alertForCallBackDataErrors(data = {}) {
 
         // Unauthenticated.
