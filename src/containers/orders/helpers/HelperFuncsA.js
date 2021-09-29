@@ -233,7 +233,7 @@ function addRelevantOrderItemPropStats(order) {
     modifiedOrder.numOfOrderItemsToBePurchased = numOfOrderItemsToBePurchased + ' / ' + numOfOrderItems;
     modifiedOrder.numOfOrderItemsToBeReceived = numOfOrderItemsToBeReceived + ' / ' + numOfOrderItems;
     modifiedOrder.numOfOrderItemsReceived = numOfOrderItemsReceived + ' / ' + numOfOrderItems;
-    modifiedOrder.numOfOrderItemsWithOtherStatus = numOfOrderItemsWithOtherStatus + ' / ' + numOfOrderItems;    
+    modifiedOrder.numOfOrderItemsWithOtherStatus = numOfOrderItemsWithOtherStatus + ' / ' + numOfOrderItems;
 
 
     return modifiedOrder;
@@ -292,7 +292,7 @@ export function addColorCodedOrderStatus(order) {
 
         // Order Processing
         case consts.PROCESSING_FOR_SHIPMENT:
-        case consts.BEING_SHIPPED:        
+        case consts.BEING_SHIPPED:
         case consts.BEING_EVALUATED_FOR_PURCHASE:
         case consts.TO_BE_PURCHASED:
             color = 'blue';
@@ -307,6 +307,7 @@ export function addColorCodedOrderStatus(order) {
         case consts.TO_BE_PACKAGED:
         case consts.PACKAGED:
         case consts.TO_BE_DISPATCHED:
+        case consts.BEING_PACKAGED:
             color = 'rgb(52, 232, 235)';
             break;
 
@@ -323,12 +324,17 @@ export function addColorCodedOrderStatus(order) {
             color = 'green';
             break;
 
-        // Refunds and Cancellation
+        // Errors, Refunds and Cancellation
         case consts.CANCELLED:
         case consts.ORDER_APPLIED_FOR_REFUND:
         case consts.ORDER_TO_BE_PICKED_UP_BY_CARRIER_FOR_REFUND:
         case consts.ORDER_BEING_RETURNED_FOR_REFUND:
         case consts.RETURNED:
+        case consts.MISSING_ORDER_ITEM:
+        case consts.BROKEN_ORDER_ITEM:
+        case consts.TOO_LATE_TO_DELIVER:
+        case consts.TOO_EXPENSIVE_TO_DELIVER:
+        case consts.OTHER_ORDER_PROBLEMS:
             color = 'red';
             break;
     }

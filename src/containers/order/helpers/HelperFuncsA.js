@@ -149,6 +149,11 @@ function addColorCodedOrderItemStatus(orderItem) {
             color = 'orange';
             break;
         case ORDER_ITEM_STATUSES.PURCHASE_INCOMPLETELY_RECEIVED.code:
+        case ORDER_ITEM_STATUSES.MISSING_ORDER_ITEM.code:
+        case ORDER_ITEM_STATUSES.BROKEN_ORDER_ITEM.code:
+        case ORDER_ITEM_STATUSES.TOO_LATE_TO_DELIVER.code:
+        case ORDER_ITEM_STATUSES.TOO_EXPENSIVE_TO_DELIVER.code:
+        case ORDER_ITEM_STATUSES.OTHER_ORDER_ITEM_PROBLEMS.code:
             color = 'red';
             break;
         case ORDER_ITEM_STATUSES.DEFAULT.code:
@@ -162,6 +167,10 @@ function addColorCodedOrderItemStatus(orderItem) {
             color = 'blue';
             break;
         case ORDER_ITEM_STATUSES.PURCHASE_RECEIVED.code:
+        case ORDER_ITEM_STATUSES.BEING_PACKAGED.code:
+            color = 'rgb(52, 232, 235)';
+            break;
+        case ORDER_ITEM_STATUSES.DISPATCHED.code:
             color = 'green';
             break;
     }

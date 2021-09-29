@@ -5,7 +5,7 @@ export const ORDER_ITEM_TABLE_COLUMNS = [
     { dataField: 'colorCodedStatus', text: 'colorStatus', sort: false },
     { dataField: 'status_code', text: 'status_code', sort: true },
     { dataField: 'status_name', text: 'status_name', sort: true },
-    
+
     { dataField: 'orderId', text: 'orderId', sort: true },
     { dataField: 'quantity', text: 'quantity', sort: true },
 
@@ -17,7 +17,7 @@ export const ORDER_ITEM_TABLE_COLUMNS = [
     { dataField: 'sizeAvailabilityId', text: 'sizeAvailabilityId', sort: true },
     { dataField: 'size', text: 'size', sort: true, isMetaField: true },
     { dataField: 'purchaseItemId', text: 'purchaseItemId', sort: true },
-    { dataField: 'price', text: 'price', sort: true },    
+    { dataField: 'price', text: 'price', sort: true },
 
     { dataField: 'created_at', text: 'created_at', sort: true },
     { dataField: 'updated_at', text: 'updated_at', sort: true }
@@ -72,18 +72,27 @@ export const ORDER_FORM_FIELDS = [
 
 
 export const ORDER_ITEM_STATUSES = {
-    PURCHASE_INCOMPLETELY_RECEIVED: {code: -304, name: 'PURCHASE_INCOMPLETELY_RECEIVED' },
-    EVALUATED_INCOMPLETELY_FOR_PURCHASE: {code: -301, name: 'EVALUATED_INCOMPLETELY_FOR_PURCHASE' },
-    DEFAULT: {code: 300, name: 'DEFAULT' },
-    TO_BE_PURCHASED: {code: 301, name: 'TO_BE_PURCHASED' },
-    PURCHASED: {code: 302, name: 'PURCHASED' },
-    TO_BE_PURCHASE_RECEIVED: {code: 303, name: 'TO_BE_PURCHASE_RECEIVED' },
-    PURCHASE_RECEIVED: {code: 304, name: 'PURCHASE_RECEIVED' },
+    PURCHASE_INCOMPLETELY_RECEIVED: { code: -304, name: 'PURCHASE_INCOMPLETELY_RECEIVED' },
+    EVALUATED_INCOMPLETELY_FOR_PURCHASE: { code: -301, name: 'EVALUATED_INCOMPLETELY_FOR_PURCHASE' },
+    DEFAULT: { code: 300, name: 'DEFAULT' },
+    TO_BE_PURCHASED: { code: 301, name: 'TO_BE_PURCHASED' },
+    PURCHASED: { code: 302, name: 'PURCHASED' },
+    TO_BE_PURCHASE_RECEIVED: { code: 303, name: 'TO_BE_PURCHASE_RECEIVED' },
+    PURCHASE_RECEIVED: { code: 304, name: 'PURCHASE_RECEIVED' },
 
-    IN_STOCK: {code: 305, name: 'IN_STOCK' },
-    TO_BE_PACKAGED: {code: 306, name: 'TO_BE_PACKAGED' },
-    PACKAGED: {code: 307, name: 'PACKAGED' },
-    TO_BE_DISPATCHED: {code: 308, name: 'TO_BE_DISPATCHED' },
-    DISPATCHED: {code: 309, name: 'DISPATCHED' }
+    IN_STOCK: { code: 305, name: 'IN_STOCK' },
+    TO_BE_PACKAGED: { code: 306, name: 'TO_BE_PACKAGED' },
+    PACKAGED: { code: 307, name: 'PACKAGED' },
+    TO_BE_DISPATCHED: { code: 308, name: 'TO_BE_DISPATCHED' },
+    DISPATCHED: { code: 309, name: 'DISPATCHED' },
+
+
+    BEING_PACKAGED: { code: 310, name: 'BEING_PACKAGED' },
+    MISSING_ORDER_ITEM: { code: -310, name: 'MISSING_ORDER_ITEM' },
+    BROKEN_ORDER_ITEM: { code: -311, name: 'BROKEN_ORDER_ITEM' },
+    TOO_LATE_TO_DELIVER: { code: -312, name: 'TOO_LATE_TO_DELIVER' },
+    TOO_EXPENSIVE_TO_DELIVER: { code: -313, name: 'TOO_EXPENSIVE_TO_DELIVER' },
+
+    OTHER_ORDER_ITEM_PROBLEMS: { code: -314, name: 'OTHER_ORDER_ITEM_PROBLEMS' },
 
 };

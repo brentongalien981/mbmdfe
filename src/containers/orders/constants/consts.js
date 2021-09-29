@@ -51,9 +51,19 @@ export const ORDER_FINALIZATION_FAILED = -8004;
 export const ORDER_FINALIZATION_EXCEPTION = -8005;
 export const ORDER_FINALIZATION_INCOMPLETE = -8006;
 
+export const TOO_LATE_TO_DELIVER = -8402;
+export const TOO_EXPENSIVE_TO_DELIVER = -8403;
+export const OTHER_ORDER_PROBLEMS = -8404;
+
+
 export const POSSIBLE_DOUBLE_PAYMENT = 9001;
 export const MISSING_STRIPE_PAYMENT_INTENT_LINK = 9002;
 export const CUSTOMER_HAS_TO_BE_REFUNDED = 9003;
+
+
+// Order-Item-Related Error
+export const MISSING_ORDER_ITEM = -8400;
+export const BROKEN_ORDER_ITEM = -8401;
 
 
 
