@@ -14,6 +14,8 @@ export const ON_SAVE_ORDER_ITEM_RETURN = "ON_SAVE_ORDER_ITEM_RETURN";
 export const ON_ASSOCIATE_TO_PURCHASES_RETURN = "ON_ASSOCIATE_TO_PURCHASES_RETURN";
 export const ON_REFRESH_ORDER_RETURN = "ON_REFRESH_ORDER_RETURN";
 export const ON_CHECK_POSSIBLE_SHIPPING_RETURN = "ON_CHECK_POSSIBLE_SHIPPING_RETURN";
+export const ON_BUY_SHIPPING_LABEL_RETURN = "ON_BUY_SHIPPING_LABEL_RETURN";
+export const CHANGE_SELECTED_SHIPPING_RATE = "CHANGE_SELECTED_SHIPPING_RATE";
 
 
 
@@ -26,6 +28,8 @@ export const onSaveOrderItemReturn = (callBackData) => ({ type: ON_SAVE_ORDER_IT
 export const onAssociateToPurchasesReturn = (callBackData) => ({ type: ON_ASSOCIATE_TO_PURCHASES_RETURN, callBackData: callBackData });
 export const onRefreshOrderReturn = (callBackData) => ({ type: ON_REFRESH_ORDER_RETURN, callBackData: callBackData });
 export const onCheckPossibleShippingReturn = (callBackData) => ({ type: ON_CHECK_POSSIBLE_SHIPPING_RETURN, callBackData: callBackData });
+export const onBuyShippingLabelReturn = (callBackData) => ({ type: ON_BUY_SHIPPING_LABEL_RETURN, callBackData: callBackData });
+export const changeSelectedShippingRate = (data) => ({ type: CHANGE_SELECTED_SHIPPING_RATE, data: data });
 
 
 
@@ -239,6 +243,34 @@ export const checkPossibleShipping = (data) => {
             errorCallBackFunc: (errors, errorStatusCode) => {
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onCheckPossibleShippingReturn(callBackData));
+            }
+        });
+    };
+};
+
+
+
+export const buyShippingLabel = (data) => {
+
+    const bmdAuth = BmdAuth.getInstance();
+
+    return (dispatch) => {
+
+        BsCore2.ajaxCrud({
+            url: '/shipping/buyShippingLabel',
+            method: 'post',
+            params: {
+                bmdToken: bmdAuth?.bmdToken,
+                authProviderId: bmdAuth?.authProviderId,
+                ...data.params
+            },
+            callBackFunc: (requestData, json) => {
+                const callBackData = { ...data, ...json };
+                dispatch(onBuyShippingLabelReturn(callBackData));
+            },
+            errorCallBackFunc: (errors, errorStatusCode) => {
+                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
+                dispatch(onBuyShippingLabelReturn(callBackData));
             }
         });
     };

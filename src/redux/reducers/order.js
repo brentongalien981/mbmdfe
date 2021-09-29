@@ -21,7 +21,7 @@ const initialState = {
     orderItemStatuses: [FIRST_DEFAULT_ORDER_STATUS],
     newlySavedOrderId: '',
     hasOrderBeenSaved: false,
-    probableShippingRates: null
+    probableShippingRates: []
 };
 
 
@@ -36,7 +36,9 @@ const order = (state = initialState, action) => {
         case actions.ON_SAVE_ORDER_ITEM_RETURN: return onSaveOrderItemReturn(state, action);
         case actions.ON_ASSOCIATE_TO_PURCHASES_RETURN: return onAssociateToPurchasesReturn(state, action);
         case actions.ON_REFRESH_ORDER_RETURN: return onRefreshOrderReturn(state, action);
-        case actions.ON_CHECK_POSSIBLE_SHIPPING_RETURN: return onCheckPossibleShippingReturn(state, action);        
+        case actions.ON_CHECK_POSSIBLE_SHIPPING_RETURN: return onCheckPossibleShippingReturn(state, action);   
+        case actions.ON_BUY_SHIPPING_LABEL_RETURN: return onBuyShippingLabelReturn(state, action);
+        case actions.CHANGE_SELECTED_SHIPPING_RATE: return changeSelectedShippingRate(state, action);        
         default: return state;
     }
 }
@@ -246,6 +248,44 @@ const onCheckPossibleShippingReturn = (state, action) => {
     return {
         ...state,
         probableShippingRates: updatedProbableShippingRates
+    };
+};
+
+
+
+const onBuyShippingLabelReturn = (state, action) => {
+
+    action.callBackData.doCallBackFunc();
+
+    return {
+        ...state
+    };
+};
+
+
+
+const changeSelectedShippingRate = (state, action) => {
+
+    let updatedShippingRates = [];
+    const selectedRateId = action.data.selectedShippingRateId;
+
+    state.probableShippingRates.forEach(r => {
+
+        let anUpdatedShippingRate = {...r};
+
+        if (r.id === selectedRateId) {
+            anUpdatedShippingRate.isSelected = true;
+        } else {
+            anUpdatedShippingRate.isSelected = false;
+        }
+
+        updatedShippingRates.push(anUpdatedShippingRate);
+    });
+
+
+    return {
+        ...state,
+        probableShippingRates: updatedShippingRates
     };
 };
 

@@ -25,10 +25,12 @@ class Order extends React.Component {
         isEditingOrderItem: false,
         isAssociatingToPurchases: false,
         isCheckingPossibleShipping: false,
+        isBuyingShippingLabel: false,
         order: {},
         orderItems: [],
         orderItemToEdit: {},
-        orderItemFormAction: 'create'
+        orderItemFormAction: 'create',
+        selectedShippingRateId: ''
     };
 
 
@@ -59,6 +61,9 @@ class Order extends React.Component {
                 <ProbableShippingRatesForm
                     probableShippingRates={this.props.probableShippingRates}
                     orderStatusCode={this.state.order.status_code}
+                    isBuyingShippingLabel={this.state.isBuyingShippingLabel}                  
+                    onBuyShippingLabel={() => eventFuncs.onBuyShippingLabel(this)}
+                    onSelectedShippingRateChange={(e) => eventFuncs.onSelectedShippingRateChange(this, e)}
                 />
 
                 <OrderItemsTable
@@ -108,6 +113,8 @@ const mapDispatchToProps = (dispatch) => {
         associateToPurchases: (data) => dispatch(actions.associateToPurchases(data)),
         refreshOrder: (data) => dispatch(actions.refreshOrder(data)),
         checkPossibleShipping: (data) => dispatch(actions.checkPossibleShipping(data)),
+        buyShippingLabel: (data) => dispatch(actions.buyShippingLabel(data)),
+        changeSelectedShippingRate: (data) => dispatch(actions.changeSelectedShippingRate(data)),    
     };
 };
 

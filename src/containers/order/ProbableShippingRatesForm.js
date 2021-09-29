@@ -71,14 +71,14 @@ function getFormSections(props) {
         return (
             <FormGroup row check key={i}>
                 <Label check className="mb-3">
-                    <Input type="radio" name="shippingRateRadioBtns" checked={r.checked} value={r.id} onChange={() => true} />
+                    <Input type="radio" name="shippingRateRadioBtns" checked={r.isSelected ?? false} value={r.id} onChange={(e) => props.onSelectedShippingRateChange(e)} />
                     {shippingRateLabel}
                 </Label>
             </FormGroup>
         );
     });
 
-    
+
     return sections;
 };
 
@@ -86,7 +86,7 @@ function getFormSections(props) {
 
 function getBtnsSection(props) {
 
-    let buyShippingLabelBtn = (<Button color="primary" onClick={() => true}>buy Shipping-Label</Button>);
+    let buyShippingLabelBtn = (<Button color="primary" onClick={props.onBuyShippingLabel}>buy Shipping-Label</Button>);
 
     if (props.isBuyingShippingLabel) {
         buyShippingLabelBtn = (<Button color="primary"><Spinner size="sm" /></Button>)

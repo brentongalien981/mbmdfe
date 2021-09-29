@@ -188,8 +188,44 @@ export const onCheckPossibleShipping = (container) => {
 
     const data = {
         params: { orderId: container.state.order.id },
-        doCallBackFunc: () => { container.setState({ isCheckingPossibleShipping: false }); }
+        doCallBackFunc: (objs) => { container.setState({ isCheckingPossibleShipping: false }); }
     };
 
     container.props.checkPossibleShipping(data);
 };
+
+
+
+export const onBuyShippingLabel = (container) => {
+
+    Bs.log('TODO: onBuyShippingLabel()');
+    // BMD-TODO: Ask user if he's sure.
+
+    if (isOrderContainerBusyProcessing(container)) { return; }
+
+    container.setState({ isBuyingShippingLabel: true });
+
+    const data = {
+        params: {
+            orderId: container.state.order.id
+        },
+        doCallBackFunc: (objs) => { container.setState({ isBuyingShippingLabel: false }); }
+    };
+
+    container.props.buyShippingLabel(data);
+};
+
+
+
+export const onSelectedShippingRateChange = (container, e) => {
+
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+    
+    const data = { selectedShippingRateId: value };
+    container.setState(data);
+
+    container.props.changeSelectedShippingRate(data);
+
+}
