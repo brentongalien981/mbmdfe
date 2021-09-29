@@ -21,7 +21,8 @@ const initialState = {
     orderItemStatuses: [FIRST_DEFAULT_ORDER_STATUS],
     newlySavedOrderId: '',
     hasOrderBeenSaved: false,
-    probableShippingRates: []
+    probableShippingRates: [],
+    probableShippingId: ''
 };
 
 
@@ -235,9 +236,11 @@ const onRefreshOrderReturn = (state, action) => {
 const onCheckPossibleShippingReturn = (state, action) => {
 
     let updatedProbableShippingRates = state.probableShippingRates;
+    let updatedProbableShippingId = state.probableShippingId;
 
     if (action.callBackData.isResultOk) {
         updatedProbableShippingRates = action.callBackData.objs.modifiedRateObjs;
+        updatedProbableShippingId = action.callBackData.objs.epShipmentId;
     } else {
         BsCore2.tryAlertForBmdResultCodeErrors(action.callBackData);
         
@@ -247,7 +250,8 @@ const onCheckPossibleShippingReturn = (state, action) => {
 
     return {
         ...state,
-        probableShippingRates: updatedProbableShippingRates
+        probableShippingRates: updatedProbableShippingRates,
+        probableShippingId: updatedProbableShippingId
     };
 };
 

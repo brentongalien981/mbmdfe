@@ -198,16 +198,22 @@ export const onCheckPossibleShipping = (container) => {
 
 export const onBuyShippingLabel = (container) => {
 
-    Bs.log('TODO: onBuyShippingLabel()');
-    // BMD-TODO: Ask user if he's sure.
-
     if (isOrderContainerBusyProcessing(container)) { return; }
+
+    const selectedShippingRateId = container.state.selectedShippingRateId;
+    if (selectedShippingRateId === '') { return; }
+
+    if (!window.confirm('Are you sure?')) { return; }
+
 
     container.setState({ isBuyingShippingLabel: true });
 
+
     const data = {
         params: {
-            orderId: container.state.order.id
+            orderId: container.state.order.id,
+            selectedShippingRateId: selectedShippingRateId,
+            probableShippingId: container.props.probableShippingId
         },
         doCallBackFunc: (objs) => { container.setState({ isBuyingShippingLabel: false }); }
     };

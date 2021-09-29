@@ -99,7 +99,8 @@ const mapStateToProps = (state) => {
         order: state.order.order,
         orderStatuses: state.order.orderStatuses,
         orderItemStatuses: state.order.orderItemStatuses,
-        probableShippingRates: state.order.probableShippingRates,        
+        probableShippingRates: state.order.probableShippingRates,
+        probableShippingId: state.order.probableShippingId        
     };
 };
 
