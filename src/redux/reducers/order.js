@@ -24,7 +24,8 @@ const initialState = {
     probableShippingRates: [],
     probableShippingId: '',
     actualEpShipment: null,
-    shouldRedisplayOrder: false
+    shouldRedisplayOrder: false,
+    availableDispatches: []
 };
 
 
@@ -85,6 +86,7 @@ const onReadOrderReturn = (state, action) => {
     let updatedOrderStatuses = state.orderStatuses;
     let updatedOrderItemStatuses = state.orderItemStatuses;
     let actualEpShipment = state.actualEpShipment;
+    let availableDispatches = state.availableDispatches;
 
     if (action.callBackData.isResultOk) {
         order = action.callBackData.objs.order;
@@ -95,6 +97,7 @@ const onReadOrderReturn = (state, action) => {
         updatedOrderStatuses = action.callBackData.objs.orderStatuses ?? updatedOrderStatuses;
         updatedOrderItemStatuses = action.callBackData.objs.orderItemStatuses ?? updatedOrderItemStatuses;
         actualEpShipment = action.callBackData.objs.actualEpShipment;
+        availableDispatches = action.callBackData.objs.dispatches;
     }
     else {
         BsCore2.alertForCallBackDataErrors(action.callBackData);
@@ -112,7 +115,8 @@ const onReadOrderReturn = (state, action) => {
         orderItems: orderItems,
         orderStatuses: updatedOrderStatuses,
         orderItemStatuses: updatedOrderItemStatuses,
-        actualEpShipment: actualEpShipment
+        actualEpShipment: actualEpShipment,
+        availableDispatches: availableDispatches
     };
 };
 
@@ -280,6 +284,7 @@ const onBuyShippingLabelReturn = (state, action) => {
     let actualEpShipment = state.actualEpShipment;
     let updatedOrder = state.order;
     let shouldRedisplayOrder = false;
+    let availableDispatches = state.availableDispatches;
 
     if (action.callBackData.isResultOk) {
         probableShippingRates = [];
@@ -288,6 +293,7 @@ const onBuyShippingLabelReturn = (state, action) => {
 
         updatedOrder = action.callBackData.objs.order;
         shouldRedisplayOrder = true;
+        availableDispatches = action.callBackData.objs.dispatches;
 
     } else {
         BsCore2.tryAlertForBmdResultCodeErrors(action.callBackData);
@@ -303,7 +309,8 @@ const onBuyShippingLabelReturn = (state, action) => {
         probableShippingId: probableShippingId,
         actualEpShipment: actualEpShipment,
         order: updatedOrder,
-        shouldRedisplayOrder: shouldRedisplayOrder
+        shouldRedisplayOrder: shouldRedisplayOrder,
+        availableDispatches: availableDispatches
     };
 };
 

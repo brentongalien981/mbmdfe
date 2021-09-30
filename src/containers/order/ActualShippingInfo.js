@@ -1,7 +1,8 @@
 import React from 'react';
 import { ExternalLink } from 'react-feather';
-import { Card, CardBody, Col, Form, FormGroup, Label, Row } from 'reactstrap';
+import { Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import { getReadableDate2 } from '../../bmd/helpers/HelperFuncsA';
+import { DEFAULT_FIRST_DISPATCH_OPTION } from './constants/consts';
 
 
 
@@ -18,10 +19,9 @@ export const ActualShippingInfo = (props) => {
                         <Form>
 
                             <FormGroup row>
-                                <Label sm={3} className="text-sm-right">EP Shipment ID</Label>
-                                <Label sm={9} className="text-sm-left">{props.actualEpShipment.id}</Label>
+                                <Label sm={3} className="text-sm-right">Dispatch ID</Label>
+                                <Col sm={9}>{getDispatchIdOptionsComp(props)}</Col>
                             </FormGroup>
-
 
                             <FormGroup row>
                                 <Label sm={3} className="text-sm-right">Selected Rate</Label>
@@ -33,7 +33,7 @@ export const ActualShippingInfo = (props) => {
                                 <Label sm={3} className="text-sm-right">Postage Label Link</Label>
                                 <Label sm={9} className="text-sm-left">{getPostageLabelComp(props)}</Label>
                             </FormGroup>
-                            
+
                             <FormGroup row>
                                 <Label sm={3} className="text-sm-right">Shipment Tracker Link</Label>
                                 <Label sm={9} className="text-sm-left">{getTrackerComp(props)}</Label>
@@ -57,6 +57,24 @@ export const ActualShippingInfo = (props) => {
         </Row>
     );
 };
+
+
+
+function getDispatchIdOptionsComp(props) {
+
+    const disabledAttrib = props.isSelectedDispatchIdDisabled ? { disabled: true } : {};
+
+    const availableDispatches = [DEFAULT_FIRST_DISPATCH_OPTION, ...props.availableDispatches];
+
+    const options = availableDispatches.map((d) => <option key={d.id} value={d.id}>{d.id + ' --- ' + getReadableDate2(d.createdAt)}</option>);
+
+
+    return (
+        <Input type="select" name="selectedDispatchId" value={props.selectedDispatchId} onChange={(e) => props.onSelectedDispatchIdChange(e)} {...disabledAttrib}>
+            {options}
+        </Input>
+    );
+}
 
 
 
@@ -91,7 +109,7 @@ function getPostageLabelComp(props) {
 
 
 function getTrackerComp(props) {
-    
+
     const link = props.actualEpShipment.tracker.public_url;
 
     return (

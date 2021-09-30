@@ -215,10 +215,10 @@ export const onBuyShippingLabel = (container) => {
             selectedShippingRateId: selectedShippingRateId,
             probableShippingId: container.props.probableShippingId
         },
-        doCallBackFunc: (objs) => { 
-            container.setState({ 
+        doCallBackFunc: (objs) => {
+            container.setState({
                 isBuyingShippingLabel: false
-            }); 
+            });
         }
     };
 
@@ -232,10 +232,21 @@ export const onSelectedShippingRateChange = (container, e) => {
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
-    
+
     const data = { selectedShippingRateId: value };
     container.setState(data);
 
     container.props.changeSelectedShippingRate(data);
 
 }
+
+
+
+export const onSelectedDispatchIdChange = (container, e) => {
+
+    const targetName = e.target.name;
+    let targetVal = e.target.value;
+
+    container.setState({ selectedDispatchId: targetVal });
+
+};

@@ -31,7 +31,8 @@ class Order extends React.Component {
         orderItems: [],
         orderItemToEdit: {},
         orderItemFormAction: 'create',
-        selectedShippingRateId: ''
+        selectedShippingRateId: '',
+        selectedDispatchId: 0
     };
 
 
@@ -73,7 +74,12 @@ class Order extends React.Component {
                     onSelectedShippingRateChange={(e) => eventFuncs.onSelectedShippingRateChange(this, e)}
                 />
 
-                <ActualShippingInfo actualEpShipment={this.props.actualEpShipment} />
+                <ActualShippingInfo
+                    actualEpShipment={this.props.actualEpShipment}
+                    availableDispatches={this.props.availableDispatches}
+                    selectedDispatchId={this.state.selectedDispatchId}
+                    onSelectedDispatchIdChange={(e) => eventFuncs.onSelectedDispatchIdChange(this, e)}
+                />
 
                 <OrderItemsTable
                     orderItems={helperFuncs.modifyOrderItemsForDisplay(this)}
@@ -111,7 +117,8 @@ const mapStateToProps = (state) => {
         probableShippingRates: state.order.probableShippingRates,
         probableShippingId: state.order.probableShippingId,
         actualEpShipment: state.order.actualEpShipment,
-        shouldRedisplayOrder: state.order.shouldRedisplayOrder  
+        shouldRedisplayOrder: state.order.shouldRedisplayOrder,
+        availableDispatches: state.order.availableDispatches,        
     };
 };
 

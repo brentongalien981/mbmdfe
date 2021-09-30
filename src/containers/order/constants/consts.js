@@ -1,3 +1,5 @@
+export const DEFAULT_FIRST_DISPATCH_OPTION = { id: 0, createdAt: '1900-01-01' };
+
 export const ORDER_ITEM_TABLE_COLUMNS = [
     { dataField: 'actions', text: 'actions', sort: false },
     { dataField: 'id', text: 'ID', sort: true },
