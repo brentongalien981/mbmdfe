@@ -11,6 +11,7 @@ import { OrderItemsTable } from './OrderItemsTable';
 import './Order.css';
 import OrderItemFormModal from './OrderItemFormModal';
 import { ProbableShippingRatesForm } from './ProbableShippingRatesForm';
+import { ActualShippingInfo } from './ActualShippingInfo';
 
 
 
@@ -42,6 +43,12 @@ class Order extends React.Component {
 
 
 
+    componentDidUpdate() {
+        if (this.props.shouldRedisplayOrder) { helperFuncs.redisplayOrder(this); }
+    }
+
+
+
     render() {
         return (
             <Container fluid className="p-0">
@@ -65,6 +72,8 @@ class Order extends React.Component {
                     onBuyShippingLabel={() => eventFuncs.onBuyShippingLabel(this)}
                     onSelectedShippingRateChange={(e) => eventFuncs.onSelectedShippingRateChange(this, e)}
                 />
+
+                <ActualShippingInfo actualEpShipment={this.props.actualEpShipment} />
 
                 <OrderItemsTable
                     orderItems={helperFuncs.modifyOrderItemsForDisplay(this)}
@@ -100,7 +109,9 @@ const mapStateToProps = (state) => {
         orderStatuses: state.order.orderStatuses,
         orderItemStatuses: state.order.orderItemStatuses,
         probableShippingRates: state.order.probableShippingRates,
-        probableShippingId: state.order.probableShippingId        
+        probableShippingId: state.order.probableShippingId,
+        actualEpShipment: state.order.actualEpShipment,
+        shouldRedisplayOrder: state.order.shouldRedisplayOrder  
     };
 };
 
@@ -115,7 +126,8 @@ const mapDispatchToProps = (dispatch) => {
         refreshOrder: (data) => dispatch(actions.refreshOrder(data)),
         checkPossibleShipping: (data) => dispatch(actions.checkPossibleShipping(data)),
         buyShippingLabel: (data) => dispatch(actions.buyShippingLabel(data)),
-        changeSelectedShippingRate: (data) => dispatch(actions.changeSelectedShippingRate(data)),    
+        changeSelectedShippingRate: (data) => dispatch(actions.changeSelectedShippingRate(data)),
+        finalizeProcessShouldRedisplayOrder: () => dispatch(actions.finalizeProcessShouldRedisplayOrder()),
     };
 };
 

@@ -7,7 +7,7 @@ import { BEING_PACKAGED, TO_BE_PACKAGED } from '../orders/constants/consts';
 
 export const ProbableShippingRatesForm = (props) => {
 
-    if (!doesShippingRatesHaveData(props)) { return null; }
+    if (!doShippingRatesHaveData(props)) { return null; }
     if (!isOrderStatusAllowed(props)) { return null; }
 
 
@@ -38,7 +38,7 @@ export const ProbableShippingRatesForm = (props) => {
 
 
 
-function doesShippingRatesHaveData(props) {
+function doShippingRatesHaveData(props) {
 
     if (props.probableShippingRates?.length > 0) { return true; }
     return false;

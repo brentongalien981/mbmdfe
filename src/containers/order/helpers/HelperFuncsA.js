@@ -248,3 +248,12 @@ export function isOrderContainerBusyProcessing(container) {
 
     return false;
 }
+
+
+
+export function redisplayOrder(container) {
+
+    container.setState({ order: container.props.order });
+
+    container.props.finalizeProcessShouldRedisplayOrder();
+}

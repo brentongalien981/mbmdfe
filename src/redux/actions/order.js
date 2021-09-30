@@ -16,6 +16,7 @@ export const ON_REFRESH_ORDER_RETURN = "ON_REFRESH_ORDER_RETURN";
 export const ON_CHECK_POSSIBLE_SHIPPING_RETURN = "ON_CHECK_POSSIBLE_SHIPPING_RETURN";
 export const ON_BUY_SHIPPING_LABEL_RETURN = "ON_BUY_SHIPPING_LABEL_RETURN";
 export const CHANGE_SELECTED_SHIPPING_RATE = "CHANGE_SELECTED_SHIPPING_RATE";
+export const FINALIZE_PROCESS_SHOULD_REDISPLAY_ORDER = "FINALIZE_PROCESS_SHOULD_REDISPLAY_ORDER";
 
 
 
@@ -30,6 +31,7 @@ export const onRefreshOrderReturn = (callBackData) => ({ type: ON_REFRESH_ORDER_
 export const onCheckPossibleShippingReturn = (callBackData) => ({ type: ON_CHECK_POSSIBLE_SHIPPING_RETURN, callBackData: callBackData });
 export const onBuyShippingLabelReturn = (callBackData) => ({ type: ON_BUY_SHIPPING_LABEL_RETURN, callBackData: callBackData });
 export const changeSelectedShippingRate = (data) => ({ type: CHANGE_SELECTED_SHIPPING_RATE, data: data });
+export const finalizeProcessShouldRedisplayOrder = () => ({ type: FINALIZE_PROCESS_SHOULD_REDISPLAY_ORDER });
 
 
 
@@ -265,6 +267,11 @@ export const buyShippingLabel = (data) => {
                 ...data.params
             },
             callBackFunc: (requestData, json) => {
+                
+                if (json.isResultOk) {
+                    showToastr({ notificationType: 'success', message: 'Shipping Label Bought!' });
+                }
+
                 const callBackData = { ...data, ...json };
                 dispatch(onBuyShippingLabelReturn(callBackData));
             },

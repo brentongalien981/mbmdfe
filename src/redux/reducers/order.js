@@ -22,7 +22,9 @@ const initialState = {
     newlySavedOrderId: '',
     hasOrderBeenSaved: false,
     probableShippingRates: [],
-    probableShippingId: ''
+    probableShippingId: '',
+    actualEpShipment: null,
+    shouldRedisplayOrder: false
 };
 
 
@@ -37,9 +39,10 @@ const order = (state = initialState, action) => {
         case actions.ON_SAVE_ORDER_ITEM_RETURN: return onSaveOrderItemReturn(state, action);
         case actions.ON_ASSOCIATE_TO_PURCHASES_RETURN: return onAssociateToPurchasesReturn(state, action);
         case actions.ON_REFRESH_ORDER_RETURN: return onRefreshOrderReturn(state, action);
-        case actions.ON_CHECK_POSSIBLE_SHIPPING_RETURN: return onCheckPossibleShippingReturn(state, action);   
+        case actions.ON_CHECK_POSSIBLE_SHIPPING_RETURN: return onCheckPossibleShippingReturn(state, action);
         case actions.ON_BUY_SHIPPING_LABEL_RETURN: return onBuyShippingLabelReturn(state, action);
-        case actions.CHANGE_SELECTED_SHIPPING_RATE: return changeSelectedShippingRate(state, action);        
+        case actions.CHANGE_SELECTED_SHIPPING_RATE: return changeSelectedShippingRate(state, action);
+        case actions.FINALIZE_PROCESS_SHOULD_REDISPLAY_ORDER: return finalizeProcessShouldRedisplayOrder(state, action);        
         default: return state;
     }
 }
@@ -64,6 +67,16 @@ const replaceUpdatedOrderItem = (updatedOrderItems, savedOrderItem) => {
 
 
 
+const finalizeProcessShouldRedisplayOrder = (state, action) => {
+
+    return {
+        ...state,
+        shouldRedisplayOrder: false
+    };
+};
+
+
+
 /** NORMAL FUNCS */
 const onReadOrderReturn = (state, action) => {
 
@@ -71,6 +84,7 @@ const onReadOrderReturn = (state, action) => {
     let orderItems = [];
     let updatedOrderStatuses = state.orderStatuses;
     let updatedOrderItemStatuses = state.orderItemStatuses;
+    let actualEpShipment = state.actualEpShipment;
 
     if (action.callBackData.isResultOk) {
         order = action.callBackData.objs.order;
@@ -80,6 +94,7 @@ const onReadOrderReturn = (state, action) => {
 
         updatedOrderStatuses = action.callBackData.objs.orderStatuses ?? updatedOrderStatuses;
         updatedOrderItemStatuses = action.callBackData.objs.orderItemStatuses ?? updatedOrderItemStatuses;
+        actualEpShipment = action.callBackData.objs.actualEpShipment;
     }
     else {
         BsCore2.alertForCallBackDataErrors(action.callBackData);
@@ -96,7 +111,8 @@ const onReadOrderReturn = (state, action) => {
         order: order,
         orderItems: orderItems,
         orderStatuses: updatedOrderStatuses,
-        orderItemStatuses: updatedOrderItemStatuses
+        orderItemStatuses: updatedOrderItemStatuses,
+        actualEpShipment: actualEpShipment
     };
 };
 
@@ -243,7 +259,7 @@ const onCheckPossibleShippingReturn = (state, action) => {
         updatedProbableShippingId = action.callBackData.objs.epShipmentId;
     } else {
         BsCore2.tryAlertForBmdResultCodeErrors(action.callBackData);
-        
+
     }
 
     action.callBackData.doCallBackFunc();
@@ -259,10 +275,35 @@ const onCheckPossibleShippingReturn = (state, action) => {
 
 const onBuyShippingLabelReturn = (state, action) => {
 
+    let probableShippingRates = state.probableShippingRates;
+    let probableShippingId = state.probableShippingId;
+    let actualEpShipment = state.actualEpShipment;
+    let updatedOrder = state.order;
+    let shouldRedisplayOrder = false;
+
+    if (action.callBackData.isResultOk) {
+        probableShippingRates = [];
+        probableShippingId = '';
+        actualEpShipment = action.callBackData.objs.epShipment;
+
+        updatedOrder = action.callBackData.objs.order;
+        shouldRedisplayOrder = true;
+
+    } else {
+        BsCore2.tryAlertForBmdResultCodeErrors(action.callBackData);
+
+    }
+
+
     action.callBackData.doCallBackFunc();
 
     return {
-        ...state
+        ...state,
+        probableShippingRates: probableShippingRates,
+        probableShippingId: probableShippingId,
+        actualEpShipment: actualEpShipment,
+        order: updatedOrder,
+        shouldRedisplayOrder: shouldRedisplayOrder
     };
 };
 
@@ -275,7 +316,7 @@ const changeSelectedShippingRate = (state, action) => {
 
     state.probableShippingRates.forEach(r => {
 
-        let anUpdatedShippingRate = {...r};
+        let anUpdatedShippingRate = { ...r };
 
         if (r.id === selectedRateId) {
             anUpdatedShippingRate.isSelected = true;

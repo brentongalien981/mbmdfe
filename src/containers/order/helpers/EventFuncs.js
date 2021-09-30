@@ -215,7 +215,11 @@ export const onBuyShippingLabel = (container) => {
             selectedShippingRateId: selectedShippingRateId,
             probableShippingId: container.props.probableShippingId
         },
-        doCallBackFunc: (objs) => { container.setState({ isBuyingShippingLabel: false }); }
+        doCallBackFunc: (objs) => { 
+            container.setState({ 
+                isBuyingShippingLabel: false
+            }); 
+        }
     };
 
     container.props.buyShippingLabel(data);
