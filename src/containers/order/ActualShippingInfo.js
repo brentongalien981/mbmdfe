@@ -1,6 +1,6 @@
 import React from 'react';
 import { ExternalLink } from 'react-feather';
-import { Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
+import { Button, Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import { getReadableDate2 } from '../../bmd/helpers/HelperFuncsA';
 import { DEFAULT_FIRST_DISPATCH_OPTION } from './constants/consts';
 
@@ -46,6 +46,9 @@ export const ActualShippingInfo = (props) => {
                     </CardBody>
                 </Card>
             </Col>
+
+            {getAddToDispatchBtnSection(props)}
+
         </>
     );
 
@@ -62,15 +65,24 @@ export const ActualShippingInfo = (props) => {
 
 function getDispatchIdOptionsComp(props) {
 
-    const disabledAttrib = props.isSelectedDispatchIdDisabled ? { disabled: true } : {};
+    if (props.order?.dispatch_id) {
+        return (<Input type="number" value={props.order.dispatch_id} disabled />);
+    }
+
 
     const availableDispatches = [DEFAULT_FIRST_DISPATCH_OPTION, ...props.availableDispatches];
 
-    const options = availableDispatches.map((d) => <option key={d.id} value={d.id}>{d.id + ' --- ' + getReadableDate2(d.createdAt)}</option>);
+    const options = availableDispatches.map((d) => {
+        return (
+            <option key={d.id} value={d.id}>
+                {d.id + ' --- ' + getReadableDate2(d.createdAt)}
+            </option>
+        );
+    });
 
 
     return (
-        <Input type="select" name="selectedDispatchId" value={props.selectedDispatchId} onChange={(e) => props.onSelectedDispatchIdChange(e)} {...disabledAttrib}>
+        <Input type="select" name="selectedDispatchId" value={props.selectedDispatchId} onChange={(e) => props.onSelectedDispatchIdChange(e)}>
             {options}
         </Input>
     );
@@ -116,5 +128,20 @@ function getTrackerComp(props) {
         <a href={link} target="_blank">
             <ExternalLink size={18} className="align-middle" />
         </a>
+    );
+}
+
+
+
+function getAddToDispatchBtnSection(props) {
+
+    if (props.order?.dispatch_id) {
+        return null;
+    }
+
+    return (
+        <Col sm="12">
+            <Button color="primary" onClick={props.onAddToDispatch}>add to dispatch</Button>
+        </Col>
     );
 }

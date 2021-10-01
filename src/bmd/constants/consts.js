@@ -4,4 +4,4 @@ export const MILLI_SEC_IN_MIN = 60 * 1000;
 export const MILLISEC_IN_SEC = 1000;
 
 
-export const GENERAL_HTTP_RESPONSE_ERROR_MSG = 'Oops! Problem on the backend. Please try again later.';
+export const GENERAL_HTTP_RESPONSE_ERROR_MSG = 'Oops! There\'s an error. Please let your Software Admin know.';

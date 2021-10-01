@@ -43,7 +43,8 @@ const order = (state = initialState, action) => {
         case actions.ON_CHECK_POSSIBLE_SHIPPING_RETURN: return onCheckPossibleShippingReturn(state, action);
         case actions.ON_BUY_SHIPPING_LABEL_RETURN: return onBuyShippingLabelReturn(state, action);
         case actions.CHANGE_SELECTED_SHIPPING_RATE: return changeSelectedShippingRate(state, action);
-        case actions.FINALIZE_PROCESS_SHOULD_REDISPLAY_ORDER: return finalizeProcessShouldRedisplayOrder(state, action);        
+        case actions.FINALIZE_PROCESS_SHOULD_REDISPLAY_ORDER: return finalizeProcessShouldRedisplayOrder(state, action);
+        case actions.ON_ADD_TO_DISPATCH_RETURN: return onAddToDispatchReturn(state, action);        
         default: return state;
     }
 }
@@ -338,6 +339,34 @@ const changeSelectedShippingRate = (state, action) => {
     return {
         ...state,
         probableShippingRates: updatedShippingRates
+    };
+};
+
+
+
+const onAddToDispatchReturn = (state, action) => {
+
+    let updatedOrder = state.order;
+    let shouldRedisplayOrder = false;
+
+
+    if (action.callBackData.isResultOk) {
+
+        updatedOrder = action.callBackData.objs.order;
+        shouldRedisplayOrder = true;
+
+    } else {
+        BsCore2.tryAlertForBmdResultCodeErrors2(action.callBackData);
+
+    }
+
+
+    action.callBackData.doCallBackFunc();
+
+    return {
+        ...state,
+        order: updatedOrder,
+        shouldRedisplayOrder: shouldRedisplayOrder
     };
 };
 

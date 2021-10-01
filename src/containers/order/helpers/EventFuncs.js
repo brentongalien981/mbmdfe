@@ -250,3 +250,35 @@ export const onSelectedDispatchIdChange = (container, e) => {
     container.setState({ selectedDispatchId: targetVal });
 
 };
+
+
+
+export const onAddToDispatch = (container) => {
+
+    if (isOrderContainerBusyProcessing(container)) { return; }
+
+    const selectedDispatchId = parseInt(container.state.selectedDispatchId) ?? 0;
+
+    if (selectedDispatchId === 0) { 
+        alert('Please select the Dispatch ID.');
+        return; 
+    }
+
+
+    container.setState({ isAddingToDispatch: true });
+
+
+    const data = {
+        params: {
+            orderId: container.state.order.id,
+            dispatchId: selectedDispatchId
+        },
+        doCallBackFunc: (objs) => {
+            container.setState({
+                isAddingToDispatch: false
+            });
+        }
+    };
+
+    container.props.addToDispatch(data);
+};

@@ -27,6 +27,7 @@ class Order extends React.Component {
         isAssociatingToPurchases: false,
         isCheckingPossibleShipping: false,
         isBuyingShippingLabel: false,
+        isAddingToDispatch: false,
         order: {},
         orderItems: [],
         orderItemToEdit: {},
@@ -78,7 +79,9 @@ class Order extends React.Component {
                     actualEpShipment={this.props.actualEpShipment}
                     availableDispatches={this.props.availableDispatches}
                     selectedDispatchId={this.state.selectedDispatchId}
+                    order={this.state.order}
                     onSelectedDispatchIdChange={(e) => eventFuncs.onSelectedDispatchIdChange(this, e)}
+                    onAddToDispatch={() => eventFuncs.onAddToDispatch(this)}
                 />
 
                 <OrderItemsTable
@@ -135,6 +138,7 @@ const mapDispatchToProps = (dispatch) => {
         buyShippingLabel: (data) => dispatch(actions.buyShippingLabel(data)),
         changeSelectedShippingRate: (data) => dispatch(actions.changeSelectedShippingRate(data)),
         finalizeProcessShouldRedisplayOrder: () => dispatch(actions.finalizeProcessShouldRedisplayOrder()),
+        addToDispatch: (data) => dispatch(actions.addToDispatch(data))        
     };
 };
 

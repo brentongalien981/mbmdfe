@@ -17,6 +17,7 @@ export const ON_CHECK_POSSIBLE_SHIPPING_RETURN = "ON_CHECK_POSSIBLE_SHIPPING_RET
 export const ON_BUY_SHIPPING_LABEL_RETURN = "ON_BUY_SHIPPING_LABEL_RETURN";
 export const CHANGE_SELECTED_SHIPPING_RATE = "CHANGE_SELECTED_SHIPPING_RATE";
 export const FINALIZE_PROCESS_SHOULD_REDISPLAY_ORDER = "FINALIZE_PROCESS_SHOULD_REDISPLAY_ORDER";
+export const ON_ADD_TO_DISPATCH_RETURN = "ON_ADD_TO_DISPATCH_RETURN";
 
 
 
@@ -32,6 +33,7 @@ export const onCheckPossibleShippingReturn = (callBackData) => ({ type: ON_CHECK
 export const onBuyShippingLabelReturn = (callBackData) => ({ type: ON_BUY_SHIPPING_LABEL_RETURN, callBackData: callBackData });
 export const changeSelectedShippingRate = (data) => ({ type: CHANGE_SELECTED_SHIPPING_RATE, data: data });
 export const finalizeProcessShouldRedisplayOrder = () => ({ type: FINALIZE_PROCESS_SHOULD_REDISPLAY_ORDER });
+export const onAddToDispatchReturn = (callBackData) => ({ type: ON_ADD_TO_DISPATCH_RETURN, callBackData: callBackData });
 
 
 
@@ -278,6 +280,39 @@ export const buyShippingLabel = (data) => {
             errorCallBackFunc: (errors, errorStatusCode) => {
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onBuyShippingLabelReturn(callBackData));
+            }
+        });
+    };
+};
+
+
+
+export const addToDispatch = (data) => {
+
+    const bmdAuth = BmdAuth.getInstance();
+
+    return (dispatch) => {
+
+        BsCore2.ajaxCrud({
+            url: '/dispatches/addOrderToDispatch',
+            method: 'post',
+            params: {
+                bmdToken: bmdAuth?.bmdToken,
+                authProviderId: bmdAuth?.authProviderId,
+                ...data.params
+            },
+            callBackFunc: (requestData, json) => {
+                
+                if (json.isResultOk) {
+                    showToastr({ notificationType: 'success', message: 'Order Successfully Added to Dispatch!' });
+                }
+
+                const callBackData = { ...data, ...json };
+                dispatch(onAddToDispatchReturn(callBackData));
+            },
+            errorCallBackFunc: (errors, errorStatusCode) => {
+                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
+                dispatch(onAddToDispatchReturn(callBackData));
             }
         });
     };

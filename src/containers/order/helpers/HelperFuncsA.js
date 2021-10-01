@@ -240,7 +240,8 @@ export function isOrderContainerBusyProcessing(container) {
         || container.state.isEditingOrderItem
         || container.state.isAssociatingToPurchases
         || container.state.isCheckingPossibleShipping
-        || container.state.isBuyingShippingLabel               
+        || container.state.isBuyingShippingLabel
+        || container.state.isAddingToDispatch
     ) {
         alert('Please wait for previous process to finish.');
         return true;

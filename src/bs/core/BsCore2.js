@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { GENERAL_HTTP_RESPONSE_ERROR_MSG } from '../../bmd/constants/consts';
 import Bs from './Bs';
 
 
@@ -6,7 +7,7 @@ import Bs from './Bs';
 class BsCore2 {
 
     static alertForGeneralError() {
-        alert("Oops, there's an error on our end. Please try again.");
+        alert(GENERAL_HTTP_RESPONSE_ERROR_MSG);
     }
 
 
@@ -24,7 +25,7 @@ class BsCore2 {
         }
 
         if (errorMsg.length > 0) { alert(errorMsg); }
-        else { alert("Oops, there's an error on our end. Please try again."); }
+        else { alert(GENERAL_HTTP_RESPONSE_ERROR_MSG); }
     }
 
 
@@ -33,6 +34,19 @@ class BsCore2 {
 
         if (data.objs?.resultCode) {
             alert("Oops! " + data.objs.resultCode?.readableMessage);
+        }
+        else {
+            BsCore2.alertForCallBackDataErrors(data);
+        }
+
+    }
+
+
+
+    static tryAlertForBmdResultCodeErrors2(data = {}) {
+
+        if (data.resultCode) {
+            alert("Oops! " + data.resultCode?.readableMessage);
         }
         else {
             BsCore2.alertForCallBackDataErrors(data);
@@ -69,7 +83,7 @@ class BsCore2 {
         }
 
         if (errorMsg.length > 0) { alert(errorMsg); }
-        else { alert("Oops, there's an error on our end. Please try again."); }
+        else { alert(GENERAL_HTTP_RESPONSE_ERROR_MSG); }
     }
 
 
