@@ -308,6 +308,7 @@ export function addColorCodedOrderStatus(order) {
         case consts.PACKAGED:
         case consts.TO_BE_DISPATCHED:
         case consts.BEING_PACKAGED:
+        case consts.SHIPPING_LABEL_BOUGHT:
             color = 'rgb(52, 232, 235)';
             break;
 

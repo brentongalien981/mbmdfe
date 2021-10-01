@@ -1,6 +1,6 @@
 import React from 'react';
 import { ExternalLink } from 'react-feather';
-import { Button, Card, CardBody, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
+import { Button, Card, CardBody, Col, Form, FormGroup, Input, Label, Row, Spinner } from 'reactstrap';
 import { getReadableDate2 } from '../../bmd/helpers/HelperFuncsA';
 import { DEFAULT_FIRST_DISPATCH_OPTION } from './constants/consts';
 
@@ -139,9 +139,16 @@ function getAddToDispatchBtnSection(props) {
         return null;
     }
 
+
+    let btnContent = 'add to dispatch';
+
+    if (props.isAddingToDispatch) {
+        btnContent = <Spinner size="sm" />;
+    }
+
     return (
         <Col sm="12">
-            <Button color="primary" onClick={props.onAddToDispatch}>add to dispatch</Button>
+            <Button color="primary" onClick={props.onAddToDispatch}>{btnContent}</Button>
         </Col>
     );
 }

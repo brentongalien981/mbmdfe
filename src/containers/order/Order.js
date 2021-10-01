@@ -80,6 +80,7 @@ class Order extends React.Component {
                     availableDispatches={this.props.availableDispatches}
                     selectedDispatchId={this.state.selectedDispatchId}
                     order={this.state.order}
+                    isAddingToDispatch={this.state.isAddingToDispatch}
                     onSelectedDispatchIdChange={(e) => eventFuncs.onSelectedDispatchIdChange(this, e)}
                     onAddToDispatch={() => eventFuncs.onAddToDispatch(this)}
                 />

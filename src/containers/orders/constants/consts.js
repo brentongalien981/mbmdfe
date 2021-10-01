@@ -118,6 +118,7 @@ export const TO_BE_PACKAGED = 8306;
 export const BEING_PACKAGED = 8310;
 export const PACKAGED = 8307;
 export const TO_BE_DISPATCHED = 8308;
+export const SHIPPING_LABEL_BOUGHT = 8311;
 
 
 
