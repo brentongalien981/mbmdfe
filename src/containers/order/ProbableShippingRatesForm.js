@@ -16,7 +16,7 @@ export const ProbableShippingRatesForm = (props) => {
             <Col lg="12">
                 <Card>
                     <CardBody>
-                        <Form>{getFormSections(props)}</Form>
+                        <Form className="px-4 py-2">{getFormSections(props)}</Form>
                     </CardBody>
                 </Card>
             </Col>
@@ -29,7 +29,7 @@ export const ProbableShippingRatesForm = (props) => {
 
 
     return (
-        <Row className="mb-4 pb-4">
+        <Row className="mb-4 py-4">
             <Col sm="12"><h2>Probable Shipping-Rates</h2></Col>
             {mainContents}
         </Row>

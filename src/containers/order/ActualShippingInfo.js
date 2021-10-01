@@ -16,7 +16,7 @@ export const ActualShippingInfo = (props) => {
             <Col lg="12">
                 <Card>
                     <CardBody>
-                        <Form>
+                        <Form className="p-4">
 
                             <FormGroup row>
                                 <Label sm={3} className="text-sm-right">Dispatch ID</Label>
@@ -54,7 +54,7 @@ export const ActualShippingInfo = (props) => {
 
 
     return (
-        <Row className="mb-4 pb-4">
+        <Row className="mb-4 py-4">
             <Col sm="12"><h2>Actual Shipping Info</h2></Col>
             {mainContents}
         </Row>

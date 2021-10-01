@@ -163,6 +163,8 @@ export const onOrderRefresh = (container) => {
 
     if (container.state.isUpdatingOrder || container.state.isRefreshingOrder) { return; }
 
+    if (!window.confirm('Are you sure?')) { return; }
+
     container.setState({ isRefreshingOrder: true });
 
     const data = {
