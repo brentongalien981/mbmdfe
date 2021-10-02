@@ -7,6 +7,7 @@ export const RESET_CREATE_DISPATCH_FLAGS = "RESET_CREATE_DISPATCH_FLAGS";
 export const ON_SAVE_DISPATCH_RETURN = "ON_SAVE_DISPATCH_RETURN";
 export const ON_READ_DISPATCH_STATUSES_RETURN = "ON_READ_DISPATCH_STATUSES_RETURN";
 export const ON_READ_DISPATCHES_RETURN = "ON_READ_DISPATCHES_RETURN";
+export const ON_READ_DISPATCH_RETURN = "ON_READ_DISPATCH_RETURN";
 
 
 
@@ -15,6 +16,7 @@ export const resetCreateDispatchFlags = (callBackData) => ({ type: RESET_CREATE_
 export const onSaveDispatchReturn = (callBackData) => ({ type: ON_SAVE_DISPATCH_RETURN, callBackData: callBackData });
 export const onReadDispatchStatusesReturn = (callBackData) => ({ type: ON_READ_DISPATCH_STATUSES_RETURN, callBackData: callBackData });
 export const onReadDispatchesReturn = (callBackData) => ({ type: ON_READ_DISPATCHES_RETURN, callBackData: callBackData });
+export const onReadDispatchReturn = (callBackData) => ({ type: ON_READ_DISPATCH_RETURN, callBackData: callBackData });
 
 
 
@@ -99,6 +101,34 @@ export const readDispatches = (data) => {
             errorCallBackFunc: (errors, errorStatusCode) => {
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onReadDispatchesReturn(callBackData));
+            }
+        });
+    };
+
+};
+
+
+
+export const readDispatch = (data) => {
+
+    const bmdAuth = BmdAuth.getInstance();
+
+    return (dispatch) => {
+
+        BsCore2.ajaxCrud({
+            url: '/dispatches/show',
+            params: {
+                bmdToken: bmdAuth?.bmdToken,
+                authProviderId: bmdAuth?.authProviderId,
+                ...data.params
+            },
+            callBackFunc: (requestData, json) => {
+                const callBackData = { ...data, ...json };
+                dispatch(onReadDispatchReturn(callBackData));
+            },
+            errorCallBackFunc: (errors, errorStatusCode) => {
+                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
+                dispatch(onReadDispatchReturn(callBackData));
             }
         });
     };

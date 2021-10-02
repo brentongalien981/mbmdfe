@@ -34,7 +34,8 @@ const dispatches = (state = initialState, action) => {
         case actions.RESET_CREATE_DISPATCH_FLAGS: return resetCreateDispatchFlags(state, action);
         case actions.ON_SAVE_DISPATCH_RETURN: return onSaveDispatchReturn(state, action);
         case actions.ON_READ_DISPATCH_STATUSES_RETURN: return onReadDispatchStatusesReturn(state, action);
-        case actions.ON_READ_DISPATCHES_RETURN: return onReadDispatchesReturn(state, action);        
+        case actions.ON_READ_DISPATCHES_RETURN: return onReadDispatchesReturn(state, action);
+        case actions.ON_READ_DISPATCH_RETURN: return onReadDispatchReturn(state, action);        
         default: return state;
     }
 }
@@ -132,6 +133,26 @@ const onReadDispatchesReturn = (state, action) => {
         dispatches,
         paginationData
 
+    };
+};
+
+
+
+const onReadDispatchReturn = (state, action) => {
+
+    if (action.callBackData.isResultOk) {
+
+    }
+    else {
+        BsCore2.tryAlertForBmdResultCodeErrors2(action.callBackData);
+    }
+
+
+    action.callBackData.doCallBackFunc();
+
+    
+    return {
+        ...state
     };
 };
 
