@@ -1,0 +1,16 @@
+.dispatch-orders-table-container {
+    overflow-x: scroll;
+    overflow-y: scroll;
+    background-color: white;
+    border-radius: 2px;
+}
+
+.dispatch-orders-table-container .table {
+    width: max-content;
+}
+
+
+
+.dispatch-orders-label {
+    display: inline-block;
+}

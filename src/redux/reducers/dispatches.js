@@ -22,6 +22,7 @@ const DEFAULT_PAGINATION_DATA = {
 const initialState = {
     dispatches: [],
     dispatchStatuses: [FIRST_DEFAULT_DISPATCH_STATUS],
+    dispatchOrders: [],
     hasNewDispatchBeenSaved: false,
     paginationData: {...DEFAULT_PAGINATION_DATA}
 };
@@ -142,10 +143,12 @@ const onReadDispatchReturn = (state, action) => {
 
     let dispatch = state.dispatch;
     let updatedDispatchStatuses = [FIRST_DEFAULT_DISPATCH_STATUS];
+    let dispatchOrders = state.dispatchOrders;
 
     if (action.callBackData.isResultOk) {
 
         dispatch = action.callBackData.objs.dispatch;
+        dispatchOrders = action.callBackData.objs.dispatchOrders;
 
         updatedDispatchStatuses = [
             ...updatedDispatchStatuses, 
@@ -165,7 +168,8 @@ const onReadDispatchReturn = (state, action) => {
     return {
         ...state,
         dispatch: dispatch,
-        dispatchStatuses: updatedDispatchStatuses
+        dispatchStatuses: updatedDispatchStatuses,
+        dispatchOrders: dispatchOrders
     };
 };
 

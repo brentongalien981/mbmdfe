@@ -4,8 +4,10 @@ import { withRouter } from 'react-router';
 import { Container } from 'reactstrap';
 import * as actions from '../../redux/actions/dispatches';
 import { DispatchForm } from './DispatchForm';
+import { DispatchOrdersTable } from './DispatchOrdersTable';
 import * as eventFuncs from './helpers/EventFuncsB';
 import * as helperFuncs from './helpers/HelperFuncsB';
+import './Dispatch.css';
 
 
 
@@ -34,8 +36,14 @@ class Dispatch extends React.Component {
                     dispatch={this.state.dispatch}
                     dispatchStatuses={this.props.dispatchStatuses}
                     isUpdatingDispatch={this.state.isUpdatingDispatch}
-                    isReadingDispatch={this.state.isReadingDispatch}                    
+                    isReadingDispatch={this.state.isReadingDispatch}                   
                     onDispatchUpdate={() => eventFuncs.onDispatchUpdate(this)}
+                />
+
+                <DispatchOrdersTable 
+                    isReadingDispatch={this.state.isReadingDispatch}
+                    dispatchOrders={this.props.dispatchOrders}     
+                    onRemoveOrderFromDispatch={() => eventFuncs.onRemoveOrderFromDispatch(this)}               
                 />
 
             </Container>
@@ -49,6 +57,7 @@ class Dispatch extends React.Component {
 const mapStateToProps = (state) => {
     return {
         dispatchStatuses: state.dispatches.dispatchStatuses,
+        dispatchOrders: state.dispatches.dispatchOrders        
     };
 };
 
@@ -56,7 +65,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        readDispatch: (data) => dispatch(actions.readDispatch(data)),
+        readDispatch: (data) => dispatch(actions.readDispatch(data))
     };
 };
 

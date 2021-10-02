@@ -20,3 +20,10 @@ export const onDispatchUpdate = (container) => {
     // container.props.saveDispatch(data);
 
 };
+
+
+
+export function onRemoveOrderFromDispatch(container) {
+
+    Bs.log('TODO: onRemoveOrderFromDispatch()');
+}

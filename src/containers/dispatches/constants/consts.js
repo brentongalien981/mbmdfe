@@ -66,3 +66,32 @@ export const DISPATCHES_TABLE_COLUMNS = [
     { dataField: 'createdAt', text: 'createdAt', sort: true },
     { dataField: 'updatedAt', text: 'updatedAt', sort: true }
 ];
+
+
+
+export const DISPATCH_ORDERS_TABLE_COLUMNS = [    
+    { dataField: 'actions', text: 'actions', sort: false },
+    { dataField: 'order_id_link', text: 'Order Link', sort: false },
+    { dataField: 'id', text: 'Order ID', sort: true },
+
+    { dataField: 'colorCodedStatus', text: 'Status Color', sort: false },
+    { dataField: 'status_code', text: 'Status Code', sort: true },
+    { dataField: 'status_name', text: 'Status', sort: true },
+
+    { dataField: 'first_name', text: 'First Name', sort: false },
+    { dataField: 'last_name', text: 'Last Name', sort: false },
+    { dataField: 'street', text: 'Street', sort: false },
+    { dataField: 'city', text: 'City', sort: false },
+    { dataField: 'province', text: 'Province', sort: false },
+    { dataField: 'country', text: 'Country', sort: false },
+    { dataField: 'postal_code', text: 'ZIP / Postal Code', sort: false },
+    { dataField: 'phone', text: 'Phone', sort: false },
+    { dataField: 'email', text: 'Email', sort: false },
+    
+    { dataField: 'charged_shipping_fee', text: 'Shipping', sort: false },
+
+    { dataField: 'latest_delivery_date', text: 'Late D-Date', sort: true },
+    { dataField: 'projected_total_delivery_days', text: 'Projected D-Days', sort: false },
+    { dataField: 'created_at', text: 'Created At', sort: true },
+    { dataField: 'updated_at', text: 'Updated At', sort: true },
+];

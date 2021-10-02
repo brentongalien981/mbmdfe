@@ -153,7 +153,7 @@ export const addOrderLinkPropsToOrders = (orders) => {
 
 
 
-const addOrderLinkPropToOrder = (o) => {
+export const addOrderLinkPropToOrder = (o) => {
 
     const orderUrl = '/orders/' + o.id;
 
