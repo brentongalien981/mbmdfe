@@ -140,19 +140,32 @@ const onReadDispatchesReturn = (state, action) => {
 
 const onReadDispatchReturn = (state, action) => {
 
+    let dispatch = state.dispatch;
+    let updatedDispatchStatuses = [FIRST_DEFAULT_DISPATCH_STATUS];
+
     if (action.callBackData.isResultOk) {
 
+        dispatch = action.callBackData.objs.dispatch;
+
+        updatedDispatchStatuses = [
+            ...updatedDispatchStatuses, 
+            ...action.callBackData.objs.dispatchStatuses
+        ];
     }
     else {
         BsCore2.tryAlertForBmdResultCodeErrors2(action.callBackData);
     }
 
 
-    action.callBackData.doCallBackFunc();
+    action.callBackData.doCallBackFunc({
+        dispatch: dispatch
+    });
 
-    
+
     return {
-        ...state
+        ...state,
+        dispatch: dispatch,
+        dispatchStatuses: updatedDispatchStatuses
     };
 };
 

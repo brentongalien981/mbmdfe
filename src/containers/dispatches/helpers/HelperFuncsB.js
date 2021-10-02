@@ -17,6 +17,7 @@ export function readDispatch(container) {
         doCallBackFunc: (objs) => {
 
             container.setState({
+                dispatch: objs.dispatch,
                 isReadingDispatch: false
             });
         }

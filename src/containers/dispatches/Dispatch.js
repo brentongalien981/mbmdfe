@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Container } from 'reactstrap';
 import * as actions from '../../redux/actions/dispatches';
-import { DispatchInfo } from './DispatchInfo';
+import { DispatchForm } from './DispatchForm';
+import * as eventFuncs from './helpers/EventFuncsB';
 import * as helperFuncs from './helpers/HelperFuncsB';
 
 
@@ -11,7 +12,9 @@ import * as helperFuncs from './helpers/HelperFuncsB';
 class Dispatch extends React.Component {
 
     state = {
-        isReadingDispatch: false
+        isReadingDispatch: false,
+        isUpdatingDispatch: false,
+        dispatch: {}
     };
 
 
@@ -26,7 +29,14 @@ class Dispatch extends React.Component {
         return (
             <Container fluid className="p-0">
 
-                <DispatchInfo />
+                <DispatchForm
+                    crudMethod="update"
+                    dispatch={this.state.dispatch}
+                    dispatchStatuses={this.props.dispatchStatuses}
+                    isUpdatingDispatch={this.state.isUpdatingDispatch}
+                    isReadingDispatch={this.state.isReadingDispatch}                    
+                    onDispatchUpdate={() => eventFuncs.onDispatchUpdate(this)}
+                />
 
             </Container>
         );
@@ -38,7 +48,7 @@ class Dispatch extends React.Component {
 /** REACT-FUNCS */
 const mapStateToProps = (state) => {
     return {
-        // purchaseStatuses: state.purchase.purchaseStatuses,
+        dispatchStatuses: state.dispatches.dispatchStatuses,
     };
 };
 

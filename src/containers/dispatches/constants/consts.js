@@ -32,9 +32,9 @@ export const DISPATCH_STATUSES = {
 
 export const DISPATCH_FORM_FIELDS = [
     { field: 'id', type: 'text', isDisabled: true },
-    { field: 'epBatchId', type: 'number', isDisabled: true },
+    { field: 'epBatchId', type: 'text', isDisabled: true },
     { field: 'colorCodedStatus', type: 'label', isDisabled: false, isMetaField: true },
-    { field: 'statusCode', type: 'select', isDisabled: true },
+    { field: 'statusCode', type: 'select', isDisabled: false },
     { field: 'createdAt', type: 'date', isDisabled: true },
     { field: 'updatedAt', type: 'date', isDisabled: true }
 ];

@@ -13,7 +13,7 @@ export const DispatchForm = (props) => {
             <Col lg="12">
                 <Card>
                     <CardBody>
-                        <Form>{getFormSections(props)}</Form>
+                        <Form className="p-4">{getFormSections(props)}</Form>
                     </CardBody>
                 </Card>
             </Col>
@@ -106,10 +106,29 @@ function addColorCodedDispatchStatus(dispatch) {
 
     let color = 'black';
 
-    switch (parseInt(dispatch?.statusCode)) {        
+    switch (parseInt(dispatch?.statusCode)) {
         case DISPATCH_STATUSES.DEFAULT.code:
+        case DISPATCH_STATUSES.EP_BATCH_CREATING.code:
             color = 'rgb(200, 200, 200)'; // gray
             break;
+
+        case DISPATCH_STATUSES.EP_BATCH_CREATION_FAILED.code:
+        case DISPATCH_STATUSES.OTHER_ERRORS.code:
+            color = 'red';
+            break;
+
+        case DISPATCH_STATUSES.EP_BATCH_CREATED.code:
+        case DISPATCH_STATUSES.EP_BATCH_UPDATED.code:
+        case DISPATCH_STATUSES.EP_BATCH_LABELS_GENERATED.code:
+        case DISPATCH_STATUSES.EP_BATCH_SCANFORM_GENERATED.code:
+            color = 'blue';
+            break;
+
+        case DISPATCH_STATUSES.EP_PICKUP_BOUGHT.code:
+        case DISPATCH_STATUSES.DISPATCHING.code:
+            color = 'green';
+            break;
+
     }
 
 
@@ -130,7 +149,14 @@ function addColorCodedDispatchStatus(dispatch) {
 const getSpecificInputComponent = (props, formField) => {
 
     let inputChild = null;
-    let disabledAttrib = formField.isDisabled ? { disabled: true } : {};
+
+    let disabledAttrib = {};
+    if (props.crudMethod === 'create') {
+        disabledAttrib = { disabled: true }
+    } else {
+        disabledAttrib = { disabled: formField.isDisabled };
+    }
+
     let inputName = formField.field;
     let inputVal = props.dispatch?.[inputName];
     let inputType = formField.type;
@@ -147,7 +173,7 @@ const getSpecificInputComponent = (props, formField) => {
             } else {
                 inputVal = 'yyyy-mm-dd';
             }
-            
+
             break;
         case 'label':
             return (<Label>{inputVal}</Label>);
