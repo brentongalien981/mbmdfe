@@ -1,4 +1,5 @@
 import Bs from "../../../bs/core/Bs";
+import { isDispatchContainerBusyProcessing } from "./HelperFuncsB";
 
 export const onDispatchUpdate = (container) => {
 
@@ -23,7 +24,36 @@ export const onDispatchUpdate = (container) => {
 
 
 
-export function onRemoveOrderFromDispatch(container) {
+export function onRemoveOrderFromDispatch(container, event, orderId) {
 
-    Bs.log('TODO: onRemoveOrderFromDispatch()');
+    event.stopPropagation();
+
+    if (isDispatchContainerBusyProcessing(container)) { return; }
+    
+    if (!window.confirm('Are you sure you wanna remove order from dispatch?')) { return; }
+
+
+    container.setState({ 
+        isRemovingOrderFromDispatch: true,
+        orderIdBeingRemovedFromDispatch: orderId
+    });
+
+
+    const data = {
+        params: { 
+            orderId: orderId,
+            dispatchId: container.state.dispatch.id
+        },
+        doCallBackFunc: (objs) => {
+            container.setState({
+                isRemovingOrderFromDispatch: false,
+                orderIdBeingRemovedFromDispatch: 0,
+                dispatch: objs.dispatch
+            });
+        }
+    };
+
+    container.props.removeOrderFromDispatch(data);
+
+
 }

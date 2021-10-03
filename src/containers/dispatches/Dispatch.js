@@ -19,7 +19,9 @@ class Dispatch extends React.Component {
     state = {
         isReadingDispatch: false,
         isUpdatingDispatch: false,
-        dispatch: {}
+        isRemovingOrderFromDispatch: false,
+        dispatch: {},
+        orderIdBeingRemovedFromDispatch: 0
     };
 
 
@@ -56,7 +58,9 @@ class Dispatch extends React.Component {
                 <DispatchOrdersTable
                     isReadingDispatch={this.state.isReadingDispatch}
                     dispatchOrders={this.props.dispatchOrders}
-                    onRemoveOrderFromDispatch={() => eventFuncs.onRemoveOrderFromDispatch(this)}
+                    onRemoveOrderFromDispatch={(event, orderId) => eventFuncs.onRemoveOrderFromDispatch(this, event, orderId)}
+                    isRemovingOrderFromDispatch={this.state.isRemovingOrderFromDispatch}
+                    orderIdBeingRemovedFromDispatch={this.state.orderIdBeingRemovedFromDispatch}
                 />
 
                 <EpBatchShipmentsTable
@@ -84,7 +88,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        readDispatch: (data) => dispatch(actions.readDispatch(data))
+        readDispatch: (data) => dispatch(actions.readDispatch(data)),
+        removeOrderFromDispatch: (data) => dispatch(actions.removeOrderFromDispatch(data))        
     };
 };
 

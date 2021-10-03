@@ -33,7 +33,7 @@ export function isDispatchContainerBusyProcessing(container) {
 
     if (
         container.state.isReadingDispatch
-        // || container.state.isUpdatingOrder
+        || container.state.isRemovingOrderFromDispatch
     ) {
         alert('Please wait for previous process to finish.');
         return true;

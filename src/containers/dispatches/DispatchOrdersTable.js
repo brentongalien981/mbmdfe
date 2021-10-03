@@ -55,7 +55,7 @@ function modifyDispatchOrders(props) {
 
     for (const o of dispatchOrders) {
 
-        let aModifiedDispatchOrder = addActionBtnsField(o, props.onRemoveOrderFromDispatch);
+        let aModifiedDispatchOrder = addActionBtnsField(o, props);
         aModifiedDispatchOrder = addColorCodedOrderStatus(aModifiedDispatchOrder);
         aModifiedDispatchOrder = addOrderLinkPropToOrder(aModifiedDispatchOrder);
 
@@ -68,14 +68,22 @@ function modifyDispatchOrders(props) {
 
 
 
-function addActionBtnsField(order, onRemoveOrderFromDispatch) {
+function addActionBtnsField(order, props) {
 
     const btnId = 'removeOrderFromDispatchBtn' + order.id;
 
+    let btnIcon = (<FileMinus size={14} />);
+    if (props.isRemovingOrderFromDispatch && order.id === props.orderIdBeingRemovedFromDispatch) {
+        btnIcon = (<Spinner size="sm" />);
+    }
+
     const actionsComponent = (
         <>
-            <Button id={btnId} className="mr-1 mb-1" outline color="danger" size="sm">
-                <FileMinus size={14} onClick={onRemoveOrderFromDispatch} />
+            <Button id={btnId} 
+                className="mr-1 mb-1" outline color="danger" size="sm" 
+                onClick={(e) => props.onRemoveOrderFromDispatch(e, order.id)}
+            >
+                {btnIcon}
             </Button>
 
             <UncontrolledTooltip

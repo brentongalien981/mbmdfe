@@ -38,7 +38,8 @@ const dispatches = (state = initialState, action) => {
         case actions.ON_SAVE_DISPATCH_RETURN: return onSaveDispatchReturn(state, action);
         case actions.ON_READ_DISPATCH_STATUSES_RETURN: return onReadDispatchStatusesReturn(state, action);
         case actions.ON_READ_DISPATCHES_RETURN: return onReadDispatchesReturn(state, action);
-        case actions.ON_READ_DISPATCH_RETURN: return onReadDispatchReturn(state, action);        
+        case actions.ON_READ_DISPATCH_RETURN: return onReadDispatchReturn(state, action);
+        case actions.ON_REMOVE_ORDER_FROM_DISPATCH_RETURN: return onRemoveOrderFromDispatchReturn(state, action);        
         default: return state;
     }
 }
@@ -174,6 +175,38 @@ const onReadDispatchReturn = (state, action) => {
         ...state,
         dispatch: dispatch,
         dispatchStatuses: updatedDispatchStatuses,
+        dispatchOrders: dispatchOrders,
+        epBatch: epBatch
+    };
+};
+
+
+
+const onRemoveOrderFromDispatchReturn = (state, action) => {
+
+    let dispatch = state.dispatch;
+    let dispatchOrders = state.dispatchOrders;
+    let epBatch = state.epBatch;
+
+    if (action.callBackData.isResultOk) {
+
+        dispatch = action.callBackData.objs.dispatch;
+        dispatchOrders = action.callBackData.objs.dispatchOrders;
+        epBatch = action.callBackData.objs.epBatch;
+    }
+    else {
+        BsCore2.tryAlertForBmdResultCodeErrors2(action.callBackData);
+    }
+
+
+    action.callBackData.doCallBackFunc({
+        dispatch: dispatch
+    });
+
+
+    return {
+        ...state,
+        dispatch: dispatch,
         dispatchOrders: dispatchOrders,
         epBatch: epBatch
     };

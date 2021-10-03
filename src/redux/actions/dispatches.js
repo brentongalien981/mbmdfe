@@ -8,6 +8,7 @@ export const ON_SAVE_DISPATCH_RETURN = "ON_SAVE_DISPATCH_RETURN";
 export const ON_READ_DISPATCH_STATUSES_RETURN = "ON_READ_DISPATCH_STATUSES_RETURN";
 export const ON_READ_DISPATCHES_RETURN = "ON_READ_DISPATCHES_RETURN";
 export const ON_READ_DISPATCH_RETURN = "ON_READ_DISPATCH_RETURN";
+export const ON_REMOVE_ORDER_FROM_DISPATCH_RETURN = "ON_REMOVE_ORDER_FROM_DISPATCH_RETURN";
 
 
 
@@ -17,6 +18,7 @@ export const onSaveDispatchReturn = (callBackData) => ({ type: ON_SAVE_DISPATCH_
 export const onReadDispatchStatusesReturn = (callBackData) => ({ type: ON_READ_DISPATCH_STATUSES_RETURN, callBackData: callBackData });
 export const onReadDispatchesReturn = (callBackData) => ({ type: ON_READ_DISPATCHES_RETURN, callBackData: callBackData });
 export const onReadDispatchReturn = (callBackData) => ({ type: ON_READ_DISPATCH_RETURN, callBackData: callBackData });
+export const onRemoveOrderFromDispatchReturn = (callBackData) => ({ type: ON_REMOVE_ORDER_FROM_DISPATCH_RETURN, callBackData: callBackData });
 
 
 
@@ -129,6 +131,35 @@ export const readDispatch = (data) => {
             errorCallBackFunc: (errors, errorStatusCode) => {
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onReadDispatchReturn(callBackData));
+            }
+        });
+    };
+
+};
+
+
+
+export const removeOrderFromDispatch = (data) => {
+
+    const bmdAuth = BmdAuth.getInstance();
+
+    return (dispatch) => {
+
+        BsCore2.ajaxCrud({
+            url: '/dispatches/removeOrderFromDispatch',
+            method: 'post',
+            params: {
+                bmdToken: bmdAuth?.bmdToken,
+                authProviderId: bmdAuth?.authProviderId,
+                ...data.params
+            },
+            callBackFunc: (requestData, json) => {
+                const callBackData = { ...data, ...json };
+                dispatch(onRemoveOrderFromDispatchReturn(callBackData));
+            },
+            errorCallBackFunc: (errors, errorStatusCode) => {
+                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
+                dispatch(onRemoveOrderFromDispatchReturn(callBackData));
             }
         });
     };
