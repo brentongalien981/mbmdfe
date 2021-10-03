@@ -25,6 +25,15 @@ const tryGetDateWithPaddedZero = (dateNum) => {
 
 
 
+const tryGetNumWithPaddedZero = (num) => {
+    if (num <= 9) {
+        return '0' + num;
+    }
+    return num;
+};
+
+
+
 export const convertDateToStr = (dateObj) => {
     return dateObj.getFullYear() + '-' + tryGetMonthNumWithPaddedZero(parseInt(dateObj.getMonth()) + 1) + '-' + tryGetDateWithPaddedZero(dateObj.getDate());
 };
@@ -297,6 +306,35 @@ export const getReadableDate2 = (datetimeStr) => {
     }
 
     return month + ' ' + datetimeObj.getDate() + ', ' + datetimeObj.getFullYear();
+
+};
+
+
+
+export const getReadableDateTime = (datetimeStr) => {
+
+    const datetimeObj = new Date(datetimeStr);
+
+    if (!datetimeObj) { return null; }
+
+    let month = '';
+
+    switch (datetimeObj.getMonth()) {
+        case 0: month = 'Jan'; break;
+        case 1: month = 'Feb'; break;
+        case 2: month = 'Mar'; break;
+        case 3: month = 'Apr'; break;
+        case 4: month = 'May'; break;
+        case 5: month = 'Jun'; break;
+        case 6: month = 'Jul'; break;
+        case 7: month = 'Aug'; break;
+        case 8: month = 'Sep'; break;
+        case 9: month = 'Oct'; break;
+        case 10: month = 'Nov'; break;
+        case 11: month = 'Dec'; break;
+    }
+
+    return month + ' ' + datetimeObj.getDate() + ', ' + datetimeObj.getFullYear() +  ' - ' + tryGetNumWithPaddedZero(datetimeObj.getHours()) + ':' + tryGetNumWithPaddedZero(datetimeObj.getMinutes()) + ':' + tryGetNumWithPaddedZero(datetimeObj.getSeconds());
 
 };
 

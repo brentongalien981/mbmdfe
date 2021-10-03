@@ -23,6 +23,7 @@ const initialState = {
     dispatches: [],
     dispatchStatuses: [FIRST_DEFAULT_DISPATCH_STATUS],
     dispatchOrders: [],
+    epBatch: null,
     hasNewDispatchBeenSaved: false,
     paginationData: {...DEFAULT_PAGINATION_DATA}
 };
@@ -144,6 +145,7 @@ const onReadDispatchReturn = (state, action) => {
     let dispatch = state.dispatch;
     let updatedDispatchStatuses = [FIRST_DEFAULT_DISPATCH_STATUS];
     let dispatchOrders = state.dispatchOrders;
+    let epBatch = state.epBatch;
 
     if (action.callBackData.isResultOk) {
 
@@ -154,6 +156,8 @@ const onReadDispatchReturn = (state, action) => {
             ...updatedDispatchStatuses, 
             ...action.callBackData.objs.dispatchStatuses
         ];
+
+        epBatch = action.callBackData.objs.epBatch;
     }
     else {
         BsCore2.tryAlertForBmdResultCodeErrors2(action.callBackData);
@@ -169,7 +173,8 @@ const onReadDispatchReturn = (state, action) => {
         ...state,
         dispatch: dispatch,
         dispatchStatuses: updatedDispatchStatuses,
-        dispatchOrders: dispatchOrders
+        dispatchOrders: dispatchOrders,
+        epBatch: epBatch
     };
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { FileMinus } from 'react-feather';
 import { Button, Col, Row, Spinner, UncontrolledTooltip } from 'reactstrap';
-import { addColorCodedOrderStatus, addOrderLinkPropToOrder } from '../orders/helpers/HelperFuncsA';
+import { addColorCodedOrderStatus, addOrderLinkPropToOrder, getTableExpandedRowDetails } from '../orders/helpers/HelperFuncsA';
 import { DISPATCH_ORDERS_TABLE_COLUMNS } from './constants/consts';
 
 
@@ -18,7 +18,7 @@ export const DispatchOrdersTable = (props) => {
                     keyField="id"
                     columns={DISPATCH_ORDERS_TABLE_COLUMNS}
                     data={modifyDispatchOrders(props)}
-                // expandRow={getPurchaseItemsTableExpandedRowDetails()}
+                    expandRow={getTableExpandedRowDetails()}
                 />
             </div>
         </Col>
