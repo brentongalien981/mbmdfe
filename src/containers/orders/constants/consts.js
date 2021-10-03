@@ -14,7 +14,8 @@ export const ORDER_TABLE_COLUMNS = [
     { dataField: 'status_name', text: 'Status', sort: true },
 
     { dataField: 'user_id', text: 'User ID', sort: false },
-    { dataField: 'cart_id', text: 'Cart ID', sort: false },
+    { dataField: 'cart_id', text: 'Cart ID', sort: false },    
+    { dataField: 'ep_shipment_id', text: 'EP Shipment ID', sort: false },
     { dataField: 'stripe_payment_intent_id', text: 'SPI ID', sort: false },
 
     { dataField: 'first_name', text: 'First Name', sort: false },

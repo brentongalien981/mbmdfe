@@ -78,6 +78,8 @@ export const DISPATCH_ORDERS_TABLE_COLUMNS = [
     { dataField: 'status_code', text: 'Status Code', sort: true },
     { dataField: 'status_name', text: 'Status', sort: true },
 
+    { dataField: 'ep_shipment_id', text: 'EP Shipment ID', sort: false },
+
     { dataField: 'first_name', text: 'First Name', sort: false },
     { dataField: 'last_name', text: 'Last Name', sort: false },
     { dataField: 'street', text: 'Street', sort: false },
@@ -94,4 +96,14 @@ export const DISPATCH_ORDERS_TABLE_COLUMNS = [
     { dataField: 'projected_total_delivery_days', text: 'Projected D-Days', sort: false },
     { dataField: 'created_at', text: 'Created At', sort: true },
     { dataField: 'updated_at', text: 'Updated At', sort: true },
+];
+
+
+
+export const EP_BATCH_SHIPMENTS_TABLE_COLUMNS = [    
+    { dataField: 'id', text: 'EP Shipment ID', sort: true },
+    { dataField: 'batch_status', text: 'Status', sort: true },
+    { dataField: 'tracking_code', text: 'Tracking Code', sort: true },    
+    { dataField: 'reference', text: 'Reference', sort: true },
+    { dataField: 'batch_message', text: 'Batch Message', sort: false }    
 ];

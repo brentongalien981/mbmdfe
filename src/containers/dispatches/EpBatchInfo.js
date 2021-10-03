@@ -1,5 +1,7 @@
 import React from 'react';
-import { Button, Card, CardBody, Col, Form, Spinner, Row, FormGroup, Label } from 'reactstrap';
+import { ExternalLink } from 'react-feather';
+import { Link } from 'react-router-dom';
+import { Card, CardBody, Col, Form, Spinner, Row, FormGroup, Label } from 'reactstrap';
 import { getReadableDateTime } from '../../bmd/helpers/HelperFuncsA';
 
 
@@ -64,7 +66,7 @@ function prepareEpBatchInfo(epBatch) {
 
     return [
         { field: 'id', label: 'ID', val: epBatch.id },
-        { field: 'label_url', label: 'All Shipment Labels Link', val: epBatch.label_url ?? '-' },
+        { field: 'label_url', label: 'All Shipment Labels Link', val: epBatch.label_url ? getEpBatchLabelUrlComp(epBatch.label_url) : '-' },
         { field: 'mode', label: 'API Mode', val: epBatch.mode },
         { field: 'reference', label: 'Reference', val: epBatch.reference ?? '-' },
         { field: 'state', label: 'Batch State', val: epBatch.state },
@@ -77,4 +79,16 @@ function prepareEpBatchInfo(epBatch) {
         { field: 'num_of_creation_failed', label: '# of Current Shipments with Failed Creation', val: epBatch.status.creation_failed },
         { field: 'num_of_postage_purchase_failed', label: '# of Current Shipments with Purchase Failed', val: epBatch.status.postage_purchase_failed }
     ];
+}
+
+
+
+function getEpBatchLabelUrlComp(url) {
+
+    return (
+        <a href={url} target="_blank">
+            <ExternalLink size={18} className="align-middle" />
+        </a>
+    );
+
 }

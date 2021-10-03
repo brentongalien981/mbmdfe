@@ -9,6 +9,8 @@ import * as eventFuncs from './helpers/EventFuncsB';
 import * as helperFuncs from './helpers/HelperFuncsB';
 import './Dispatch.css';
 import { EpBatchInfo } from './EpBatchInfo';
+import { EpBatchShipmentsTable } from './EpBatchShipmentsTable';
+import { EpBatchPickupInfo } from './EpBatchPickupInfo';
 
 
 
@@ -41,15 +43,25 @@ class Dispatch extends React.Component {
                     onDispatchUpdate={() => eventFuncs.onDispatchUpdate(this)}
                 />
 
+                <EpBatchPickupInfo
+                    pickup={this.props.epBatch?.pickup}
+                    isReadingDispatch={this.state.isReadingDispatch}
+                />
+
+                <EpBatchInfo
+                    isReadingDispatch={this.state.isReadingDispatch}
+                    epBatch={this.props.epBatch}
+                />
+
                 <DispatchOrdersTable
                     isReadingDispatch={this.state.isReadingDispatch}
                     dispatchOrders={this.props.dispatchOrders}
                     onRemoveOrderFromDispatch={() => eventFuncs.onRemoveOrderFromDispatch(this)}
                 />
 
-                <EpBatchInfo
+                <EpBatchShipmentsTable
+                    epBatchShipments={this.props.epBatch?.shipments}
                     isReadingDispatch={this.state.isReadingDispatch}
-                    epBatch={this.props.epBatch}
                 />
 
             </Container>

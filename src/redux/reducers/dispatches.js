@@ -23,6 +23,7 @@ const initialState = {
     dispatches: [],
     dispatchStatuses: [FIRST_DEFAULT_DISPATCH_STATUS],
     dispatchOrders: [],
+    dispatch: {},
     epBatch: null,
     hasNewDispatchBeenSaved: false,
     paginationData: {...DEFAULT_PAGINATION_DATA}
