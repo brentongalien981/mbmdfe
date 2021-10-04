@@ -11,6 +11,8 @@ import './Dispatch.css';
 import { EpBatchInfo } from './EpBatchInfo';
 import { EpBatchShipmentsTable } from './EpBatchShipmentsTable';
 import { EpBatchPickupInfo } from './EpBatchPickupInfo';
+import { EpBatchPickupInfoFormModal } from './EpBatchPickupInfoFormModal';
+import { getInitialDate } from '../../bmd/helpers/HelperFuncsA';
 
 
 
@@ -20,8 +22,11 @@ class Dispatch extends React.Component {
         isReadingDispatch: false,
         isUpdatingDispatch: false,
         isRemovingOrderFromDispatch: false,
+        isSavingEpBatchPickupInfo: false,
+        isEpBatchPickupInfoFormModalShown: false,
         dispatch: {},
-        orderIdBeingRemovedFromDispatch: 0
+        orderIdBeingRemovedFromDispatch: 0,
+        epBatchPickupInfoFormData: helperFuncs.getEpBatchPickupInfoFormInitialData(),
     };
 
 
@@ -36,6 +41,7 @@ class Dispatch extends React.Component {
         return (
             <Container fluid className="p-0">
 
+
                 <DispatchForm
                     crudMethod="update"
                     dispatch={this.state.dispatch}
@@ -45,15 +51,30 @@ class Dispatch extends React.Component {
                     onDispatchUpdate={() => eventFuncs.onDispatchUpdate(this)}
                 />
 
+
                 <EpBatchPickupInfo
                     pickup={this.props.epBatch?.pickup}
                     isReadingDispatch={this.state.isReadingDispatch}
+                    onEpBatchPickupFormShow={() => eventFuncs.onEpBatchPickupFormShow(this)}
                 />
+
+
+                <EpBatchPickupInfoFormModal
+                    isSavingEpBatchPickupInfo={this.state.isSavingEpBatchPickupInfo}
+                    isEpBatchPickupInfoFormModalShown={this.state.isEpBatchPickupInfoFormModalShown}
+                    onToggle={() => eventFuncs.onEpBatchPickupInfoFormModalToggle(this)}
+                    onClose={() => eventFuncs.onEpBatchPickupInfoFormModalClose(this)}                    
+                    onEpBatchPickupInfoSave={() => eventFuncs.onEpBatchPickupInfoSave(this)}
+                    pickup={this.state.epBatchPickupInfoFormData}  
+                    onPickupDateChange={() => true}                
+                />
+
 
                 <EpBatchInfo
                     isReadingDispatch={this.state.isReadingDispatch}
                     epBatch={this.props.epBatch}
                 />
+
 
                 <DispatchOrdersTable
                     isReadingDispatch={this.state.isReadingDispatch}
@@ -63,10 +84,12 @@ class Dispatch extends React.Component {
                     orderIdBeingRemovedFromDispatch={this.state.orderIdBeingRemovedFromDispatch}
                 />
 
+
                 <EpBatchShipmentsTable
                     epBatchShipments={this.props.epBatch?.shipments}
                     isReadingDispatch={this.state.isReadingDispatch}
                 />
+
 
             </Container>
         );
@@ -89,7 +112,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         readDispatch: (data) => dispatch(actions.readDispatch(data)),
-        removeOrderFromDispatch: (data) => dispatch(actions.removeOrderFromDispatch(data))        
+        removeOrderFromDispatch: (data) => dispatch(actions.removeOrderFromDispatch(data))
     };
 };
 

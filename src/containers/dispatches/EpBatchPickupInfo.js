@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardBody, Col, Form, Spinner, Row, FormGroup, Label } from 'reactstrap';
+import { Card, CardBody, Col, Form, Spinner, Row, FormGroup, Label, Button } from 'reactstrap';
 import { getReadableDateTime } from '../../bmd/helpers/HelperFuncsA';
 
 
@@ -15,6 +15,8 @@ export const EpBatchPickupInfo = (props) => {
                     </CardBody>
                 </Card>
             </Col>
+
+            {getBtnsSection(props)}
         </>
     );
 
@@ -115,4 +117,19 @@ function getPickupAddressComp(address) {
         </>
     );
 
+}
+
+
+
+function getBtnsSection(props) {
+
+    if (!props.pickup) {
+        return (
+            <Col lg="12">
+                <Button color="primary" onClick={props.onEpBatchPickupFormShow}>set EP-Batch Pickup</Button>
+            </Col>
+        );
+    }
+
+    return null;
 }

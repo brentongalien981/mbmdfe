@@ -57,3 +57,33 @@ export function onRemoveOrderFromDispatch(container, event, orderId) {
 
 
 }
+
+
+
+export function onEpBatchPickupFormShow(container) {
+
+    container.setState({ isEpBatchPickupInfoFormModalShown: true });
+
+}
+
+
+
+export function onEpBatchPickupInfoSave(container) {
+
+    Bs.log('TODO: onEpBatchPickupInfoSave()');
+
+}
+
+
+
+export function onEpBatchPickupInfoFormModalToggle(container) {
+
+    container.setState({ isEpBatchPickupInfoFormModalShown: !container.state.isEpBatchPickupInfoFormModalShown });
+};
+
+
+
+export function onEpBatchPickupInfoFormModalClose(container) {
+
+    container.setState({ isEpBatchPickupInfoFormModalShown: false });
+};

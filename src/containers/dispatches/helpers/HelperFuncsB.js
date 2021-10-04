@@ -1,3 +1,4 @@
+import { getInitialDate } from "../../../bmd/helpers/HelperFuncsA";
 import Bs from "../../../bs/core/Bs";
 
 export function readDispatch(container) {    
@@ -40,4 +41,16 @@ export function isDispatchContainerBusyProcessing(container) {
     }
 
     return false;
+}
+
+
+
+export function getEpBatchPickupInfoFormInitialData() {
+
+    return {
+        referenceString: '',
+        carrierNotes: '',
+        epBatchEarliestPickupDate: getInitialDate(),
+        epBatchLatestPickupDate: getInitialDate()
+    };
 }
