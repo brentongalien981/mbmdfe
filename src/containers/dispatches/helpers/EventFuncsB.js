@@ -1,5 +1,5 @@
 import Bs from "../../../bs/core/Bs";
-import { isDispatchContainerBusyProcessing } from "./HelperFuncsB";
+import { getEpBatchPickupInfoFormInitialData, isDispatchContainerBusyProcessing } from "./HelperFuncsB";
 
 export const onDispatchUpdate = (container) => {
 
@@ -29,18 +29,18 @@ export function onRemoveOrderFromDispatch(container, event, orderId) {
     event.stopPropagation();
 
     if (isDispatchContainerBusyProcessing(container)) { return; }
-    
+
     if (!window.confirm('Are you sure you wanna remove order from dispatch?')) { return; }
 
 
-    container.setState({ 
+    container.setState({
         isRemovingOrderFromDispatch: true,
         orderIdBeingRemovedFromDispatch: orderId
     });
 
 
     const data = {
-        params: { 
+        params: {
             orderId: orderId,
             dispatchId: container.state.dispatch.id
         },
@@ -70,7 +70,43 @@ export function onEpBatchPickupFormShow(container) {
 
 export function onEpBatchPickupInfoSave(container) {
 
-    Bs.log('TODO: onEpBatchPickupInfoSave()');
+    if (!window.confirm('Are you sure about the date and time?')) { return; }
+
+    if (isDispatchContainerBusyProcessing(container)) { return; }
+
+    container.setState({ isSavingEpBatchPickupInfo: true });
+
+
+    const data = {
+        params: {
+            dispatchId: container.state.dispatch.id,
+            referenceString: container.state.epBatchPickupInfoFormData.referenceString,
+            carrierNotes: container.state.epBatchPickupInfoFormData.carrierNotes,
+            epBatchEarliestPickupDatetime: container.state.epBatchPickupInfoFormData.epBatchEarliestPickupDatetime.toUTCString(),
+            epBatchLatestPickupDatetime: container.state.epBatchPickupInfoFormData.epBatchLatestPickupDatetime.toUTCString(),
+        },
+
+        doCallBackFunc: (objs) => {
+
+            if (objs.isResultOk) {
+                container.setState({
+                    isSavingEpBatchPickupInfo: false,
+                    epBatchPickupInfoFormData: getEpBatchPickupInfoFormInitialData(),
+                    isEpBatchPickupInfoFormModalShown: false,
+                    dispatch: objs.dispatch
+                });
+            }
+            else {
+                container.setState({ isSavingEpBatchPickupInfo: false });
+            }
+
+        }
+    };
+
+
+    container.props.saveEpBatchPickupInfo(data);
+
+
 
 }
 
@@ -86,4 +122,36 @@ export function onEpBatchPickupInfoFormModalToggle(container) {
 export function onEpBatchPickupInfoFormModalClose(container) {
 
     container.setState({ isEpBatchPickupInfoFormModalShown: false });
+};
+
+
+
+export function onEpBatchPickupInfoInputChange(container, e) {
+
+    const targetName = e.target.name;
+    const targetVal = e.target.value;
+
+    let updatedEpBatchPickupInfoFormData = container.state.epBatchPickupInfoFormData;
+    updatedEpBatchPickupInfoFormData[targetName] = targetVal;
+
+    container.setState({ epBatchPickupInfoFormData: updatedEpBatchPickupInfoFormData });
+
+};
+
+
+
+export const onPickupDateChange = (container, calendarName, moment) => {
+
+    let updatedEpBatchPickupInfoFormData = container.state.epBatchPickupInfoFormData;
+
+    switch (calendarName) {
+        case 'EpBatchPickupInfoFormCalendar-earliestPickup':
+            updatedEpBatchPickupInfoFormData.epBatchEarliestPickupDatetime = moment._d;
+            break;
+        case 'EpBatchPickupInfoFormCalendar-latestPickup':
+            updatedEpBatchPickupInfoFormData.epBatchLatestPickupDatetime = moment._d;
+            break;
+    }
+
+    container.setState({ epBatchPickupInfoFormData: updatedEpBatchPickupInfoFormData });
 };

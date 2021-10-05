@@ -27,7 +27,7 @@ const BmdCalendar = (props) => {
                         // defaultValue={DateTime.moment()}
                         value={props.date}
                         dateFormat="L"
-                        timeFormat={true}
+                        timeFormat={props.withTime ? true : false}
                         onChange={(moment) => props.onDateChange(props.name, moment)}
                     />
                 </div>

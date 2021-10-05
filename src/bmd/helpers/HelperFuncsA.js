@@ -7,6 +7,13 @@ export const getInitialDate = (numOfDaysToAddOrSubtract = 0) => {
 
 
 
+export const getInitialDatetime = (numOfDaysToAddOrSubtract = 0) => {
+
+    return new Date(Date.now() + (numOfDaysToAddOrSubtract * MILLI_SEC_IN_DAY));
+};
+
+
+
 const tryGetMonthNumWithPaddedZero = (monthNum) => {
     if (monthNum <= 9) {
         return '0' + monthNum;

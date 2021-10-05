@@ -1,4 +1,4 @@
-import { getInitialDate } from "../../../bmd/helpers/HelperFuncsA";
+import { getInitialDatetime } from "../../../bmd/helpers/HelperFuncsA";
 import Bs from "../../../bs/core/Bs";
 
 export function readDispatch(container) {    
@@ -35,6 +35,7 @@ export function isDispatchContainerBusyProcessing(container) {
     if (
         container.state.isReadingDispatch
         || container.state.isRemovingOrderFromDispatch
+        || container.state.isSavingEpBatchPickupInfo        
     ) {
         alert('Please wait for previous process to finish.');
         return true;
@@ -50,7 +51,7 @@ export function getEpBatchPickupInfoFormInitialData() {
     return {
         referenceString: '',
         carrierNotes: '',
-        epBatchEarliestPickupDate: getInitialDate(),
-        epBatchLatestPickupDate: getInitialDate()
+        epBatchEarliestPickupDatetime: getInitialDatetime(),
+        epBatchLatestPickupDatetime: getInitialDatetime()
     };
 }

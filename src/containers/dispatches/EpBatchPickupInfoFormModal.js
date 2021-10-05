@@ -20,10 +20,10 @@ export const EpBatchPickupInfoFormModal = (props) => {
 
                 <Row>
                     <Col>
-                        <BmdCalendar title='Earliest Pickup Date' name={'EpBatchPickupInfoFormCalendar-earliestPickup'} date={props.pickup.epBatchEarliestPickupDate} onDateChange={props.onPickupDateChange} />
+                        <BmdCalendar title='Earliest Pickup Date' name={'EpBatchPickupInfoFormCalendar-earliestPickup'} withTime={true} date={props.pickup.epBatchEarliestPickupDatetime} onDateChange={props.onDateChange} />
                     </Col>
                     <Col>
-                        <BmdCalendar title='Latest Pickup Date' name={'EpBatchPickupInfoFormCalendar-latestPickup'} date={props.pickup.epBatchLatestPickupDate} onDateChange={props.onPickupDateChange} />
+                        <BmdCalendar title='Latest Pickup Date' name={'EpBatchPickupInfoFormCalendar-latestPickup'} withTime={true} date={props.pickup.epBatchLatestPickupDatetime} onDateChange={props.onDateChange} />
                     </Col>
                 </Row>
 
@@ -33,14 +33,14 @@ export const EpBatchPickupInfoFormModal = (props) => {
                         <FormGroup row>
                             <Label sm={3} className="text-sm-right">Pickup Reference String</Label>
                             <Col sm={7}>
-                                <Input type="text" name="referenceString" value={props.pickup.referenceString} onChange={() => true} />
+                                <Input type="text" name="referenceString" value={props.pickup.referenceString} onChange={(e) => props.onInputChange(e)} />
                             </Col>
                         </FormGroup>
 
                         <FormGroup row>
                             <Label sm={3} className="text-sm-right">Notes to Carrier</Label>
                             <Col sm={7}>
-                                <Input type="text" name="carrierNotes" value={props.pickup.carrierNotes} onChange={() => true} />
+                                <Input type="text" name="carrierNotes" value={props.pickup.carrierNotes} onChange={(e) => props.onInputChange(e)} />
                             </Col>
                         </FormGroup>                                                
 

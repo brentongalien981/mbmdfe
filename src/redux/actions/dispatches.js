@@ -9,6 +9,7 @@ export const ON_READ_DISPATCH_STATUSES_RETURN = "ON_READ_DISPATCH_STATUSES_RETUR
 export const ON_READ_DISPATCHES_RETURN = "ON_READ_DISPATCHES_RETURN";
 export const ON_READ_DISPATCH_RETURN = "ON_READ_DISPATCH_RETURN";
 export const ON_REMOVE_ORDER_FROM_DISPATCH_RETURN = "ON_REMOVE_ORDER_FROM_DISPATCH_RETURN";
+export const ON_SAVE_EP_BATCH_PICKUP_INFO_RETURN = "ON_SAVE_EP_BATCH_PICKUP_INFO_RETURN";
 
 
 
@@ -19,6 +20,7 @@ export const onReadDispatchStatusesReturn = (callBackData) => ({ type: ON_READ_D
 export const onReadDispatchesReturn = (callBackData) => ({ type: ON_READ_DISPATCHES_RETURN, callBackData: callBackData });
 export const onReadDispatchReturn = (callBackData) => ({ type: ON_READ_DISPATCH_RETURN, callBackData: callBackData });
 export const onRemoveOrderFromDispatchReturn = (callBackData) => ({ type: ON_REMOVE_ORDER_FROM_DISPATCH_RETURN, callBackData: callBackData });
+export const onSaveEpBatchPickupInfoReturn = (callBackData) => ({ type: ON_SAVE_EP_BATCH_PICKUP_INFO_RETURN, callBackData: callBackData });
 
 
 
@@ -160,6 +162,39 @@ export const removeOrderFromDispatch = (data) => {
             errorCallBackFunc: (errors, errorStatusCode) => {
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onRemoveOrderFromDispatchReturn(callBackData));
+            }
+        });
+    };
+
+};
+
+
+
+export const saveEpBatchPickupInfo = (data) => {
+
+    const bmdAuth = BmdAuth.getInstance();
+
+    return (dispatch) => {
+
+        BsCore2.ajaxCrud({
+            url: '/dispatches/saveEpBatchPickupInfo',
+            method: 'post',
+            params: {
+                bmdToken: bmdAuth?.bmdToken,
+                authProviderId: bmdAuth?.authProviderId,
+                ...data.params
+            },
+            callBackFunc: (requestData, json) => {
+                if (json.isResultOk) {
+                    showToastr({ notificationType: 'success', message: 'EP-Batch Pickup Info saved! Now set the pickup rate to finish.' });
+                }
+
+                const callBackData = { ...data, ...json };
+                dispatch(onSaveEpBatchPickupInfoReturn(callBackData));
+            },
+            errorCallBackFunc: (errors, errorStatusCode) => {
+                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
+                dispatch(onSaveEpBatchPickupInfoReturn(callBackData));
             }
         });
     };

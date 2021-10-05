@@ -77,6 +77,7 @@ function prepareEpBatchPickupInfo(epBatchPickup) {
         { label: 'API Mode', val: epBatchPickup.mode, type: 'label' },
         { label: 'Pickup Status', val: epBatchPickup.status, type: 'label' },
         { label: 'Reference', val: epBatchPickup.reference ?? '-', type: 'label' },
+        { label: 'Confirmation', val: epBatchPickup.confirmation ?? '-', type: 'label' },
         { label: 'Earliest Pickup', val: getReadableDateTime(epBatchPickup.min_datetime), type: 'label' },
         { label: 'Latest Pickup', val: getReadableDateTime(epBatchPickup.max_datetime), type: 'label' },
         { label: 'Instructions', val: epBatchPickup.instructions ?? '-', type: 'label' },

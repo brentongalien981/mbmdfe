@@ -65,8 +65,9 @@ class Dispatch extends React.Component {
                     onToggle={() => eventFuncs.onEpBatchPickupInfoFormModalToggle(this)}
                     onClose={() => eventFuncs.onEpBatchPickupInfoFormModalClose(this)}                    
                     onEpBatchPickupInfoSave={() => eventFuncs.onEpBatchPickupInfoSave(this)}
-                    pickup={this.state.epBatchPickupInfoFormData}  
-                    onPickupDateChange={() => true}                
+                    pickup={this.state.epBatchPickupInfoFormData}
+                    onInputChange={(e) => eventFuncs.onEpBatchPickupInfoInputChange(this, e)}
+                    onDateChange={(calendarName, moment) => { eventFuncs.onPickupDateChange(this, calendarName, moment) }}
                 />
 
 
@@ -112,7 +113,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         readDispatch: (data) => dispatch(actions.readDispatch(data)),
-        removeOrderFromDispatch: (data) => dispatch(actions.removeOrderFromDispatch(data))
+        removeOrderFromDispatch: (data) => dispatch(actions.removeOrderFromDispatch(data)),
+        saveEpBatchPickupInfo: (data) => dispatch(actions.saveEpBatchPickupInfo(data))        
     };
 };
 
