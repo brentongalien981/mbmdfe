@@ -132,5 +132,14 @@ function getBtnsSection(props) {
         );
     }
 
+
+    if ((props.pickup.status !== 'scheduled') && (!props.pickup.confirmation)) {
+        return (
+            <Col lg="12">
+                <Button color="primary" onClick={props.onChoosePickupRate}>choose pickup rate</Button>
+            </Col>
+        );
+    }
+
     return null;
 }

@@ -10,6 +10,7 @@ export const ON_READ_DISPATCHES_RETURN = "ON_READ_DISPATCHES_RETURN";
 export const ON_READ_DISPATCH_RETURN = "ON_READ_DISPATCH_RETURN";
 export const ON_REMOVE_ORDER_FROM_DISPATCH_RETURN = "ON_REMOVE_ORDER_FROM_DISPATCH_RETURN";
 export const ON_SAVE_EP_BATCH_PICKUP_INFO_RETURN = "ON_SAVE_EP_BATCH_PICKUP_INFO_RETURN";
+export const ON_BUY_PICKUP_RATE_RETURN = "ON_BUY_PICKUP_RATE_RETURN";
 
 
 
@@ -21,6 +22,7 @@ export const onReadDispatchesReturn = (callBackData) => ({ type: ON_READ_DISPATC
 export const onReadDispatchReturn = (callBackData) => ({ type: ON_READ_DISPATCH_RETURN, callBackData: callBackData });
 export const onRemoveOrderFromDispatchReturn = (callBackData) => ({ type: ON_REMOVE_ORDER_FROM_DISPATCH_RETURN, callBackData: callBackData });
 export const onSaveEpBatchPickupInfoReturn = (callBackData) => ({ type: ON_SAVE_EP_BATCH_PICKUP_INFO_RETURN, callBackData: callBackData });
+export const onBuyPickupRateReturn = (callBackData) => ({ type: ON_BUY_PICKUP_RATE_RETURN, callBackData: callBackData });
 
 
 
@@ -195,6 +197,40 @@ export const saveEpBatchPickupInfo = (data) => {
             errorCallBackFunc: (errors, errorStatusCode) => {
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onSaveEpBatchPickupInfoReturn(callBackData));
+            }
+        });
+    };
+
+};
+
+
+
+export const buyPickupRate = (data) => {
+
+    const bmdAuth = BmdAuth.getInstance();
+
+    return (dispatch) => {
+
+        BsCore2.ajaxCrud({
+            url: '/dispatches/buyPickupRate',
+            method: 'post',
+            params: {
+                bmdToken: bmdAuth?.bmdToken,
+                authProviderId: bmdAuth?.authProviderId,
+                ...data.params
+            },
+            callBackFunc: (requestData, json) => {
+
+                if (json.isResultOk) {
+                    showToastr({ notificationType: 'success', message: 'Pickup Rate Bought!' });
+                }
+
+                const callBackData = { ...data, ...json };
+                dispatch(onBuyPickupRateReturn(callBackData));
+            },
+            errorCallBackFunc: (errors, errorStatusCode) => {
+                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
+                dispatch(onBuyPickupRateReturn(callBackData));
             }
         });
     };

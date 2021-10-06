@@ -155,3 +155,60 @@ export const onPickupDateChange = (container, calendarName, moment) => {
 
     container.setState({ epBatchPickupInfoFormData: updatedEpBatchPickupInfoFormData });
 };
+
+
+
+export function onChoosePickupRate(container) {
+
+    container.setState({ isEpPickupRateOptionsModalShown: true });
+
+};
+
+
+
+export function onPickupRateOptionChange(container, e) {
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    container.setState({ selectedPickupRateId: value });
+}
+
+
+
+export function onBuyPickupRate(container) {
+
+    if (container.state.selectedPickupRateId === '') { alert('Please select a Pickup Rate.'); return; }
+    if (!window.confirm('Are you sure?')) { return; }
+    if (isDispatchContainerBusyProcessing(container)) { return; }
+
+    container.setState({ isBuyingPickupRate: true });
+
+
+    const data = {
+        params: {
+            dispatchId: container.state.dispatch.id,
+            epPickupId: container.props.epBatch?.pickup?.id,
+            epPickupRateId: container.state.selectedPickupRateId
+        },
+
+        doCallBackFunc: (objs) => {
+
+            if (objs.isResultOk) {
+                container.setState({
+                    isBuyingPickupRate: false,
+                    isEpPickupRateOptionsModalShown: false,
+                    dispatch: objs.dispatch
+                });
+            }
+            else {
+                container.setState({ isBuyingPickupRate: false });
+            }
+
+        }
+    };
+
+
+    container.props.buyPickupRate(data);
+
+}

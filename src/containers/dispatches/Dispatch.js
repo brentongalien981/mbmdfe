@@ -13,6 +13,7 @@ import { EpBatchShipmentsTable } from './EpBatchShipmentsTable';
 import { EpBatchPickupInfo } from './EpBatchPickupInfo';
 import { EpBatchPickupInfoFormModal } from './EpBatchPickupInfoFormModal';
 import { getInitialDate } from '../../bmd/helpers/HelperFuncsA';
+import { EpPickupRateOptionsModal } from './EpPickupRateOptionsModal';
 
 
 
@@ -24,6 +25,9 @@ class Dispatch extends React.Component {
         isRemovingOrderFromDispatch: false,
         isSavingEpBatchPickupInfo: false,
         isEpBatchPickupInfoFormModalShown: false,
+        isBuyingPickupRate: false,
+        isEpPickupRateOptionsModalShown: false,  
+        selectedPickupRateId: '',
         dispatch: {},
         orderIdBeingRemovedFromDispatch: 0,
         epBatchPickupInfoFormData: helperFuncs.getEpBatchPickupInfoFormInitialData(),
@@ -56,6 +60,7 @@ class Dispatch extends React.Component {
                     pickup={this.props.epBatch?.pickup}
                     isReadingDispatch={this.state.isReadingDispatch}
                     onEpBatchPickupFormShow={() => eventFuncs.onEpBatchPickupFormShow(this)}
+                    onChoosePickupRate={() => eventFuncs.onChoosePickupRate(this)}
                 />
 
 
@@ -63,11 +68,23 @@ class Dispatch extends React.Component {
                     isSavingEpBatchPickupInfo={this.state.isSavingEpBatchPickupInfo}
                     isEpBatchPickupInfoFormModalShown={this.state.isEpBatchPickupInfoFormModalShown}
                     onToggle={() => eventFuncs.onEpBatchPickupInfoFormModalToggle(this)}
-                    onClose={() => eventFuncs.onEpBatchPickupInfoFormModalClose(this)}                    
+                    onClose={() => eventFuncs.onEpBatchPickupInfoFormModalClose(this)}
                     onEpBatchPickupInfoSave={() => eventFuncs.onEpBatchPickupInfoSave(this)}
                     pickup={this.state.epBatchPickupInfoFormData}
                     onInputChange={(e) => eventFuncs.onEpBatchPickupInfoInputChange(this, e)}
                     onDateChange={(calendarName, moment) => { eventFuncs.onPickupDateChange(this, calendarName, moment) }}
+                />
+
+
+                <EpPickupRateOptionsModal
+                    pickupRates={this.props.epBatch?.pickup?.pickup_rates}                    
+                    selectedPickupRateId={this.state.selectedPickupRateId}
+                    isBuyingPickupRate={this.state.isBuyingPickupRate}
+                    isEpPickupRateOptionsModalShown={this.state.isEpPickupRateOptionsModalShown}
+                    onToggle={() => this.setState({ isEpPickupRateOptionsModalShown: !this.state.isEpPickupRateOptionsModalShown })}
+                    onClose={() => this.setState({ isEpPickupRateOptionsModalShown: false })}      
+                    onPickupRateOptionChange={(e) => eventFuncs.onPickupRateOptionChange(this, e)}
+                    onBuyPickupRate={() => eventFuncs.onBuyPickupRate(this)}
                 />
 
 
@@ -114,7 +131,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         readDispatch: (data) => dispatch(actions.readDispatch(data)),
         removeOrderFromDispatch: (data) => dispatch(actions.removeOrderFromDispatch(data)),
-        saveEpBatchPickupInfo: (data) => dispatch(actions.saveEpBatchPickupInfo(data))        
+        saveEpBatchPickupInfo: (data) => dispatch(actions.saveEpBatchPickupInfo(data)),
+        buyPickupRate: (data) => dispatch(actions.buyPickupRate(data))        
     };
 };
 
