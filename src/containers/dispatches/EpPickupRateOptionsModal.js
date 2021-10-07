@@ -17,7 +17,7 @@ export const EpPickupRateOptionsModal = (props) => {
             <ModalBody>
 
                 <Row>
-                    <Form className="m-3 w-100">
+                    <Form className="m-4 p-2 w-100">
                         {getFormSections(props)}
                     </Form>
                 </Row>
