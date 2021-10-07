@@ -41,7 +41,8 @@ const dispatches = (state = initialState, action) => {
         case actions.ON_READ_DISPATCH_RETURN: return onReadDispatchReturn(state, action);
         case actions.ON_REMOVE_ORDER_FROM_DISPATCH_RETURN: return onRemoveOrderFromDispatchReturn(state, action);
         case actions.ON_SAVE_EP_BATCH_PICKUP_INFO_RETURN: return onSaveEpBatchPickupInfoReturn(state, action);
-        case actions.ON_BUY_PICKUP_RATE_RETURN: return onBuyPickupRateReturn(state, action);        
+        case actions.ON_BUY_PICKUP_RATE_RETURN: return onBuyPickupRateReturn(state, action);
+        case actions.ON_CANCEL_PICKUP_RETURN: return onCancelPickupReturn(state, action);        
         default: return state;
     }
 }
@@ -247,6 +248,36 @@ const onSaveEpBatchPickupInfoReturn = (state, action) => {
 
 
 const onBuyPickupRateReturn = (state, action) => {
+
+    let dispatch = state.dispatch;
+    let epBatch = state.epBatch;
+
+    if (action.callBackData.isResultOk) {
+
+        dispatch = action.callBackData.objs.dispatch;
+        epBatch = action.callBackData.objs.epBatch;
+    }
+    else {
+        BsCore2.tryAlertForBmdResultCodeErrors2(action.callBackData);
+    }
+
+
+    action.callBackData.doCallBackFunc({
+        isResultOk: action.callBackData.isResultOk,
+        dispatch: dispatch
+    });
+
+
+    return {
+        ...state,
+        dispatch: dispatch,
+        epBatch: epBatch
+    };
+};
+
+
+
+const onCancelPickupReturn = (state, action) => {
 
     let dispatch = state.dispatch;
     let epBatch = state.epBatch;

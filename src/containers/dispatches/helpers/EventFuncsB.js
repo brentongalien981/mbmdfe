@@ -212,3 +212,39 @@ export function onBuyPickupRate(container) {
     container.props.buyPickupRate(data);
 
 }
+
+
+
+export function onCancelPickup(container) {
+
+    if (!window.confirm('Are you sure?')) { return; }
+    if (isDispatchContainerBusyProcessing(container)) { return; }
+
+    container.setState({ isCancellingPickup: true });
+
+
+    const data = {
+        params: {
+            dispatchId: container.state.dispatch.id,
+            epPickupId: container.props.epBatch?.pickup?.id
+        },
+
+        doCallBackFunc: (objs) => {
+
+            if (objs.isResultOk) {
+                container.setState({
+                    isCancellingPickup: false,
+                    dispatch: objs.dispatch
+                });
+            }
+            else {
+                container.setState({ isCancellingPickup: false });
+            }
+
+        }
+    };
+
+
+    container.props.cancelPickup(data);
+
+}

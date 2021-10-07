@@ -133,13 +133,33 @@ function getBtnsSection(props) {
     }
 
 
-    if ((props.pickup.status !== 'scheduled') && (!props.pickup.confirmation)) {
+    if (props.pickup) {                
+
+        let cancelPickupBtn = null;
+
+        if (props.pickup.status === 'scheduled') {
+
+            const cancelPickupBtnContent = (props.isCancellingPickup ? <Spinner size="sm" /> : 'cancel pickup');
+            cancelPickupBtn = (<Button color="warning" onClick={props.onCancelPickup}>{cancelPickupBtnContent}</Button>);
+        }
+
+
+        let choosePickupRateBtn = null;
+
+        if ((props.pickup.status === 'unknown') && (!props.pickup.confirmation)) {
+            choosePickupRateBtn = (<Button color="primary" className="mr-2" onClick={props.onChoosePickupRate}>choose pickup rate</Button>);
+        }
+
+
         return (
             <Col lg="12">
-                <Button color="primary" onClick={props.onChoosePickupRate}>choose pickup rate</Button>
+                {choosePickupRateBtn}
+                {cancelPickupBtn}
             </Col>
         );
     }
+
+
 
     return null;
 }

@@ -26,6 +26,7 @@ class Dispatch extends React.Component {
         isSavingEpBatchPickupInfo: false,
         isEpBatchPickupInfoFormModalShown: false,
         isBuyingPickupRate: false,
+        isCancellingPickup: false,
         isEpPickupRateOptionsModalShown: false,  
         selectedPickupRateId: '',
         dispatch: {},
@@ -58,9 +59,11 @@ class Dispatch extends React.Component {
 
                 <EpBatchPickupInfo
                     pickup={this.props.epBatch?.pickup}
+                    isCancellingPickup={this.state.isCancellingPickup}
                     isReadingDispatch={this.state.isReadingDispatch}
                     onEpBatchPickupFormShow={() => eventFuncs.onEpBatchPickupFormShow(this)}
                     onChoosePickupRate={() => eventFuncs.onChoosePickupRate(this)}
+                    onCancelPickup={() => eventFuncs.onCancelPickup(this)}
                 />
 
 
@@ -132,7 +135,8 @@ const mapDispatchToProps = (dispatch) => {
         readDispatch: (data) => dispatch(actions.readDispatch(data)),
         removeOrderFromDispatch: (data) => dispatch(actions.removeOrderFromDispatch(data)),
         saveEpBatchPickupInfo: (data) => dispatch(actions.saveEpBatchPickupInfo(data)),
-        buyPickupRate: (data) => dispatch(actions.buyPickupRate(data))        
+        buyPickupRate: (data) => dispatch(actions.buyPickupRate(data)),
+        cancelPickup: (data) => dispatch(actions.cancelPickup(data))        
     };
 };
 
