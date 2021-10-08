@@ -12,6 +12,7 @@ export const ON_REMOVE_ORDER_FROM_DISPATCH_RETURN = "ON_REMOVE_ORDER_FROM_DISPAT
 export const ON_SAVE_EP_BATCH_PICKUP_INFO_RETURN = "ON_SAVE_EP_BATCH_PICKUP_INFO_RETURN";
 export const ON_BUY_PICKUP_RATE_RETURN = "ON_BUY_PICKUP_RATE_RETURN";
 export const ON_CANCEL_PICKUP_RETURN = "ON_CANCEL_PICKUP_RETURN";
+export const ON_UPDATE_DISPATCH_RETURN = "ON_UPDATE_DISPATCH_RETURN";
 
 
 
@@ -25,6 +26,7 @@ export const onRemoveOrderFromDispatchReturn = (callBackData) => ({ type: ON_REM
 export const onSaveEpBatchPickupInfoReturn = (callBackData) => ({ type: ON_SAVE_EP_BATCH_PICKUP_INFO_RETURN, callBackData: callBackData });
 export const onBuyPickupRateReturn = (callBackData) => ({ type: ON_BUY_PICKUP_RATE_RETURN, callBackData: callBackData });
 export const onCancelPickupReturn = (callBackData) => ({ type: ON_CANCEL_PICKUP_RETURN, callBackData: callBackData });
+export const onUpdateDispatchReturn = (callBackData) => ({ type: ON_UPDATE_DISPATCH_RETURN, callBackData: callBackData });
 
 
 
@@ -267,6 +269,40 @@ export const cancelPickup = (data) => {
             errorCallBackFunc: (errors, errorStatusCode) => {
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onCancelPickupReturn(callBackData));
+            }
+        });
+    };
+
+};
+
+
+
+export const updateDispatch = (data) => {
+
+    const bmdAuth = BmdAuth.getInstance();
+
+    return (dispatch) => {
+
+        BsCore2.ajaxCrud({
+            url: '/dispatches/update',
+            method: 'post',
+            params: {
+                bmdToken: bmdAuth?.bmdToken,
+                authProviderId: bmdAuth?.authProviderId,
+                ...data.params
+            },
+            callBackFunc: (requestData, json) => {
+
+                if (json.isResultOk) {
+                    showToastr({ notificationType: 'success', message: 'Dispatch Updated.' });
+                }
+
+                const callBackData = { ...data, ...json };
+                dispatch(onUpdateDispatchReturn(callBackData));
+            },
+            errorCallBackFunc: (errors, errorStatusCode) => {
+                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
+                dispatch(onUpdateDispatchReturn(callBackData));
             }
         });
     };

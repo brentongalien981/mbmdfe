@@ -1,24 +1,43 @@
 import Bs from "../../../bs/core/Bs";
 import { getEpBatchPickupInfoFormInitialData, isDispatchContainerBusyProcessing } from "./HelperFuncsB";
 
+
+
+export function onDispatchInputChange(container, e) {
+
+    const targetName = e.target.name;
+    const targetVal = e.target.value;
+
+    let updatedDispatch = container.state.dispatch;
+    updatedDispatch[targetName] = targetVal;
+
+    container.setState({ dispatch: updatedDispatch });
+
+};
+
+
+
 export const onDispatchUpdate = (container) => {
 
-    Bs.log('TODO: onDispatchUpdate()');
-    // if (container.state.isSavingDispatch) { return; }
+    if (isDispatchContainerBusyProcessing(container)) { return; }
 
-    // container.setState({ isSavingDispatch: true });
+    container.setState({ isUpdatingDispatch: true });
 
-    // const data = {
-    //     params: { ...removeReactComponentsFromDispatch(container.state.dispatch) },
-    //     doCallBackFunc: (objs) => {
-    //         container.setState({ 
-    //             isSavingDispatch: false,
-    //             savedDispatchId: objs.savedDispatchId
-    //         });
-    //     }
-    // };
 
-    // container.props.saveDispatch(data);
+    const data = {
+        params: {
+            dispatchId: container.state.dispatch.id,
+            dispatchStatusCode: container.state.dispatch.statusCode
+        },
+        doCallBackFunc: (objs) => {
+            container.setState({ 
+                isUpdatingDispatch: false,
+                dispatch: (objs.isResultOk ? objs.dispatch : container.state.dispatch)
+            });
+        }
+    };
+
+    container.props.updateDispatch(data);
 
 };
 

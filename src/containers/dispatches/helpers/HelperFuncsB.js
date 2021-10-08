@@ -38,6 +38,7 @@ export function isDispatchContainerBusyProcessing(container) {
         || container.state.isSavingEpBatchPickupInfo
         || container.state.isBuyingPickupRate
         || container.state.isCancellingPickup
+        || container.state.isUpdatingDispatch        
     ) {
         alert('Please wait for previous process to finish.');
         return true;

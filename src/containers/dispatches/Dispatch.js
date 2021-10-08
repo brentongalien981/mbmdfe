@@ -53,6 +53,7 @@ class Dispatch extends React.Component {
                     dispatchStatuses={this.props.dispatchStatuses}
                     isUpdatingDispatch={this.state.isUpdatingDispatch}
                     isReadingDispatch={this.state.isReadingDispatch}
+                    onDispatchInputChange={(e) => eventFuncs.onDispatchInputChange(this, e)}
                     onDispatchUpdate={() => eventFuncs.onDispatchUpdate(this)}
                 />
 
@@ -136,7 +137,8 @@ const mapDispatchToProps = (dispatch) => {
         removeOrderFromDispatch: (data) => dispatch(actions.removeOrderFromDispatch(data)),
         saveEpBatchPickupInfo: (data) => dispatch(actions.saveEpBatchPickupInfo(data)),
         buyPickupRate: (data) => dispatch(actions.buyPickupRate(data)),
-        cancelPickup: (data) => dispatch(actions.cancelPickup(data))        
+        cancelPickup: (data) => dispatch(actions.cancelPickup(data)),
+        updateDispatch: (data) => dispatch(actions.updateDispatch(data))        
     };
 };
 
