@@ -312,10 +312,14 @@ const onCancelPickupReturn = (state, action) => {
 const onUpdateDispatchReturn = (state, action) => {
 
     let dispatch = state.dispatch;
+    let dispatchOrders = state.dispatchOrders;
+    
 
     if (action.callBackData.isResultOk) {
 
         dispatch = action.callBackData.objs.dispatch;
+        dispatchOrders = action.callBackData.objs.dispatchOrders ?? dispatchOrders;
+        
     }
     else {
         BsCore2.tryAlertForBmdResultCodeErrors2(action.callBackData);
@@ -330,7 +334,8 @@ const onUpdateDispatchReturn = (state, action) => {
 
     return {
         ...state,
-        dispatch: dispatch
+        dispatch: dispatch,
+        dispatchOrders: dispatchOrders
     };
 };
 
