@@ -13,6 +13,7 @@ export const ON_SAVE_EP_BATCH_PICKUP_INFO_RETURN = "ON_SAVE_EP_BATCH_PICKUP_INFO
 export const ON_BUY_PICKUP_RATE_RETURN = "ON_BUY_PICKUP_RATE_RETURN";
 export const ON_CANCEL_PICKUP_RETURN = "ON_CANCEL_PICKUP_RETURN";
 export const ON_UPDATE_DISPATCH_RETURN = "ON_UPDATE_DISPATCH_RETURN";
+export const ON_GENERATE_BATCH_LABELS_RETURN = "ON_GENERATE_BATCH_LABELS_RETURN";
 
 
 
@@ -27,6 +28,7 @@ export const onSaveEpBatchPickupInfoReturn = (callBackData) => ({ type: ON_SAVE_
 export const onBuyPickupRateReturn = (callBackData) => ({ type: ON_BUY_PICKUP_RATE_RETURN, callBackData: callBackData });
 export const onCancelPickupReturn = (callBackData) => ({ type: ON_CANCEL_PICKUP_RETURN, callBackData: callBackData });
 export const onUpdateDispatchReturn = (callBackData) => ({ type: ON_UPDATE_DISPATCH_RETURN, callBackData: callBackData });
+export const onGenerateBatchLabelsReturn = (callBackData) => ({ type: ON_GENERATE_BATCH_LABELS_RETURN, callBackData: callBackData });
 
 
 
@@ -303,6 +305,40 @@ export const updateDispatch = (data) => {
             errorCallBackFunc: (errors, errorStatusCode) => {
                 const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onUpdateDispatchReturn(callBackData));
+            }
+        });
+    };
+
+};
+
+
+
+export const generateBatchLabels = (data) => {
+
+    const bmdAuth = BmdAuth.getInstance();
+
+    return (dispatch) => {
+
+        BsCore2.ajaxCrud({
+            url: '/dispatches/generateBatchLabels',
+            method: 'post',
+            params: {
+                bmdToken: bmdAuth?.bmdToken,
+                authProviderId: bmdAuth?.authProviderId,
+                ...data.params
+            },
+            callBackFunc: (requestData, json) => {
+
+                if (json.isResultOk) {
+                    showToastr({ notificationType: 'success', message: 'Batch Labels Generated.' });
+                }
+
+                const callBackData = { ...data, ...json };
+                dispatch(onGenerateBatchLabelsReturn(callBackData));
+            },
+            errorCallBackFunc: (errors, errorStatusCode) => {
+                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
+                dispatch(onGenerateBatchLabelsReturn(callBackData));
             }
         });
     };

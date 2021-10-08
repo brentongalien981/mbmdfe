@@ -267,3 +267,39 @@ export function onCancelPickup(container) {
     container.props.cancelPickup(data);
 
 }
+
+
+
+export function onGenerateBatchLabels(container) {
+
+    if (!window.confirm('Are all shipments batched?')) { return; }
+    if (isDispatchContainerBusyProcessing(container)) { return; }
+
+    container.setState({ isGeneratingBatchLabels: true });
+
+
+    const data = {
+        params: {
+            dispatchId: container.state.dispatch.id,
+            epBatchId: container.props.epBatch?.id
+        },
+
+        doCallBackFunc: (objs) => {
+
+            if (objs.isResultOk) {
+                container.setState({
+                    isGeneratingBatchLabels: false,
+                    dispatch: objs.dispatch
+                });
+            }
+            else {
+                container.setState({ isGeneratingBatchLabels: false });
+            }
+
+        }
+    };
+
+
+    container.props.generateBatchLabels(data);
+
+}

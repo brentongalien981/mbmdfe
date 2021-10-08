@@ -43,7 +43,8 @@ const dispatches = (state = initialState, action) => {
         case actions.ON_SAVE_EP_BATCH_PICKUP_INFO_RETURN: return onSaveEpBatchPickupInfoReturn(state, action);
         case actions.ON_BUY_PICKUP_RATE_RETURN: return onBuyPickupRateReturn(state, action);
         case actions.ON_CANCEL_PICKUP_RETURN: return onCancelPickupReturn(state, action);
-        case actions.ON_UPDATE_DISPATCH_RETURN: return onUpdateDispatchReturn(state, action);        
+        case actions.ON_UPDATE_DISPATCH_RETURN: return onUpdateDispatchReturn(state, action);
+        case actions.ON_GENERATE_BATCH_LABELS_RETURN: return onGenerateBatchLabelsReturn(state, action);        
         default: return state;
     }
 }
@@ -330,6 +331,36 @@ const onUpdateDispatchReturn = (state, action) => {
     return {
         ...state,
         dispatch: dispatch
+    };
+};
+
+
+
+const onGenerateBatchLabelsReturn = (state, action) => {
+
+    let dispatch = state.dispatch;
+    let epBatch = state.epBatch;
+
+    if (action.callBackData.isResultOk) {
+
+        dispatch = action.callBackData.objs.dispatch;
+        epBatch = action.callBackData.objs.epBatch;
+    }
+    else {
+        BsCore2.tryAlertForBmdResultCodeErrors2(action.callBackData);
+    }
+
+
+    action.callBackData.doCallBackFunc({
+        isResultOk: action.callBackData.isResultOk,
+        dispatch: dispatch
+    });
+
+
+    return {
+        ...state,
+        dispatch: dispatch,
+        epBatch: epBatch
     };
 };
 

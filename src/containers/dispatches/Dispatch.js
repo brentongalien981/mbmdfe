@@ -28,6 +28,7 @@ class Dispatch extends React.Component {
         isBuyingPickupRate: false,
         isCancellingPickup: false,
         isEpPickupRateOptionsModalShown: false,  
+        isGeneratingBatchLabels: false,
         selectedPickupRateId: '',
         dispatch: {},
         orderIdBeingRemovedFromDispatch: 0,
@@ -95,6 +96,8 @@ class Dispatch extends React.Component {
                 <EpBatchInfo
                     isReadingDispatch={this.state.isReadingDispatch}
                     epBatch={this.props.epBatch}
+                    onGenerateBatchLabels={() => eventFuncs.onGenerateBatchLabels(this)}
+                    isGeneratingBatchLabels={this.state.isGeneratingBatchLabels}
                 />
 
 
@@ -138,7 +141,8 @@ const mapDispatchToProps = (dispatch) => {
         saveEpBatchPickupInfo: (data) => dispatch(actions.saveEpBatchPickupInfo(data)),
         buyPickupRate: (data) => dispatch(actions.buyPickupRate(data)),
         cancelPickup: (data) => dispatch(actions.cancelPickup(data)),
-        updateDispatch: (data) => dispatch(actions.updateDispatch(data))        
+        updateDispatch: (data) => dispatch(actions.updateDispatch(data)),
+        generateBatchLabels: (data) => dispatch(actions.generateBatchLabels(data))        
     };
 };
 

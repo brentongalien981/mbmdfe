@@ -1,7 +1,7 @@
 import React from 'react';
 import { ExternalLink } from 'react-feather';
 import { Link } from 'react-router-dom';
-import { Card, CardBody, Col, Form, Spinner, Row, FormGroup, Label } from 'reactstrap';
+import { Card, CardBody, Col, Form, Spinner, Row, FormGroup, Label, Button } from 'reactstrap';
 import { getReadableDateTime } from '../../bmd/helpers/HelperFuncsA';
 
 
@@ -17,6 +17,8 @@ export const EpBatchInfo = (props) => {
                     </CardBody>
                 </Card>
             </Col>
+
+            {getBtnsSection(props)}
         </>
     );
 
@@ -40,9 +42,31 @@ export const EpBatchInfo = (props) => {
 
 
 
+function getBtnsSection(props) {
+
+    if (props.epBatch?.pickup?.status === 'scheduled'
+        && props.epBatch?.state !== 'label_generating'
+        && props.epBatch?.state !== 'label_generated'
+    ) {
+
+        const btnContent = (props.isGeneratingBatchLabels ? <Spinner size="sm" /> : 'generate all shipment labels');
+
+        return (
+            <Col lg="12">
+                <Button color="primary" onClick={props.onGenerateBatchLabels}>{btnContent}</Button>
+            </Col>
+        );
+    }
+
+    return null;
+
+}
+
+
+
 const getFormSections = (props) => {
 
-    if (!props.epBatch) { 
+    if (!props.epBatch) {
         return <Label>n/a</Label>
     }
 
