@@ -1,4 +1,5 @@
 import BmdAuth from "../../bs/core/BmdAuth";
+import BsCore2 from "../../bs/core/BsCore2";
 import BsJLS from "../../bs/core/BsJLS";
 import BsJLSOLM from "../../bs/core/BsJLSOLM";
 import { LOGIN_RESULT_CODE_INVALID_BMD_AUTH_PROVIDER, LOGIN_RESULT_CODE_INVALID_PASSWORD } from "../../containers/auth/constants/consts";
@@ -111,6 +112,8 @@ const onSignInReturn = (state, action) => {
         userEmail = currentAuthUserData.email;
 
         shouldDoOnLoginProcessFinalization = true;
+    } else {
+        BsCore2.alertForCallBackDataErrors(action.callBackData);
     }
 
     action.callBackData.doCallBackFunc();
