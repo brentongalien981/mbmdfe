@@ -172,8 +172,9 @@ const NavbarComponent = (props) => {
               </DropdownItem>
 
               <DropdownItem>
-                <User size={18} className="align-middle mr-2" />
-                Profile
+                <Link to="/users/create">
+                  <UserPlus size={18} className="align-middle mr-2" />Create User
+                </Link>
               </DropdownItem>
 
 

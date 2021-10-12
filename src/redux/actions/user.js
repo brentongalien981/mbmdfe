@@ -60,7 +60,7 @@ export const getUserRoles = (data) => {
                 dispatch(onGetUserRolesReturn(callBackData));
             },
             errorCallBackFunc: (errors, errorStatusCode) => {
-                const callBackData = { errors: errors, errorStatusCode: errorStatusCode };
+                const callBackData = { ...data, errors: errors, errorStatusCode: errorStatusCode };
                 dispatch(onGetUserRolesReturn(callBackData));
             }
         });
