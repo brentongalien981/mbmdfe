@@ -41,7 +41,6 @@ const MBMDFERoutes = () => (
 
                 <Route path="/" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><DailySummary /></Suspense></MBMDFELayoutA>} />
                 <Route path="/daily-summary" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><DailySummary /></Suspense></MBMDFELayoutA>} />
-                <Route path="/testcontainer-a" render={() => <MBMDFELayoutA><TestContainerA /></MBMDFELayoutA>} />
                 <Route path="/users/create" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><CreateUser /></Suspense></MBMDFELayoutA>} />
 
                 <Route path="/automated-jobs" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><AutomatedJobs /></Suspense></MBMDFELayoutA>} />
@@ -58,6 +57,9 @@ const MBMDFERoutes = () => (
                 <Route path="/dispatches" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><Dispatches /></Suspense></MBMDFELayoutA>} />
                 <Route path="/dispatches/create" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><CreateDispatch /></Suspense></MBMDFELayoutA>} />
                 <Route path="/dispatches/:id" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><Dispatch /></Suspense></MBMDFELayoutA>} />
+
+                {/* BMD-ON-STAGING: Comment-out. */}
+                <Route path="/testcontainer-a" exact render={() => <MBMDFELayoutA><TestContainerA /></MBMDFELayoutA>} />
                 {/* <Route path="/xxx" component={TestContainerA} /> */}
 
 

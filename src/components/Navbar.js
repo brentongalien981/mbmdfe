@@ -31,7 +31,9 @@ import {
   ShoppingBag,
   PlusSquare,
   Truck,
-  FilePlus
+  FilePlus,
+  LogIn,
+  LogOut
 } from "react-feather";
 
 import avatar1 from "../assets/img/avatars/avatar.jpg";
@@ -162,75 +164,11 @@ const NavbarComponent = (props) => {
 
 
             <DropdownMenu right>
-
-              <DropdownItem>
-                <Link to='/daily-summary'>
-                  <PieChart size={18} className="align-middle mr-2" />
-                  Daily Summary
-                </Link>
-
-              </DropdownItem>
-
-              <DropdownItem>
-                <Link to="/users/create">
-                  <UserPlus size={18} className="align-middle mr-2" />Create User
-                </Link>
-              </DropdownItem>
-
-
-              <DropdownItem>
-                <Link to='/automated-jobs'>
-                  <Monitor size={18} className="align-middle mr-2" />Automated Jobs
-                </Link>
-              </DropdownItem>
-
-
-
-              <DropdownItem>
-                <Link to='/orders'>
-                  <ShoppingBag size={18} className="align-middle mr-2" />Orders
-                </Link>
-              </DropdownItem>
-
-              <DropdownItem>
-                <Link to='/orders/create'>
-                  <PlusSquare size={18} className="align-middle mr-2" />Create Order
-                </Link>
-              </DropdownItem>
-
-
-
-              <DropdownItem>
-                <Link to='/purchases'>
-                  <Truck size={18} className="align-middle mr-2" />Purchases
-                </Link>
-              </DropdownItem>
-
-              <DropdownItem>
-                <Link to='/purchases/create'>
-                  <FilePlus size={18} className="align-middle mr-2" />Create Purchase
-                </Link>
-              </DropdownItem>
-
-
-
-              <DropdownItem>
-                <Link to='/dispatches'>
-                  <FontAwesomeIcon icon={faPlane} className="align-middle mr-2" />Dispatches
-                </Link>
-              </DropdownItem>
-
-              <DropdownItem>
-                <Link to='/dispatches/create'>
-                  <FilePlus size={18} className="align-middle mr-2" />Create Dispatch
-                </Link>
-              </DropdownItem>
-
+              {getMbmdManagerDropdownLinks()}
 
               <DropdownItem divider />
 
-
-              <DropdownItem onClick={props.onSignOut}>Sign out</DropdownItem>
+              {getSignInSignOutSection(props)}
             </DropdownMenu>
 
 
@@ -241,6 +179,110 @@ const NavbarComponent = (props) => {
     </Navbar>
   );
 };
+
+
+
+const getMbmdManagerDropdownLinks = () => {
+
+  if (BmdAuth.isLoggedIn()) {
+    return (
+      <>
+        <DropdownItem>
+          <Link to='/daily-summary'>
+            <PieChart size={18} className="align-middle mr-2" />
+            Daily Summary
+          </Link>
+
+        </DropdownItem>
+
+        <DropdownItem>
+          <Link to="/users/create">
+            <UserPlus size={18} className="align-middle mr-2" />Create User
+          </Link>
+        </DropdownItem>
+
+
+        <DropdownItem>
+          <Link to='/automated-jobs'>
+            <Monitor size={18} className="align-middle mr-2" />Automated Jobs
+          </Link>
+        </DropdownItem>
+
+
+
+        <DropdownItem>
+          <Link to='/orders'>
+            <ShoppingBag size={18} className="align-middle mr-2" />Orders
+          </Link>
+        </DropdownItem>
+
+        <DropdownItem>
+          <Link to='/orders/create'>
+            <PlusSquare size={18} className="align-middle mr-2" />Create Order
+          </Link>
+        </DropdownItem>
+
+
+
+        <DropdownItem>
+          <Link to='/purchases'>
+            <Truck size={18} className="align-middle mr-2" />Purchases
+          </Link>
+        </DropdownItem>
+
+        <DropdownItem>
+          <Link to='/purchases/create'>
+            <FilePlus size={18} className="align-middle mr-2" />Create Purchase
+          </Link>
+        </DropdownItem>
+
+
+
+        <DropdownItem>
+          <Link to='/dispatches'>
+            <FontAwesomeIcon icon={faPlane} className="align-middle mr-2" />Dispatches
+          </Link>
+        </DropdownItem>
+
+        <DropdownItem>
+          <Link to='/dispatches/create'>
+            <FilePlus size={18} className="align-middle mr-2" />Create Dispatch
+          </Link>
+        </DropdownItem>
+      </>
+    );
+  }
+
+  return null;
+
+};
+
+
+
+const getSignInSignOutSection = (props) => {
+
+  let comp = (
+    <DropdownItem>
+      <Link to='/signin'>
+        <LogIn size={18} className="align-middle mr-2" />Signin
+      </Link>
+    </DropdownItem>
+  );
+
+
+  if (BmdAuth.isLoggedIn()) {
+    comp = (
+      <DropdownItem onClick={props.onSignOut}>
+        <LogOut size={18} className="align-middle mr-2" />Signout
+      </DropdownItem>
+    );
+  }
+
+
+  return comp;
+};
+
+
 
 export default connect(store => ({
   app: store.app
