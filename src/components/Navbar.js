@@ -36,7 +36,8 @@ import {
   LogOut
 } from "react-feather";
 
-import avatar1 from "../assets/img/avatars/avatar.jpg";
+// import avatar1 from "../assets/img/avatars/avatar.jpg";
+import avatar1 from "../assets/img/avatars/canada-leaf.png";
 import avatar3 from "../assets/img/avatars/avatar-3.jpg";
 import BmdAuth from "../bs/core/BmdAuth";
 import { Link } from "react-router-dom";
@@ -44,18 +45,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlane } from "@fortawesome/free-solid-svg-icons";
 
 const notifications = [
-  {
-    type: "login",
-    title: "Login from 192.186.1.1",
-    description: "",
-    time: "6h ago"
-  },
-  {
-    type: "request",
-    title: "New connection",
-    description: "Anna accepted your request.",
-    time: "12h ago"
-  }
+  // {
+  //   type: "login",
+  //   title: "Login from 192.186.1.1",
+  //   description: "",
+  //   time: "6h ago"
+  // }
 ];
 
 
@@ -109,7 +104,7 @@ const NavbarComponent = (props) => {
 
           <NavbarDropdown
             header="New Notifications"
-            footer="Show all notifications"
+            // footer="Show all notifications"
             icon={Bell}
             count={notifications.length}
           >
@@ -154,9 +149,10 @@ const NavbarComponent = (props) => {
             <span className="d-none d-sm-inline-block">
               <DropdownToggle nav caret>
                 <img
-                  src={avatar3}
+                  src={avatar1}
                   className="avatar img-fluid rounded-circle mr-1"
                   alt="username"
+                  style={{ width: '30px', height: '30px' }}
                 />
                 <span className="text-dark">{props.userEmail}</span>
               </DropdownToggle>
