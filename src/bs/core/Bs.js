@@ -10,12 +10,17 @@ class Bs {
     // static appApiUrl = "http://mbmdbe.test:8000/api";
 
     // FOR WINDOWS
-    static appBackendUrl = "http://mbmdbe.test";
-    static appApiUrl = "http://mbmdbe.test/api";
+    // DEVELOPMENT
+    // static appBackendUrl = "http://mbmdbe.test";
+    // static appApiUrl = "http://mbmdbe.test/api";
+    // 
     // static appBackendUrl = "http://localhost:8000";
     // static appApiUrl = "http://localhost:8000/api";
+    // PRETESTING
+    static appBackendUrl = "http://localhost:9002";
+    static appApiUrl = "http://localhost:9002/api";
 
-    
+
 
     static getRandomId(length = 64) {
         var result = '';
