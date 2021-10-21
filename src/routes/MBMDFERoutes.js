@@ -59,7 +59,7 @@ const MBMDFERoutes = () => (
                 <Route path="/dispatches/:id" exact render={() => <MBMDFELayoutA><Suspense fallback={<div>loading...</div>}><Dispatch /></Suspense></MBMDFELayoutA>} />
 
                 {/* BMD-ON-STAGING: Comment-out. */}
-                {/* <Route path="/testcontainer-a" exact render={() => <MBMDFELayoutA><TestContainerA /></MBMDFELayoutA>} /> */}
+                <Route path="/testcontainer-a" exact render={() => <MBMDFELayoutA><TestContainerA /></MBMDFELayoutA>} />
                 {/* <Route path="/xxx" component={TestContainerA} /> */}
 
 
