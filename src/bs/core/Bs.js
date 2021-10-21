@@ -2,7 +2,8 @@ class Bs {
 
     static appName = "MBMDFE";
 
-    static appUrl = "";
+    // BMD-ON-ITER: DEVELOPMENT, PRETESTING, PRESTAGING, STAGING, DEPLOYMENT
+    static appUrl = "https://managebmdstore.asbdev.com";
     static pubPhotoUrl = "https://s3.us-east-2.amazonaws.com/bs.s3.public/photos/";
 
     // // FOR MAC
@@ -16,9 +17,14 @@ class Bs {
     // 
     // static appBackendUrl = "http://localhost:8000";
     // static appApiUrl = "http://localhost:8000/api";
+
     // PRETESTING
-    static appBackendUrl = "http://localhost:9002";
-    static appApiUrl = "http://localhost:9002/api";
+    // static appBackendUrl = "http://localhost:9002";
+    // static appApiUrl = "http://localhost:9002/api";
+
+    // PRESTAGING
+    static appBackendUrl = "https://mbmdbe.asbdev.com";
+    static appApiUrl = "https://mbmdbe.asbdev.com/api";
 
 
 
