@@ -28,6 +28,7 @@ const auth = (state = initialState, action) => {
         case actions.CLEAR_SENSITIVE_DATA_FOR_AUTH_REDUX_STORE: return clearSensitiveDataForAuthReduxStore(state, action);
         case actions.RESET_FLAGS: return resetFlags(state, action);
         case actions.ON_SIGN_IN_RETURN: return onSignInReturn(state, action);
+        case actions.ON_LOGIN_AS_DEMO_USER_RETURN: return onLoginAsDemoUserReturn(state, action);        
         default: return state;
     }
 }
@@ -113,7 +114,8 @@ const onSignInReturn = (state, action) => {
 
         shouldDoOnLoginProcessFinalization = true;
     } else {
-        BsCore2.alertForCallBackDataErrors(action.callBackData);
+        // BsCore2.alertForCallBackDataErrors(action.callBackData);
+        BsCore2.tryAlertForBmdResultCodeErrors2(action.callBackData);
     }
 
     action.callBackData.doCallBackFunc();
@@ -123,6 +125,13 @@ const onSignInReturn = (state, action) => {
         userEmail: userEmail,
         shouldDoOnLoginProcessFinalization: shouldDoOnLoginProcessFinalization
     };
+};
+
+
+
+const onLoginAsDemoUserReturn = (state, action) => {
+
+    return onSignInReturn(state, action);
 };
 
 

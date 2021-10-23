@@ -120,7 +120,7 @@ class BsCore2 {
 
 
         //
-        let url = Bs.appApiUrl + defaultCrudData.url;
+        let url = Bs.getAppApidUrl() + defaultCrudData.url;
         if (data.isUrlExternal) { url = defaultCrudData.url; }
 
         axios({

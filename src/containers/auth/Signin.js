@@ -13,6 +13,7 @@ import {
     Spinner
 } from "reactstrap";
 import BmdAuth from '../../bs/core/BmdAuth';
+import Bs from '../../bs/core/Bs';
 import * as actions from '../../redux/actions/auth';
 
 
@@ -25,12 +26,31 @@ class Signin extends React.Component {
     state = {
         email: '',
         password: '',
-        isSigningIn: false
+        isSigningIn: false,
+        isLoggingInAsDemoUser: false
     };
 
 
 
     /** HELPER FUNCS */
+    getLoginAsDemoUserSection() {
+
+        if (Bs.detailedAppEnv === 'production') { return null; }
+
+        let btn = <Button color="primary" size="lg" onClick={this.onLoginAsDemoUser}>Login as Demo User</Button>;
+
+        if (this.state.isLoggingInAsDemoUser) {
+            btn = <Spinner color="dark" size="sm" className="mr-2" />;
+        }
+
+        return (
+            <div className="text-center mt-3">
+                <Label>OR</Label><br />
+                {btn}
+            </div>
+        );
+
+    }
 
 
 
@@ -106,6 +126,7 @@ class Signin extends React.Component {
                                 </FormGroup>
 
                                 {signInBtnSection}
+                                {this.getLoginAsDemoUserSection()}
 
                             </Form>
 
@@ -122,7 +143,7 @@ class Signin extends React.Component {
     onSignin = (e) => {
         e.preventDefault();
 
-        if (this.state.isSigningIn) { return; }
+        if (this.state.isSigningIn || this.state.isLoggingInAsDemoUser) { return; }
         this.setState({ isSigningIn: true });
 
 
@@ -137,6 +158,25 @@ class Signin extends React.Component {
         };
 
         this.props.signIn(data);
+    };
+
+
+
+    onLoginAsDemoUser = (e) => {
+        e.preventDefault();
+
+        if (this.state.isSigningIn || this.state.isLoggingInAsDemoUser) { return; }
+
+        this.setState({ isLoggingInAsDemoUser: true });
+
+
+        const data = {
+            doCallBackFunc: () => {
+                this.setState({ isLoggingInAsDemoUser: false });
+            }
+        };
+
+        this.props.loginAsDemoUser(data);
     };
 
 
@@ -167,6 +207,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         signIn: (data) => dispatch(actions.signIn(data)),
         resetFlags: () => dispatch(actions.resetFlags()),
+        loginAsDemoUser: (data) => dispatch(actions.loginAsDemoUser(data))        
     };
 };
 

@@ -1,30 +1,60 @@
 class Bs {
 
+    // BMD-ON-ITER: Every iteration, edit this.
     static appName = "MBMDFE";
-
-    // BMD-ON-ITER: DEVELOPMENT, PRETESTING, PRESTAGING, STAGING, DEPLOYMENT
-    static appUrl = "https://managebmdstore.asbdev.com";
+    static detailedAppEnv = 'development';
+    static developmentOs = 'windows';
     static pubPhotoUrl = "https://s3.us-east-2.amazonaws.com/bs.s3.public/photos/";
 
-    // // FOR MAC
-    // static appBackendUrl = "http://mbmdbe.test:8000";
-    // static appApiUrl = "http://mbmdbe.test:8000/api";
 
-    // FOR WINDOWS
-    // DEVELOPMENT
-    // static appBackendUrl = "http://mbmdbe.test";
-    // static appApiUrl = "http://mbmdbe.test/api";
-    // 
-    // static appBackendUrl = "http://localhost:8000";
-    // static appApiUrl = "http://localhost:8000/api";
 
-    // PRETESTING
-    // static appBackendUrl = "http://localhost:9002";
-    // static appApiUrl = "http://localhost:9002/api";
+    static getAppUrl() {
+        switch (Bs.detailedAppEnv) {
+            case 'development':
+                return 'http://localhost:3001';
+            case 'pretesting':
+                return 'http://192.168.1.116:7002';
+            case 'prestaging':
+            case 'staging':
+                return "https://managebmdstore.asbdev.com";
+            default:
+                return 'http://localhost:3001';
+        }
+    }
 
-    // PRESTAGING
-    static appBackendUrl = "https://mbmdbe.asbdev.com";
-    static appApiUrl = "https://mbmdbe.asbdev.com/api";
+
+
+    static getAppBackendUrl() {
+        switch (Bs.detailedAppEnv) {
+            case 'development':
+                if (Bs.developmentOs === 'mac') { return 'http://mbmdbe.test:8000'; }
+                return 'http://mbmdbe.test';
+            case 'pretesting':
+                return 'http://192.168.1.116:9002';
+            case 'prestaging':
+            case 'staging':
+                return "https://mbmdbe.asbdev.com";
+            default:
+                return 'http://mbmdbe.test';
+        }
+    }
+
+
+
+    static getAppApidUrl() {
+        switch (Bs.detailedAppEnv) {
+            case 'development':
+                if (Bs.developmentOs === 'mac') { return 'http://mbmdbe.test:8000/api'; }
+                return 'http://mbmdbe.test/api';
+            case 'pretesting':
+                return 'http://192.168.1.116:9002/api';
+            case 'prestaging':
+            case 'staging':
+                return "https://mbmdbe.asbdev.com/api";
+            default:
+                return 'http://mbmdbe.test/api';
+        }
+    }
 
 
 
