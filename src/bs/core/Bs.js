@@ -2,7 +2,7 @@ class Bs {
 
     // BMD-ON-ITER: Every iteration, edit this.
     static appName = "MBMDFE";
-    static detailedAppEnv = 'development';
+    static detailedAppEnv = 'prestaging';
     static developmentOs = 'windows';
     static pubPhotoUrl = "https://s3.us-east-2.amazonaws.com/bs.s3.public/photos/";
 
