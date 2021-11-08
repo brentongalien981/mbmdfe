@@ -1,0 +1,17 @@
+// Build image
+// NOTE: You mignt need --no-cache flag.
+docker build --file my-docker-stuffs/jobportfolio/jobportfolio.dockerfile --no-cache --tag odox700/mbmdfe:jobportfolio-1.0 .
+
+
+// Locally, push the image to Docker Hub.
+docker push odox700/mbmdfe:jobportfolio-1.0
+
+
+// Set the .env FILE on the server / locally / ECS.
+
+
+// On the server, pull the image.
+docker pull odox700/mbmdfe:jobportfolio-1.0
+
+
+docker run -itd -p 7002:80 odox700/mbmdfe:jobportfolio-1.0
