@@ -35,7 +35,7 @@ class Bs {
                 return 'http://192.168.1.116:9002';
             case 'prestaging':
             case 'staging':
-                return "https://mbmdbestaging.asbdev.com";
+                return "http://mbmdbestaging.asbdev.com";
             case 'jobportfolio':
                 return "http://mbmdbe2.asbdev.com";
             default:
@@ -54,7 +54,7 @@ class Bs {
                 return 'http://192.168.1.116:9002/api';
             case 'prestaging':
             case 'staging':
-                return "https://mbmdbestaging.asbdev.com/api";
+                return "http://mbmdbestaging.asbdev.com/api";
             case 'jobportfolio':
                 return "http://mbmdbe2.asbdev.com/api";
             default:
