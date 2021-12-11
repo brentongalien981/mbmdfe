@@ -2,7 +2,7 @@ class Bs {
 
     // BMD-ON-ITER: Every iteration, edit this.
     static appName = "MBMDFE";
-    static detailedAppEnv = 'staging';
+    static detailedAppEnv = 'development';
     static developmentOs = 'windows';
     static pubPhotoUrl = "https://s3.us-east-2.amazonaws.com/bs.s3.public/photos/";
 
@@ -15,8 +15,11 @@ class Bs {
             case 'pretesting':
                 return 'http://192.168.1.116:7002';
             case 'prestaging':
-            case 'staging':
                 return "http://managebmdstorestaging.asbdev.com";
+            case 'staging':
+            case 'deployment':
+            case 'production':
+                return "https://manage.penguinjam.com";
             case 'jobportfolio':
                 return "http://managebmdstore2.asbdev.com";
             default:
@@ -34,8 +37,11 @@ class Bs {
             case 'pretesting':
                 return 'http://192.168.1.116:9002';
             case 'prestaging':
-            case 'staging':
                 return "http://mbmdbestaging.asbdev.com";
+            case 'staging':
+            case 'deployment':
+            case 'production':
+                return "https://mbmdbe.penguinjam.com";
             case 'jobportfolio':
                 return "http://mbmdbe2.asbdev.com";
             default:
@@ -53,8 +59,11 @@ class Bs {
             case 'pretesting':
                 return 'http://192.168.1.116:9002/api';
             case 'prestaging':
-            case 'staging':
                 return "http://mbmdbestaging.asbdev.com/api";
+            case 'staging':
+            case 'deployment':
+            case 'production':
+                return "https://mbmdbe.penguinjam.com/api";
             case 'jobportfolio':
                 return "http://mbmdbe2.asbdev.com/api";
             default:

@@ -9,7 +9,7 @@ import BsJLS from "./BsJLS";
  */
 export default class BsJLSOLM {
 
-    static DEFAULT_SEARCH_QUERY_LIFESPAN = 1320;
+    static DEFAULT_SEARCH_QUERY_LIFESPAN = 30;
 
     static objs = BsJLS.get("BsJLSOLM-objs") ?? BsJLSOLM.defaultObjs;
     static searchQueryObjs = BsJLS.get("BsJLSOLM-searchQueryObjs") ?? BsJLSOLM.defaultSearchQueryObjs;
@@ -34,8 +34,8 @@ export default class BsJLSOLM {
     };
 
     static defaultSearchQueryObjs = {
-        'query=exampleSearchQuery&isCool=true': { dateRefreshed: null, lifespan: 120, isSensitiveInfo: false, shouldForceReadDb: false },
-        'teamId=8&categoryId=2': { dateRefreshed: null, lifespan: 120, isSensitiveInfo: false, shouldForceReadDb: false },
+        'query=exampleSearchQuery&isCool=true': { dateRefreshed: null, lifespan: 30, isSensitiveInfo: false, shouldForceReadDb: false },
+        'teamId=8&categoryId=2': { dateRefreshed: null, lifespan: 30, isSensitiveInfo: false, shouldForceReadDb: false },
     };
 
 
