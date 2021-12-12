@@ -35,7 +35,7 @@ class Signin extends React.Component {
     /** HELPER FUNCS */
     getLoginAsDemoUserSection() {
 
-        if (Bs.detailedAppEnv === 'production') { return null; }
+        if (Bs.detailedAppEnv === 'production' || Bs.detailedAppEnv === 'staging') { return null; }
 
         let btn = <Button color="primary" size="lg" onClick={this.onLoginAsDemoUser}>Login as Demo User</Button>;
 
