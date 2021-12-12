@@ -86,14 +86,15 @@ class Bs {
 
 
     static log(msg) {
-        switch (Bs.detailedAppEnv) {
-            case 'staging':
-            case 'production':
-            case 'deployment':
-                return;
-            default:
-                console.log(msg);
-        }
+        console.log(msg);
+        // switch (Bs.detailedAppEnv) {
+        //     case 'staging':
+        //     case 'production':
+        //     case 'deployment':
+        //         return;
+        //     default:
+        //         console.log(msg);
+        // }
 
     }
 
