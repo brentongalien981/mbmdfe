@@ -19,7 +19,7 @@ class Bs {
             case 'staging':
             case 'deployment':
             case 'production':
-                return "http://manage.penguinjam.com";
+                return "http://172.17.0.4";
             case 'jobportfolio':
                 return "http://managebmdstore2.asbdev.com";
             default:
@@ -41,7 +41,7 @@ class Bs {
             case 'staging':
             case 'deployment':
             case 'production':
-                return "http://mbmdbe.penguinjam.com";
+                return "http://172.17.0.2";
             case 'jobportfolio':
                 return "http://mbmdbe2.asbdev.com";
             default:
@@ -63,7 +63,7 @@ class Bs {
             case 'staging':
             case 'deployment':
             case 'production':
-                return "http://mbmdbe.penguinjam.com/api";
+                return "http://172.17.0.2/api";
             case 'jobportfolio':
                 return "http://mbmdbe2.asbdev.com/api";
             default:
@@ -86,14 +86,15 @@ class Bs {
 
 
     static log(msg) {
-        switch (Bs.detailedAppEnv) {
-            case 'staging':
-            case 'production':
-            case 'deployment':
-                return;
-            default:
-                console.log(msg);
-        }
+        console.log(msg);
+        // switch (Bs.detailedAppEnv) {
+        //     case 'staging':
+        //     case 'production':
+        //     case 'deployment':
+        //         return;
+        //     default:
+        //         console.log(msg);
+        // }
 
     }
 
