@@ -19,7 +19,7 @@ class Bs {
             case 'staging':
             case 'deployment':
             case 'production':
-                return "http://172.17.0.4";
+                return "172.17.0.4";
             case 'jobportfolio':
                 return "http://managebmdstore2.asbdev.com";
             default:
@@ -41,7 +41,7 @@ class Bs {
             case 'staging':
             case 'deployment':
             case 'production':
-                return "http://172.17.0.2";
+                return "172.17.0.2";
             case 'jobportfolio':
                 return "http://mbmdbe2.asbdev.com";
             default:
@@ -63,7 +63,7 @@ class Bs {
             case 'staging':
             case 'deployment':
             case 'production':
-                return "http://172.17.0.2/api";
+                return "172.17.0.2/api";
             case 'jobportfolio':
                 return "http://mbmdbe2.asbdev.com/api";
             default:
