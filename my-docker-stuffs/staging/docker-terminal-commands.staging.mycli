@@ -15,3 +15,8 @@ docker pull odox700/mbmdfe:staging-1.0
 
 
 docker run --name mbmdfe-staging -itd -p 7003:80 odox700/mbmdfe:staging-1.0
+
+
+
+// GREP Inspect Container
+docker container inspect mbmdfe-staging | grep IP

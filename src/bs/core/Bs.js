@@ -19,7 +19,7 @@ class Bs {
             case 'staging':
             case 'deployment':
             case 'production':
-                return "https://manage.penguinjam.com";
+                return "http://manage.penguinjam.com";
             case 'jobportfolio':
                 return "http://managebmdstore2.asbdev.com";
             default:
@@ -41,7 +41,7 @@ class Bs {
             case 'staging':
             case 'deployment':
             case 'production':
-                return "https://mbmdbe.penguinjam.com";
+                return "http://mbmdbe.penguinjam.com";
             case 'jobportfolio':
                 return "http://mbmdbe2.asbdev.com";
             default:
@@ -63,7 +63,7 @@ class Bs {
             case 'staging':
             case 'deployment':
             case 'production':
-                return "https://mbmdbe.penguinjam.com/api";
+                return "http://mbmdbe.penguinjam.com/api";
             case 'jobportfolio':
                 return "http://mbmdbe2.asbdev.com/api";
             default:
